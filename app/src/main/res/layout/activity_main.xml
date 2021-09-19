@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Zmieniono na ScrollView, z automatu trzeba dodac
+ - fillViewPort = true ,
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <!-- Connection panel -->
+        <TableLayout
+            android:id="@+id/panelConnection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- connect and devices list -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnConnect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btnConnect"
+                    android:textSize="12sp"
+                    tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+
+                <Spinner
+                    android:id="@+id/spDevices"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/TestDeviceList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog" />
+            </TableRow>
+            <!-- status list -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbStatus"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    tools:text="is connected" />
+            </TableRow>
+        </TableLayout>
+        <!-- Main settings  panel-->
+        <TableLayout
+            android:id="@+id/panelMainSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <!-- work mode -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbMode"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/ModeList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog"
+                    tools:entries="@array/ModeList"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- default / current effect -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbEffects"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spEffect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/TestEffectList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog"
+                    tools:entries="@array/TestEffectList"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- Time auto or random effect change-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:layout_weight="2"
+                    android:text="@string/lbTime"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/lbTimeVal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/lbTimeVal"
+                    android:textSize="16sp" />
+
+                <SeekBar
+                    android:id="@+id/sbTime"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="6"
+                    android:max="255"
+                    android:progress="0" />
+            </TableRow>
+            <!-- Default color pick-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnColorMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btnColorMain"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvColorMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:background="@color/teal_200"
+                    android:enabled="false"
+                    android:minHeight="32dp"
+                    android:text=""
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- Main confirm -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/btnMainConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnMainConfirm"
+                    android:textColor="#757575"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+            </TableRow>
+        </TableLayout>
+        <!-- Effect panel -->
+        <TableLayout
+            android:id="@+id/panelEffect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp">
+            <!-- Effect name -->
+            <TableRow
+                android:id="@+id/rEffectName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvEffectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:text="@string/tvEffectName">
+                </TextView>
+            </TableRow>
+            <!-- Color 1 pick -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btnColor1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:text="@string/btnColor1" />
+
+                <TextView
+                    android:id="@+id/edColor1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:background="@color/teal_200"
+                    android:enabled="false"
+                    android:text=""
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- Color 2 pick -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btnColor2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:text="@string/btnColor2" />
+
+                <TextView
+                    android:id="@+id/edColor2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:background="@color/teal_200"
+                    android:enabled="false"
+                    android:text=""
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- palette pick-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbPalette"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbPalette" />
+
+                <Spinner
+                    android:id="@+id/spPalette"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/PaletteList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog"
+                    tools:entries="@array/PaletteList"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- custom parametr pick -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbCustom" />
+
+                <Spinner
+                    android:id="@+id/spCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/TestCustomParameterList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog"
+                    tools:entries="@array/TestCustomParameterList"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+            <!-- param 1 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbParam1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam1" />
+
+                <TextView
+                    android:id="@+id/lbParam1Val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam1Val" />
+
+                <SeekBar
+                    android:id="@+id/sbParam1"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:min="0"
+                    android:max="255"
+                    android:layout_gravity="center_vertical"
+                    android:progress="0" />
+            </TableRow>
+            <!-- param 2 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbParam2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam2" />
+
+                <TextView
+                    android:id="@+id/lbParam2Val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam2Val" />
+
+                <SeekBar
+                    android:id="@+id/sbParam2"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:min="0"
+                    android:max="255"
+                    android:layout_gravity="center_vertical"
+                    android:progress="0" />
+            </TableRow>
+            <!-- param 3 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbParam3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam3" />
+
+                <TextView
+                    android:id="@+id/lbParam3Val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam3Val" />
+
+                <SeekBar
+                    android:id="@+id/sbParam3"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:min="0"
+                    android:max="255"
+                    android:layout_gravity="center_vertical"
+                    android:progress="0" />
+            </TableRow>
+            <!-- param 4 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbParam4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam4" />
+
+                <TextView
+                    android:id="@+id/lbParam4Val"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam4Val" />
+
+                <SeekBar
+                    android:id="@+id/sbParam4"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:min="0"
+                    android:max="255"
+                    android:layout_gravity="center_vertical"
+                    android:progress="0" />
+            </TableRow>
+            <!-- bool 1 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbBool1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:textSize="16sp"
+                    android:text="@string/lbBool1" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swBool1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:checked="false"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"/>
+            </TableRow>
+            <!--bool 2 -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/lbBool2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="32dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:textSize="16sp"
+                    android:text="@string/lbBool2" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swBool2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                </androidx.appcompat.widget.SwitchCompat>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"/>
+            </TableRow>
+
+            <!-- Effect confirm button -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/btnEffectConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnEffectConfirm" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- PANEL TEST -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <Button
+                android:id="@+id/btnTest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                android:text="@string/btnTest1"
+                style="?android:attr/buttonBarButtonStyle" />
+            <Button
+                android:id="@+id/btnTest2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                android:text="@string/btnTest2"
+                style="?android:attr/buttonBarButtonStyle" />
+            <Button
+                android:id="@+id/btnTest3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                android:text="@string/btnTest3"
+                style="?android:attr/buttonBarButtonStyle"/>
+            <Button
+                android:id="@+id/btnTest4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                android:text="@string/btnTest4"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/lbTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbTest"
+                />
+        </ScrollView>
+    </LinearLayout>
+</ScrollView>

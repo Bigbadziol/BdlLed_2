@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">BdlLed_02</string>
+    <!-- start activity-->
+    <string name="tvPairedDevices">Dostępne urządzenia</string>
+    <string name="tvNewDevices">Odnalezione urządzenia</string>
+    <string name="tvWelcomeOk">Witaj!</string>
+    <string name="tvWelcomeError">\"Bluetooth disabled or no permissions granted. \"</string>
+    <string name="NO_PAIRED_DEVICES">Brak sparowanych urządzeń</string>
+    <string name="btnNext">Go go next</string>
+    <!-- main activity-->
+    <string name="lbMode">Tryb pracy :</string>
+    <string name="btnConnect">Połącz</string>
+    <string name="lbStatus">Status :</string>
+    <string name="lbEffects">Wybrany efekt :</string>
+    <string name="lbTime">Czas zmiany :</string>
+    <string name="btnColorMain">Kolor</string>
+    <string name="lbPalette">Paleta :</string>
+    <string name="btnMainConfirm">Zatwierdz zmiany</string>
+
+    <string name="tvEffectName">[NAZWA EFEKTU]</string>
+    <string name="lbTimeVal">0</string>
+    <string name="btnColor1">Kolor 1</string>
+    <string name="btnColor2">Kolor 2</string>
+    <string name="btnTest1">test 1</string>
+    <string name="btnTest2">test 2</string>
+    <string name="btnTest3">test 3</string>
+    <string name="btnTest4">test 4</string>
+    <string name="lbCustom">Zmienny :</string>
+    <string name="lbParam1">Param 1:</string>
+    <string name="lbParam1Val">1</string>
+    <string name="lbParam2">Param 2:</string>
+    <string name="lbParam2Val">2</string>
+    <string name="lbParam3">Param 3:</string>
+    <string name="lbParam3Val">3</string>
+    <string name="lbParam4">Param 4:</string>
+    <string name="lbParam4Val">4</string>
+    <string name="lbBool1">Bool 1:</string>
+    <string name="lbBool2">Bool 2:</string>
+    <string name="btnEffectConfirm">Zatwierdz zmiany</string>
+    <string name="btnAddDevice">Dodaj</string>
+    <string name="iConnect">Połącz</string>
+    <string name="iDisconnect">Rozłącz</string>
+    <string name="lbTest">Jakies testowe dane</string>
+
+    <string-array name="ModeList">
+        <item>Wybrany efekt</item>
+        <item>Kolejny z listy</item>
+        <item>Losowy z listy </item>
+        <item>Jednolity kolor</item>
+    </string-array>
+
+    <string-array name="PaletteList">
+        <item>Cloud</item>
+        <item>Lava</item>
+        <item>Ocean</item>
+        <item>Forest</item>
+        <item>Rainbow</item>
+        <item>Party</item>
+        <item>Heat</item>
+    </string-array>
+    <!-- for test only -->
+    <string-array name="TestDeviceList">
+        <item>LEDL_666</item>
+        <item>LEDL_001</item>
+        <item>LEDL_134</item>
+        <item>LEDL_xxx</item>
+        <item>LEDLE_001</item>
+        <item>LEDLE_115</item>
+    </string-array>
+
+    <string-array name="TestEffectList">
+        <item>Beat wave</item>
+        <item>Blend wave</item>
+        <item>Blur</item>
+        <item>Confeti</item>
+        <item>Sineleon</item>
+        <item>Bpm</item>
+        <item>Juggle</item>
+        <item>Dot beat</item>
+        <item>Easing</item>
+    </string-array>
+
+    <string-array name="TestCustomParameterList">
+        <item> custom option 1</item>
+        <item> custom option 2</item>
+        <item> custom option 3</item>
+    </string-array>
+
+
+</resources>
