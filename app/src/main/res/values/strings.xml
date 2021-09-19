@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">BdlLed_02</string>
+    <string name="app_name">BdlLed_02 v1.7</string>
     <!-- start activity-->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
-    <string name="tvWelcomeOk">Witaj!</string>
-    <string name="tvWelcomeError">\"Bluetooth disabled or no permissions granted. \"</string>
+    <string name="tvWelcomeOk">Witaj</string>
+    <string name="tvWelcomeError">\"Bluetooth wyłączone lub zablokowano uprawnienia : Lokalizacja. \"</string>
     <string name="NO_PAIRED_DEVICES">Brak sparowanych urządzeń</string>
-    <string name="btnNext">Go go next</string>
+    <string name="btnNext">DALEJ</string>
     <!-- main activity-->
     <string name="lbMode">Tryb pracy :</string>
     <string name="btnConnect">Połącz</string>
@@ -84,6 +84,14 @@
         <item> custom option 1</item>
         <item> custom option 2</item>
         <item> custom option 3</item>
+    </string-array>
+
+    <string-array name="TestFontList">
+        <item>Font 1</item>
+        <item>Font 2</item>
+        <item>Font 3</item>
+        <item>Font 4</item>
+        <item>Font 5</item>
     </string-array>
 
 

@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/led_device_devices_header.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/led_device_row_style.xml" value="0.2109375" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/lede_dialog_bg.xml" value="0.2109375" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_main.xml" value="0.18659420289855072" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.18659420289855072" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/device_list_row.xml" value="0.33" />
+        <entry key="..\:/Users/linkd/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/lede_dialog.xml" value="0.19114583333333332" />
         <entry key="..\:/Users/linkd/Downloads/BdlLed_02/app/src/main/res/drawable/va_test.xml" value="0.3776041666666667" />
         <entry key="..\:/Users/linkd/Downloads/BdlLed_02/app/src/main/res/layout/activity_main.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/linkd/Downloads/BdlLed_02/app/src/main/res/layout/activity_start.xml" value="0.19927536231884058" />

@@ -1,3 +1,4 @@
+//Start Activity o co chodzi ????
 package com.example.bdlled_02
 
 import android.Manifest
@@ -25,8 +26,8 @@ import com.google.android.material.snackbar.Snackbar
 const val TAG = "DEBUG"
 const val NO_DEVICE_NAME = "BRAK"
 const val NO_DEVICE_ADDRESS = "urządzeń na liście"
-const val DEVICE_PREFIX_1 ="LEDL_"
-const val DEVICE_PREFIX_2 ="LEDE_"
+//const val DEVICE_PREFIX_1 ="LEDL_"
+//const val DEVICE_PREFIX_2 ="LEDE_"
 
 data class DeviceItem(
     val name: String?,
@@ -232,7 +233,7 @@ class StartActivity : AppCompatActivity() {
             Log.d(TAG,"Device list (empty) : ")
             DEVICE_LIST.clear()
             pairedDevices.forEach {
-                if (it.name.contains(DEVICE_PREFIX_1) || it.name.contains(DEVICE_PREFIX_2)) {
+                if (it.name.contains("LEDL_") || it.name.contains("LEDE_")) {
                     DEVICE_LIST.add(it)
                     Log.d(TAG, "Pushed device : ${it.name}")
                 }
@@ -267,16 +268,16 @@ class StartActivity : AppCompatActivity() {
                 if (BluetoothDevice.ACTION_FOUND == action) {
                     val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     device?.let {
-                        if (it.name.contains(DEVICE_PREFIX_1) || it.name.contains(DEVICE_PREFIX_2)){
+                        if (it?.name.contains("LEDL_") || it?.name.contains("LEDE_")){
                             //displayDeviceDetails(DeviceItem(it.name, it.address, false))
                             if (device.bondState== BluetoothDevice.BOND_NONE){
                                 Log.d(TAG,"Not bonded -> ${it.name}")
                                 if (!newDevices.contains(device)) {
                                     Log.d(TAG, "No device on new list")
                                     newDevices.add(device)
-                                    val icon: Int
-                                    if (it.name.contains(DEVICE_PREFIX_1) || it.name.contains(DEVICE_PREFIX_2)) {
-                                        if (it.name.contains(DEVICE_PREFIX_1)) icon = R.drawable.va_test //ikonka listwy
+                                    var icon: Int
+                                    if (it.name.contains("LEDL_") || it.name.contains("LEDL_E")) {
+                                        if (it.name.contains("LEDL_")) icon = R.drawable.va_test //ikonka listwy
                                         else icon = R.drawable.va_test //ikonka ekranu
                                         newDeviceList.add(DeviceListModel(it.name, it.address, icon))
                                         bind.lvNewDevices.adapter =  DeviceListAdapter(this@StartActivity,newDeviceList)
@@ -284,11 +285,15 @@ class StartActivity : AppCompatActivity() {
                                 }else{
                                     Log.d(TAG,"on new list -> ${it.name}")
                                 }
-                            }//device bond none
-                        }//ledl or lede name
-                    }//for this device
-                }//found
-            }//override
+                            }else{
+                                //Log.d(TAG,"On paired list -> ${it.name}")
+                            }
+                            //Poczytac o bond i remove w metodzie doPopup...
+
+                        }
+                    }
+                }
+            }
         }
     }
     /*
@@ -318,8 +323,8 @@ class StartActivity : AppCompatActivity() {
                             //na okolo ale pieprzy mi sie mapowanie DeviceListModel-> Bluetooth device
                             // , zatem , robimy to troszkę na około
                             var tmpIcon = 0
-                            if (thisDevice.name.contains(DEVICE_PREFIX_1)) tmpIcon = R.drawable.va_test
-                            else if (thisDevice.name.contains(DEVICE_PREFIX_2)) tmpIcon = R.drawable.va_test
+                            if (thisDevice.name.contains("LEDL_")) tmpIcon = R.drawable.va_test
+                            else if (thisDevice.name.contains("LEDE_")) tmpIcon = R.drawable.va_test
                             val  dmDevice = DeviceListModel(thisDevice.name,thisDevice.address,tmpIcon)
                             val c = newDeviceList.contains(dmDevice)
                             val i = newDeviceList.indexOf(dmDevice)
@@ -342,8 +347,8 @@ class StartActivity : AppCompatActivity() {
 
         pairedDevices.forEach {
             displayDeviceDetails(DeviceItem(it.name, it.address, true)) //DEBUG LOG
-            if (it.name.contains(DEVICE_PREFIX_1) || it.name.contains(DEVICE_PREFIX_2)) {
-                if (it.name.contains(DEVICE_PREFIX_1)) icon = R.drawable.va_test //ikonka listwy
+            if (it.name.contains("LEDL_") || it.name.contains("LEDE_")) {
+                if (it.name.contains("LEDL_")) icon = R.drawable.va_test //ikonka listwy
                 else icon = R.drawable.va_test //ikonka ekranu
                 pairedDeviceList.add(DeviceListModel(it.name, it.address, icon))
                 myDevices++

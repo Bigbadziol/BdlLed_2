@@ -13,13 +13,15 @@ Zmieniono na ScrollView, z automatu trzeba dodac
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:background="@color/defaultBackground"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
         <!-- Connection panel -->
         <TableLayout
             android:id="@+id/panelConnection"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/defaultPanelBackground">
             <!-- connect and devices list -->
             <TableRow
                 android:layout_width="match_parent"
@@ -31,7 +33,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/btnConnect"
-                    android:textSize="12sp"
+                    style="@style/buttonMainActivity"
                     tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
                 <Spinner
@@ -69,7 +71,8 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             android:id="@+id/panelMainSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:background="@color/defaultPanelBackground"
+            android:layout_marginTop="10dp">
             <!-- work mode -->
             <TableRow
                 android:layout_width="match_parent"
@@ -163,13 +166,14 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/btnColorMain"
-                    android:textSize="12sp" />
+                    style="@style/buttonMainActivity"/>
 
                 <TextView
                     android:id="@+id/tvColorMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="10sp"
                     android:layout_weight="2"
                     android:background="@color/teal_200"
                     android:enabled="false"
@@ -187,9 +191,9 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:id="@+id/btnMainConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/btnMainConfirm"
-                    android:textColor="#757575"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    android:layout_weight="1"
+                    style="@style/buttonMainActivity"
+                    android:text="@string/btnMainConfirm" />
 
             </TableRow>
         </TableLayout>
@@ -198,7 +202,8 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             android:id="@+id/panelEffect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24sp">
+            android:background="@color/defaultPanelBackground"
+            android:layout_marginTop="10sp">
             <!-- Effect name -->
             <TableRow
                 android:id="@+id/rEffectName"
@@ -224,13 +229,14 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:text="@string/btnColor1" />
+                    android:text="@string/btnColor1"
+                    style="@style/buttonMainActivity"/>
 
                 <TextView
                     android:id="@+id/edColor1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10sp"
                     android:minHeight="32dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
@@ -248,14 +254,15 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:text="@string/btnColor2" />
+                    android:text="@string/btnColor2"
+                    style="@style/buttonMainActivity"/>
 
                 <TextView
                     android:id="@+id/edColor2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="32dp"
+                    android:layout_marginHorizontal="10sp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:background="@color/teal_200"
@@ -503,11 +510,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
-
                 <Button
                     android:id="@+id/btnEffectConfirm"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/buttonMainActivity"
                     android:text="@string/btnEffectConfirm" />
             </TableRow>
         </TableLayout>
@@ -517,7 +525,9 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:background="@color/defaultPanelBackground"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible">
             <Button
                 android:id="@+id/btnTest1"
                 android:layout_width="wrap_content"
@@ -551,9 +561,11 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:text="@string/btnTest4"
                 style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
+        <!-- PANEL TEST PART 2 -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="invisible">
             <TextView
                 android:id="@+id/lbTest"
                 android:layout_width="match_parent"
