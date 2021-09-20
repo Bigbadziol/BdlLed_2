@@ -1,5 +1,5 @@
 package com.example.bdlled_02
-var jsonData_small = """{
+var jsonStripDataTest_small = """{
     "cmd":"DATA",
 	"config": {
 		"mode": 0,
@@ -34,25 +34,10 @@ var jsonData_small = """{
 	}
 ]
 }""".trimIndent()
-var jsonData_default : String = """
-{
-    "cmd":"DUPA",
-	"config": {
-		"mode": 0,
-		"selected": 0,
-		"color": {
-			"r": 0,
-			"g": 128,
-			"b": 64
-		},
-		"time": 20
-	}
-, 
-	"effects": []
-}""".trimIndent()
+
 
 ///--------BIG DATA------
-var jsonData : String ="""
+var jsonStripDataTest_big : String ="""
 {
     "cmd":"DUPA",
 	"config": {

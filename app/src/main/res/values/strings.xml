@@ -41,6 +41,8 @@
     <string name="iConnect">Połącz</string>
     <string name="iDisconnect">Rozłącz</string>
     <string name="lbTest">Jakies testowe dane</string>
+    <string name="btnLedeConfirm">Potwierdź</string>
+    <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
 
     <string-array name="ModeList">
         <item>Wybrany efekt</item>
@@ -94,5 +96,10 @@
         <item>Font 5</item>
     </string-array>
 
+    <string-array name="TestLedeEffects">
+        <item>Ogien</item>
+        <item>Flaga</item>
+        <item>Cuda na kiju</item>
+    </string-array>
 
 </resources>

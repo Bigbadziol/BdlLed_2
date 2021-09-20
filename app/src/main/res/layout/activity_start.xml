@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,7 +56,7 @@
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/myButton"
+        android:background="@color/primary"
         android:text="@string/btnNext"
          tools:ignore="TextContrastCheck" />
     <Button
@@ -62,7 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/myButton"
-        android:text="TEST 0"
+        android:text="TEST 00"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="TextContrastCheck" />
 
 </LinearLayout>

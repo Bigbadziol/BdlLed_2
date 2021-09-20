@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/led_device_row_style"
+    android:padding="3dp">
+
+
+    <LinearLayout
+        android:id="@+id/llRows"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/deviceRowText"
+        android:background="@color/deviceRowTextBackground"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/tvSentence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/deviceRowText"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            tools:text="[Sentence]" />
+    </LinearLayout>
+
+</LinearLayout>

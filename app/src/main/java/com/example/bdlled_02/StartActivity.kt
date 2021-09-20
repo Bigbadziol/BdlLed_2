@@ -2,6 +2,7 @@
 package com.example.bdlled_02
 
 import android.Manifest
+import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
@@ -10,12 +11,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.view.Window
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -250,6 +255,65 @@ class StartActivity : AppCompatActivity() {
                 info.show()
             }
         }
+        bind.btnTest0.setOnClickListener {
+            dialogSentenceAction(5,0)
+        }
+    }
+
+    private  fun dialogSentenceAction(sentenceId : Int , mode : Int){
+        val mDialog = Dialog(this)
+        Log.d(TAG,"Passed sentence ID : $sentenceId and mode $mode")
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        mDialog.setContentView(R.layout.lede_dialog)
+        mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //magic should be here
+         val tvHeader = mDialog.findViewById<View>(R.id.tvLedeHeader) as TextView
+         val etSentence = mDialog.findViewById<View>(R.id.etSentence) as EditText
+         val btnColor = mDialog.findViewById<View>(R.id.btnLedeFontColor) as Button
+         val spFont = mDialog.findViewById<View>(R.id.spFonts) as Spinner
+         val spEffect = mDialog.findViewById<View>(R.id.spLedeEffects) as Spinner
+         val btnConfirm =mDialog.findViewById<View>(R.id.btnLedeConfirm) as Button
+
+        //wonderfull .....
+        tvHeader.text="DUPA"
+        Log.d(TAG,"Lede header changed")
+        spFont.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val testFont = spFont.getItemAtPosition(position) as String
+                Log.d(TAG,"Lede font 0 :$testFont")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Lede font NOTHING selected")
+            }
+        }
+        spEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val testEffect = spEffect.getItemAtPosition(position) as String
+                Log.d(TAG,"Lede effect 0  :$testEffect")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Lede effect NOTHING selected")
+            }
+        }
+
+        btnColor.setOnClickListener {
+            Log.d(TAG,"Lede sentence color button clicked.")
+        }
+        btnConfirm.setOnClickListener {
+            Log.d(TAG,"Lede sentence : ${etSentence.text.toString()}")
+            Log.d(TAG,"Lede sentence confirm.")
+            mDialog.dismiss()
+
+        }
+        //wonderfull .....
+        mDialog.setCancelable(true)
+        mDialog.show()
+        val metrics = resources.displayMetrics
+        val width = metrics.widthPixels
+        val height = metrics.heightPixels
+        mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
     private fun buildInterfaceError() {

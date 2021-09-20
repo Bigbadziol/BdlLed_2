@@ -18,7 +18,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
         android:orientation="vertical">
         <!-- Connection panel -->
         <TableLayout
-            android:id="@+id/panelConnection"
+            android:id="@+id/panelStripConnection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/defaultPanelBackground">
@@ -79,7 +79,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lbMode"
+                    android:id="@+id/lbStripMode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,7 +87,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:textSize="16sp" />
 
                 <Spinner
-                    android:id="@+id/spMode"
+                    android:id="@+id/spStripMode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -103,7 +103,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lbEffect"
+                    android:id="@+id/lbStripEffect"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -111,7 +111,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:textSize="16sp" />
 
                 <Spinner
-                    android:id="@+id/spEffect"
+                    android:id="@+id/spStripEffect"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -161,7 +161,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/btnColorMain"
+                    android:id="@+id/btnStripColorMain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -169,7 +169,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     style="@style/buttonMainActivity"/>
 
                 <TextView
-                    android:id="@+id/tvColorMain"
+                    android:id="@+id/tvStripColorMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -188,7 +188,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:gravity="center_horizontal">
 
                 <Button
-                    android:id="@+id/btnMainConfirm"
+                    android:id="@+id/btnStripMainConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -211,7 +211,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/tvEffectName"
+                    android:id="@+id/tvStripEffectName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
@@ -225,7 +225,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
-                    android:id="@+id/btnColor1"
+                    android:id="@+id/btnStripColor1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -233,7 +233,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     style="@style/buttonMainActivity"/>
 
                 <TextView
-                    android:id="@+id/edColor1"
+                    android:id="@+id/edStripColor1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10sp"
@@ -250,7 +250,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
-                    android:id="@+id/btnColor2"
+                    android:id="@+id/btnStripColor2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -258,7 +258,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     style="@style/buttonMainActivity"/>
 
                 <TextView
-                    android:id="@+id/edColor2"
+                    android:id="@+id/edStripColor2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="32dp"
@@ -275,7 +275,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbPalette"
+                    android:id="@+id/lbStripPalette"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -283,7 +283,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbPalette" />
 
                 <Spinner
-                    android:id="@+id/spPalette"
+                    android:id="@+id/spStripPalette"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -298,7 +298,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbCustom"
+                    android:id="@+id/lbStripCustom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -306,7 +306,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbCustom" />
 
                 <Spinner
-                    android:id="@+id/spCustom"
+                    android:id="@+id/spStripCustom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -321,7 +321,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbParam1"
+                    android:id="@+id/lbStripParam1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -331,7 +331,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam1" />
 
                 <TextView
-                    android:id="@+id/lbParam1Val"
+                    android:id="@+id/lbStripParam1Val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -340,7 +340,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam1Val" />
 
                 <SeekBar
-                    android:id="@+id/sbParam1"
+                    android:id="@+id/sbStripParam1"
                     style="@android:style/Widget.Material.SeekBar.Discrete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -355,7 +355,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbParam2"
+                    android:id="@+id/lbStripParam2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -365,7 +365,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam2" />
 
                 <TextView
-                    android:id="@+id/lbParam2Val"
+                    android:id="@+id/lbStripParam2Val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -374,7 +374,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam2Val" />
 
                 <SeekBar
-                    android:id="@+id/sbParam2"
+                    android:id="@+id/sbStripParam2"
                     style="@android:style/Widget.Material.SeekBar.Discrete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -389,7 +389,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbParam3"
+                    android:id="@+id/lbStripParam3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -399,7 +399,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam3" />
 
                 <TextView
-                    android:id="@+id/lbParam3Val"
+                    android:id="@+id/lbStripParam3Val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -408,7 +408,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam3Val" />
 
                 <SeekBar
-                    android:id="@+id/sbParam3"
+                    android:id="@+id/sbStripParam3"
                     style="@android:style/Widget.Material.SeekBar.Discrete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -423,7 +423,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbParam4"
+                    android:id="@+id/lbStripParam4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="32dp"
@@ -433,7 +433,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam4" />
 
                 <TextView
-                    android:id="@+id/lbParam4Val"
+                    android:id="@+id/lbStripParam4Val"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -442,7 +442,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbParam4Val" />
 
                 <SeekBar
-                    android:id="@+id/sbParam4"
+                    android:id="@+id/sbStripParam4"
                     style="@android:style/Widget.Material.SeekBar.Discrete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -457,7 +457,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbBool1"
+                    android:id="@+id/lbStripBool1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="32dp"
@@ -467,7 +467,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbBool1" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swBool1"
+                    android:id="@+id/swStripBool1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -483,7 +483,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/lbBool2"
+                    android:id="@+id/lbStripBool2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:minHeight="32dp"
@@ -493,7 +493,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/lbBool2" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swBool2"
+                    android:id="@+id/swStripBool2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
@@ -511,7 +511,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
                 <Button
-                    android:id="@+id/btnEffectConfirm"
+                    android:id="@+id/btnStripEffectConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -519,6 +519,69 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/btnEffectConfirm" />
             </TableRow>
         </TableLayout>
+
+        <!-- Led Screen/Panel main settings -->
+        <TableLayout
+            android:id="@+id/panelPanelSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defaultPanelBackground"
+            android:layout_marginTop="10dp">
+            <!-- work mode -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbPanelMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbMode"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spPanelMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/ModeList"
+                    android:minHeight="48dp"
+                    android:spinnerMode="dialog"
+                    tools:entries="@array/ModeList"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+
+
+            <!-- Panel/Screen main confirm -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+                <Button
+                    android:id="@+id/btnPanelMainConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/buttonMainActivity"
+                    android:text="@string/btnMainConfirm" />
+            </TableRow>
+        </TableLayout>
+        <!-- Panel list sentences-->
+        <LinearLayout
+            android:id="@+id/panelPanelSentences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/lvPanelSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/sentence_list_row" />
+        </LinearLayout>
+
+
+
+
 
         <!-- PANEL TEST -->
         <LinearLayout
