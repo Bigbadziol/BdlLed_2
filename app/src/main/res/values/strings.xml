@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdlLed_02 v1.7</string>
+    <string name="app_name">BdlLed_02 v2.0</string>
     <!-- start activity-->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
@@ -81,6 +81,15 @@
         <item>Dot beat</item>
         <item>Easing</item>
     </string-array>
+
+
+    <string-array name="PanelModeList">
+        <item>Wyswietlaj sentencje</item>
+        <item>Kogut</item>
+        <item>Zegar ?</item>
+        <item>Wypas 5</item>
+    </string-array>
+
 
     <string-array name="TestCustomParameterList">
         <item> custom option 1</item>

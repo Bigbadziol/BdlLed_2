@@ -548,7 +548,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:entries="@array/ModeList"
                     android:minHeight="48dp"
                     android:spinnerMode="dialog"
-                    tools:entries="@array/ModeList"
+                    tools:entries="@array/PanelModeList"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
 
