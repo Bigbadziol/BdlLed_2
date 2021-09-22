@@ -23,6 +23,7 @@ import android.view.Window
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import com.example.bdlled_02.databinding.ActivityStartBinding
@@ -271,21 +272,21 @@ class StartActivity : AppCompatActivity() {
         Init broadcast reciver for new devices
      */
     private fun initBrNewDevices(){
-        Log.d(TAG,"Init : broadcast reciver for new devices.")
+        Log.d(TAG,"Init : broadcast receiver for new devices.")
         brNewDevices = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val action = intent?.action
                 if (BluetoothDevice.ACTION_FOUND == action) {
                     val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     device?.let {
-                        if (it?.name.contains("LEDS_") || it?.name.contains("LEDP_")){
+                        if (it.name.contains("LEDS_") || it.name.contains("LEDP_")){
                             //displayDeviceDetails(DeviceItem(it.name, it.address, false))
                             if (device.bondState== BluetoothDevice.BOND_NONE){
                                 Log.d(TAG,"Not bonded -> ${it.name}")
                                 if (!newDevices.contains(device)) {
                                     Log.d(TAG, "No device on new list")
                                     newDevices.add(device)
-                                    var icon: Int
+                                    val icon: Int
                                     if (it.name.contains("LEDS_") || it.name.contains("LEDP_")) {
                                         if (it.name.contains("LEDS_")) icon = R.drawable.va_test //ikonka listwy
                                         else icon = R.drawable.va_test //ikonka ekranu
@@ -295,11 +296,8 @@ class StartActivity : AppCompatActivity() {
                                 }else{
                                     Log.d(TAG,"on new list -> ${it.name}")
                                 }
-                            }else{
-                                //Log.d(TAG,"On paired list -> ${it.name}")
                             }
                             //Poczytac o bond i remove w metodzie doPopup...
-
                         }
                     }
                 }
@@ -381,7 +379,9 @@ class StartActivity : AppCompatActivity() {
     }
     //do popupmenu for paired devices
     private fun doPopupMenuForPairedDevices(thisView : View, pos : Int){
-        val pairedPopup= android.widget.PopupMenu(this,thisView)
+        val wrapper = ContextThemeWrapper(this, R.style.BasePopupMenu)
+        val pairedPopup = PopupMenu(wrapper,thisView)
+        //val pairedPopup= PopupMenu(this,thisView)
         val thisItem = bind.lvPairedDevices.getItemAtPosition(pos) as DeviceListModel
         var thisDevice : BluetoothDevice
 
@@ -395,6 +395,10 @@ class StartActivity : AppCompatActivity() {
             when (it.itemId){
                 1 -> {
                     //Toast.makeText(this, "skanuj : "+pos.toString(), Toast.LENGTH_SHORT).show()
+                    if (this.bluetoothAdapter.isDiscovering){
+                        bluetoothAdapter.cancelDiscovery()
+                    }
+                    bluetoothAdapter.startDiscovery()
                 }
                 2 ->{
                     //Toast.makeText(this, "usun : "+pos.toString(), Toast.LENGTH_SHORT).show()
@@ -407,9 +411,8 @@ class StartActivity : AppCompatActivity() {
             false
         }
         pairedPopup.show()
-
-
     }
+
     private fun doPopupMenuForNewDevices(thisView : View, pos : Int){
         /*  Raz jeszcze przewalic dokumentacje
             //device.createBond()
@@ -418,7 +421,9 @@ class StartActivity : AppCompatActivity() {
 
          */
         if (bind.lvNewDevices.size > 0) {
-            val newPopup = android.widget.PopupMenu(this, thisView)
+            val wrapper = ContextThemeWrapper(this, R.style.BasePopupMenu)
+            val newPopup = PopupMenu(wrapper,thisView)
+            //val newPopup = android.widget.PopupMenu(this, thisView)
             val thisItem = bind.lvNewDevices.getItemAtPosition(pos) as DeviceListModel
             var thisDevice: BluetoothDevice
             newPopup.menu.add(Menu.NONE, 1, 0, "Paruj urządzenie")

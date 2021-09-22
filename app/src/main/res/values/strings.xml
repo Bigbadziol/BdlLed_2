@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdlLed_02 v2.18</string>
+    <string name="app_name">BdlLed_02 v2.40</string>
     <!-- start activity-->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
@@ -50,6 +50,8 @@
     <string name="sentenceHeaderAdd">[DODAJ]</string>
     <string name="sentenceHeaderEdit">[EDYTUJ]</string>
     <string name="sentenceHeaderDelete">[USUN]</string>
+    <string name="tvSentenceListHeader">Sentencje</string>
+    <string name="btnLedpFontColor">Kolor\n czcionki</string>
     <!-- devices common section -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>

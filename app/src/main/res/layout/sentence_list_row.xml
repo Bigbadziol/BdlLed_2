@@ -13,6 +13,7 @@
         android:id="@+id/llRows"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:minHeight="26sp"
         android:layout_height="wrap_content"
         android:textColor="@color/deviceRowText"
         android:background="@color/deviceRowTextBackground"

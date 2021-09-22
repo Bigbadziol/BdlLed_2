@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.bdlled_02.R
 import com.example.bdlled_02.jPanelFont
@@ -18,7 +17,7 @@ class FontListAdapter(val context: Context, var dataSource: ArrayList<jPanelFont
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.font_spinner_row, parent, false)
+            view = inflater.inflate(R.layout.spinner_row, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
 
@@ -49,7 +48,7 @@ class FontListAdapter(val context: Context, var dataSource: ArrayList<jPanelFont
         val label: TextView
         //val img: ImageView
         init {
-            label = row?.findViewById(R.id.tvSpinnerFontName) as TextView
+            label = row?.findViewById(R.id.tvSpinnerName) as TextView
             //img = row?.findViewById(R.id.img) as ImageView
         }
     }

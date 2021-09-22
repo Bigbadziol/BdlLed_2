@@ -7,23 +7,24 @@ data class jPanelFont(
 )
 //background calculated
 data class jPanelBgCalc(
-    var id : Int,
-    var name : String
+    var id : Int = 0 ,
+    var name : String=""
 )
 //background pre-recorded
 data class jPanelBgRecorded(
-    var id : Int,
-    var name : String,
-    var source : String,
+    var id : Int = 0,
+    var name : String="",
+    var source : String=""
 )
 
 data class  jPanelSentence(
-    var id : Int,
-    var sentence  :String,
-    var fontColor: jColor,
-    var fontId : Int,
-    var bgType : String, //values "calc" or "recorded" , default first "calc"
-    var bgId : Int
+    var id : Int=0,
+    var sentence  :String="",
+    var fontColor: jColor = jColor(),
+    var fontId : Int= 0,
+    var bgType : String="calc", //values "calc" or "recorded" , default first "calc"
+    var bgId : Int = 0
+
 )
 
 data class jPanelData(

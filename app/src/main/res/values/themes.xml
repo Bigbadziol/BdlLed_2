@@ -23,6 +23,7 @@
         <item name="android:background">@drawable/led_device_devices_header</item>
         <item name="android:textColor">@color/primary_light</item>
     </style>
+
     <style name="myButton">
         <item name="android:layout_marginHorizontal">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
@@ -40,17 +41,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
+    <!-- ZAJebiscie wazna lekcja na przyszlosc : itemBackground robi robote , Background robi problemy -->
     <style name="BasePopupMenu" parent="@style/Widget.MaterialComponents.PopupMenu">
     <!--<style name="BasePopupMenu" > -->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/deviceRowText</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:background">@color/deviceRowTextBackground</item>
-        <item name="android:windowAnimationStyle">@null</item>
-        <item name="android:popupAnimationStyle">@null</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:itemBackground">@color/deviceRowTextBackground</item>
     </style>
 
 

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/sentenceSet"
-        android:title="@string/popupSentenceSet" />
+        android:title="@string/popupSentenceSet"/>
     <item android:id="@+id/sentenceNew"
         android:title="@string/popupSentenceNew"/>
     <item android:id="@+id/sentenceEdit"

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.Window
@@ -19,6 +20,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
+import com.example.bdlled_02.adapters.BgCalcAdapter
 import com.example.bdlled_02.adapters.FontListAdapter
 import com.example.bdlled_02.adapters.SentenceListAdapter
 import com.example.bdlled_02.databinding.ActivityMainBinding
@@ -30,6 +32,10 @@ import com.google.gson.JsonObject
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+
+
+
+
 
 const val SERVICE_NAME = "KrzysService"
 //val uuid: UUID = UUID.fromString("06AE0A74-7BD4-43AA-AB5D-2511F3F6BAB1")
@@ -58,12 +64,12 @@ class MainActivity : AppCompatActivity(){
     var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
     var sentenceList: ArrayList<jPanelSentence> = ArrayList()
     var fontList : ArrayList<jPanelFont> = ArrayList()
+    var bgCalcList : ArrayList<jPanelBgCalc> = ArrayList()
 
 
     //----------------------------------------------------------------------------------------------
     private inner class BtHandler : Handler(){
         var allMessage : String =""
-        var tmp: String=""
         override fun handleMessage(msg: Message) {
             var readBuf = msg.obj as String
             //Log.d("DEBUG_INSIDE",readBuf.length.toString())
@@ -106,7 +112,6 @@ class MainActivity : AppCompatActivity(){
                     null
                 }
                 newSocket?.also {
-                    //manageMyConnectedSocket(it)
                     Log.d("DEBUG_ESP","Before ESP handling")
                     espSocket = newSocket
                     ConnectedThread(espSocket).start()
@@ -165,7 +170,6 @@ class MainActivity : AppCompatActivity(){
             try {
                 Log.d("DEBUG_APP", "Connecting socket")
                 myHandler.post {
-                    //bind.connectedOrNotTextView.text = "Connecting..." //OLD
                     espState = EspConnectionState.CONNECTING
                     handlePanelsVisibility()
                 }
@@ -174,12 +178,10 @@ class MainActivity : AppCompatActivity(){
 
                 Log.d("DEBUG_APP", "Socket connected")
                 myHandler.post {
-                    //bind.connectedOrNotTextView.text = "Connected" //OLD
                     espState = EspConnectionState.CONNECTED
                     handlePanelsVisibility()
                 }
                 ConnectedThread(appSocket).start()
-                //ConnectThread(mySelectedBluetoothDevice).writeMessage("""{"cmd" : "DATA_TEST" }""")
                 ConnectThread(mySelectedBluetoothDevice).writeMessage("""{"cmd" : "DATA_PLEASE" }""")
             }catch (e1: Exception){
                 Log.d("DEBUG_APP", "Error connecting socket, $e1")
@@ -315,21 +317,28 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun piPanelMain(){
-        //bind.spPanelMode.adapter = ArrayAdapter
+        //create specific list
+        /*
         for (s in allPanelData.sentences.indices){
             sentenceList.add(allPanelData.sentences[s])
         }
-
-        for (s in allPanelData.fonts.indices){
-            fontList.add(allPanelData.fonts[s])
-        }
+        */
+        sentenceList.addAll(allPanelData.sentences)
+        fontList.addAll(allPanelData.fonts)
+        bgCalcList.addAll(allPanelData.bgCalc)
 
         with(bind,{
             lbPanelMode.setVisibility(true)
             spPanelMode.setVisibility(true)
             btnPanelMainConfirm.setVisibility(true)
+            tvSentenceListHeader.setVisibility(true)
             lvPanelSentences.setVisibility(true)
+            panelPanelSentences.setVisibility(true)
         })
+    }
+    private fun hidePanelInterface(){
+        bind.panelPanelSentences.setVisibility(false)
+        bind.panelPanelSettings.setVisibility(false)
     }
 
     //All set "Metods" simply turn on visibility and set params
@@ -1492,7 +1501,10 @@ class MainActivity : AppCompatActivity(){
         sentencePopup.setOnMenuItemClickListener { it->
             when (it.itemId){
                 R.id.sentenceSet-> {
-                    Log.d(TAG,"SET sentence")
+                    val set = JsonObject()
+                    set.addProperty("cmd","SET")
+                    set.addProperty("id",thisItem.id)
+                    Log.d(TAG,"SET sentence : ${set.toString()}")
                 }
                 R.id.sentenceNew-> {
                     Log.d(TAG,"ADD sentence")
@@ -1533,54 +1545,130 @@ class MainActivity : AppCompatActivity(){
         val spEffect = mDialog.findViewById<View>(R.id.spLedpEffects) as Spinner
         val btnConfirm =mDialog.findViewById<View>(R.id.btnLedpConfirm) as Button
 
-        //bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
+        val newSentence = jPanelSentence()
+
         spFont.adapter = FontListAdapter(this@MainActivity,fontList)
+        spEffect.adapter = BgCalcAdapter(this@MainActivity,bgCalcList)
+
         tvHeader.text = mode
-        if (mode == getString(R.string.sentenceHeaderAdd)){
+        spFont.setSelection(sentence.fontId)
+        if(sentence.bgType == "calc") {
+            spEffect.setSelection(sentence.bgId)
+        }else{
+            Log.d(TAG, "This type of background , not handled now")
+        }
+
+        tvColor.setBackgroundColor(Color.rgb(sentence.fontColor.r, sentence.fontColor.g,sentence.fontColor.b))
+
+        fun enableInterface(){
             etSentence.isEnabled = true
             spFont.setVisibility(true)
             btnColor.setVisibility(true)
             tvColor.setVisibility(true)
             spEffect.setVisibility(true)
-            etSentence.hint ="Wpisz frazę"
-            etSentence.text.clear()
-
-        }else if (mode == getString(R.string.sentenceHeaderEdit)){
-            etSentence.isEnabled = true
-            spFont.setVisibility(true)
-            btnColor.setVisibility(true)
-            tvColor.setVisibility(true)
-            spEffect.setVisibility(true)
-            etSentence.hint =""
-            etSentence.text.clear()
-            etSentence.text.append(sentence.sentence)
-
-        }else if (mode == getString(R.string.sentenceHeaderDelete)){
+        }
+        fun disableInterface(){
             etSentence.isEnabled = false
             spFont.setVisibility(false)
             btnColor.setVisibility(false)
             tvColor.setVisibility(false)
             spEffect.setVisibility(false)
-            etSentence.text.clear()
-            etSentence.text.append(sentence.sentence)
         }
+        fun setColor(){
+            val colDraw = bind.tvStripColorMain.background as ColorDrawable
+            val colInt = colDraw.color
+            newSentence.sentence = etSentence.text.toString()
+            newSentence.fontColor.r = Color.red(colInt)
+            newSentence.fontColor.g = Color.green(colInt)
+            newSentence.fontColor.b = Color.blue(colInt)
+        }
+        fun addSentence(){
+            Log.d(TAG, "TESTING ADD : ")
+            if (etSentence.text.isNotEmpty()) {
+                var newId = 0
+                if (sentenceList.isNotEmpty()) newId = allPanelData.sentences.last().id + 1
+                newSentence.id = newId
+                setColor()
+                //bgType , bgId , fontId , inside listeners
+                sentenceList.add(newSentence)
+                bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
+                //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
+                val sentenceJson = Gson().toJson(newSentence)
+                val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
+                sentenceObj.addProperty("cmd","ADD")
+                Log.d(TAG, "Json ADD sentence : $sentenceObj")
+            }else{
+                Log.d(TAG,"New sentence -> text no set")
+            }
+        }
+        fun editSentence(){
+            if (etSentence.text.isNotEmpty()) {
+                newSentence.id = sentence.id
+                //bgType , bgId , fontId , inside listeners
+                setColor()
+                val index = sentenceList.indexOf(sentence)//old data
+                sentenceList.set(index,newSentence)
+                bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
+
+                //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
+                val sentenceJson = Gson().toJson(newSentence)
+                val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
+                sentenceObj.addProperty("cmd","EDIT")
+                Log.d(TAG, "Json EDIT sentence : $sentenceObj")
+            }else{
+                Log.d(TAG,"Edit sentence -> text no set")
+            }
+        }
+        fun deleteSentence(){
+            val index = sentenceList.indexOf(sentence)//old data
+            sentenceList.removeAt(index)
+            bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
+            val del = JsonObject()
+            del.addProperty("cmd","DELETE")
+            del.addProperty("id",sentence.id)
+            Log.d(TAG, "Json DELETE command : $del")
+        }
+        when(mode){
+            getString(R.string.sentenceHeaderAdd) ->{
+                enableInterface()
+                etSentence.hint ="Wpisz frazę"
+                etSentence.text.clear()
+                tvColor.setBackgroundColor(Color.rgb(255,255,255))
+            }
+            getString(R.string.sentenceHeaderEdit) ->{
+                enableInterface()
+                etSentence.hint =""
+                etSentence.text.clear()
+                etSentence.text.append(sentence.sentence)
+            }
+            getString(R.string.sentenceHeaderDelete) ->{
+                disableInterface()
+                etSentence.text.clear()
+                etSentence.text.append(sentence.sentence)
+            }
+        }
+
         spFont.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //val testFont = spFont.getItemAtPosition(position) as String
-                //Log.d(TAG,"Lede font 0 :$testFont")
+                val thisFont = spFont.getItemAtPosition(position) as jPanelFont
+                newSentence.fontId = thisFont.id
+                Log.d(TAG,"Led panel font :${thisFont.toString()}")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Log.d(TAG,"Lede font NOTHING selected")
+                Log.d(TAG,"Led panel font NOTHING selected")
             }
         }
 
         spEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val testEffect = spEffect.getItemAtPosition(position) as String
-                Log.d(TAG,"Lede effect 0  :$testEffect")
+                val thisBgCalc = spEffect.getItemAtPosition(position) as jPanelBgCalc
+                newSentence.bgType="calc"
+                newSentence.bgId = thisBgCalc.id
+                Log.d(TAG,"Background calculated  : ${thisBgCalc.toString()}")
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {
                 Log.d(TAG,"Lede effect NOTHING selected")
             }
@@ -1588,19 +1676,37 @@ class MainActivity : AppCompatActivity(){
 
         btnColor.setOnClickListener {
             Log.d(TAG,"Lede sentence color button clicked.")
+            ColorPickerDialog
+                .Builder(this)
+                .setTitle("Wybierz kolor")
+                .setColorShape(ColorShape.CIRCLE)
+                .setDefaultColor("#ff0000")
+                .setColorListener { _, colorHex ->
+                    tvColor.setBackgroundColor(Color.parseColor(colorHex))
+                }
+                .show()
         }
-        btnConfirm.setOnClickListener {
-            Log.d(TAG,"Lede sentence : ${etSentence.text.toString()}")
-            Log.d(TAG,"Lede sentence confirm.")
-            mDialog.dismiss()
 
+        btnConfirm.setOnClickListener {
+            Log.d(TAG,"Lede sentence confirm.")
+            when(mode){
+                getString(R.string.sentenceHeaderAdd) ->{
+                    addSentence()
+                }
+                getString(R.string.sentenceHeaderEdit) ->{
+                    editSentence()
+                }
+                getString(R.string.sentenceHeaderDelete) ->{
+                    deleteSentence()
+                }
+            }
+            mDialog.dismiss()
         }
         //wonderfull .....
         mDialog.setCancelable(true)
         mDialog.show()
         val metrics = resources.displayMetrics
         val width = metrics.widthPixels
-        val height = metrics.heightPixels
         mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
@@ -1667,6 +1773,9 @@ class MainActivity : AppCompatActivity(){
                     ConnectThread(mySelectedBluetoothDevice).cancel()
                     espState = EspConnectionState.DISCONNECTED
                     handlePanelsVisibility()
+                }
+                else -> {
+                    Log.d(TAG,"Unknown ESP State")
                 }
             }
             //           Toast.makeText(this, "Fake Conneting to device", Toast.LENGTH_SHORT).show()
@@ -1827,6 +1936,7 @@ class MainActivity : AppCompatActivity(){
         }
         //----custom pick
         val adapterCustom = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripCustomList)
+
         //adapterCustom.also { bind.spCustom.adapter = it } // ?!?!!?!!?!?!??!?!?!!? JA JEBIE
         bind.spStripCustom.adapter = adapterCustom
         bind.spStripCustom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -1942,6 +2052,27 @@ class MainActivity : AppCompatActivity(){
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // write code to perform some action
             }
+        }
+        bind.btnPanelMainConfirm.setOnClickListener {
+            val setMode = JsonObject()
+            setMode.addProperty("cmd","SET_MODE")
+            setMode.addProperty("mode",bind.spPanelMode.selectedItemPosition)
+            Log.d(TAG,"Mode set : ${setMode.toString()}")
+        }
+        //-----header sentence list
+        bind.tvSentenceListHeader.isClickable = true
+        bind.tvSentenceListHeader.setOnLongClickListener {
+            val wrapper = ContextThemeWrapper(this, R.style.BasePopupMenu)
+            val newPopup = PopupMenu(wrapper, it)
+            newPopup.menu.add(Menu.NONE, 1, 0, getString(R.string.popupSentenceNew))
+            newPopup.setOnMenuItemClickListener { it ->
+                Log.d(TAG,"ADD sentence from header click")
+                val thisItem =jPanelSentence()
+                dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderAdd))
+                false
+            }
+            newPopup.show()
+            false
         }
         //----Panel sentence list
         bind.lvPanelSentences.isClickable = true
