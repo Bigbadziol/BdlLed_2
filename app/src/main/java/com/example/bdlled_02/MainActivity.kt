@@ -1,6 +1,7 @@
 package com.example.bdlled_02
 
 
+import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothServerSocket
@@ -12,9 +13,14 @@ import android.os.Handler
 import android.os.Message
 import android.util.Log
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
+import com.example.bdlled_02.adapters.FontListAdapter
+import com.example.bdlled_02.adapters.SentenceListAdapter
 import com.example.bdlled_02.databinding.ActivityMainBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
@@ -44,6 +50,16 @@ class MainActivity : AppCompatActivity(){
     var myDevices : ArrayList<BluetoothDevice> = ArrayList() //list form start activity
     var startPos : Int = 0 // position in list , current sellected device
     var espState : EspConnectionState = EspConnectionState.DISCONNECTED
+
+    var stripModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
+    var stripPaletteList : ArrayList<String> = ArrayList()  //load data from resources in onCreate
+    var stripCustomList :  ArrayList<String> = ArrayList()  //nad tym tez trzeba popracowac, znaczy sie wyjebac
+
+    var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
+    var sentenceList: ArrayList<jPanelSentence> = ArrayList()
+    var fontList : ArrayList<jPanelFont> = ArrayList()
+
+
     //----------------------------------------------------------------------------------------------
     private inner class BtHandler : Handler(){
         var allMessage : String =""
@@ -63,7 +79,7 @@ class MainActivity : AppCompatActivity(){
                             allStripData = Gson().fromJson(jsonStripDataTest_big ,jStripData::class.java)
                             allMessage = ""
                             Log.d("DEBUG_INSIDE","Data loaded system alive")
-                            piMain()
+                            piStripMain()
                         }
                     }
                 }
@@ -206,7 +222,7 @@ class MainActivity : AppCompatActivity(){
         when (espState){
             EspConnectionState.DISCONNECTED -> {
                 hideMainInterface()
-                hideEffectInterface()
+                hideStripEffectInterface()
                 bind.btnConnect.isEnabled = true
                 bind.spDevices.isEnabled = true
                 bind.btnConnect.text = getString(R.string.iConnect)
@@ -214,7 +230,7 @@ class MainActivity : AppCompatActivity(){
 
             EspConnectionState.CONNECTING ->{
                 hideMainInterface()
-                hideEffectInterface()
+                hideStripEffectInterface()
                 bind.btnConnect.isEnabled = false
                 bind.spDevices.isEnabled = false
                 bind.btnConnect.text =getString(R.string.iConnect)
@@ -247,7 +263,7 @@ class MainActivity : AppCompatActivity(){
         bind.spDevices.setSelection(startPos)
     }
 
-    private fun piMain(){
+    private fun piStripMain(){
         var effectNames = arrayOf<String>()
         for (e in allStripData.effects.indices){
             effectNames += allStripData.effects[e].name
@@ -262,15 +278,15 @@ class MainActivity : AppCompatActivity(){
                 spStripMode.setVisibility(true)
                 lbStripEffect.setVisibility(true)
                 spStripEffect.setVisibility(true)
-                lbTime.setVisibility(true)
-                lbTimeVal.setVisibility(true)
-                sbTime.setVisibility(true)
-                sbTime.min = 20
-                sbTime.max = 120
+                lbStripTime.setVisibility(true)
+                lbStripTimeVal.setVisibility(true)
+                sbStripTime.setVisibility(true)
+                sbStripTime.min = 20
+                sbStripTime.max = 120
                 btnStripColorMain.setVisibility(true)
                 tvStripColorMain.setVisibility(true)
                 btnStripMainConfirm.setVisibility(true)
-                panelMainSettings.setVisibility(true)
+                panelStripMainSettings.setVisibility(true)
                 //parameters
                 spStripMode.setSelection(allStripData.config.mode, false)
                 if (effectNames.size > 0) {
@@ -280,8 +296,8 @@ class MainActivity : AppCompatActivity(){
                     lbStripEffect.setVisibility(false)
                     spStripEffect.setVisibility(false)
                 }
-                sbTime.setProgress(allStripData.config.time, false)
-                lbTimeVal.text = allStripData.config.time.toString()
+                sbStripTime.setProgress(allStripData.config.time, false)
+                lbStripTimeVal.text = allStripData.config.time.toString()
                 tvStripColorMain.setBackgroundColor(
                     Color.rgb(
                         allStripData.config.color.r,
@@ -295,21 +311,38 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun hideMainInterface(){
-        bind.panelMainSettings.setVisibility(false)
+        bind.panelStripMainSettings.setVisibility(false)
     }
 
+    private fun piPanelMain(){
+        //bind.spPanelMode.adapter = ArrayAdapter
+        for (s in allPanelData.sentences.indices){
+            sentenceList.add(allPanelData.sentences[s])
+        }
+
+        for (s in allPanelData.fonts.indices){
+            fontList.add(allPanelData.fonts[s])
+        }
+
+        with(bind,{
+            lbPanelMode.setVisibility(true)
+            spPanelMode.setVisibility(true)
+            btnPanelMainConfirm.setVisibility(true)
+            lvPanelSentences.setVisibility(true)
+        })
+    }
 
     //All set "Metods" simply turn on visibility and set params
     //This methods do only UI stuff, DONT set any datas
     /*
     Clear Seek Bar parameter , little help only for : clearAndHideEffectInterface()
     */
-    private fun clearParamVal(p : SeekBar){
+    private fun clearStripParamVal(p : SeekBar){
         p.min = 0
         p.max = 255
         p.setProgress(0,false)
     }
-    private fun hideEffectInterface(){
+    private fun hideStripEffectInterface(){
         bind.tvStripEffectName.text = resources.getString(R.string.tvEffectName)
         bind.edStripColor1.setBackgroundColor(Color.parseColor("#000000"))
         bind.edStripColor2.setBackgroundColor(Color.parseColor("#000000"))
@@ -325,13 +358,13 @@ class MainActivity : AppCompatActivity(){
  */
         bind.spStripCustom.setSelection(0)
         bind.lbStripParam1.text = resources.getString(R.string.lbParam1)
-        clearParamVal(bind.sbStripParam1)
+        clearStripParamVal(bind.sbStripParam1)
         bind.lbStripParam2.text = resources.getString(R.string.lbParam2)
-        clearParamVal(bind.sbStripParam2)
+        clearStripParamVal(bind.sbStripParam2)
         bind.lbStripParam3.text = resources.getString(R.string.lbParam3)
-        clearParamVal(bind.sbStripParam3)
+        clearStripParamVal(bind.sbStripParam3)
         bind.lbStripParam4.text = resources.getString(R.string.lbParam4)
-        clearParamVal(bind.sbStripParam4)
+        clearStripParamVal(bind.sbStripParam4)
 
         bind.lbStripBool1.text = resources.getString(R.string.lbBool1)
         bind.swStripBool1.isChecked = false
@@ -381,15 +414,15 @@ class MainActivity : AppCompatActivity(){
 
         bind.btnStripEffectConfirm.setVisibility(false)
     }
-    private fun showConfirmButton(){
+    private fun showStripConfirmButton(){
         bind.btnStripEffectConfirm.setVisibility(true)
     }
-    private fun setEffectName( name : String ){
+    private fun setStripEffectName(name : String ){
         bind.panelEffect.setVisibility(visible = true)
         bind.tvStripEffectName.setVisibility(visible = true)
         bind.tvStripEffectName.text = name
     }
-    private fun setParamColor(pColorNum : Int ,  r :Int , g : Int ,b : Int){
+    private fun setStripParamColor(pColorNum : Int, r :Int, g : Int, b : Int){
         when (pColorNum){
             1 -> {
                 bind.btnStripColor1.setVisibility(true)
@@ -403,14 +436,14 @@ class MainActivity : AppCompatActivity(){
             }
         }
     }
-    private fun setPalette( index : Int){
+    private fun setStripPalette(index : Int){
         bind.lbStripPalette.setVisibility(true)
         bind.spStripPalette.setVisibility(true)
         if (index > bind.spStripPalette.count - 1) bind.spStripPalette.setSelection(0,false)
         else bind.spStripPalette.setSelection(index,false)
         //   Toast.makeText(this,"Count P:" +bind.spPalette.count,Toast.LENGTH_SHORT).show()
     }
-    private fun setCustom(desc : String , elem : Array<String>, index : Int){
+    private fun setStripCustom(desc : String, elem : Array<String>, index : Int){
         if (elem.isNotEmpty()){
             bind.lbStripCustom.setVisibility(true)
             bind.lbStripCustom.text = desc
@@ -421,7 +454,7 @@ class MainActivity : AppCompatActivity(){
             else bind.spStripCustom.setSelection(index)
         }
     }
-    private fun setParamVal(pNum : Int , desc : String , pVal : Int , pMin : Int , pMax : Int){
+    private fun setStripParamVal(pNum : Int, desc : String, pVal : Int, pMin : Int, pMax : Int){
         when (pNum){
             1 -> {
                 bind.lbStripParam1.setVisibility(true)
@@ -466,7 +499,7 @@ class MainActivity : AppCompatActivity(){
         aby zachowac zgodność bool bedzie intem, mniej roboty i przerobek
         Podobnie w updateParamBool
      */
-    private fun setParamBool(pNum : Int , desc : String ,state : Int){
+    private fun setStripParamBool(pNum : Int, desc : String, state : Int){
         var tmpBool : Boolean = false
         if (state == 1) tmpBool = true
         when (pNum){
@@ -486,7 +519,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     //THIS metods are triggered by uiXXXX methods , update data structures
-    private fun updateParamCol(parmName: String , tvCol : TextView){
+    private fun updateStripParamCol(parmName: String, tvCol : TextView){
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if (thisEffect.data.has(parmName)){
             val col = tvCol.background as ColorDrawable
@@ -505,7 +538,7 @@ class MainActivity : AppCompatActivity(){
             Toast.makeText(this, "Effect dont have $parmName parameter.", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun updatePalette(parmName : String){
+    private fun updateStripPalette(parmName : String){
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if(thisEffect.data.has(parmName)){
             thisEffect.data.addProperty(parmName,bind.spStripPalette.selectedItemPosition)
@@ -513,7 +546,7 @@ class MainActivity : AppCompatActivity(){
             Toast.makeText(this, "Effect dont have $parmName parameter", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun updateCustom(parmName : String){
+    private fun updateStripCustom(parmName : String){
         val thisCustom = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if (thisCustom.data.has(parmName)){
             thisCustom.data.addProperty(parmName,bind.spStripCustom.selectedItemPosition)
@@ -521,7 +554,7 @@ class MainActivity : AppCompatActivity(){
             Toast.makeText(this, "Effect dont have $parmName parameter", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun updateParamVal(parmName : String , sb :SeekBar ){
+    private fun updateStripParamVal(parmName : String, sb :SeekBar ){
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if(thisEffect.data.has(parmName)){
             thisEffect.data.addProperty(parmName,sb.progress)
@@ -534,7 +567,7 @@ class MainActivity : AppCompatActivity(){
         Zatem bool to int tak naprawde
 
      */
-    private fun updatParamBool(parmName: String, sw : SwitchCompat){
+    private fun updateStripParamBool(parmName: String, sw : SwitchCompat){
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if(thisEffect.data.has(parmName)){
             var tmpBoolAsInt = 0
@@ -546,7 +579,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     // This methods updates data structures in APP and send to ESP modified effect
-    private fun prepareUpdatedData() : String {
+    private fun prepareStripUpdatedData() : String {
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         val toSendEffect = JsonObject()
         toSendEffect.addProperty("cmd","UPDATE_EFFECT")
@@ -557,13 +590,13 @@ class MainActivity : AppCompatActivity(){
     }
 
     //UWAGA !!! w buttonie funkcjonuje nadal stara wersja z pierwszych testow
-    private fun prepareUpdatedConfig() : String {
+    private fun prepareStripUpdatedConfig() : String {
         val toSendEffect = JsonObject()
         toSendEffect.addProperty("cmd","UPDATE_CONFIG")
         toSendEffect.addProperty("mode",bind.spStripMode.selectedItemPosition) //przerobic parm custom by bylo zgodnie
         toSendEffect.addProperty("selected",bind.spStripEffect.selectedItemPosition)
-        updateParamCol("color",bind.tvStripColorMain)
-        updateParamVal("time",bind.sbTime)
+        updateStripParamCol("color",bind.tvStripColorMain)
+        updateStripParamVal("time",bind.sbStripTime)
         bind.lbTest.text =  toSendEffect.toString()
         return toSendEffect.toString()
     }
@@ -571,185 +604,185 @@ class MainActivity : AppCompatActivity(){
     // "Beat wave" parm1 , parm2 , parm3 , parm4
     private fun piBeatWave(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pulse1")) {
-                setParamVal(1, "Pulse 1:", thisEffectData.get("pulse1").asInt, 1, 30)
+                setStripParamVal(1, "Pulse 1:", thisEffectData.get("pulse1").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse2")) {
-                setParamVal(2, "Pulse 2:", thisEffectData.get("pulse2").asInt, 1, 30)
+                setStripParamVal(2, "Pulse 2:", thisEffectData.get("pulse2").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse3")) {
-                setParamVal(3, "Pulse 3:", thisEffectData.get("pulse3").asInt, 1, 30)
+                setStripParamVal(3, "Pulse 3:", thisEffectData.get("pulse3").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse4")) {
-                setParamVal(4, "Pulse 4:", thisEffectData.get("pulse4").asInt, 1, 30)
+                setStripParamVal(4, "Pulse 4:", thisEffectData.get("pulse4").asInt, 1, 30)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBeatWave(){
-        updateParamVal("pulse1",bind.sbStripParam1)
-        updateParamVal("pulse2",bind.sbStripParam2)
-        updateParamVal("pulse3",bind.sbStripParam3)
-        updateParamVal("pulse4",bind.sbStripParam4)
+        updateStripParamVal("pulse1",bind.sbStripParam1)
+        updateStripParamVal("pulse2",bind.sbStripParam2)
+        updateStripParamVal("pulse3",bind.sbStripParam3)
+        updateStripParamVal("pulse4",bind.sbStripParam4)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Blend wave" parm1 , parm2 , parm3
     private fun piBlendWave(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 12)
+                setStripParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 12)
             }
             if (thisEffectData.has("mH1")) {
-                setParamVal(2, "Step 1:", thisEffectData.get("mH1").asInt, 1, 24)
+                setStripParamVal(2, "Step 1:", thisEffectData.get("mH1").asInt, 1, 24)
             }
             if (thisEffectData.has("mH2")) {
-                setParamVal(3, "Step 2:", thisEffectData.get("mH2").asInt, 1, 24)
+                setStripParamVal(3, "Step 2:", thisEffectData.get("mH2").asInt, 1, 24)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBlendWave() {
-        updateParamVal("speed", bind.sbStripParam1)
-        updateParamVal("mH1", bind.sbStripParam2)
-        updateParamVal("mH2", bind.sbStripParam3)
+        updateStripParamVal("speed", bind.sbStripParam1)
+        updateStripParamVal("mH1", bind.sbStripParam2)
+        updateStripParamVal("mH2", bind.sbStripParam3)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Blur" parm1 , parm2 , parm3 , parm4
     private fun piBlur(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 10)
+                setStripParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 10)
             }
             if (thisEffectData.has("o1")) {
-                setParamVal(2, "Offset 1:", thisEffectData.get("o1").asInt, 1, 20)
+                setStripParamVal(2, "Offset 1:", thisEffectData.get("o1").asInt, 1, 20)
             }
             if (thisEffectData.has("o2")) {
-                setParamVal(3, "Offset 2:", thisEffectData.get("o2").asInt, 1, 20)
+                setStripParamVal(3, "Offset 2:", thisEffectData.get("o2").asInt, 1, 20)
             }
             if (thisEffectData.has("o3")) {
-                setParamVal(4, "Offset 3:", thisEffectData.get("o3").asInt, 1, 20)
+                setStripParamVal(4, "Offset 3:", thisEffectData.get("o3").asInt, 1, 20)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBlur(){
-        updateParamVal("speed",bind.sbStripParam1)
-        updateParamVal("o1",bind.sbStripParam2)
-        updateParamVal("o2",bind.sbStripParam3)
-        updateParamVal("o3",bind.sbStripParam4)
+        updateStripParamVal("speed",bind.sbStripParam1)
+        updateStripParamVal("o1",bind.sbStripParam2)
+        updateStripParamVal("o2",bind.sbStripParam3)
+        updateStripParamVal("o3",bind.sbStripParam4)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Confeti" palette , parm1 , parm2
     private fun piConfeti(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("fade")) {
-                setParamVal(1, "Fade :", thisEffectData.get("fade").asInt, 1, 16)
+                setStripParamVal(1, "Fade :", thisEffectData.get("fade").asInt, 1, 16)
             }
             if (thisEffectData.has("mDiff")) {
-                setParamVal(2, "Ofset 1 :", thisEffectData.get("mDiff").asInt, 1, 15)
+                setStripParamVal(2, "Ofset 1 :", thisEffectData.get("mDiff").asInt, 1, 15)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private  fun upConfeti(){
-        updatePalette("pIndex")
-        updateParamVal("fade",bind.sbStripParam1)
-        updateParamVal("mDiff",bind.sbStripParam2)
+        updateStripPalette("pIndex")
+        updateStripParamVal("fade",bind.sbStripParam1)
+        updateStripParamVal("mDiff",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Sinelon" , parm1 , parm2
     private fun piSinelon(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("bpm")) {
-                setParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
+                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
             }
             if (thisEffectData.has("fade")) {
-                setParamVal(2, "Fade:", thisEffectData.get("fade").asInt, 5, 25)
+                setStripParamVal(2, "Fade:", thisEffectData.get("fade").asInt, 5, 25)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upSinelon() {
-        updateParamVal("bpm",bind.sbStripParam1)
-        updateParamVal("fade",bind.sbStripParam2)
+        updateStripParamVal("bpm",bind.sbStripParam1)
+        updateStripParamVal("fade",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Bpm" palette , parm1
     private fun piBpm(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("bpm")) {
-                setParamVal(1, "Speed :", thisEffectData.get("bpm").asInt, 10, 120)
+                setStripParamVal(1, "Speed :", thisEffectData.get("bpm").asInt, 10, 120)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upBpm(){
-        updatePalette("pIndex")
-        updateParamVal("bpm",bind.sbStripParam1)
+        updateStripPalette("pIndex")
+        updateStripParamVal("bpm",bind.sbStripParam1)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Juggle" parm1 , parm2
     private fun piJuggle(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("stepHue")) {
-                setParamVal(1, "Step :", thisEffectData.get("stepHue").asInt, 1, 8)
+                setStripParamVal(1, "Step :", thisEffectData.get("stepHue").asInt, 1, 8)
             }
             if (thisEffectData.has("fade")) {
-                setParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 5, 32)
+                setStripParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 5, 32)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upJuggle() {
-        updateParamVal("stepHue",bind.sbStripParam1)
-        updateParamVal("fade",bind.sbStripParam2)
+        updateStripParamVal("stepHue",bind.sbStripParam1)
+        updateStripParamVal("fade",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Dot beat" color1 ,color2 , parm1 , parm2
     private fun piDotBeat(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             var col: JsonObject
@@ -761,36 +794,36 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("color2")){
                 col = thisEffectData.get("color2").asJsonObject
                 if (col.has("r")) { r = col.get("r").asInt }
                 if (col.has("g")) { g = col.get("g").asInt }
                 if (col.has("b")) { b = col.get("b").asInt }
-                setParamColor(2 , r , g , b)
+                setStripParamColor(2 , r , g , b)
             }
             if (thisEffectData.has("bpm")) {
-                setParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
+                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
             }
             if (thisEffectData.has("fadeMod")) {
-                setParamVal(2, "Fade:", thisEffectData.get("fadeMod").asInt, 5, 25)
+                setStripParamVal(2, "Fade:", thisEffectData.get("fadeMod").asInt, 5, 25)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upDotBeat(){
-        updateParamCol("color1",bind.edStripColor1)
-        updateParamCol("color2",bind.edStripColor2)
-        updateParamVal("bpm",bind.sbStripParam1)
-        updateParamVal("fadeMod",bind.sbStripParam2)
+        updateStripParamCol("color1",bind.edStripColor1)
+        updateStripParamCol("color2",bind.edStripColor2)
+        updateStripParamVal("bpm",bind.sbStripParam1)
+        updateStripParamVal("fadeMod",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Easing" color1 , parm1
     private fun piEasing(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             val col: JsonObject
@@ -802,24 +835,24 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("multiplier")) {
-                setParamVal(1, "Fade :", thisEffectData.get("multiplier").asInt, 1, 8)
+                setStripParamVal(1, "Fade :", thisEffectData.get("multiplier").asInt, 1, 8)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upEasing(){
-        updateParamCol("color",bind.edStripColor1)
-        updateParamVal("multiplier",bind.sbStripParam1)
+        updateStripParamCol("color",bind.edStripColor1)
+        updateStripParamVal("multiplier",bind.sbStripParam1)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Hyper dot" color1 ,  parm1 , parm2 , parm3
     private fun piHyperDot(){ //color 1 parm 1 parm2 parm 3
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             val col: JsonObject
@@ -831,116 +864,116 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("bpm")) {
-                setParamVal(1, "Fade :", thisEffectData.get("bpm").asInt, 1, 20)
+                setStripParamVal(1, "Fade :", thisEffectData.get("bpm").asInt, 1, 20)
             }
             if (thisEffectData.has("low")) {
-                setParamVal(2, "Low :", thisEffectData.get("low").asInt, 5, 50)
+                setStripParamVal(2, "Low :", thisEffectData.get("low").asInt, 5, 50)
             }
             if (thisEffectData.has("high")) {
-                setParamVal(3, "High :", thisEffectData.get("high").asInt, 100, 200)
+                setStripParamVal(3, "High :", thisEffectData.get("high").asInt, 100, 200)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upHyperDot(){
-        updateParamCol("color",bind.edStripColor1)
-        updateParamVal("bpm",bind.sbStripParam1)
-        updateParamVal("low",bind.sbStripParam2)
-        updateParamVal("high",bind.sbStripParam3)
+        updateStripParamCol("color",bind.edStripColor1)
+        updateStripParamVal("bpm",bind.sbStripParam1)
+        updateStripParamVal("low",bind.sbStripParam2)
+        updateStripParamVal("high",bind.sbStripParam3)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Beat sin gradient" parm1 , parm2
     private fun piBeatSinGradient(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("start")) {
-                setParamVal(1, "Speed1 :", thisEffectData.get("start").asInt, 1, 16)
+                setStripParamVal(1, "Speed1 :", thisEffectData.get("start").asInt, 1, 16)
             }
             if (thisEffectData.has("end")) {
-                setParamVal(2, "Speed2 :", thisEffectData.get("end").asInt, 1, 16)
+                setStripParamVal(2, "Speed2 :", thisEffectData.get("end").asInt, 1, 16)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upBeatSinGradient() {
-        updateParamVal("start",bind.sbStripParam1)
-        updateParamVal("end",bind.sbStripParam2)
+        updateStripParamVal("start",bind.sbStripParam1)
+        updateStripParamVal("end",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fire 1" parm1 , parm2
     private fun piFire1(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("cooling")) {
-                setParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
+                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
             }
             if (thisEffectData.has("sparking")) {
-                setParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
+                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upFire1() {
-        updateParamVal("cooling",bind.sbStripParam1)
-        updateParamVal("sparking",bind.sbStripParam2)
+        updateStripParamVal("cooling",bind.sbStripParam1)
+        updateStripParamVal("sparking",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fire 1 two flames" parm1 , parm2
     private fun piFire1TwoFlames(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("cooling")) {
-                setParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
+                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
             }
             if (thisEffectData.has("sparking")) {
-                setParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
+                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upFire1TwoFlames() {
-        updateParamVal("cooling",bind.sbStripParam1)
-        updateParamVal("sparking",bind.sbStripParam2)
+        updateStripParamVal("cooling",bind.sbStripParam1)
+        updateStripParamVal("sparking",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Worm" param1 , param2
     private fun piWorm(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("adjust")) {
-                setParamVal(1, "Adjust :", thisEffectData.get("adjust").asInt, 1, 24)
+                setStripParamVal(1, "Adjust :", thisEffectData.get("adjust").asInt, 1, 24)
             }
             if (thisEffectData.has("nextBlend")) {
-                setParamVal(2, "Next blend :", thisEffectData.get("nextBlend").asInt, 5, 30)
+                setStripParamVal(2, "Next blend :", thisEffectData.get("nextBlend").asInt, 5, 30)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upWorm() {
-        updateParamVal("adjust",bind.sbStripParam1)
-        updateParamVal("nextBlend",bind.sbStripParam2)
+        updateStripParamVal("adjust",bind.sbStripParam1)
+        updateStripParamVal("nextBlend",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fire 2" custom , parm1 , parm2
     private fun piFire2(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
 
@@ -950,130 +983,130 @@ class MainActivity : AppCompatActivity(){
                     "left to right",
                     "both sites"
                 )
-                setCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
+                setStripCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
             }
             if (thisEffectData.has("intensity")) {
-                setParamVal(1, "Intensity :", thisEffectData.get("intensity").asInt, 1, 10)
+                setStripParamVal(1, "Intensity :", thisEffectData.get("intensity").asInt, 1, 10)
             }
             if (thisEffectData.has("speed")) {
-                setParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 20)
+                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 20)
             }
 
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upFire2(){
-        updateCustom("dir") //data gets form spCustom
-        updateParamVal("intensity",bind.sbStripParam1)
-        updateParamVal("speed",bind.sbStripParam2)
+        updateStripCustom("dir") //data gets form spCustom
+        updateStripParamVal("intensity",bind.sbStripParam1)
+        updateStripParamVal("speed",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Noise 1" , palette , parm1 , parm2
     private fun piNoise1(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("low")) {
-                setParamVal(1, "Low :", thisEffectData.get("low").asInt, 1, 10)
+                setStripParamVal(1, "Low :", thisEffectData.get("low").asInt, 1, 10)
             }
             if (thisEffectData.has("high")) {
-                setParamVal(2, "High :", thisEffectData.get("high").asInt, 11, 20)
+                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 11, 20)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upNoise1(){
-        updatePalette("pIndex")
-        updateParamVal("low",bind.sbStripParam1)
-        updateParamVal("high",bind.sbStripParam2)
+        updateStripPalette("pIndex")
+        updateStripParamVal("low",bind.sbStripParam1)
+        updateStripParamVal("high",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Juggle 2" parm1 , parm2 , parm3
     private fun piJuggle2(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("dots")) {
-                setParamVal(1, "Dots :", thisEffectData.get("dots").asInt, 1, 10)
+                setStripParamVal(1, "Dots :", thisEffectData.get("dots").asInt, 1, 10)
             }
             if (thisEffectData.has("beat")) {
-                setParamVal(2, "Beat :", thisEffectData.get("beat").asInt, 1, 20)
+                setStripParamVal(2, "Beat :", thisEffectData.get("beat").asInt, 1, 20)
             }
             if (thisEffectData.has("fade")) {
-                setParamVal(3, "Fade :", thisEffectData.get("fade").asInt, 1, 10)
+                setStripParamVal(3, "Fade :", thisEffectData.get("fade").asInt, 1, 10)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upJuggle2() {
-        updateParamVal("dots", bind.sbStripParam1)
-        updateParamVal("beat", bind.sbStripParam2)
-        updateParamVal("fade", bind.sbStripParam3)
+        updateStripParamVal("dots", bind.sbStripParam1)
+        updateStripParamVal("beat", bind.sbStripParam2)
+        updateStripParamVal("fade", bind.sbStripParam3)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Running color dots"  palette , custom
     private fun piRunningColorDots(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("dir")) {
                 val customParams = arrayOf(
                     "left to right",
                     "right to left"
                 )
-                setCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
+                setStripCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upRunningColorDots(){
-        updatePalette("pIndex")
-        updateCustom("dir") //data gets form spCustom
+        updateStripPalette("pIndex")
+        updateStripCustom("dir") //data gets form spCustom
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Disco 1" palette , parm1
     private fun piDisco1(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("flash")) {
-                setParamVal(1, "Flash :", thisEffectData.get("flash").asInt, 1, 10)
+                setStripParamVal(1, "Flash :", thisEffectData.get("flash").asInt, 1, 10)
             }
 
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upDisco1(){
-        updatePalette("pIndex")
-        updateParamVal("flash",bind.sbStripParam1)
+        updateStripPalette("pIndex")
+        updateStripParamVal("flash",bind.sbStripParam1)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Running color dots 2" palette , color1 , param1 , param2
     private fun piRunningColorDots2(){ //color 1 parm 1 bool1
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             val col: JsonObject
@@ -1081,124 +1114,124 @@ class MainActivity : AppCompatActivity(){
             var g = 0
             var b = 0
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("bgColor")){
                 col = thisEffectData.get("bgColor").asJsonObject
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("bgBright")) {
-                setParamVal(1, "Fade :", thisEffectData.get("bgBright").asInt, 0, 50)
+                setStripParamVal(1, "Fade :", thisEffectData.get("bgBright").asInt, 0, 50)
             }
             if (thisEffectData.has("bgStatic")){
-                setParamBool(1,"Static :",thisEffectData.get("bgStatic").asInt)
+                setStripParamBool(1,"Static :",thisEffectData.get("bgStatic").asInt)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upRunningColorDots2(){
-        updatePalette("pIndex")
-        updateParamCol("bgColor",bind.edStripColor1)
-        updateParamVal("bgBright",bind.sbStripParam1)
-        updatParamBool("bgStatic",bind.swStripBool1)
+        updateStripPalette("pIndex")
+        updateStripParamCol("bgColor",bind.edStripColor1)
+        updateStripParamVal("bgBright",bind.sbStripParam1)
+        updateStripParamBool("bgStatic",bind.swStripBool1)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Disco dots" parm1
     private fun piDiscoDots(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("phaseTime")) {
-                setParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 5, 30)
+                setStripParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 5, 30)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upDiscoDots() {
-        updateParamVal("phaseTime",bind.sbStripParam1)
+        updateStripParamVal("phaseTime",bind.sbStripParam1)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     // "Plasma" palette , parm1 , parm2 , parm 3
     private fun piPlasma(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pIndex")){
-                setPalette(thisEffectData.get("pIndex").asInt)
+                setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("low")) {
-                setParamVal(1, "Low :", thisEffectData.get("low").asInt, -128, -32)
+                setStripParamVal(1, "Low :", thisEffectData.get("low").asInt, -128, -32)
             }
             if (thisEffectData.has("high")) {
-                setParamVal(2, "High :", thisEffectData.get("high").asInt, 32, 128)
+                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 32, 128)
             }
             if (thisEffectData.has("calcMod")) {
-                setParamVal(3, "Speed :", thisEffectData.get("calcMod").asInt, 1, 5)
+                setStripParamVal(3, "Speed :", thisEffectData.get("calcMod").asInt, 1, 5)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upPlasma(){
-        updatePalette("pIndex")
-        updateParamVal("low",bind.sbStripParam1)
-        updateParamVal("high",bind.sbStripParam2)
-        updateParamVal("calcMod",bind.sbStripParam3)
+        updateStripPalette("pIndex")
+        updateStripParamVal("low",bind.sbStripParam1)
+        updateStripParamVal("high",bind.sbStripParam2)
+        updateStripParamVal("calcMod",bind.sbStripParam3)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Rainbow sine" , parm1 , parm2
     private fun piRainbowSine(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 8, 48)
+                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 8, 48)
             }
             if (thisEffectData.has("hueStep")) {
-                setParamVal(2, "Step :", thisEffectData.get("hueStep").asInt, 2, 16)
+                setStripParamVal(2, "Step :", thisEffectData.get("hueStep").asInt, 2, 16)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upRainbowSine() {
-        updateParamVal("speed",bind.sbStripParam1)
-        updateParamVal("hueStep",bind.sbStripParam2)
+        updateStripParamVal("speed",bind.sbStripParam1)
+        updateStripParamVal("hueStep",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fast rainbow" , parm1 , parm2
     private fun piFastRainbow(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 1, 10)
+                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 1, 10)
             }
             if (thisEffectData.has("delta")) {
-                setParamVal(2, "Delta :", thisEffectData.get("delta").asInt, 1, 10)
+                setStripParamVal(2, "Delta :", thisEffectData.get("delta").asInt, 1, 10)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upFastRainbow() {
-        updateParamVal("speed",bind.sbStripParam1)
-        updateParamVal("delta",bind.sbStripParam2)
+        updateStripParamVal("speed",bind.sbStripParam1)
+        updateStripParamVal("delta",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Pulse rainbow" , custom ,parm1 , parm2 , parm3
     private fun piPulseRainbow(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
 
@@ -1207,112 +1240,112 @@ class MainActivity : AppCompatActivity(){
                     "forward",
                     "backward",
                 )
-                setCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
+                setStripCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
             }
             if (thisEffectData.has("rot")) {
-                setParamVal(1, "Rotation :", thisEffectData.get("rot").asInt, 1, 5)
+                setStripParamVal(1, "Rotation :", thisEffectData.get("rot").asInt, 1, 5)
             }
             if (thisEffectData.has("hue")) {
-                setParamVal(2, "Hue:", thisEffectData.get("hue").asInt, 1, 20)
+                setStripParamVal(2, "Hue:", thisEffectData.get("hue").asInt, 1, 20)
             }
             if (thisEffectData.has("delay")) {
-                setParamVal(3, "Delay :", thisEffectData.get("delay").asInt, 10, 50)
+                setStripParamVal(3, "Delay :", thisEffectData.get("delay").asInt, 10, 50)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upPulseRainbow(){
-        updateCustom("dir") //data gets form spCustom
-        updateParamVal("rot",bind.sbStripParam1)
-        updateParamVal("hue",bind.sbStripParam2)
-        updateParamVal("delay",bind.sbStripParam3)
+        updateStripCustom("dir") //data gets form spCustom
+        updateStripParamVal("rot",bind.sbStripParam1)
+        updateStripParamVal("hue",bind.sbStripParam2)
+        updateStripParamVal("delay",bind.sbStripParam3)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fireworks" , parm1 , parm2
     private fun piFireworks(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("size")) {
-                setParamVal(1, "Size :", thisEffectData.get("size").asInt, 1, 9)
+                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 1, 9)
             }
             if (thisEffectData.has("speed")) {
-                setParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 3)
+                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 3)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upFireworks() {
-        updateParamVal("size",bind.sbStripParam1)
-        updateParamVal("speed",bind.sbStripParam2)
+        updateStripParamVal("size",bind.sbStripParam1)
+        updateStripParamVal("speed",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Fireworks 2" , parm1 , parm2
     private fun piFireworks2(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("life")) {
-                setParamVal(1, "Life :", thisEffectData.get("life").asInt, 1, 6)
+                setStripParamVal(1, "Life :", thisEffectData.get("life").asInt, 1, 6)
             }
             if (thisEffectData.has("fade")) {
-                setParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 1, 6)
+                setStripParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 1, 6)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upFireworks2(){
-        updateParamVal("life",bind.sbStripParam1)
-        updateParamVal("fade",bind.sbStripParam2)
+        updateStripParamVal("life",bind.sbStripParam1)
+        updateStripParamVal("fade",bind.sbStripParam2)
     }
     //"Sin-neon" , parm1
     private fun piSinNeon(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("phaseTime")) {
-                setParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 10, 30)
+                setStripParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 10, 30)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upSinNeon(){
-        updateParamVal("phaseTime",bind.sbStripParam1)
+        updateStripParamVal("phaseTime",bind.sbStripParam1)
     }
     //"Carusel" , parm1 , parm1
     private fun piCarusel(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("phaseTime")) {
-                setParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 5, 30)
+                setStripParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 5, 30)
             }
             if (thisEffectData.has("freq")) {
-                setParamVal(2, "Frequency :", thisEffectData.get("freq").asInt, 1, 3)
+                setStripParamVal(2, "Frequency :", thisEffectData.get("freq").asInt, 1, 3)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
 
     }
     private fun upCarusel(){
-        updateParamVal("phaseTime",bind.sbStripParam1)
-        updateParamVal("freq",bind.sbStripParam2)
+        updateStripParamVal("phaseTime",bind.sbStripParam1)
+        updateStripParamVal("freq",bind.sbStripParam2)
     }
     //"Color Wipe" , color1 , color2 , parm1 , parm2 , bool
     private fun piColorWipe(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             var col: JsonObject
@@ -1324,42 +1357,42 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("color2")){
                 col = thisEffectData.get("color2").asJsonObject
                 if (col.has("r")) { r = col.get("r").asInt }
                 if (col.has("g")) { g = col.get("g").asInt }
                 if (col.has("b")) { b = col.get("b").asInt }
-                setParamColor(2 , r , g , b)
+                setStripParamColor(2 , r , g , b)
             }
             if (thisEffectData.has("delay1")) {
-                setParamVal(1, "Delay 1:", thisEffectData.get("delay1").asInt, 10, 100)
+                setStripParamVal(1, "Delay 1:", thisEffectData.get("delay1").asInt, 10, 100)
             }
             if (thisEffectData.has("delay2")) {
-                setParamVal(2, "Delay 2:", thisEffectData.get("delay2").asInt, 10, 100)
+                setStripParamVal(2, "Delay 2:", thisEffectData.get("delay2").asInt, 10, 100)
             }
             if (thisEffectData.has("clear")){
-                setParamBool(1,"Clear :",thisEffectData.get("clear").asInt)
+                setStripParamBool(1,"Clear :",thisEffectData.get("clear").asInt)
             }
 
-            showConfirmButton()
+            showStripConfirmButton()
         }
 
     }
     private fun upColorWipe(){
-        updateParamCol("color1",bind.edStripColor1)
-        updateParamCol("color2",bind.edStripColor2)
-        updateParamVal("delay1",bind.sbStripParam1)
-        updateParamVal("delay2",bind.sbStripParam2)
-        updatParamBool("clear",bind.swStripBool1)
+        updateStripParamCol("color1",bind.edStripColor1)
+        updateStripParamCol("color2",bind.edStripColor2)
+        updateStripParamVal("delay1",bind.sbStripParam1)
+        updateStripParamVal("delay2",bind.sbStripParam2)
+        updateStripParamBool("clear",bind.swStripBool1)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Bounce bar" , color1 , parm1 , parm1
     private fun piBounceBar(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             val col: JsonObject
@@ -1371,49 +1404,49 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("size")) {
-                setParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
+                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
             }
             if (thisEffectData.has("delay")) {
-                setParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 250)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 250)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upBounceBar(){
-        updateParamCol("color",bind.edStripColor1)
-        updateParamVal("size",bind.sbStripParam1)
-        updateParamVal("delay",bind.sbStripParam2)
+        updateStripParamCol("color",bind.edStripColor1)
+        updateStripParamVal("size",bind.sbStripParam1)
+        updateStripParamVal("delay",bind.sbStripParam2)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Chillout" , parm1 , parm2
     private fun piChillout(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("heat")) {
-                setParamVal(1, "Heat :", thisEffectData.get("heat").asInt, 0, 140)
+                setStripParamVal(1, "Heat :", thisEffectData.get("heat").asInt, 0, 140)
             }
             if (thisEffectData.has("delay")) {
-                setParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 20, 70)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 20, 70)
             }
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upChillout() {
-        updateParamVal("heat",bind.sbStripParam1)
-        updateParamVal("delay",bind.sbStripParam2)
+        updateStripParamVal("heat",bind.sbStripParam1)
+        updateStripParamVal("delay",bind.sbStripParam2)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Comet", color , parm1 , parm2 , bool
     private fun piComet(){
         val index = bind.spStripEffect.selectedItemPosition
-        hideEffectInterface()
-        setEffectName(allStripData.effects[index].name)
+        hideStripEffectInterface()
+        setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             val col: JsonObject
@@ -1425,37 +1458,166 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("r")) { r = col.get("r").asInt  }
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
-                setParamColor(1 , r , g , b)
+                setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("size")) {
-                setParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
+                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
             }
             if (thisEffectData.has("delay")) {
-                setParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 100)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 100)
             }
             if (thisEffectData.has("solid")){
-                setParamBool(1,"Rainbow :",thisEffectData.get("solid").asInt)
+                setStripParamBool(1,"Rainbow :",thisEffectData.get("solid").asInt)
             }
 
-            showConfirmButton()
+            showStripConfirmButton()
         }
     }
     private fun upComet(){
-        updateParamCol("color",bind.edStripColor1)
-        updateParamVal("size",bind.sbStripParam1)
-        updateParamVal("delay",bind.sbStripParam2)
-        updatParamBool("solid",bind.swStripBool1)
+        updateStripParamCol("color",bind.edStripColor1)
+        updateStripParamVal("size",bind.sbStripParam1)
+        updateStripParamVal("delay",bind.sbStripParam2)
+        updateStripParamBool("solid",bind.swStripBool1)
         //       Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
+
+    private fun doPopupMenuSentences(thisView : View, pos : Int) {
+        val wrapper = ContextThemeWrapper(this, R.style.BasePopupMenu)
+        val sentencePopup = PopupMenu(wrapper,thisView)
+        //val sentencePopup = PopupMenu(this,thisView)
+        sentencePopup.menuInflater.inflate(R.menu.sentences_popup, sentencePopup.menu)
+        val thisItem = bind.lvPanelSentences.getItemAtPosition(pos) as jPanelSentence
+        Log.d(TAG,"PopupMenu Sentence id : ${thisItem.id} , sentence :  ${thisItem.sentence}")
+
+        sentencePopup.setOnMenuItemClickListener { it->
+            when (it.itemId){
+                R.id.sentenceSet-> {
+                    Log.d(TAG,"SET sentence")
+                }
+                R.id.sentenceNew-> {
+                    Log.d(TAG,"ADD sentence")
+                    dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderAdd))
+                }
+                R.id.sentenceEdit ->{
+                    Log.d(TAG,"EDIT sentence")
+                    dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderEdit))
+                }
+                R.id.sentenceDelete -> {
+                    Log.d(TAG,"DELETE sentence")
+                    dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderDelete))
+                }
+
+            }
+            false
+        }
+        sentencePopup.show()
+    }
+
+    private  fun dialogSentenceAction(sentence : jPanelSentence , mode : String){
+        val mDialog = Dialog(this)
+        Log.d(TAG,"Passed sentence ID : ${sentence.id} and mode $mode")
+        Log.d(TAG,"Sentence : ${sentence.sentence} ")
+        Log.d(TAG,"Font color : ${sentence.fontColor.r} , ${sentence.fontColor.g} , ${sentence.fontColor.b}" +
+                "Font id : ${sentence.fontId} ")
+        Log.d(TAG, "Background type ${sentence.bgType} , BG Id : ${sentence.bgId}")
+
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        mDialog.setContentView(R.layout.ledp_dialog)
+        mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //magic should be here
+        val tvHeader = mDialog.findViewById<View>(R.id.tvLedpHeader) as TextView
+        val etSentence = mDialog.findViewById<View>(R.id.etLedpSentence) as EditText
+        val btnColor = mDialog.findViewById<View>(R.id.btnLedpFontColor) as Button
+        val tvColor = mDialog.findViewById<View>(R.id.tvLedpFontColor) as TextView
+        val spFont = mDialog.findViewById<View>(R.id.spLedpFonts) as Spinner
+        val spEffect = mDialog.findViewById<View>(R.id.spLedpEffects) as Spinner
+        val btnConfirm =mDialog.findViewById<View>(R.id.btnLedpConfirm) as Button
+
+        //bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
+        spFont.adapter = FontListAdapter(this@MainActivity,fontList)
+        tvHeader.text = mode
+        if (mode == getString(R.string.sentenceHeaderAdd)){
+            etSentence.isEnabled = true
+            spFont.setVisibility(true)
+            btnColor.setVisibility(true)
+            tvColor.setVisibility(true)
+            spEffect.setVisibility(true)
+            etSentence.hint ="Wpisz frazę"
+            etSentence.text.clear()
+
+        }else if (mode == getString(R.string.sentenceHeaderEdit)){
+            etSentence.isEnabled = true
+            spFont.setVisibility(true)
+            btnColor.setVisibility(true)
+            tvColor.setVisibility(true)
+            spEffect.setVisibility(true)
+            etSentence.hint =""
+            etSentence.text.clear()
+            etSentence.text.append(sentence.sentence)
+
+        }else if (mode == getString(R.string.sentenceHeaderDelete)){
+            etSentence.isEnabled = false
+            spFont.setVisibility(false)
+            btnColor.setVisibility(false)
+            tvColor.setVisibility(false)
+            spEffect.setVisibility(false)
+            etSentence.text.clear()
+            etSentence.text.append(sentence.sentence)
+        }
+        spFont.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                //val testFont = spFont.getItemAtPosition(position) as String
+                //Log.d(TAG,"Lede font 0 :$testFont")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Lede font NOTHING selected")
+            }
+        }
+
+        spEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val testEffect = spEffect.getItemAtPosition(position) as String
+                Log.d(TAG,"Lede effect 0  :$testEffect")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Lede effect NOTHING selected")
+            }
+        }
+
+        btnColor.setOnClickListener {
+            Log.d(TAG,"Lede sentence color button clicked.")
+        }
+        btnConfirm.setOnClickListener {
+            Log.d(TAG,"Lede sentence : ${etSentence.text.toString()}")
+            Log.d(TAG,"Lede sentence confirm.")
+            mDialog.dismiss()
+
+        }
+        //wonderfull .....
+        mDialog.setCancelable(true)
+        mDialog.show()
+        val metrics = resources.displayMetrics
+        val width = metrics.widthPixels
+        val height = metrics.heightPixels
+        mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         bind = ActivityMainBinding.inflate(layoutInflater)
 
-        val modeList = resources.getStringArray(R.array.ModeList)
-        val paletteList = resources.getStringArray(R.array.PaletteList)
-        val customList = resources.getStringArray(R.array.TestCustomParameterList)//nad tym tez trzeba popracowac, znaczy sie wyjebac
+        stripModeList.addAll(resources.getStringArray(R.array.StripModeList))
+        stripPaletteList.addAll(resources.getStringArray(R.array.StripPaletteList))
+        stripCustomList.addAll(resources.getStringArray(R.array.TestCustomParameterList))
+
+        panelModeList.addAll(resources.getStringArray(R.array.PanelModeList))
+
         super.onCreate(savedInstanceState)
         setContentView(bind.root)
+
+
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
@@ -1476,8 +1638,9 @@ class MainActivity : AppCompatActivity(){
         piConnection() //prepare interface connection
         //piMain() //prepare interface main
         hideMainInterface()
-        hideEffectInterface()
+        hideStripEffectInterface()
 
+        piPanelMain()
         //--------------------------connection panel------------------------------------------------
         bind.spDevices.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,  view: View, position: Int, id: Long) {
@@ -1508,10 +1671,10 @@ class MainActivity : AppCompatActivity(){
             }
             //           Toast.makeText(this, "Fake Conneting to device", Toast.LENGTH_SHORT).show()
         }
-        //------------------------main settings-----------------------------------------------------
+        //------------------------main  strip settings----------------------------------------------
         //-----mode
-        val adapterMode = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modeList)
-        bind.spStripMode.adapter = adapterMode
+        //val adapterStripMode = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modeList)
+        bind.spStripMode.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripModeList)
         bind.spStripMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -1563,7 +1726,7 @@ class MainActivity : AppCompatActivity(){
                     "Bounce bar" -> piBounceBar()
                     "Chillout" -> piChillout()
                     "Comet" -> piComet()
-                    else -> hideEffectInterface()
+                    else -> hideStripEffectInterface()
                 }
 //                Toast.makeText(this@MainActivity, "E: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
             }
@@ -1572,9 +1735,9 @@ class MainActivity : AppCompatActivity(){
             }
         }
         //----time
-        bind.sbTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        bind.sbStripTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
-                bind.lbTimeVal.text = progress.toString()
+                bind.lbStripTimeVal.text = progress.toString()
             }
             override fun onStartTrackingTouch(sb: SeekBar?) {
             }
@@ -1602,7 +1765,7 @@ class MainActivity : AppCompatActivity(){
             val updatedColor = JsonObject()
             allStripData.config.mode = bind.spStripMode.selectedItemPosition
             allStripData.config.selected = bind.spStripEffect.selectedItemPosition
-            allStripData.config.time = bind.sbTime.progress
+            allStripData.config.time = bind.sbStripTime.progress
             //now color part...
             val colDraw = bind.tvStripColorMain.background as ColorDrawable
             val colInt = colDraw.color
@@ -1623,7 +1786,7 @@ class MainActivity : AppCompatActivity(){
             //prepareUpdatedConfig()// NOWA WERSJA Do poprawienia
 //            Toast.makeText(this, updatedConfig.toString(), Toast.LENGTH_LONG).show()
         }
-        //------------------------Effect settings----------------------------------------------------
+        //------------------------Strip effect settings---------------------------------------------
         //----pick color 1
         bind.btnStripColor1.setOnClickListener {
             ColorPickerDialog
@@ -1651,7 +1814,7 @@ class MainActivity : AppCompatActivity(){
                 .show()
         }
         //----palette pick
-        val adapterPalette = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,paletteList)
+        val adapterPalette = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripPaletteList)
         bind.spStripPalette.adapter = adapterPalette
         bind.spStripPalette.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -1663,7 +1826,7 @@ class MainActivity : AppCompatActivity(){
             }
         }
         //----custom pick
-        val adapterCustom = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,customList)
+        val adapterCustom = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripCustomList)
         //adapterCustom.also { bind.spCustom.adapter = it } // ?!?!!?!!?!?!??!?!?!!? JA JEBIE
         bind.spStripCustom.adapter = adapterCustom
         bind.spStripCustom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -1764,8 +1927,28 @@ class MainActivity : AppCompatActivity(){
                 "Chillout" -> upChillout()
                 "Comet" -> upComet()
             }
-            prepareUpdatedData()
-            ConnectThread(mySelectedBluetoothDevice).writeMessage(prepareUpdatedData())
+            prepareStripUpdatedData()
+            ConnectThread(mySelectedBluetoothDevice).writeMessage(prepareStripUpdatedData())
+        }
+        //------------------------Panel main settings-----------------------------------------------
+        //-----mode
+        bind.spPanelMode.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,panelModeList)
+        bind.spPanelMode.setSelection(0)
+        bind.spPanelMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                //Toast.makeText(this@MainActivity, "M: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
+        //----Panel sentence list
+        bind.lvPanelSentences.isClickable = true
+        bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
+        bind.lvPanelSentences.setOnItemLongClickListener { adapterView, view, position, id ->
+            doPopupMenuSentences(view,position)
+            false
         }
         //------------------------test panel--------------------------------------------------------
         // TEST PANEL///

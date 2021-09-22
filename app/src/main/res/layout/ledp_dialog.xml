@@ -12,7 +12,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/lede_dialog_bg">
+    android:background="@drawable/ledp_dialog_bg">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,26 +22,21 @@
         android:gravity="center"
         android:orientation="vertical" >
         <TextView
-            android:id="@+id/tvLedeHeader"
+            android:id="@+id/tvLedpHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:text="[EDYCJA]" />
 
         <EditText
-            android:id="@+id/etSentence"
+            android:id="@+id/etLedpSentence"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:textColor="@color/accent"
-            android:textSize="16sp"
-            android:hint="@string/etSentence_hint"
-            android:autofillHints="" />
+            android:layout_height="wrap_content" />
 
         <Spinner
-            android:id="@+id/spFonts"
+            android:id="@+id/spLedpFonts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10sp"
@@ -53,7 +48,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btnLedeFontColor"
+                android:id="@+id/btnLedpFontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="24dp"
@@ -62,7 +57,7 @@
                 android:text="Kolor\n czcionki"
                 android:textAllCaps="false" />
             <TextView
-                android:id="@+id/tvLedeFontColor"
+                android:id="@+id/tvLedpFontColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -76,28 +71,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spLedeEffects"
+                android:id="@+id/spLedpEffects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10sp"
-                android:entries="@array/TestLedeEffects"
-                tools:entries="@array/TestLedeEffects"
-                />
+                android:entries="@array/TestLedpEffects"
+                tools:entries="@array/TestLedpEffects"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <Button
-            android:id="@+id/btnLedeConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/btnLedeConfirm"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <Button
+                android:id="@+id/btnLedpConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/btnLedeConfirm"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
     </LinearLayout>

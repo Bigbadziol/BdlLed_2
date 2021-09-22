@@ -5,12 +5,12 @@ data class jPanelFont(
     var name : String,
     var source : String
 )
-
+//background calculated
 data class jPanelBgCalc(
     var id : Int,
     var name : String
 )
-
+//background pre-recorded
 data class jPanelBgRecorded(
     var id : Int,
     var name : String,
@@ -22,7 +22,7 @@ data class  jPanelSentence(
     var sentence  :String,
     var fontColor: jColor,
     var fontId : Int,
-    var bgType : String,
+    var bgType : String, //values "calc" or "recorded" , default first "calc"
     var bgId : Int
 )
 

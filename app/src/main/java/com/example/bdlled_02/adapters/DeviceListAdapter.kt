@@ -26,7 +26,6 @@ class DeviceListAdapter(private val  context: Activity, var items : ArrayList<De
         deviceName.text = items[position].deviceName
         deviceAdress.text = items[position].deviceAdress
 
-        //return super.getView(position, convertView, parent)
         return view
     }
 }

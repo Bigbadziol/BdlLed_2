@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdlLed_02 v2.0</string>
+    <string name="app_name">BdlLed_02 v2.18</string>
     <!-- start activity-->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
@@ -43,15 +43,31 @@
     <string name="lbTest">Jakies testowe dane</string>
     <string name="btnLedeConfirm">Potwierdź</string>
     <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
-
-    <string-array name="ModeList">
+    <string name="popupSentenceSet">Ustaw</string>
+    <string name="popupSentenceNew">Utwórz</string>
+    <string name="popupSentenceEdit">Edytuj</string>
+    <string name="popupSentenceDelete">Usuń</string>
+    <string name="sentenceHeaderAdd">[DODAJ]</string>
+    <string name="sentenceHeaderEdit">[EDYTUJ]</string>
+    <string name="sentenceHeaderDelete">[USUN]</string>
+    <!-- devices common section -->
+    <string-array name="TestDeviceList">
+        <item>LEDL_666</item>
+        <item>LEDL_001</item>
+        <item>LEDL_134</item>
+        <item>LEDL_xxx</item>
+        <item>LEDLE_001</item>
+        <item>LEDLE_115</item>
+    </string-array>
+    <!-- strip common section -->
+    <string-array name="StripModeList">
         <item>Wybrany efekt</item>
         <item>Kolejny z listy</item>
         <item>Losowy z listy </item>
         <item>Jednolity kolor</item>
     </string-array>
 
-    <string-array name="PaletteList">
+    <string-array name="StripPaletteList">
         <item>Cloud</item>
         <item>Lava</item>
         <item>Ocean</item>
@@ -60,14 +76,11 @@
         <item>Party</item>
         <item>Heat</item>
     </string-array>
-    <!-- for test only -->
-    <string-array name="TestDeviceList">
-        <item>LEDL_666</item>
-        <item>LEDL_001</item>
-        <item>LEDL_134</item>
-        <item>LEDL_xxx</item>
-        <item>LEDLE_001</item>
-        <item>LEDLE_115</item>
+
+    <string-array name="TestCustomParameterList">
+        <item> custom option 1</item>
+        <item> custom option 2</item>
+        <item> custom option 3</item>
     </string-array>
 
     <string-array name="TestEffectList">
@@ -82,19 +95,12 @@
         <item>Easing</item>
     </string-array>
 
-
+    <!-- Panel common section -->
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Kogut</item>
         <item>Zegar ?</item>
         <item>Wypas 5</item>
-    </string-array>
-
-
-    <string-array name="TestCustomParameterList">
-        <item> custom option 1</item>
-        <item> custom option 2</item>
-        <item> custom option 3</item>
     </string-array>
 
     <string-array name="TestFontList">
@@ -105,7 +111,7 @@
         <item>Font 5</item>
     </string-array>
 
-    <string-array name="TestLedeEffects">
+    <string-array name="TestLedpEffects">
         <item>Ogien</item>
         <item>Flaga</item>
         <item>Cuda na kiju</item>

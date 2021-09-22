@@ -40,4 +40,18 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <style name="BasePopupMenu" parent="@style/Widget.MaterialComponents.PopupMenu">
+    <!--<style name="BasePopupMenu" > -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/deviceRowText</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@color/deviceRowTextBackground</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:popupAnimationStyle">@null</item>
+    </style>
+
+
 </resources>
