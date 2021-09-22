@@ -288,8 +288,8 @@ class StartActivity : AppCompatActivity() {
                                     newDevices.add(device)
                                     val icon: Int
                                     if (it.name.contains("LEDS_") || it.name.contains("LEDP_")) {
-                                        if (it.name.contains("LEDS_")) icon = R.drawable.va_test //ikonka listwy
-                                        else icon = R.drawable.va_test //ikonka ekranu
+                                        if (it.name.contains("LEDS_")) icon = R.drawable.icon_strip //ikonka listwy
+                                        else icon = R.drawable.icon_panel //ikonka ekranu
                                         newDeviceList.add(DeviceListModel(it.name, it.address, icon))
                                         bind.lvNewDevices.adapter =  DeviceListAdapter(this@StartActivity,newDeviceList)
                                     }
@@ -331,8 +331,8 @@ class StartActivity : AppCompatActivity() {
                             //na okolo ale pieprzy mi sie mapowanie DeviceListModel-> Bluetooth device
                             // , zatem , robimy to troszkę na około
                             var tmpIcon = 0
-                            if (thisDevice.name.contains("LEDS_")) tmpIcon = R.drawable.va_test
-                            else if (thisDevice.name.contains("LEDP_")) tmpIcon = R.drawable.va_test
+                            if (thisDevice.name.contains("LEDS_")) tmpIcon = R.drawable.icon_strip
+                            else if (thisDevice.name.contains("LEDP_")) tmpIcon = R.drawable.icon_panel
                             val  dmDevice = DeviceListModel(thisDevice.name,thisDevice.address,tmpIcon)
                             val c = newDeviceList.contains(dmDevice)
                             val i = newDeviceList.indexOf(dmDevice)
@@ -356,14 +356,14 @@ class StartActivity : AppCompatActivity() {
         pairedDevices.forEach {
             displayDeviceDetails(DeviceItem(it.name, it.address, true)) //DEBUG LOG
             if (it.name.contains("LEDS_") || it.name.contains("LEDP_")) {
-                if (it.name.contains("LEDS_")) icon = R.drawable.va_test //ikonka listwy
-                else icon = R.drawable.va_test //ikonka ekranu
+                if (it.name.contains("LEDS_")) icon = R.drawable.icon_strip //ikonka listwy
+                else icon = R.drawable.icon_panel //ikonka ekranu
                 pairedDeviceList.add(DeviceListModel(it.name, it.address, icon))
                 myDevices++
             }
         }
         if (myDevices == 0){
-            pairedDeviceList.add(DeviceListModel(NO_DEVICE_NAME,NO_DEVICE_ADDRESS,R.drawable.va_test))
+            pairedDeviceList.add(DeviceListModel(NO_DEVICE_NAME,NO_DEVICE_ADDRESS,R.drawable.icon_no_devices))
         }
         bind.lvPairedDevices.adapter =  DeviceListAdapter(this,pairedDeviceList)
         //bind.lvPairedDevices.deferNotifyDataSetChanged() nie uzywac , powoduje odroczenie dla zmian adaptera defakto
