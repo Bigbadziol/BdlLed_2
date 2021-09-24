@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(){
     var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
     var sentenceList: ArrayList<jPanelSentence> = ArrayList()
     var fontList : ArrayList<jPanelFont> = ArrayList()
-    var bgCalcList : ArrayList<jPanelBgCalc> = ArrayList()
+    var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
 
 
     //----------------------------------------------------------------------------------------------
@@ -325,7 +325,7 @@ class MainActivity : AppCompatActivity(){
         */
         sentenceList.addAll(allPanelData.sentences)
         fontList.addAll(allPanelData.fonts)
-        bgCalcList.addAll(allPanelData.bgCalc)
+        backgroundList.addAll(allPanelData.backgrounds)
 
         with(bind,{
             lbPanelMode.setVisibility(true)
@@ -354,7 +354,9 @@ class MainActivity : AppCompatActivity(){
     private fun hideStripEffectInterface(){
         bind.tvStripEffectName.text = resources.getString(R.string.tvEffectName)
         bind.edStripColor1.setBackgroundColor(Color.parseColor("#000000"))
+        bind.btnStripColor1.text = getString(R.string.btnColor1)
         bind.edStripColor2.setBackgroundColor(Color.parseColor("#000000"))
+        bind.btnStripColor2.text = getString(R.string.btnColor2)
         bind.lbStripPalette.text = resources.getString(R.string.lbPalette)
         bind.spStripPalette.setSelection(0)
         //TAKIE TROCHE NA PALE
@@ -732,10 +734,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
+                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 1, 25)
             }
             if (thisEffectData.has("fade")) {
-                setStripParamVal(2, "Fade:", thisEffectData.get("fade").asInt, 5, 25)
+                setStripParamVal(2, "Fade:", thisEffectData.get("fade").asInt, 1, 20)
             }
             showStripConfirmButton()
         }
@@ -756,7 +758,7 @@ class MainActivity : AppCompatActivity(){
                 setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Speed :", thisEffectData.get("bpm").asInt, 10, 120)
+                setStripParamVal(1, "Speed :", thisEffectData.get("bpm").asInt, 1, 12)
             }
             showStripConfirmButton()
         }
@@ -777,7 +779,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Step :", thisEffectData.get("stepHue").asInt, 1, 8)
             }
             if (thisEffectData.has("fade")) {
-                setStripParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 5, 32)
+                setStripParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 1, 25)
             }
             showStripConfirmButton()
         }
@@ -813,10 +815,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(2 , r , g , b)
             }
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 5, 32)
+                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 1, 7)
             }
             if (thisEffectData.has("fadeMod")) {
-                setStripParamVal(2, "Fade:", thisEffectData.get("fadeMod").asInt, 5, 25)
+                setStripParamVal(2, "Fade:", thisEffectData.get("fadeMod").asInt, 1, 10)
             }
             showStripConfirmButton()
         }
@@ -879,10 +881,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Fade :", thisEffectData.get("bpm").asInt, 1, 20)
             }
             if (thisEffectData.has("low")) {
-                setStripParamVal(2, "Low :", thisEffectData.get("low").asInt, 5, 50)
+                setStripParamVal(2, "Low :", thisEffectData.get("low").asInt, 1, 5)
             }
             if (thisEffectData.has("high")) {
-                setStripParamVal(3, "High :", thisEffectData.get("high").asInt, 100, 200)
+                setStripParamVal(3, "High :", thisEffectData.get("high").asInt, 1, 10)
             }
             showStripConfirmButton()
         }
@@ -923,10 +925,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("cooling")) {
-                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
+                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 1, 9)
             }
             if (thisEffectData.has("sparking")) {
-                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
+                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 1, 16)
             }
             showStripConfirmButton()
         }
@@ -944,10 +946,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("cooling")) {
-                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 20, 100)
+                setStripParamVal(1, "Cooling :", thisEffectData.get("cooling").asInt, 1, 9)
             }
             if (thisEffectData.has("sparking")) {
-                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 50, 200)
+                setStripParamVal(2, "Sparking:", thisEffectData.get("sparking").asInt, 1, 16)
             }
             showStripConfirmButton()
         }
@@ -968,7 +970,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Adjust :", thisEffectData.get("adjust").asInt, 1, 24)
             }
             if (thisEffectData.has("nextBlend")) {
-                setStripParamVal(2, "Next blend :", thisEffectData.get("nextBlend").asInt, 5, 30)
+                setStripParamVal(2, "Next blend :", thisEffectData.get("nextBlend").asInt, 1, 6)
             }
             showStripConfirmButton()
         }
@@ -995,10 +997,10 @@ class MainActivity : AppCompatActivity(){
                 setStripCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
             }
             if (thisEffectData.has("intensity")) {
-                setStripParamVal(1, "Intensity :", thisEffectData.get("intensity").asInt, 1, 10)
+                setStripParamVal(1, "Intensity :", thisEffectData.get("intensity").asInt, 1, 5)
             }
             if (thisEffectData.has("speed")) {
-                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 20)
+                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 5)
             }
 
             showStripConfirmButton()
@@ -1026,7 +1028,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Low :", thisEffectData.get("low").asInt, 1, 10)
             }
             if (thisEffectData.has("high")) {
-                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 11, 20)
+                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 1, 10)
             }
             showStripConfirmButton()
         }
@@ -1131,9 +1133,10 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
                 setStripParamColor(1 , r , g , b)
+                bind.btnStripColor1.text ="Background"
             }
             if (thisEffectData.has("bgBright")) {
-                setStripParamVal(1, "Fade :", thisEffectData.get("bgBright").asInt, 0, 50)
+                setStripParamVal(1, "Fade :", thisEffectData.get("bgBright").asInt, 1, 10)
             }
             if (thisEffectData.has("bgStatic")){
                 setStripParamBool(1,"Static :",thisEffectData.get("bgStatic").asInt)
@@ -1176,13 +1179,13 @@ class MainActivity : AppCompatActivity(){
                 setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("low")) {
-                setStripParamVal(1, "Low :", thisEffectData.get("low").asInt, -128, -32)
+                setStripParamVal(1, "Low :", thisEffectData.get("low").asInt, 1, 13)
             }
             if (thisEffectData.has("high")) {
-                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 32, 128)
+                setStripParamVal(2, "High :", thisEffectData.get("high").asInt, 1, 13)
             }
-            if (thisEffectData.has("calcMod")) {
-                setStripParamVal(3, "Speed :", thisEffectData.get("calcMod").asInt, 1, 5)
+            if (thisEffectData.has("speed")) {
+                setStripParamVal(3, "Speed :", thisEffectData.get("speed").asInt, 1, 5)
             }
             showStripConfirmButton()
         }
@@ -1191,7 +1194,7 @@ class MainActivity : AppCompatActivity(){
         updateStripPalette("pIndex")
         updateStripParamVal("low",bind.sbStripParam1)
         updateStripParamVal("high",bind.sbStripParam2)
-        updateStripParamVal("calcMod",bind.sbStripParam3)
+        updateStripParamVal("speed",bind.sbStripParam3)
 //        Toast.makeText(this, prepareUpdatedData(), Toast.LENGTH_LONG).show()
     }
     //"Rainbow sine" , parm1 , parm2
@@ -1202,10 +1205,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 8, 48)
+                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 1, 6)
             }
             if (thisEffectData.has("hueStep")) {
-                setStripParamVal(2, "Step :", thisEffectData.get("hueStep").asInt, 2, 16)
+                setStripParamVal(2, "Step :", thisEffectData.get("hueStep").asInt, 1, 8)
             }
             showStripConfirmButton()
         }
@@ -1223,10 +1226,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 1, 10)
+                setStripParamVal(1, "Speed :", thisEffectData.get("speed").asInt, 1, 9)
             }
             if (thisEffectData.has("delta")) {
-                setStripParamVal(2, "Delta :", thisEffectData.get("delta").asInt, 1, 10)
+                setStripParamVal(2, "Delta :", thisEffectData.get("delta").asInt, 1, 9)
             }
             showStripConfirmButton()
         }
@@ -1255,10 +1258,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Rotation :", thisEffectData.get("rot").asInt, 1, 5)
             }
             if (thisEffectData.has("hue")) {
-                setStripParamVal(2, "Hue:", thisEffectData.get("hue").asInt, 1, 20)
+                setStripParamVal(2, "Hue:", thisEffectData.get("hue").asInt, 1, 10)
             }
             if (thisEffectData.has("delay")) {
-                setStripParamVal(3, "Delay :", thisEffectData.get("delay").asInt, 10, 50)
+                setStripParamVal(3, "Delay :", thisEffectData.get("delay").asInt, 1, 5)
             }
             showStripConfirmButton()
         }else{
@@ -1283,7 +1286,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 1, 9)
             }
             if (thisEffectData.has("speed")) {
-                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 3)
+                setStripParamVal(2, "Speed :", thisEffectData.get("speed").asInt, 1, 4)
             }
             showStripConfirmButton()
         }
@@ -1313,13 +1316,20 @@ class MainActivity : AppCompatActivity(){
         updateStripParamVal("life",bind.sbStripParam1)
         updateStripParamVal("fade",bind.sbStripParam2)
     }
-    //"Sin-neon" , parm1
+    //"Sin-neon" custom , parm1
     private fun piSinNeon(){
         val index = bind.spStripEffect.selectedItemPosition
         hideStripEffectInterface()
         setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
+            if (thisEffectData.has("mode")) {
+                val customParams = arrayOf(
+                    "step by step",
+                    "random phase",
+                )
+                setStripCustom("Mode :", customParams,thisEffectData.get("mode").asInt)
+            }
             if (thisEffectData.has("phaseTime")) {
                 setStripParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 10, 30)
             }
@@ -1327,15 +1337,23 @@ class MainActivity : AppCompatActivity(){
         }
     }
     private fun upSinNeon(){
+        updateStripCustom("mode") //data gets form spCustom
         updateStripParamVal("phaseTime",bind.sbStripParam1)
     }
-    //"Carusel" , parm1 , parm1
+    //"Carusel" , custom, parm1 , parm1
     private fun piCarusel(){
         val index = bind.spStripEffect.selectedItemPosition
         hideStripEffectInterface()
         setStripEffectName(allStripData.effects[index].name)
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
+            if (thisEffectData.has("mode")) {
+                val customParams = arrayOf(
+                    "step by step",
+                    "random phase",
+                )
+                setStripCustom("Mode :", customParams,thisEffectData.get("mode").asInt)
+            }
             if (thisEffectData.has("phaseTime")) {
                 setStripParamVal(1, "Next phase(sec) :", thisEffectData.get("phaseTime").asInt, 5, 30)
             }
@@ -1347,6 +1365,7 @@ class MainActivity : AppCompatActivity(){
 
     }
     private fun upCarusel(){
+        updateStripCustom("mode") //data gets form spCustom
         updateStripParamVal("phaseTime",bind.sbStripParam1)
         updateStripParamVal("freq",bind.sbStripParam2)
     }
@@ -1376,10 +1395,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(2 , r , g , b)
             }
             if (thisEffectData.has("delay1")) {
-                setStripParamVal(1, "Delay 1:", thisEffectData.get("delay1").asInt, 10, 100)
+                setStripParamVal(1, "Delay 1:", thisEffectData.get("delay1").asInt, 1, 10)
             }
             if (thisEffectData.has("delay2")) {
-                setStripParamVal(2, "Delay 2:", thisEffectData.get("delay2").asInt, 10, 100)
+                setStripParamVal(2, "Delay 2:", thisEffectData.get("delay2").asInt, 1, 10)
             }
             if (thisEffectData.has("clear")){
                 setStripParamBool(1,"Clear :",thisEffectData.get("clear").asInt)
@@ -1416,10 +1435,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("size")) {
-                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
+                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 1, 8)
             }
             if (thisEffectData.has("delay")) {
-                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 250)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 1, 6)
             }
             showStripConfirmButton()
         }
@@ -1438,10 +1457,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("heat")) {
-                setStripParamVal(1, "Heat :", thisEffectData.get("heat").asInt, 0, 140)
+                setStripParamVal(1, "Heat :", thisEffectData.get("heat").asInt, 1, 15)
             }
             if (thisEffectData.has("delay")) {
-                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 20, 70)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 1, 6)
             }
             showStripConfirmButton()
         }
@@ -1470,10 +1489,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("size")) {
-                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 3, 10)
+                setStripParamVal(1, "Size :", thisEffectData.get("size").asInt, 1, 7)
             }
             if (thisEffectData.has("delay")) {
-                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 10, 100)
+                setStripParamVal(2, "Delay :", thisEffectData.get("delay").asInt, 1, 10)
             }
             if (thisEffectData.has("solid")){
                 setStripParamBool(1,"Rainbow :",thisEffectData.get("solid").asInt)
@@ -1531,7 +1550,7 @@ class MainActivity : AppCompatActivity(){
         Log.d(TAG,"Sentence : ${sentence.sentence} ")
         Log.d(TAG,"Font color : ${sentence.fontColor.r} , ${sentence.fontColor.g} , ${sentence.fontColor.b}" +
                 "Font id : ${sentence.fontId} ")
-        Log.d(TAG, "Background type ${sentence.bgType} , BG Id : ${sentence.bgId}")
+        Log.d(TAG, "Background  Id : ${sentence.bgId}")
 
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
@@ -1548,15 +1567,12 @@ class MainActivity : AppCompatActivity(){
         val newSentence = jPanelSentence()
 
         spFont.adapter = FontListAdapter(this@MainActivity,fontList)
-        spEffect.adapter = BgCalcAdapter(this@MainActivity,bgCalcList)
+        spEffect.adapter = BgCalcAdapter(this@MainActivity,backgroundList)
 
         tvHeader.text = mode
         spFont.setSelection(sentence.fontId)
-        if(sentence.bgType == "calc") {
-            spEffect.setSelection(sentence.bgId)
-        }else{
-            Log.d(TAG, "This type of background , not handled now")
-        }
+
+        spEffect.setSelection(sentence.bgId) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         tvColor.setBackgroundColor(Color.rgb(sentence.fontColor.r, sentence.fontColor.g,sentence.fontColor.b))
 
@@ -1663,10 +1679,9 @@ class MainActivity : AppCompatActivity(){
         spEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val thisBgCalc = spEffect.getItemAtPosition(position) as jPanelBgCalc
-                newSentence.bgType="calc"
-                newSentence.bgId = thisBgCalc.id
-                Log.d(TAG,"Background calculated  : ${thisBgCalc.toString()}")
+                val thisBackground = spEffect.getItemAtPosition(position) as jPanelBackgrounds
+                newSentence.bgId = thisBackground.id
+                Log.d(TAG,"Background : ${thisBackground.toString()}")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -2020,7 +2035,7 @@ class MainActivity : AppCompatActivity(){
                 "Fire 2" -> upFire2()
                 "Noise 1" -> upNoise1()
                 "Juggle 2" -> upJuggle2()
-                "Running col    or dots" -> upRunningColorDots()
+                "Running color dots" -> upRunningColorDots()
                 "Disco 1" -> upDisco1()
                 "Running color dots 2" -> upRunningColorDots2()
                 "Disco dots" -> upDiscoDots()

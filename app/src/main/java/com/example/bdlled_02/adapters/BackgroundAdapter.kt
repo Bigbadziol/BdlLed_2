@@ -4,15 +4,14 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.bdlled_02.DeviceListModel
 import com.example.bdlled_02.R
-import com.example.bdlled_02.jPanelBgCalc
+import com.example.bdlled_02.jPanelBackgrounds
+
 
 //Background calculated , only for panel devices
-class BgCalcAdapter(private val  context: Activity, var items : ArrayList<jPanelBgCalc>)
+class BgCalcAdapter(private val  context: Activity, var items : ArrayList<jPanelBackgrounds>)
     : BaseAdapter(){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)

@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="LabelFor" />
 
         <Spinner
             android:id="@+id/spLedpFonts"
@@ -51,15 +52,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLedpFontColor"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="3dp"
                 android:text="@string/btnLedpFontColor"
-                android:textAllCaps="false" />
+                android:textAllCaps="true" />
             <TextView
                 android:id="@+id/tvLedpFontColor"
                 android:layout_width="match_parent"
@@ -89,14 +89,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLedpConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
 
                 android:text="@string/btnLedeConfirm"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 

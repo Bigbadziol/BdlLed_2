@@ -27,13 +27,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnConnect"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/btnConnect"
-                    style="@style/buttonMainActivity"
                     tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
 
                 <Spinner
@@ -159,13 +158,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStripColorMain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/btnColorMain"
-                    style="@style/buttonMainActivity"/>
+                    android:text="@string/btnColorMain" />
 
                 <TextView
                     android:id="@+id/tvStripColorMain"
@@ -186,12 +184,11 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStripMainConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/buttonMainActivity"
                     android:text="@string/btnMainConfirm" />
 
             </TableRow>
@@ -223,13 +220,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStripColor1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/btnColor1"
-                    style="@style/buttonMainActivity"/>
+                    android:text="@string/btnColor1" />
 
                 <TextView
                     android:id="@+id/edStripColor1"
@@ -248,13 +244,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStripColor2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/btnColor2"
-                    style="@style/buttonMainActivity"/>
+                    android:text="@string/btnColor2"/>
 
                 <TextView
                     android:id="@+id/edStripColor2"
@@ -509,12 +504,11 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStripEffectConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/buttonMainActivity"
                     android:text="@string/btnEffectConfirm" />
             </TableRow>
         </TableLayout>
@@ -556,12 +550,11 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPanelMainConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/buttonMainActivity"
                     android:text="@string/btnMainConfirm" />
             </TableRow>
         </TableLayout>
@@ -585,6 +578,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/sentence_list_row" />
+
         </LinearLayout>
 
 
@@ -631,8 +625,16 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:layout_marginStart="5dp"
                 android:text="@string/btnTest4"
                 style="?android:attr/buttonBarButtonStyle" />
+            <!-- teraz jest tu -->
+            <TextView
+                android:id="@+id/lbTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbTest"
+                />
         </LinearLayout>
-        <!-- PANEL TEST PART 2 -->
+        <!-- PANEL TEST PART 2 , przeniesione pienterko wyzej -->
+        <!--
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -644,5 +646,6 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:text="@string/lbTest"
                 />
         </ScrollView>
+        -->
     </LinearLayout>
 </ScrollView>

@@ -6,52 +6,59 @@ var jsonPanelDataTest_small : String = """
   "cmd" : "xxx",
   "fonts": [
     {
-      "id": 0,
-      "name": "Alconica plain [L]",
-      "source": "Alconica_plain_14"
+        "id": 0,
+        "name": "Alconica plain [L]",
+        "source": "Alconica_plain_14"
     },
     {
-      "id": 1,
-      "name": "Crafty Girls bold [L]",
-      "source": "Crafty_Girls_bold_14"
+        "id": 1,
+        "name": "Crafty Girls bold [L]",
+        "source": "Crafty_Girls_bold_14"
     },
     {
-      "id": 2,
-      "name": "Dialog bold [L]",
-      "source": "Dialog_bold_14"
+        "id": 2,
+        "name": "Dialog bold [L]",
+        "source": "Dialog_bold_14"
     },
     {
-      "id": 3,
-      "name": "Dialog plain [S]",
-      "source": "Dialog_plain_10"
+        "id": 3,
+        "name": "Dialog plain [S]",
+        "source": "Dialog_plain_10"
     }
   ],
-  "bgCalc": [
-    {
-      "id": 0,
-      "name": "Turbo magic"
+  "backgrounds": [
+    {    
+        "id": 0,
+        "bgType": "calc",        
+        "name": "Turbo magic",
+        "source": ""
     },
     {
-      "id": 1,
-      "name": "Hell fire"
+        "id": 1,
+        "bgType": "calc",      
+        "name": "Hell fire",
+        "source": ""        
     },
     {
-      "id": 2,
-      "name": "Three balls"
-    }
+        "id": 2,
+        "bgType": "calc",      
+        "name": "Three balls",
+        "source": ""        
+    },
+    {
+        "id": 100,
+        "bgType": "recorded",        
+        "name": "Plasma",
+        "source": "plasma1.d"
+    },
+    {
+        "id": 101,
+        "bgType": "recorded",              
+        "name": "Sine",
+        "source": "sine.d"
+    }    
   ],
-  "bgRecorded": [
-    {
-      "id": 0,
-      "name": "Plasma",
-      "source": "plasma1.d"
-    },
-    {
-      "id": 1,
-      "name": "Sine",
-      "source": "sine.d"
-    }
-  ],
+
   "sentences": [
     {
       "id": 0,

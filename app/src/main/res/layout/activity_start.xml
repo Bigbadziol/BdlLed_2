@@ -52,20 +52,21 @@
         tools:listitem="@layout/device_list_row"
         />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:text="@string/btnNext"
          tools:ignore="TextContrastCheck" />
-    <Button
+<!--
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTest0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/myButton"
         android:text="TEST 00"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="TextContrastCheck" />
+-->
 
 </LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdlLed_02 v2.40</string>
+    <string name="app_name">BdlLed_02 v2.45</string>
     <!-- start activity-->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>

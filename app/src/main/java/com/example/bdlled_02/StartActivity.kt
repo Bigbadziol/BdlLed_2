@@ -2,7 +2,6 @@
 package com.example.bdlled_02
 
 import android.Manifest
-import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
@@ -11,18 +10,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.view.Window
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
@@ -196,9 +192,6 @@ class StartActivity : AppCompatActivity() {
 
     }
 
-
-
-
     private fun buildInterfaceOk() {
         Log.d(TAG, "BUILDING INTERFACE : all is fine in theory")
         //1) Set header
@@ -256,18 +249,14 @@ class StartActivity : AppCompatActivity() {
                 info.show()
             }
         }
-        bind.btnTest0.setOnClickListener {
 
-        }
+//        bind.btnTest0.setOnClickListener {}
     }
-
-
 
     private fun buildInterfaceError() {
         Log.d(TAG, "BUILDING INTERFACE : errors")
         bind.tvWelcome.text = getString(R.string.tvWelcomeError)
     }
-
     /*
         Init broadcast reciver for new devices
      */
@@ -444,9 +433,6 @@ class StartActivity : AppCompatActivity() {
         val info=  "$prefix Bluetooth device found: ${device.name}  address: ${device.address} ."
         Log.d(TAG, info)
     }
-
-
-
 
     /*
         Check if i got all needed permission
