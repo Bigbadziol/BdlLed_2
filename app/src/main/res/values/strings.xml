@@ -105,12 +105,25 @@
         <item>Wypas 5</item>
     </string-array>
 
-    <string-array name="TestFontList">
+    <string-array name="TestFontName">
         <item>Font 1</item>
         <item>Font 2</item>
         <item>Font 3</item>
         <item>Font 4</item>
         <item>Font 5</item>
+    </string-array>
+
+    <string-array name="FontSize">
+        <item>Mały</item>
+        <item>Sredi</item>
+        <item>Duży</item>
+    </string-array>
+
+    <string-array name="FontDecoration">
+        <item>brak</item>
+        <item>pogrub</item>
+        <item>pochyl</item>
+        <item>pogrub i pochyl</item>
     </string-array>
 
     <string-array name="TestLedpEffects">

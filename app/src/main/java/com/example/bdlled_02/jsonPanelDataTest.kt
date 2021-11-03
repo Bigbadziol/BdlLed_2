@@ -7,94 +7,333 @@ var jsonPanelDataTest_small : String = """
   "fonts": [
     {
         "id": 0,
-        "name": "Alconica plain [L]",
-        "source": "Alconica_plain_14"
+        "name": "Dialog"
     },
     {
         "id": 1,
-        "name": "Crafty Girls bold [L]",
-        "source": "Crafty_Girls_bold_14"
+        "name": "Chewy"
     },
     {
         "id": 2,
-        "name": "Dialog bold [L]",
-        "source": "Dialog_bold_14"
-    },
-    {
-        "id": 3,
-        "name": "Dialog plain [S]",
-        "source": "Dialog_plain_10"
+        "name": "Orbiton"
     }
   ],
   "backgrounds": [
-    {    
-        "id": 0,
-        "bgType": "calc",        
-        "name": "Turbo magic",
-        "source": ""
+     {
+      "name": "Dark net",
+      "editable": 0,
+      "type": 10
     },
     {
-        "id": 1,
-        "bgType": "calc",      
-        "name": "Hell fire",
-        "source": ""        
+      "name": "Drops",
+      "editable": 0,
+      "type": 10
     },
     {
-        "id": 2,
-        "bgType": "calc",      
-        "name": "Three balls",
-        "source": ""        
+      "name": "Light lines",
+      "editable": 0,
+      "type": 10
     },
     {
-        "id": 100,
-        "bgType": "recorded",        
-        "name": "Plasma",
-        "source": "plasma1.d"
+      "name": "Spiral",
+      "editable": 0,
+      "type": 10
     },
     {
-        "id": 101,
-        "bgType": "recorded",              
-        "name": "Sine",
-        "source": "sine.d"
-    }    
+      "name": "Squaeres",
+      "editable": 0,
+      "type": 10
+    },
+    {
+      "name": "Stars",
+      "editable": 0,
+      "type": 10
+    },
+    {
+      "name": "Fire 1",
+      "editable": 1,
+      "type": 30
+    },
+    {
+      "name": "Fire 2",
+      "editable": 1,
+      "type": 30
+    },
+    {
+      "name": "Fire 3",
+      "editable": 1,
+      "type": 30
+    },
+    {
+      "name": "Rain",
+      "editable": 1,
+      "type": 30
+    }  
   ],
 
   "sentences": [
     {
       "id": 0,
       "sentence": "Jacek jedzie",
-      "fontColor": {
-        "r": 255,
-        "g": 128,
-        "b": 34
+      "scrollDelay": 25,
+      "bgDelay": 30,
+      "font": {
+        "fontId": 0,
+        "fontType": "mb",
+        "color": {
+          "r": 255,
+          "g": 128,
+          "b": 34
+        }
       },
-      "fontId": 1,
-      "bgType": "calc",
-      "bgId": 0
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 6
+        }
+      },
+      "background": {
+        "name": "Rain",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "color1Start": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          },
+          "color1Stop": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "color2Start": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "color2Stop": {
+            "r": 32,
+            "g": 0,
+            "b": 0
+          },
+          "fillBg": 0
+        }
+      }
     },
     {
       "id": 1,
-      "sentence": "Spierdalać z drogi",
-      "fontColor": {
-        "r": 255,
-        "g": 0,
-        "b": 0
+      "sentence": "Fire 1 Fire 1",
+      "scrollDelay": 20,
+      "bgDelay": 30,
+      "font": {
+        "fontId": 1,
+        "fontType": "mb",
+        "color": {
+          "r": 0,
+          "g": 128,
+          "b": 196
+        }
       },
-      "fontId": 2,
-      "bgType": "calc",
-      "bgId": 1
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 0
+        }
+      },
+      "background": {
+        "name": "Fire 1",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "flareRows": 2,
+          "flareChance": 3,
+          "flareDecay": 6,
+          "dir": 2
+        }
+      }
     },
     {
       "id": 2,
-      "sentence": "W moich żyłach disel płynie",
-      "fontColor": {
-        "r": 10,
-        "g": 40,
-        "b": 95
+      "sentence": "GreeN",
+      "scrollDelay": 25,
+      "bgDelay": 35,
+      "font": {
+        "fontId": 2,
+        "fontType": "mb",
+        "color": {
+          "r": 0,
+          "g": 255,
+          "b": 0
+        }
       },
-      "fontId": 3,
-      "bgType": "calc",
-      "bgId": 2
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 2
+        }
+      },
+      "background": {
+        "name": "Fire 2",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "palette": 2,
+          "heat": 2
+        }
+      }
+    },
+    {
+      "id": 3,
+      "sentence": "Fire 3 Fire 3 ",
+      "scrollDelay": 25,
+      "bgDelay": 35,
+      "font": {
+        "fontId": 0,
+        "fontType": "mb",
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 255
+        }
+      },
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 6
+        }
+      },
+      "background": {
+        "name": "Fire 3",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "palette": 0,
+          "cooling": 6,
+          "sparking": 11
+        }
+      }
+    },
+    {
+      "id": 4,
+      "sentence": "ID4: text jakis dlugi itd. ",
+      "scrollDelay": 25,
+      "bgDelay": 35,
+      "font": {
+        "fontId": 0,
+        "fontType": "mb",
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 255
+        }
+      },
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 1
+        }
+      },
+      "background": {
+        "name": "Spiral",
+        "editable": 0,
+        "type": 10,
+        "data": {
+          "source": "spiral1.out",
+          "loop": 1
+        }
+      }
+    },
+    {
+      "id": 156,
+      "sentence": "handle ADD",
+      "scrollDelay": 20,
+      "bgDelay": 30,
+      "font": {
+        "fontId": 0,
+        "fontType": "mb",
+        "olor": {
+          "": 34
+        }
+      },
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 3
+        }
+      },
+      "background": {
+        "name": "Rain",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "color1Start": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+          },
+          "color1Stop": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "color2Start": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "color2Stop": {
+            "r": 32,
+            "g": 0,
+            "b": 0
+          },
+          "fillBg": 0
+        }
+      }
+    },
+    {
+      "id": 157,
+      "sentence": "Update1",
+      "scrollDelay": 30,
+      "bgDelay": 30,
+      "font": {
+        "fontId": 2,
+        "fontType": "mb",
+        "color": {
+          "r": 255,
+          "g": 0,
+          "b": 255
+        }
+      },
+      "textEffect": {
+        "name": "Scroll",
+        "editable": 1,
+        "type": 100,
+        "data": {
+          "scrollType": 2
+        }
+      },
+      "background": {
+        "name": "Fire 2",
+        "editable": 1,
+        "type": 30,
+        "data": {
+          "heat": 2,
+          "palette": 3
+        }
+      }
     }
   ]
 }    

@@ -36,6 +36,7 @@ import kotlin.collections.ArrayList
 
 
 
+//szukac fontID
 
 const val SERVICE_NAME = "KrzysService"
 //val uuid: UUID = UUID.fromString("06AE0A74-7BD4-43AA-AB5D-2511F3F6BAB1")
@@ -1548,9 +1549,9 @@ class MainActivity : AppCompatActivity(){
         val mDialog = Dialog(this)
         Log.d(TAG,"Passed sentence ID : ${sentence.id} and mode $mode")
         Log.d(TAG,"Sentence : ${sentence.sentence} ")
-        Log.d(TAG,"Font color : ${sentence.fontColor.r} , ${sentence.fontColor.g} , ${sentence.fontColor.b}" +
-                "Font id : ${sentence.fontId} ")
-        Log.d(TAG, "Background  Id : ${sentence.bgId}")
+//        Log.d(TAG,"Font color : ${sentence.fontColor.r} , ${sentence.fontColor.g} , ${sentence.fontColor.b}" +
+//               "Font id : ${sentence.fontId} ")
+//        Log.d(TAG, "Background  Id : ${sentence.bgId}")
 
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
@@ -1570,11 +1571,11 @@ class MainActivity : AppCompatActivity(){
         spEffect.adapter = BgCalcAdapter(this@MainActivity,backgroundList)
 
         tvHeader.text = mode
-        spFont.setSelection(sentence.fontId)
+//        spFont.setSelection(sentence.fontId)
 
-        spEffect.setSelection(sentence.bgId) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        spEffect.setSelection(sentence.bgId) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        tvColor.setBackgroundColor(Color.rgb(sentence.fontColor.r, sentence.fontColor.g,sentence.fontColor.b))
+//        tvColor.setBackgroundColor(Color.rgb(sentence.fontColor.r, sentence.fontColor.g,sentence.fontColor.b))
 
         fun enableInterface(){
             etSentence.isEnabled = true
@@ -1594,9 +1595,9 @@ class MainActivity : AppCompatActivity(){
             val colDraw = bind.tvStripColorMain.background as ColorDrawable
             val colInt = colDraw.color
             newSentence.sentence = etSentence.text.toString()
-            newSentence.fontColor.r = Color.red(colInt)
-            newSentence.fontColor.g = Color.green(colInt)
-            newSentence.fontColor.b = Color.blue(colInt)
+//            newSentence.fontColor.r = Color.red(colInt)
+//            newSentence.fontColor.g = Color.green(colInt)
+//            newSentence.fontColor.b = Color.blue(colInt)
         }
         fun addSentence(){
             Log.d(TAG, "TESTING ADD : ")
@@ -1668,7 +1669,7 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val thisFont = spFont.getItemAtPosition(position) as jPanelFont
-                newSentence.fontId = thisFont.id
+ //               newSentence.fontId = thisFont.id
                 Log.d(TAG,"Led panel font :${thisFont.toString()}")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -1680,7 +1681,7 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val thisBackground = spEffect.getItemAtPosition(position) as jPanelBackgrounds
-                newSentence.bgId = thisBackground.id
+ //               newSentence.bgId = thisBackground.id
                 Log.d(TAG,"Background : ${thisBackground.toString()}")
             }
 

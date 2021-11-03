@@ -1,26 +1,27 @@
 package com.example.bdlled_02
 
+import com.google.gson.JsonObject
+
 data class jPanelFont(
     var id : Int,
-    var name : String,
-    var source : String
+    var name : String
 )
 //background
 data class jPanelBackgrounds(
-    var id : Int = 0 ,
-    var bgType : String="", //values "calc" or "recorded" , default first "calc"
     var name : String="",
-    var source : String=""
+    var editable : Int= 0,
+    var type : Int = 0
 )
 
 
 data class  jPanelSentence(
     var id : Int=0,
     var sentence  :String="",
-    var fontColor: jColor = jColor(),
-    var fontId : Int= 0,
-    var bgId : Int = 0
-
+    var scrollDelay : Int = 0,
+    var bgDelay : Int = 0,
+    var font : JsonObject = JsonObject(),       //added = JsonObject
+    var texEffect : JsonObject = JsonObject(),  //added = JsonObject
+    var background : JsonObject = JsonObject()  //added = JsonObject
 )
 
 data class jPanelData(

@@ -29,14 +29,11 @@
             android:textStyle="bold"
             android:textSize="24sp"
             tools:text="[EDYCJA]" />
-
         <EditText
             android:id="@+id/etLedpSentence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:inputType="text"
-            tools:ignore="LabelFor" />
+            android:text="Wpisz sentencje" />
 
         <Spinner
             android:id="@+id/spLedpFonts"
@@ -44,8 +41,32 @@
             android:layout_height="wrap_content"
             android:minHeight="36sp"
             android:paddingTop="10sp"
-            android:entries="@array/TestFontList"
-            tools:entries="@array/TestFontList" />
+            android:entries="@array/TestFontName"
+            tools:entries="@array/TestFontName" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20sp">
+            <Spinner
+                android:id="@+id/spLedpFontSize"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:minHeight="36sp"
+                android:entries="@array/FontSize"
+                tools:entries="@array/FontSize"
+                />
+            <Spinner
+                android:id="@+id/spLedpFontType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="36sp"
+                android:entries="@array/FontDecoration"
+                tools:entries="@array/FontDecoration"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
