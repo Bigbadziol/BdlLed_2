@@ -21,6 +21,8 @@
     <string name="lbTimeVal">0</string>
     <string name="btnColor1">Kolor 1</string>
     <string name="btnColor2">Kolor 2</string>
+    <string name="btnColor3">Kolor 3</string>
+    <string name="btnColor4">Kolor 4</string>
     <string name="btnTest1">test 1</string>
     <string name="btnTest2">test 2</string>
     <string name="btnTest3">test 3</string>
@@ -51,7 +53,7 @@
     <string name="sentenceHeaderEdit">[EDYTUJ]</string>
     <string name="sentenceHeaderDelete">[USUN]</string>
     <string name="tvSentenceListHeader">Sentencje</string>
-    <string name="btnLedpFontColor">Kolor\n czcionki</string>
+    <string name="btnPanelFontColor">Czcionka</string>
     <!-- devices common section -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>

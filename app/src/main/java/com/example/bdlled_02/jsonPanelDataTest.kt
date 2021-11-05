@@ -18,6 +18,20 @@ var jsonPanelDataTest_small : String = """
         "name": "Orbiton"
     }
   ],
+  
+  "textEffects": [
+    {
+      "name": "Scroll",
+      "editable": 1,
+      "type": 100
+    },
+    {
+      "name": "Statyczny",
+      "editable": 1,
+      "type": 100
+    }
+  ],  
+  
   "backgrounds": [
      {
       "name": "Dark net",
