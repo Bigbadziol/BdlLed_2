@@ -1732,7 +1732,21 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-
+        fun getFontType() : String{
+            var res : String =""
+            when (spFontSize.selectedItemPosition){
+                0-> res ="s"
+                1-> res ="m"
+                2-> res ="b"
+            }
+            when(spFontDecoration.selectedItemPosition) {
+                0 -> res += "n"
+                1 -> res += "b"
+                2 -> res += "i"
+                3 -> res += "bi"
+            }
+            return res
+        }
 
         fun enableInterface(){
             etSentence.isEnabled = true
@@ -1769,8 +1783,11 @@ class MainActivity : AppCompatActivity(){
                 //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
                 val sentenceJson = Gson().toJson(newSentence)
                 val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
+
+                val fontType = getFontType()
                 sentenceObj.addProperty("cmd","ADD")
                 Log.d(TAG, "Json ADD sentence : $sentenceObj")
+                Log.d(TAG, "Testing font type: $fontType")
             }else{
                 Log.d(TAG,"New sentence -> text no set")
             }
@@ -1828,10 +1845,32 @@ class MainActivity : AppCompatActivity(){
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val thisFont = spFontName.getItemAtPosition(position) as jPanelFont
  //               newSentence.fontId = thisFont.id
-                Log.d(TAG,"Led panel font :${thisFont.toString()}")
+                Log.d(TAG,"Led panel font name :${thisFont.toString()}")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Log.d(TAG,"Led panel font NOTHING selected")
+                Log.d(TAG,"Led panel font name NOTHING selected")
+            }
+        }
+
+        spFontSize.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val thisSize = spFontSize.getItemAtPosition(position)
+                Log.d(TAG,"Led panel font size :${thisSize}")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Led panel font size NOTHING selected")
+            }
+        }
+
+        spFontDecoration.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val thisDecoration = spFontDecoration.getItemAtPosition(position)
+                Log.d(TAG,"Led panel font decoration :${thisDecoration}")
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Led panel font decoration NOTHING selected")
             }
         }
 

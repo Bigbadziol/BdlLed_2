@@ -54,6 +54,8 @@
     <string name="sentenceHeaderDelete">[USUN]</string>
     <string name="tvSentenceListHeader">Sentencje</string>
     <string name="btnPanelFontColor">Czcionka</string>
+    <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
+    <string name="tvPanelBgDelay">Szybkosc tla:</string>
     <!-- devices common section -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>

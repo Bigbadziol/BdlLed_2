@@ -41,10 +41,8 @@ class StringListAdapter(val context: Context, var dataSource: ArrayList<String>)
 
     private class ItemHolder(row: View?) {
         val label: TextView
-        //val img: ImageView
         init {
             label = row?.findViewById(R.id.tvSpinnerName) as TextView
-
         }
     }
 
