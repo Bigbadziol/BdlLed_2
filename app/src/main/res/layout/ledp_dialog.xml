@@ -16,7 +16,7 @@
     <!-- MAIN FRAME -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:weightSum="3"
         android:paddingTop="24dp"
         android:paddingBottom="24dp"
@@ -37,20 +37,24 @@
                 android:textSize="24sp"
                 tools:text="[EDYCJA]" />
         </LinearLayout>
-        <!-- sentene to set -->
+        <!-- sentence to set -->
         <LinearLayout
             android:id="@+id/panelPanelSentence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/etLedpSentence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wpisz sentencje" />
+                android:autofillHints="Tekst do wyswietlenia"
+                android:inputType="text"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
-        <!-- Font panel : name, size , decoration , color -->
+        <!-- Font panel : name, size , decoration , color , text delay , bg delay -->
         <LinearLayout
             android:id="@+id/panelPanelFont"
             android:layout_width="match_parent"
@@ -69,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/TestFontName"
-                    android:minHeight="36sp"
+                    android:minHeight="48sp"
                     android:paddingTop="10sp"
                     tools:entries="@array/TestFontName" />
             </LinearLayout>
@@ -84,7 +88,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minHeight="36sp"
+                    android:minHeight="48sp"
                     android:entries="@array/FontSize"
                     tools:entries="@array/FontSize"
                     />
@@ -93,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minHeight="36sp"
+                    android:minHeight="48sp"
                     android:entries="@array/FontDecoration"
                     tools:entries="@array/FontDecoration"
                     />
@@ -103,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnPanelFontColor"
                     android:layout_width="wrap_content"
@@ -110,7 +115,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="3dp"
                     android:text="@string/btnPanelFontColor"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    tools:ignore="TextContrastCheck" />
                 <TextView
                     android:id="@+id/tvPanelFontColor"
                     android:layout_width="match_parent"
@@ -137,15 +143,16 @@
                     android:gravity="center_vertical"
                     android:minHeight="32dp"
                     android:text="@string/tvPanelTextDelay"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
                 <SeekBar
                     android:id="@+id/sbPanelTextDelay"
                     style="@android:style/Widget.Material.SeekBar.Discrete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
+                    android:min="1"
+                    android:max="5"
                     android:layout_gravity="center_vertical"
                     android:progress="0" />
             </LinearLayout>
@@ -164,7 +171,8 @@
                     android:gravity="center_vertical"
                     android:minHeight="32dp"
                     android:text="@string/tvPanelBgDelay"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <SeekBar
                     android:id="@+id/sbPanelBgDelay"
@@ -172,24 +180,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
+                    android:min="1"
+                    android:max="5"
                     android:layout_gravity="center_vertical"
                     android:progress="0" />
             </LinearLayout>
-
-        </LinearLayout> <!--END : Font pel -->
-
-
-        <!-- Text effect panel : text effect select ,custom , param 1-->
-        <LinearLayout
-            android:id="@+id/pnlLedpTextEffect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20sp">
             <!-- select text effect -->
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -197,110 +195,129 @@
                     android:id="@+id/spPanelTextEffect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="36sp"
+                    android:minHeight="48sp"
                     android:entries="@array/TestCustomParameterList"
                     tools:entries="@array/TestCustomParameterList"
                     />
             </LinearLayout>
-            <!-- custom param 1 -->
+            <!-- Text effect panel : text effect select ,custom , param 1 , param 2-->
             <LinearLayout
-                android:id="@+id/rowPanelTextCustom"
+                android:id="@+id/panelPanelTextEffect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/lbPanelTextECustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbCustom" />
+                android:orientation="vertical"
+                android:layout_marginTop="20sp">
 
-                <Spinner
-                    android:id="@+id/spPanelTextCustom"
-                    android:layout_width="0dp"
+                <!-- custom param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextCustom"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:entries="@array/TestCustomParameterList"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/TestCustomParameterList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
-            <!--  param 1 -->
-            <LinearLayout
-                android:id="@+id/rowPanelTextParam1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tvPanelTextParam1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="32dp"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvPanelTextParam1Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1Val" />
+                    <TextView
+                        android:id="@+id/tvPanelTextCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbCustom"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="TextContrastCheck" />
 
-                <SeekBar
-                    android:id="@+id/sbPanelTextParam1"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
+                    <Spinner
+                        android:id="@+id/spPanelTextCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:minHeight="48dp"
+                        tools:entries="@array/TestCustomParameterList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!--  param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextParam1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="6"
-                    android:max="255"
-                    android:min="0"
-                    android:progress="0" />
-            </LinearLayout>
-            <!--  param 2 -->
-            <LinearLayout
-                android:id="@+id/rowPanelTextParam2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tvPanelTextParam2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="32dp"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam2" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvPanelTextParam2Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1Val" />
+                    <TextView
+                        android:id="@+id/tvPanelTextParam1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/lbParam1"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
 
-                <SeekBar
-                    android:id="@+id/sbPanelTextParam2"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
-                    android:layout_gravity="center_vertical"
-                    android:progress="0" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvPanelTextParam1Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
 
-        </LinearLayout> <!-- END : Text effet panel -->
+                    <SeekBar
+                        android:id="@+id/sbPanelTextParam1"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:max="255"
+                        android:min="0"
+                        android:progress="0" />
+                </LinearLayout>
+                <!--  param 2 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvPanelTextParam2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/lbParam2"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tvPanelTextParam2Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <SeekBar
+                        android:id="@+id/sbPanelTextParam2"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout>
+
+            </LinearLayout> <!-- END : Text effect panel -->
+
+        </LinearLayout> <!--END : Font pel -->
+
+
 
         <!-- Backgroud panel : select background effect ,color1 , color2, color3 , color4
             param1 , param2 , param3 , bool param 1-->
@@ -319,7 +336,7 @@
                     android:id="@+id/spPanelBackgrounds"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="36sp"
+                    android:minHeight="48sp"
                     android:paddingTop="10sp"
                     android:entries="@array/TestLedpEffects"
                     tools:entries="@array/TestLedpEffects"/>

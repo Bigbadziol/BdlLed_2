@@ -56,6 +56,7 @@
     <string name="btnPanelFontColor">Czcionka</string>
     <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
     <string name="tvPanelBgDelay">Szybkosc tla:</string>
+    <string name="chooseColor">Wybierz kolor</string>
     <!-- devices common section -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>
@@ -109,14 +110,6 @@
         <item>Wypas 5</item>
     </string-array>
 
-    <string-array name="TestFontName">
-        <item>Font 1</item>
-        <item>Font 2</item>
-        <item>Font 3</item>
-        <item>Font 4</item>
-        <item>Font 5</item>
-    </string-array>
-
     <string-array name="FontSize">
         <item>Mały</item>
         <item>Sredi</item>
@@ -129,6 +122,36 @@
         <item>pochyl</item>
         <item>pogrub i pochyl</item>
     </string-array>
+
+    <!-- text effect Static/Simple custom parameters -->
+    <string-array name="teCustomStatic">
+        <item>lewo</item>       //0-left
+        <item>prawo</item>      //1-right
+        <item>centruj</item>    //2-center
+    </string-array>
+
+    <!-- text effect Scroll custom param -->
+    <string-array name="teCustomScroll">
+        <item>od prawej do lewej</item>         //0- right to left
+        <item>od lewej do prawej</item>         //1 - left to right
+        <item>odbijaj wewnatrz ekranu (X)</item>//2 - bounce inside screen left right (good for short texts)
+        <item>odbijaj caly napis(X)</item>      //3 - bounce outside screen left right
+        <item> gora - dol</item>                //4- top to bottom
+        <item> dół - gora </item>               //5 -bottom to top
+        <item>odbijaj wewnatrz ekranu (Y)</item>//6 -  bounce top to bottom inside screen
+        <item>odbijaj caly napis(Y)</item>      //7 - bounce top bottom outside screen
+    </string-array>
+
+
+    <string-array name="TestFontName">
+        <item>Font 1</item>
+        <item>Font 2</item>
+        <item>Font 3</item>
+        <item>Font 4</item>
+        <item>Font 5</item>
+    </string-array>
+
+
 
     <string-array name="TestLedpEffects">
         <item>Ogien</item>

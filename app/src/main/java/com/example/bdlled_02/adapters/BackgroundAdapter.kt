@@ -19,8 +19,13 @@ class BgCalcAdapter(private val  context: Activity, var items : ArrayList<jPanel
 
         val effectName : TextView = view.findViewById(R.id.tvSpinnerName)
 
-        effectName.text = items[position].name
+        var prefix : String ="[?]"
+        var bg = items[position]
+        if (bg.type==10) prefix="[A]"
+        else if (bg.type==20) prefix="[P]"
+        else if (bg.type == 30) prefix ="[L]"
 
+        effectName.text = prefix + items[position].name
         return view
     }
 

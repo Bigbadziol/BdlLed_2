@@ -6,6 +6,13 @@ data class jPanelFont(
     var id : Int,
     var name : String
 )
+
+data class  jPanelTextEffect(
+    var name : String="",
+    var editable: Int = 0,
+    var type: Int = 0
+)
+
 //background
 data class jPanelBackgrounds(
     var name : String="",
@@ -28,6 +35,7 @@ data class jPanelData(
     var mode : Int,
     var cmd : String,
     var fonts : List<jPanelFont>,
+    var textEffects : List<jPanelTextEffect>,
     var backgrounds : List<jPanelBackgrounds>,
     var sentences : List<jPanelSentence>
 )

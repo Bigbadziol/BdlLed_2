@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/ledp_dialog_bg.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/device_list_row.xml" value="0.25" />
