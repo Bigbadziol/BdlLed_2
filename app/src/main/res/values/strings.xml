@@ -142,6 +142,30 @@
         <item>odbijaj caly napis(Y)</item>      //7 - bounce top bottom outside screen
     </string-array>
 
+    <!-- background fire 1 -->
+    <string-array name="bgCustomFire1">
+        <item>dol</item>
+        <item>gora</item>
+        <item>dol i gora</item>
+    </string-array>
+
+    <!-- background fire 2 -->
+    <string-array name="bgCustomFire2">
+        <item>toksyczny</item>
+        <item>klasyczny</item>
+        <item>zolto- czerwony</item>
+        <item>niebiesko-fioletowy</item>
+    </string-array>
+
+    <!-- background fire 3 -->
+    <string-array name="bgCustomFire3">
+        <item></item>
+        <item>czerwona</item>
+        <item>niebieska</item>
+        <item>zielona</item>
+    </string-array>
+
+
 
     <string-array name="TestFontName">
         <item>Font 1</item>

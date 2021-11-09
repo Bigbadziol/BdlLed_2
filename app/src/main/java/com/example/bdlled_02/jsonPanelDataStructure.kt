@@ -27,7 +27,7 @@ data class  jPanelSentence(
     var scrollDelay : Int = 0,
     var bgDelay : Int = 0,
     var font : JsonObject = JsonObject(),       //added = JsonObject
-    var texEffect : JsonObject = JsonObject(),  //added = JsonObject
+    var textEffect : JsonObject = JsonObject(),  //added = JsonObject
     var background : JsonObject = JsonObject()  //added = JsonObject
 )
 

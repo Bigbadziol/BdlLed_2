@@ -1579,17 +1579,17 @@ class MainActivity : AppCompatActivity(){
         //TEXT EFFECT PARAMETERS
         val panelTextEffect = mDialog.findViewById<View>(R.id.panelPanelTextEffect) as LinearLayout
         //text effect custom param
-        val rowTeCustom = mDialog.findViewById<View>(R.id.rowPanelTextCustom) as LinearLayout
+        //val rowTeCustom = mDialog.findViewById<View>(R.id.rowPanelTextCustom) as LinearLayout
         val tvTeCustom = mDialog.findViewById<View>(R.id.tvPanelTextCustom) as TextView
         val spTeCustom = mDialog.findViewById<View>(R.id.spPanelTextCustom) as Spinner
 
         //text effect param 1
-        val rowTeParam1 = mDialog.findViewById<View>(R.id.rowPanelTextParam1) as LinearLayout
+        //val rowTeParam1 = mDialog.findViewById<View>(R.id.rowPanelTextParam1) as LinearLayout
         val tvTeParam1 = mDialog.findViewById<View>(R.id.tvPanelTextParam1) as TextView
         val tvTeParam1Val = mDialog.findViewById<View>(R.id.tvPanelTextParam1Val) as TextView
         val sbTeParam1 = mDialog.findViewById<View>(R.id.sbPanelTextParam1) as SeekBar
         //text effect param 2
-        val rowTeParam2 = mDialog.findViewById<View>(R.id.rowPanelTextParam2) as LinearLayout
+        //val rowTeParam2 = mDialog.findViewById<View>(R.id.rowPanelTextParam2) as LinearLayout
         val tvTeParam2 = mDialog.findViewById<View>(R.id.tvPanelTextParam2) as TextView
         val tvTeParam2Val = mDialog.findViewById<View>(R.id.tvPanelTextParam2Val) as TextView
         val sbTeParam2 = mDialog.findViewById<View>(R.id.sbPanelTextParam2) as SeekBar
@@ -1601,42 +1601,46 @@ class MainActivity : AppCompatActivity(){
         //background elements
         val panelBg = mDialog.findViewById<View>(R.id.panelPanelBackgroud) as LinearLayout
         // color 1
-        val rowBgColor1 = mDialog.findViewById<View>(R.id.rowPanelBgColor1) as LinearLayout
+        //val rowBgColor1 = mDialog.findViewById<View>(R.id.rowPanelBgColor1) as LinearLayout
         val btnBgColor1 = mDialog.findViewById<View>(R.id.btnPanelBgColor1) as Button
         val tvBgColor1 = mDialog.findViewById<View>(R.id.tvPanelBgColor1) as TextView
         // color 2
-        val rowBgColor2 = mDialog.findViewById<View>(R.id.rowPanelBgColor2) as LinearLayout
+        //val rowBgColor2 = mDialog.findViewById<View>(R.id.rowPanelBgColor2) as LinearLayout
         val btnBgColor2 = mDialog.findViewById<View>(R.id.btnPanelBgColor2) as Button
         val tvBgColor2 = mDialog.findViewById<View>(R.id.tvPanelBgColor2) as TextView
         // color 3
-        val rowBgColor3 = mDialog.findViewById<View>(R.id.rowPanelBgColor3) as LinearLayout
+        //val rowBgColor3 = mDialog.findViewById<View>(R.id.rowPanelBgColor3) as LinearLayout
         val btnBgColor3 = mDialog.findViewById<View>(R.id.btnPanelBgColor3) as Button
         val tvBgColor3 = mDialog.findViewById<View>(R.id.tvPanelBgColor3) as TextView
         // color 4
-        val rowBgColor4 = mDialog.findViewById<View>(R.id.rowPanelBgColor4) as LinearLayout
+        //val rowBgColor4 = mDialog.findViewById<View>(R.id.rowPanelBgColor4) as LinearLayout
         val btnBgColor4 = mDialog.findViewById<View>(R.id.btnPanelBgColor4) as Button
         val tvBgColor4 = mDialog.findViewById<View>(R.id.tvPanelBgColor4) as TextView
 
         // custom param
-        val rowBgCustomParam = mDialog.findViewById<View>(R.id.rowPanelBgCustomParam) as LinearLayout
+        //val rowBgCustomParam = mDialog.findViewById<View>(R.id.rowPanelBgCustomParam) as LinearLayout
         val tvBgCustomParam = mDialog.findViewById<View>(R.id.tvPanelBgCustom) as TextView
         val spBgCustomParam = mDialog.findViewById<View>(R.id.spPanelBgCustom) as Spinner
 
         //param1
-        val rowBgParam1 = mDialog.findViewById<View>(R.id.rowPanelBgParam1) as LinearLayout
+        //val rowBgParam1 = mDialog.findViewById<View>(R.id.rowPanelBgParam1) as LinearLayout
         val tvBgParam1 =mDialog.findViewById<View>(R.id.tvPanelBgParam1) as TextView
         val tvBgParam1val = mDialog.findViewById<View>(R.id.tvPanelBgParam1Val) as TextView
         val sbBgParam1 = mDialog.findViewById<View>(R.id.sbPanelBgParam1) as SeekBar
         //param2
-        val rowBgParam2 = mDialog.findViewById<View>(R.id.rowPanelBgParam2) as LinearLayout
+        //val rowBgParam2 = mDialog.findViewById<View>(R.id.rowPanelBgParam2) as LinearLayout
         val tvBgParam2 =mDialog.findViewById<View>(R.id.tvPanelBgParam2) as TextView
         val tvBgParam2val = mDialog.findViewById<View>(R.id.tvPanelBgParam2Val) as TextView
         val sbBgParam2 = mDialog.findViewById<View>(R.id.sbPanelBgParam2) as SeekBar
         //param3
-        val rowBgParam3 = mDialog.findViewById<View>(R.id.rowPanelBgParam3) as LinearLayout
+        //val rowBgParam3 = mDialog.findViewById<View>(R.id.rowPanelBgParam3) as LinearLayout
         val tvBgParam3 =mDialog.findViewById<View>(R.id.tvPanelBgParam3) as TextView
         val tvBgParam3val = mDialog.findViewById<View>(R.id.tvPanelBgParam3Val) as TextView
         val sbBgParam3 = mDialog.findViewById<View>(R.id.sbPanelBgParam3) as SeekBar
+        // bool param1
+        val tvBgParamBool1 = mDialog.findViewById<View>(R.id.tvPanelBgBool1) as TextView
+        //WARNING : SwitchCompat i Switch nie to samo, to drugie wywala program, zerka w XML
+        val swBgParamBool1 = mDialog.findViewById<View>(R.id.swPanelBgBool1) as SwitchCompat
 
         //test  buttons
         val btnTest1 = mDialog.findViewById<View>(R.id.btnLedpTest1) as Button
@@ -1660,8 +1664,96 @@ class MainActivity : AppCompatActivity(){
         spBgEffect.adapter = BgCalcAdapter(this@MainActivity,backgroundList)
 
         tvHeader.text = mode
-        //---------Functions for text effect-------
-        //hide font effect panel with all childrens
+        //----------------------------------
+        //Common functions
+
+        fun setParamCustom(descriptionTarget : TextView , valuesTarget : Spinner ,description : String ,
+                           values : ArrayList<String>, index: Int){
+            if (values.isNotEmpty()){
+                descriptionTarget.setVisibility(true)
+                valuesTarget.setVisibility(true)
+                descriptionTarget.text = description
+                val dataAdapter = StringListAdapter(this ,values)
+                valuesTarget.adapter = dataAdapter
+                if (index > values.size -1 || index < 0 ) valuesTarget.setSelection(0)
+                else valuesTarget.setSelection(index)
+            }
+        }
+        fun setParamVal (descriptionTarget : TextView , valueInfoTarget :TextView ,valueTarget : SeekBar ,
+                         description : String, pVal : Int, pMin : Int, pMax : Int){
+            descriptionTarget.setVisibility(true)
+            valueTarget.setVisibility(true)
+            valueInfoTarget.setVisibility(true)
+            //for example seekbar param1 now onChangeListener change tvParam1Val.text
+            descriptionTarget.text = description
+            valueTarget.min = pMin
+            valueTarget.max = pMax
+            valueTarget.progress = pVal
+        }
+        fun setParamColor(buttonTarget : Button , tvTarget : TextView , description : String ,
+                          r: Int , g:Int , b: Int){
+             buttonTarget.setVisibility(true)
+             tvTarget.setVisibility(true)
+             buttonTarget.text = description
+             tvTarget.setBackgroundColor(Color.rgb(r,g,b))
+         }
+
+        fun getFontType() : String{
+            var res : String =""
+            when (spFontSize.selectedItemPosition){
+                0-> res ="s"
+                1-> res ="m"
+                2-> res ="b"
+            }
+            when(spFontDecoration.selectedItemPosition) {
+                0 -> res += "n"
+                1 -> res += "b"
+                2 -> res += "i"
+                3 -> res += "bi"
+            }
+            return res
+        }
+        fun getRescaledDelay(o : SeekBar) : Int {
+            return 60 - (o.progress * 10)
+        }
+        fun getColorFromTextView(o : TextView) :JsonObject{
+            val ret : JsonObject = JsonObject()
+            val colDraw = o.background as ColorDrawable
+            val colInt = colDraw.color
+            ret.addProperty("r", Color.red(colInt))
+            ret.addProperty("g",Color.green(colInt))
+            ret.addProperty("b",Color.blue(colInt))
+            return ret
+        }
+
+        fun setParamColorFromColorObj(c : JsonObject , tvTarget : TextView  ,
+                                      buttonTarget : Button , description : String){
+            buttonTarget.setVisibility(true)
+            tvTarget.setVisibility(true)
+            buttonTarget.text = description
+            var r = 128
+            var g = 128
+            var b = 128
+            if (c.has("r")) r = c.get("r").asInt
+            if (c.has("g")) g = c.get("g").asInt
+            if (c.has("b")) b = c.get("b").asInt
+            tvTarget.setBackgroundColor(Color.rgb(r,g,b))
+        }
+
+        fun enableInterface(){
+            etSentence.isEnabled = true
+            spFontName.setVisibility(true)
+            btnColor.setVisibility(true)
+            tvColor.setVisibility(true)
+            spBgEffect.setVisibility(true)
+        }
+        fun disableInterface(){
+            etSentence.isEnabled = false
+            spFontName.setVisibility(false)
+            btnColor.setVisibility(false)
+            tvColor.setVisibility(false)
+            spBgEffect.setVisibility(false)
+        }
 
         fun hideTextEffectInterface(){
             //Ukrywa poprawnie , jednak przy ponownm włączeniu panelu pokazuje się wszystko
@@ -1690,161 +1782,7 @@ class MainActivity : AppCompatActivity(){
             tvTeParam2.setVisibility(false)
             tvTeParam2Val.setVisibility(false)
             sbTeParam2.setVisibility(false)
-
         }
-
-        fun setParamCustom(descriptionTarget : TextView , valuesTarget : Spinner ,description : String , values : ArrayList<String>, index: Int){
-            if (values.isNotEmpty()){
-                descriptionTarget.setVisibility(true)
-                valuesTarget.setVisibility(true)
-                descriptionTarget.text = description
-                val dataAdapter = StringListAdapter(this ,values)
-                spTeCustom.adapter = dataAdapter
-                if (index > values.size -1 || index < 0 ) valuesTarget.setSelection(0)
-                else valuesTarget.setSelection(index)
-            }
-        }
-
-        fun setParamVal (descriptionTarget : TextView , valueTarget : SeekBar , description : String, pVal : Int, pMin : Int, pMax : Int){
-            descriptionTarget.setVisibility(true)
-            valueTarget.setVisibility(true)
-            //for example seekbar param1 now onChangeListener change tvParam1Val.text
-            descriptionTarget.text = description
-            valueTarget.min = pMin
-            valueTarget.max = pMax
-            valueTarget.progress = pVal
-        }
-
-        //--------Functions for background effect----
-        fun hideBgInterface(){
-            panelBg.setVisibility(false)
-            val childCnt : Int = panelBg.getChildCount()
-            for (i in 0..childCnt-1){
-                val element : View = panelBg.getChildAt(i)
-                element.setVisibility(View.GONE)
-            }
-        }
-        fun setPanelBgCustom(desc : String, elem : Array<String>, index : Int){
-            if (elem.isNotEmpty()){
-                rowBgCustomParam.setVisibility(true)
-                tvBgCustomParam.setVisibility(true)
-                spBgCustomParam.setVisibility(true)
-                tvBgCustomParam.text = desc
-
-                val aC = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,elem)
-                spBgCustomParam.adapter = aC
-                if (index > elem.size -1) spBgCustomParam.setSelection(0)
-                else spBgCustomParam.setSelection(index)
-            }
-        }
-        fun setPanelBgParamColor(pColorNum : Int, r :Int, g : Int, b : Int){
-            when (pColorNum){
-                1 -> {
-                    rowBgColor1.setVisibility(true)
-                    btnBgColor1.setVisibility(true)
-                    tvBgColor1.setVisibility(true)
-                    tvBgColor1.setBackgroundColor(Color.rgb(r,g,b))
-                }
-                2 -> {
-                    rowBgColor2.setVisibility(true)
-                    btnBgColor2.setVisibility(true)
-                    tvBgColor2.setVisibility(true)
-                    tvBgColor2.setBackgroundColor(Color.rgb(r,g,b))
-                }
-                3 -> {
-                    rowBgColor3.setVisibility(true)
-                    btnBgColor3.setVisibility(true)
-                    tvBgColor3.setVisibility(true)
-                    tvBgColor3.setBackgroundColor(Color.rgb(r,g,b))
-                }
-                4 -> {
-                    rowBgColor4.setVisibility(true)
-                    btnBgColor4.setVisibility(true)
-                    tvBgColor4.setVisibility(true)
-                    tvBgColor4.setBackgroundColor(Color.rgb(r,g,b))
-                }
-            }
-        }
-        fun setPanelBgParamVal(pNum : Int, desc : String, pVal : Int, pMin : Int, pMax : Int){
-            when (pNum){
-                1 -> {
-                    rowBgParam1.setVisibility(true)
-                    tvBgParam1.setVisibility(true)
-                    tvBgParam1val.setVisibility(true)
-                    sbBgParam1.setVisibility(true)
-                    tvBgParam1.text = desc
-                    sbBgParam1.min = pMin
-                    sbBgParam1.max = pMax
-                    sbBgParam1.progress = pVal
-                }
-                2->{
-                    rowBgParam2.setVisibility(true)
-                    tvBgParam2.setVisibility(true)
-                    tvBgParam2val.setVisibility(true)
-                    sbBgParam2.setVisibility(true)
-                    tvBgParam2.text = desc
-                    sbBgParam2.min = pMin
-                    sbBgParam2.max = pMax
-                    sbBgParam2.progress = pVal
-                }
-                3->{
-                    rowBgParam3.setVisibility(true)
-                    tvBgParam3.setVisibility(true)
-                    tvBgParam3val.setVisibility(true)
-                    sbBgParam3.setVisibility(true)
-                    tvBgParam3.text = desc
-                    sbBgParam3.min = pMin
-                    sbBgParam3.max = pMax
-                    sbBgParam3.progress = pVal
-                }
-            }
-        }
-
-        fun getFontType() : String{
-            var res : String =""
-            when (spFontSize.selectedItemPosition){
-                0-> res ="s"
-                1-> res ="m"
-                2-> res ="b"
-            }
-            when(spFontDecoration.selectedItemPosition) {
-                0 -> res += "n"
-                1 -> res += "b"
-                2 -> res += "i"
-                3 -> res += "bi"
-            }
-            return res
-        }
-
-        fun getRescaledDelay(o : SeekBar) : Int {
-            return 60 - (o.progress * 10)
-        }
-
-        fun getColorFromTextView(o : TextView) :JsonObject{
-            val ret : JsonObject = JsonObject()
-            val colDraw = o.background as ColorDrawable
-            val colInt = colDraw.color
-            ret.addProperty("r", Color.red(colInt))
-            ret.addProperty("g",Color.green(colInt))
-            ret.addProperty("b",Color.blue(colInt))
-            return ret
-        }
-
-        fun enableInterface(){
-            etSentence.isEnabled = true
-            spFontName.setVisibility(true)
-            btnColor.setVisibility(true)
-            tvColor.setVisibility(true)
-            spBgEffect.setVisibility(true)
-        }
-        fun disableInterface(){
-            etSentence.isEnabled = false
-            spFontName.setVisibility(false)
-            btnColor.setVisibility(false)
-            tvColor.setVisibility(false)
-            spBgEffect.setVisibility(false)
-        }
-
         fun piTeStatic(){
             Log.d(TAG,"Preparing text effect interface : Statyczny")
             val values : ArrayList<String> = ArrayList()
@@ -1872,12 +1810,132 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
+        fun hideBackgroundInterface() {
+            panelBg.setVisibility(false)
+            btnBgColor1.setVisibility(false)
+            tvBgColor1.setVisibility(false)
+            btnBgColor2.setVisibility(false)
+            tvBgColor2.setVisibility(false)
+            btnBgColor3.setVisibility(false)
+            tvBgColor3.setVisibility(false)
+            btnBgColor4.setVisibility(false)
+            tvBgColor4.setVisibility(false)
+            tvBgCustomParam.setVisibility(false)
+            spBgCustomParam.setVisibility(false)
+            tvBgParam1.setVisibility(false)
+            tvBgParam1val.setVisibility(false)
+            sbBgParam1.setVisibility(false)
+            tvBgParam2.setVisibility(false)
+            tvBgParam2val.setVisibility(false)
+            sbBgParam2.setVisibility(false)
+            tvBgParam3.setVisibility(false)
+            tvBgParam3val.setVisibility(false)
+            sbBgParam3.setVisibility(false)
+            tvBgParamBool1.setVisibility(false)
+            swBgParamBool1.setVisibility(false)
+
+        }
+
+        fun piBgFire1(){
+            var pRows = 2   // default , flareRows
+            var pChance = 3 // flareChance
+            var pDecay = 6  // flareDecay
+            var pDir = 2    // dir
+            val data = sentence.background
+            if (data.has("flareRows")) pRows = data.get("flareRows").asInt
+            if (data.has("flareChance")) pChance = data.get("flareChance").asInt
+            if (data.has("flareDecay")) pDecay = data.get("flareDecay").asInt
+            if (data.has("dir")) pDir = data.get("dir").asInt
+            Log.d(TAG,"Preparing bg interface : Fire1")
+            Log.d(TAG,"Values -> pPows : $pRows , pChance : $pChance , pDecay : $pDecay , pDir : $pDir")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.bgCustomFire1))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Direction:", values,pDir)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Rows :",pRows ,1,4)
+            setParamVal(tvBgParam2, tvBgParam2val,sbBgParam2,"Chance :",pChance ,1,5)
+            setParamVal(tvBgParam3, tvBgParam3val,sbBgParam3,"Decay :",pDecay ,1,10)
+            panelBg.setVisibility(true)
+        }
+
+        fun piBgFire2(){
+            var pPalette = 2    // palette
+            var pHeat = 2       //heat
+            val data = sentence.background
+            if (data.has("palette")) pPalette = data.get("palette").asInt
+            if (data.has("heat")) pHeat = data.get("heat").asInt
+            Log.d(TAG,"Preparing bg interface : Fire2")
+            Log.d(TAG,"Values -> pPalette : $pPalette , pHeat : $pHeat ")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.bgCustomFire2))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Heat :",pHeat ,1,5)
+            panelBg.setVisibility(true)
+        }
+
+        fun piBgFire3(){
+            var pPalette = 0 //palette
+            var pCooling = 6 //cooling
+            var pSparking = 11 //sparking
+            val data = sentence.background
+            if (data.has("palette")) pPalette = data.get("palette").asInt
+            if (data.has("cooling")) pCooling = data.get("cooling").asInt
+            if (data.has("sparking")) pSparking = data.get("sparking").asInt
+            Log.d(TAG,"Preparing bg interface : Fire3")
+            Log.d(TAG,"Values -> pPalette : $pPalette , pCooling: $pCooling , pSparking : $pSparking ")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.bgCustomFire3))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Chlodzenie :",pCooling ,1,11)
+            setParamVal(tvBgParam2, tvBgParam2val,sbBgParam2,"Iskry :",pSparking ,1,16)
+            panelBg.setVisibility(true)
+        }
+
+        fun piBgRain(){
+            val data = sentence.background
+            var tempColor: JsonObject = JsonObject()
+            Log.d(TAG,"Preparing bg interface : Rain")
+            if (data.has("color1Start")){
+                tempColor = data.getAsJsonObject("color1Start")
+                setParamColorFromColorObj(tempColor,tvBgColor1,btnBgColor1,"Start 1")
+            }else {
+                tempColor.addProperty("r",255)
+                tempColor.addProperty("g",255)
+                tempColor.addProperty("b",255)
+                setParamColorFromColorObj(tempColor,tvBgColor1,btnBgColor1,"Start 1")
+            }
+            Log.d(TAG,"Color1Start : $tempColor")
+
+            if (data.has("color1Stop")){
+                tempColor = data.getAsJsonObject("color1Stop")
+                setParamColorFromColorObj(tempColor,tvBgColor2,btnBgColor2,"Stop 1")
+            }else {
+                tempColor.addProperty("r",255)
+                tempColor.addProperty("g",0)
+                tempColor.addProperty("b",0)
+                setParamColorFromColorObj(tempColor,tvBgColor2,btnBgColor2,"Stop 1")
+            }
+            Log.d(TAG,"Color1Stop : $tempColor")
+
+        }
+
+        fun setupBackgroudInterface(){
+            val thisBackground = spBgEffect.selectedItem as jPanelBackgrounds
+            hideBackgroundInterface()
+            if (thisBackground.type == 30){
+                when (thisBackground.name){
+                    "Fire 1" -> piBgFire1()
+                    "Fire 2" -> piBgFire2()
+                    "Fire 3" -> piBgFire3()
+                    "Rain" ->piBgRain()
+                }
+            }
+        }
+
         fun setupInterface(){
-            var thisFont : JsonObject = JsonObject()
-            thisFont = sentence.font
             Log.d(TAG,"--Setup interface--")
-            Log.d(TAG,"Get : ${sentence.toString()}")
+            Log.d(TAG,"GET SENTENCE : ${sentence}")
             setupTextEffectInterface()
+            setupBackgroudInterface()
         }
 
 
@@ -1921,7 +1979,7 @@ class MainActivity : AppCompatActivity(){
                 Log.d(TAG, "Json ADD sentence : $sentenceObj")
                 //Log.d(TAG, "Testing font type: $fontType")
                 //Log.d(TAG,"Testing ret color as json object : ${_color.toString()}")
-                Log.d(TAG,"Testing font object : ${fontObj.toString()}")
+                Log.d(TAG,"Testing font object : $fontObj")
             }else{
                 Log.d(TAG,"New sentence -> text no set")
             }
@@ -2033,12 +2091,12 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val thisBackground = spBgEffect.getItemAtPosition(position) as jPanelBackgrounds
- //               newSentence.bgId = thisBackground.id
                 Log.d(TAG,"Background : ${thisBackground.toString()}")
+                setupBackgroudInterface()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Log.d(TAG,"Lede effect NOTHING selected")
+                Log.d(TAG,"Led panel background  NOTHING selected")
             }
         }
 
@@ -2127,14 +2185,14 @@ class MainActivity : AppCompatActivity(){
         }
         //TESTS
         btnTest1.setOnClickListener {
-
+            hideBackgroundInterface()
         }
 
         btnTest2.setOnClickListener {
-
+            piBgFire1()
         }
         btnTest3.setOnClickListener {
-
+            piBgFire2()
         }
 
         //wonderfull .....
@@ -2221,13 +2279,8 @@ class MainActivity : AppCompatActivity(){
         //val adapterStripMode = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modeList)
         bind.spStripMode.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripModeList)
         bind.spStripMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //Toast.makeText(this@MainActivity, "M: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         //----effects
         //Uwaga ten adapter jest z zasobow , nowy ustawiany jest w uiMain()
@@ -2284,12 +2337,8 @@ class MainActivity : AppCompatActivity(){
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
                 bind.lbStripTimeVal.text = progress.toString()
             }
-            override fun onStartTrackingTouch(sb: SeekBar?) {
-            }
-            override fun onStopTrackingTouch(sb: SeekBar?) {
-
-//                Toast.makeText(this@MainActivity, "Time seek bar last val : ${sb?.progress}", Toast.LENGTH_SHORT).show()
-            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
         })
         //----main color pick
         bind.btnStripColorMain.setOnClickListener {
@@ -2362,13 +2411,8 @@ class MainActivity : AppCompatActivity(){
         val adapterPalette = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripPaletteList)
         bind.spStripPalette.adapter = adapterPalette
         bind.spStripPalette.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //Toast.makeText(this@MainActivity, "P: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         //----custom pick
         val adapterCustom = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripCustomList)
@@ -2376,57 +2420,40 @@ class MainActivity : AppCompatActivity(){
         //adapterCustom.also { bind.spCustom.adapter = it } // ?!?!!?!!?!?!??!?!?!!? JA JEBIE
         bind.spStripCustom.adapter = adapterCustom
         bind.spStripCustom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //               Toast.makeText(this@MainActivity, "C: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         //----param 1
         bind.sbStripParam1.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
                 bind.lbStripParam1Val.text = progress.toString()
             }
-            override fun onStartTrackingTouch(sb: SeekBar?) {
-            }
-            override fun onStopTrackingTouch(sb: SeekBar?) {
-//                Toast.makeText(this@MainActivity, "P1: ${sb?.progress}", Toast.LENGTH_SHORT).show()
-            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
         })
         //----param 2
         bind.sbStripParam2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
                 bind.lbStripParam2Val.text = progress.toString()
             }
-            override fun onStartTrackingTouch(sb: SeekBar?) {
-            }
-            override fun onStopTrackingTouch(sb: SeekBar?) {
-                //               Toast.makeText(this@MainActivity, "P2: ${sb?.progress}", Toast.LENGTH_SHORT).show()
-            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
         })
         //----param 3
         bind.sbStripParam3.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
                 bind.lbStripParam3Val.text = progress.toString()
             }
-            override fun onStartTrackingTouch(sb: SeekBar?) {
-            }
-            override fun onStopTrackingTouch(sb: SeekBar?) {
-//                Toast.makeText(this@MainActivity, "P3: ${sb?.progress}", Toast.LENGTH_SHORT).show()
-            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
         })
         //----param 4
         bind.sbStripParam4.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
                 bind.lbStripParam4Val.text = progress.toString()
             }
-            override fun onStartTrackingTouch(sb: SeekBar?) {
-            }
-            override fun onStopTrackingTouch(sb: SeekBar?) {
-//                Toast.makeText(this@MainActivity, "P4: ${sb?.progress}", Toast.LENGTH_SHORT).show()
-            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
         })
         //----bool 1
         bind.swStripBool1.setOnCheckedChangeListener { _, b ->
@@ -2481,13 +2508,8 @@ class MainActivity : AppCompatActivity(){
         bind.spPanelMode.adapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,panelModeList)
         bind.spPanelMode.setSelection(0)
         bind.spPanelMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //Toast.makeText(this@MainActivity, "M: " + parent.getItemAtPosition(position) + " : " + position, Toast.LENGTH_SHORT).show()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         bind.btnPanelMainConfirm.setOnClickListener {
             val setMode = JsonObject()
