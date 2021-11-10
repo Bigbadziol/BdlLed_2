@@ -154,15 +154,21 @@
         <item>toksyczny</item>
         <item>klasyczny</item>
         <item>zolto- czerwony</item>
-        <item>niebiesko-fioletowy</item>
+        <item>niebiesko- fioletowy</item>
     </string-array>
 
     <!-- background fire 3 -->
     <string-array name="bgCustomFire3">
-        <item></item>
         <item>czerwona</item>
         <item>niebieska</item>
         <item>zielona</item>
+    </string-array>
+
+    <!-- background Rain -->
+    <string-array name="bgCustomRain">
+        <item>mały</item>
+        <item>średni</item>
+        <item>duzy</item>
     </string-array>
 
 
