@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity(){
     var fontSizeList : ArrayList<String> = ArrayList()
     var fontDecorationList : ArrayList<String> = ArrayList()
 
-    var textCustomParamList : ArrayList<String> = ArrayList()
-    var bgCustomParamList : ArrayList<String> = ArrayList()
 
     //----------------------------------------------------------------------------------------------
     private inner class BtHandler : Handler(){
@@ -139,9 +137,9 @@ class MainActivity : AppCompatActivity(){
     //----------------------------------------------------------------------------------------------
     private inner class ConnectedThread(private val socket: BluetoothSocket) : Thread() {
         override fun run() {
-            var inputStream = socket.inputStream
-            var buffer = ByteArray(10240)
-            var bytes = 0
+            val inputStream = socket.inputStream
+            val buffer = ByteArray(10240)
+            var bytes: Int
             var thisMessage: String = "" //      this var is init inside old version
             Log.d("DEBUG_ESP", "Waiting for data, ...")
             while (true) {
@@ -169,8 +167,8 @@ class MainActivity : AppCompatActivity(){
     private inner class ConnectThread(device: BluetoothDevice): Thread() {
         //        private var newSocket = device.createRfcommSocketToServiceRecord(uuid)
         private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
-        var buffer = ByteArray(10240)
-        var bytes: Int = 0
+        //var buffer = ByteArray(10240) // old ver
+        //var bytes: Int = 0    //old ver
         override fun run() {
             try {
                 Log.d("DEBUG_APP", "Connecting socket")
@@ -1526,13 +1524,13 @@ class MainActivity : AppCompatActivity(){
         val thisItem = bind.lvPanelSentences.getItemAtPosition(pos) as jPanelSentence
         Log.d(TAG,"PopupMenu Sentence id : ${thisItem.id} , sentence :  ${thisItem.sentence}")
 
-        sentencePopup.setOnMenuItemClickListener { it->
+        sentencePopup.setOnMenuItemClickListener {
             when (it.itemId){
                 R.id.sentenceSet-> {
                     val set = JsonObject()
                     set.addProperty("cmd","SET")
-                    set.addProperty("id",thisItem.id)
-                    Log.d(TAG,"SET sentence : ${set.toString()}")
+                    set.addProperty("cmdId",thisItem.id)
+                    Log.d(TAG,"SET sentence : $set")
                 }
                 R.id.sentenceNew-> {
                     Log.d(TAG,"ADD sentence")
@@ -1557,6 +1555,8 @@ class MainActivity : AppCompatActivity(){
         val mDialog = Dialog(this)
         Log.d(TAG,"Passed sentence ID : ${sentence.id} and mode $mode")
         Log.d(TAG,"Sentence : ${sentence.sentence} ")
+        val sentenceIndex = sentenceList.indexOf(sentence)
+        Log.d(TAG ,"(HEADER) Sentence index : $sentenceIndex")
 
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
@@ -1700,12 +1700,11 @@ class MainActivity : AppCompatActivity(){
             descriptionTarget.setVisibility(true)
             boolTarget.setVisibility(true)
             descriptionTarget.text = description
-            if (value > 0) boolTarget.isChecked = true
-            else boolTarget.isChecked = false
+            boolTarget.isChecked = value > 0
         }
 
         fun getFontType() : String{
-            var res : String =""
+            var res  = ""
             when (spFontSize.selectedItemPosition){
                 0-> res ="s"
                 1-> res ="m"
@@ -1731,7 +1730,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         fun getColorFromTextView(o : TextView) :JsonObject{
-            val ret : JsonObject = JsonObject()
+            val ret  = JsonObject()
             val colDraw = o.background as ColorDrawable
             val colInt = colDraw.color
             ret.addProperty("r", Color.red(colInt))
@@ -1801,7 +1800,7 @@ class MainActivity : AppCompatActivity(){
                 Log.d(TAG,"ERROR - > panel text effect dont have properties to set.")
             }
 */
-            Log.d(TAG,"Text effect hiding")
+//            Log.d(TAG,"Text effect hiding")
             panelTextEffect.setVisibility(false)
             //rowTeCustom.setVisibility(false)
             //rowTeParam1.setVisibility(false)
@@ -1874,7 +1873,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         fun hideBackgroundInterface() {
-            Log.d(TAG,"Background hiding")
+            //Log.d(TAG,"Background hiding")
             panelBg.setVisibility(false)
             btnBgColor1.setVisibility(false)
             tvBgColor1.setVisibility(false)
@@ -2055,8 +2054,21 @@ class MainActivity : AppCompatActivity(){
             return dataObj
         }
 
+        fun updateBackgroundData() : JsonObject{
+            val thisBg = spBgEffect.selectedItem as jPanelBackgrounds
+            var bgData = JsonObject()
+            if (thisBg.type == 30) {
+                when (thisBg.name) {
+                    "Fire 1" -> bgData = upBgFire1()
+                    "Fire 2" -> bgData = upBgFire2()
+                    "Fire 3" -> bgData = upBgFire3()
+                    "Rain" -> bgData = upBgRain()
+                }
+            }
+            return bgData
+        }
 
-        fun setupBackgroudInterface(){
+        fun setupBackgroundInterface(){
             Log.d(TAG,"--Setup background interface--")
             val thisBackground = spBgEffect.selectedItem as jPanelBackgrounds
             hideBackgroundInterface()
@@ -2072,22 +2084,20 @@ class MainActivity : AppCompatActivity(){
 
         fun setTePositionFromSentence(){
             var teName =""
-            var index = 0
             //set text effect index
             if (sentence.textEffect.has("name")) teName = sentence.textEffect.get("name").asString
             Log.d(TAG,"name from textEffect : $teName")
-            index = textEffectList.indexOfFirst { it.name == teName }
+            val index: Int = textEffectList.indexOfFirst { it.name == teName }
             if (index > -1) spTextEffect.setSelection(index)
             else spTextEffect.setSelection(0)
 
         }
         fun setBgPositionFromSentence(){
             var bgName =""
-            var index = 0
             //set bg index
             if (sentence.background.has("name")) bgName = sentence.background.get("name").asString
             Log.d(TAG,"name from bg : $bgName")
-            index = backgroundList.indexOfFirst { it.name == bgName}
+            val index : Int = backgroundList.indexOfFirst { it.name == bgName}
             if (index > - 1) spBgEffect.setSelection(index)
             else spBgEffect.setSelection(0)
 
@@ -2096,16 +2106,15 @@ class MainActivity : AppCompatActivity(){
         fun setFontIndexes(){
             var fontId = 0
             var fontType = "sn"
-            var fontIndex = 0
             if (sentence.font.has("fontId")) fontId = sentence.font.get("fontId").asInt
             if (sentence.font.has("fontType")) fontType = sentence.font.get("fontType") .asString
-            fontIndex = fontList.indexOfFirst { it.id == fontId }
+            val fontIndex: Int = fontList.indexOfFirst { it.id == fontId }
             //first font name
             if (fontIndex > - 1) spFontName.setSelection(fontIndex)
             else spFontName.setSelection(0)
 
             //size
-            when (fontType.get(0)){
+            when (fontType[0]){
                 's' ->{spFontSize.setSelection(0)}
                 'm' ->{spFontSize.setSelection(1)}
                 'l' ->{spFontSize.setSelection(2)}
@@ -2128,91 +2137,100 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
+        fun prepareDataToUpdate(){
+            newSentence.sentence = etSentence.text.toString()
+            newSentence.bgDelay = getRescaledDelay(sbBgDelay)
+            newSentence.scrollDelay = getRescaledDelay(sbTextDelay)
+            // font
+            val fontObj  = JsonObject()
+            val thisFont = spFontName.selectedItem as jPanelFont //data from spinner
+            fontObj.addProperty("fontId",thisFont.id)
+            fontObj.addProperty("fontType", getFontType())
+            fontObj.add("color",getColorFromTextView(tvColor))
+            //newSentence.font.add("font",fontObj)
+            newSentence.font = fontObj
+            // text effect
+            val textEffectObj = JsonObject()
+            val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
+            textEffectObj.addProperty("name", thisTextEffect.name)
+            textEffectObj.addProperty("editable", thisTextEffect.editable)
+            textEffectObj.addProperty("type",thisTextEffect.type)
+            textEffectObj.add("data",updateTextEffectData())
+            //newSentence.textEffect.add("textEffect",textEffectObj)
+            newSentence.textEffect = textEffectObj
+            //background
+            val backgroundObj = JsonObject()
+            val thisBackground = spBgEffect.selectedItem as jPanelBackgrounds
+            backgroundObj.addProperty("name", thisBackground.name)
+            backgroundObj.addProperty("editable", thisBackground.editable)
+            backgroundObj.addProperty("type", thisBackground.type)
+            backgroundObj.add("data",updateBackgroundData())
+            newSentence.background = backgroundObj
+        }
+
+        fun newSentenceId() : Int {
+            var temp = 0
+            sentenceList.forEach {
+              if (it.id > temp) temp = it.id
+            }
+            temp++
+            return temp
+        }
+
         fun addSentence(){
             Log.d(TAG, "TESTING ADD : ")
             if (etSentence.text.isNotEmpty()) {
-                var newId = 0
-                if (sentenceList.isNotEmpty()) newId = allPanelData.sentences.last().id + 1
+                val newId =  newSentenceId()
+                Log.d(TAG,"New sentence id : $newId")
                 //PART HEADER
                 newSentence.id = newId
-                newSentence.sentence = etSentence.text.toString()
-                newSentence.bgDelay = getRescaledDelay(sbBgDelay)
-                newSentence.scrollDelay = getRescaledDelay(sbTextDelay)
+                prepareDataToUpdate() //same step a update new sentence
+                //===Handle list part and send prepared object
 
-
-                //## PART totalny miszmasz !!!
-                    val fontObj  = JsonObject()
-                    val thisFont = spFontName.selectedItem as jPanelFont //data from spinner
-
-                    fontObj.addProperty("fontId",thisFont.id)
-                    fontObj.addProperty("fontType", getFontType())
-                    //fontObj.addProperty("color", getColorFromTextView(tvColor))
-                    fontObj.add("color",getColorFromTextView(tvColor))
-                //##
-
-                //bgType , bgId , fontId , inside listeners
                 sentenceList.add(newSentence)
+
                 bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
                 //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
-                //ZDECYDOWANIE PRZEKOMBINOWANE
                 val sentenceJson = Gson().toJson(newSentence)
                 val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
-                sentenceObj.add("font", fontObj)
-
-
-                //val fontType = getFontType()
-                var _color : JsonObject = JsonObject()
-                //_color = getColorFromTextView(tvColor)
-                sentenceObj.addProperty("cmd","_ADD_")
-                //sentenceObj.addProperty("scrollDelay",199)//test
+                //From ESP32
+                //for ADD and UPDATE cmdId and id must me the same
+                sentenceObj.addProperty("cmd","ADD_SET")
+                sentenceObj.addProperty("cmdId",newSentence.id)
                 Log.d(TAG, "Json ADD sentence : $sentenceObj")
-                //Log.d(TAG, "Testing font type: $fontType")
-                //Log.d(TAG,"Testing ret color as json object : ${_color.toString()}")
-                Log.d(TAG,"Testing font object : $fontObj")
             }else{
                 Log.d(TAG,"New sentence -> text no set")
             }
         }
-        fun editSentence(){
+
+        fun updateSentence(){
+            Log.d(TAG,"Update sentence ")
             if (etSentence.text.isNotEmpty()) {
-                //common and constant
                 newSentence.id = sentence.id
-                newSentence.sentence = etSentence.text.toString()
-                newSentence.bgDelay = getRescaledDelay(sbBgDelay)
-                newSentence.scrollDelay = getRescaledDelay(sbTextDelay)
-                // font object
-                val fontObj  = JsonObject()
-                val thisFont = spFontName.selectedItem as jPanelFont //data from spinner
-                fontObj.addProperty("fontId",thisFont.id)
-                fontObj.addProperty("fontType", getFontType())
-                fontObj.add("color",getColorFromTextView(tvColor))
-                //newSentence.font.add("font",fontObj)
-                newSentence.font = fontObj
-                // text effect
-                val textEffectObj = JsonObject()
-                val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
-                textEffectObj.addProperty("name", thisTextEffect.name)
-                textEffectObj.addProperty("editable", thisTextEffect.editable)
-                textEffectObj.addProperty("type",thisTextEffect.type)
-                textEffectObj.add("data",updateTextEffectData())
-                //newSentence.textEffect.add("textEffect",textEffectObj)
-                newSentence.textEffect = textEffectObj
-
-
-
-                //===================================
-                //bgType , bgId , fontId , inside listeners
-                val index = sentenceList.indexOf(sentence)//old data
-                sentenceList.set(index,newSentence)
-                bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
-
-                //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
-                val sentenceJson = Gson().toJson(newSentence)
-                val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
-                sentenceObj.addProperty("cmd","__EDIT")
-                Log.d(TAG, "Json EDIT sentence : $sentenceObj")
+                //Log.d(TAG,"-->before update")
+                prepareDataToUpdate() //same step a add new sentence
+                //===Handle list part and send prepared object
+                //val index = sentenceList.indexOf(sentence)//old ver
+                //Log.d(TAG,"-->before set")
+                //Log.d (TAG,"-->returned index : $index")
+                //if (index > -1){
+                    // sentenceList[index] = newSentence
+                    sentenceList.set(sentenceIndex , newSentence) // sentence index from header
+                    bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
+                    //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
+                    //Log.d(TAG,"-->before json")
+                    val sentenceJson = Gson().toJson(newSentence)
+                    val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
+                    //From ESP32
+                    //for ADD and UPDATE cmdId and id must me the same
+                    sentenceObj.addProperty("cmd","UPDATE_SET")
+                    sentenceObj.addProperty("cmdId",sentence.id)
+                    Log.d(TAG, "Json Update sentence : $sentenceObj")
+                //}else {
+                //    Log.d(TAG ,"NOT updated , index not found!")
+                //}
             }else{
-                Log.d(TAG,"Edit sentence -> text no set")
+                Log.d(TAG,"Update sentence -> text no set")
             }
         }
         fun deleteSentence(){
@@ -2220,19 +2238,17 @@ class MainActivity : AppCompatActivity(){
             sentenceList.removeAt(index)
             bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
             val del = JsonObject()
-            del.addProperty("cmd","__DELETE")
-            del.addProperty("id",sentence.id)
+            del.addProperty("cmd","DELETE")
+            del.addProperty("cmdId",sentence.id)
             Log.d(TAG, "Json DELETE command : $del")
         }
-
-
 
         // FONT listeners
         spFontName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val thisFont = spFontName.getItemAtPosition(position) as jPanelFont
-                Log.d(TAG,"Led panel font name :${thisFont.toString()}")
+                //val thisFont = spFontName.getItemAtPosition(position) as jPanelFont
+                //Log.d(TAG,"Led panel font name :$thisFont")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
                 Log.d(TAG,"Led panel font name NOTHING selected")
@@ -2241,8 +2257,8 @@ class MainActivity : AppCompatActivity(){
         spFontSize.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val thisSize = spFontSize.getItemAtPosition(position)
-                Log.d(TAG,"Led panel font size :${thisSize}")
+                //val thisSize = spFontSize.getItemAtPosition(position)
+                //Log.d(TAG,"Led panel font size :${thisSize}")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
                 Log.d(TAG,"Led panel font size NOTHING selected")
@@ -2251,8 +2267,8 @@ class MainActivity : AppCompatActivity(){
         spFontDecoration.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val thisDecoration = spFontDecoration.getItemAtPosition(position)
-                Log.d(TAG,"Led panel font decoration :${thisDecoration}")
+                //val thisDecoration = spFontDecoration.getItemAtPosition(position)
+                //Log.d(TAG,"Led panel font decoration :${thisDecoration}")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
                 Log.d(TAG,"Led panel font decoration NOTHING selected")
@@ -2297,15 +2313,15 @@ class MainActivity : AppCompatActivity(){
         spBgEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val thisBackground = spBgEffect.getItemAtPosition(position) as jPanelBackgrounds
-                Log.d(TAG,"Background : ${thisBackground.toString()}")
+                //val thisBackground = spBgEffect.getItemAtPosition(position) as jPanelBackgrounds
+                //Log.d(TAG,"Background : $thisBackground")
                 //setupBackgroudInterface()
                 when(mode){
                     getString(R.string.sentenceHeaderAdd) ->{ //ADD
-                        setupBackgroudInterface()
+                        setupBackgroundInterface()
                     }
                     getString(R.string.sentenceHeaderEdit) ->{ //EDIT
-                        setupBackgroudInterface()
+                        setupBackgroundInterface()
                     }
                     getString(R.string.sentenceHeaderDelete) ->{ //DELETE
                         hideBackgroundInterface()
@@ -2394,7 +2410,7 @@ class MainActivity : AppCompatActivity(){
                     addSentence()
                 }
                 getString(R.string.sentenceHeaderEdit) ->{
-                    editSentence()
+                    updateSentence()
                 }
                 getString(R.string.sentenceHeaderDelete) ->{
                     deleteSentence()

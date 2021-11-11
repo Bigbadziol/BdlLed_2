@@ -34,6 +34,7 @@ data class  jPanelSentence(
 data class jPanelData(
     var mode : Int,
     var cmd : String,
+    var cmdId : Int,
     var fonts : List<jPanelFont>,
     var textEffects : List<jPanelTextEffect>,
     var backgrounds : List<jPanelBackgrounds>,
