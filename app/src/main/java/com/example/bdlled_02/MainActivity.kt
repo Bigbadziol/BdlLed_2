@@ -1709,7 +1709,7 @@ class MainActivity : AppCompatActivity(){
             when (spFontSize.selectedItemPosition){
                 0-> res ="s"
                 1-> res ="m"
-                2-> res ="b"
+                2-> res ="l"
             }
             when(spFontDecoration.selectedItemPosition) {
                 0 -> res += "n"
@@ -1737,6 +1737,14 @@ class MainActivity : AppCompatActivity(){
             ret.addProperty("r", Color.red(colInt))
             ret.addProperty("g",Color.green(colInt))
             ret.addProperty("b",Color.blue(colInt))
+            return ret
+        }
+
+        fun getColorFromRgb( r: Int , g: Int , b:Int) : JsonObject{
+            val ret = JsonObject()
+            ret.addProperty("r", r)
+            ret.addProperty("g", g)
+            ret.addProperty("b", b)
             return ret
         }
 
@@ -1911,6 +1919,14 @@ class MainActivity : AppCompatActivity(){
             setParamVal(tvBgParam3, tvBgParam3val,sbBgParam3,"Decay :",pDecay ,1,10)
             panelBg.setVisibility(true)
         }
+        fun upBgFire1() : JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("dir", spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("flareRows" , sbBgParam1.progress)
+            dataObj.addProperty("flareChance" , sbBgParam2.progress)
+            dataObj.addProperty("flareDecay" , sbBgParam3.progress)
+            return dataObj
+        }
 
         fun piBgFire2(){
             var pPalette = 2    // palette
@@ -1925,6 +1941,12 @@ class MainActivity : AppCompatActivity(){
             setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
             setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Heat :",pHeat ,1,5)
             panelBg.setVisibility(true)
+        }
+        fun upBgFire2(): JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("palette", spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("heat" , sbBgParam1.progress)
+            return dataObj
         }
 
         fun piBgFire3(){
@@ -1944,6 +1966,13 @@ class MainActivity : AppCompatActivity(){
             setParamVal(tvBgParam2, tvBgParam2val,sbBgParam2,"Iskry:",pSparking ,1,16)
             panelBg.setVisibility(true)
         }
+        fun upBgFire3() : JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("palette", spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("cooling" , sbBgParam1.progress)
+            dataObj.addProperty("sparking" , sbBgParam2.progress)
+            return dataObj
+        }
 
         fun piBgRain(){
             /*
@@ -1957,55 +1986,44 @@ class MainActivity : AppCompatActivity(){
             */
 
             val data = sentence.background
-            var tempColor: JsonObject = JsonObject()
             Log.d(TAG,"Preparing bg interface : Rain")
 
             if (data.has("color1Start")){
-                tempColor = data.getAsJsonObject("color1Start")
-                setParamColorFromColorObj(tempColor,tvBgColor1,btnBgColor1,"Start 1")
+                setParamColorFromColorObj(data.getAsJsonObject("color1Start"),
+                    tvBgColor1,btnBgColor1,"Start 1")
             }else {
                 //esp32 def values
-                tempColor.addProperty("r",255)
-                tempColor.addProperty("g",255)
-                tempColor.addProperty("b",255)
-                setParamColorFromColorObj(tempColor,tvBgColor1,btnBgColor1,"Start 1")
+                setParamColorFromColorObj(getColorFromRgb(255,255,255),
+                    tvBgColor1,btnBgColor1,"Start 1")
             }
-            Log.d(TAG,"Color1Start : $tempColor")
 
             if (data.has("color1Stop")){
-                tempColor = data.getAsJsonObject("color1Stop")
-                setParamColorFromColorObj(tempColor,tvBgColor2,btnBgColor2,"Stop 1")
+                setParamColorFromColorObj(data.getAsJsonObject("color1Stop"),
+                    tvBgColor2,btnBgColor2,"Stop 1")
             }else {
                 //esp32 def values
-                tempColor.addProperty("r",255)
-                tempColor.addProperty("g",0)
-                tempColor.addProperty("b",0)
-                setParamColorFromColorObj(tempColor,tvBgColor2,btnBgColor2,"Stop 1")
+                setParamColorFromColorObj(getColorFromRgb(255,0,0),
+                    tvBgColor2,btnBgColor2,"Stop 1")
             }
-            Log.d(TAG,"Color1Stop : $tempColor")
+
 
             if (data.has("color2Start")){
-                tempColor = data.getAsJsonObject("color2Start")
-                setParamColorFromColorObj(tempColor,tvBgColor3,btnBgColor3,"Start 2")
+                setParamColorFromColorObj(data.getAsJsonObject("color2Start"),
+                    tvBgColor3,btnBgColor3,"Start 2")
             }else {
                 //esp32 def values
-                tempColor.addProperty("r",255)
-                tempColor.addProperty("g",0)
-                tempColor.addProperty("b",0)
-                setParamColorFromColorObj(tempColor,tvBgColor3,btnBgColor3,"Start 2")
+                setParamColorFromColorObj(getColorFromRgb(255,0,0),
+                    tvBgColor3,btnBgColor3,"Start 2")
             }
-            Log.d(TAG,"Color1Start : $tempColor")
+
 
             if (data.has("color2Stop")){
-                tempColor = data.getAsJsonObject("color2Stop")
-                setParamColorFromColorObj(tempColor,tvBgColor4,btnBgColor4,"Stop 2")
+                setParamColorFromColorObj(data.getAsJsonObject("color2Stop"),
+                    tvBgColor4,btnBgColor4,"Stop 2")
             }else {
-                tempColor.addProperty("r",32)
-                tempColor.addProperty("g",0)
-                tempColor.addProperty("b",0)
-                setParamColorFromColorObj(tempColor,tvBgColor4,btnBgColor4,"Stop 2")
+                setParamColorFromColorObj(getColorFromRgb(32,0,0),
+                    tvBgColor4,btnBgColor4,"Stop 2")
             }
-            Log.d(TAG,"Color1Stop : $tempColor")
 
             var pSize = 2
             val values : ArrayList<String> = ArrayList()
@@ -2018,6 +2036,23 @@ class MainActivity : AppCompatActivity(){
             setParamBool(tvBgParamBool1,swBgParamBool1,"Czyszczenie:",pFillBg)
 
             panelBg.setVisibility(true)
+        }
+        fun upBgRain() : JsonObject{
+            val dataObj = JsonObject()
+            val color1Start = getColorFromTextView(tvBgColor1)
+            val color1Stop = getColorFromTextView(tvBgColor2)
+            val color2Start = getColorFromTextView(tvBgColor3)
+            val color2Stop = getColorFromTextView(tvBgColor4)
+
+            dataObj.add("color1Start", color1Start )
+            dataObj.add("color1Stop", color1Stop )
+            dataObj.add("color2Start", color2Start )
+            dataObj.add("color2Stop", color2Stop )
+            dataObj.addProperty("size", spBgCustomParam.selectedItemPosition)
+            var checked1 = 0
+            if (swBgParamBool1.isEnabled) checked1 = 1
+            dataObj.addProperty("fillBg", checked1)
+            return dataObj
         }
 
 
