@@ -89,11 +89,11 @@ var jsonPanelDataTest_small : String = """
     {
       "id": 0,
       "sentence": "Jacek jedzie",
-      "scrollDelay": 25,
+      "scrollDelay": 20,
       "bgDelay": 30,
       "font": {
         "fontId": 0,
-        "fontType": "mb",
+        "fontType": "lbi",
         "color": {
           "r": 255,
           "g": 128,
@@ -144,7 +144,7 @@ var jsonPanelDataTest_small : String = """
       "bgDelay": 30,
       "font": {
         "fontId": 1,
-        "fontType": "mb",
+        "fontType": "sn",
         "color": {
           "r": 0,
           "g": 128,
@@ -174,11 +174,11 @@ var jsonPanelDataTest_small : String = """
     {
       "id": 2,
       "sentence": "GreeN",
-      "scrollDelay": 25,
-      "bgDelay": 35,
+      "scrollDelay": 30,
+      "bgDelay": 40,
       "font": {
         "fontId": 2,
-        "fontType": "mb",
+        "fontType": "mbi",
         "color": {
           "r": 0,
           "g": 255,
@@ -206,8 +206,8 @@ var jsonPanelDataTest_small : String = """
     {
       "id": 3,
       "sentence": "Fire 3 Fire 3 ",
-      "scrollDelay": 25,
-      "bgDelay": 35,
+      "scrollDelay": 20,
+      "bgDelay": 50,
       "font": {
         "fontId": 0,
         "fontType": "mb",
@@ -239,11 +239,11 @@ var jsonPanelDataTest_small : String = """
     {
       "id": 4,
       "sentence": "ID4: text jakis dlugi itd. ",
-      "scrollDelay": 25,
-      "bgDelay": 35,
+      "scrollDelay": 20,
+      "bgDelay": 40,
       "font": {
         "fontId": 0,
-        "fontType": "mb",
+        "fontType": "si",
         "color": {
           "r": 0,
           "g": 0,
@@ -275,7 +275,7 @@ var jsonPanelDataTest_small : String = """
       "bgDelay": 30,
       "font": {
         "fontId": 0,
-        "fontType": "mb",
+        "fontType": "mn",
         "olor": {
           "": 34
         }
@@ -324,7 +324,7 @@ var jsonPanelDataTest_small : String = """
       "bgDelay": 30,
       "font": {
         "fontId": 2,
-        "fontType": "mb",
+        "fontType": "lbi",
         "color": {
           "r": 255,
           "g": 0,

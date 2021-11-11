@@ -1561,6 +1561,7 @@ class MainActivity : AppCompatActivity(){
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
         mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         //magic should be here
         val tvHeader = mDialog.findViewById<View>(R.id.tvLedpHeader) as TextView
         val etSentence = mDialog.findViewById<View>(R.id.etLedpSentence) as EditText
@@ -1721,6 +1722,14 @@ class MainActivity : AppCompatActivity(){
         fun getRescaledDelay(o : SeekBar) : Int {
             return 60 - (o.progress * 10)
         }
+
+        fun setRescaledDelay(target : SeekBar, baseValue : Int){
+            var res = (60 - baseValue) / 10
+            if (res < 1) res = 1
+            if (res > 5) res = 5
+            target.progress = res
+        }
+
         fun getColorFromTextView(o : TextView) :JsonObject{
             val ret : JsonObject = JsonObject()
             val colDraw = o.background as ColorDrawable
@@ -1802,18 +1811,47 @@ class MainActivity : AppCompatActivity(){
         }
         fun piTeStatic(){
             Log.d(TAG,"Preparing text effect interface : Statyczny")
+            var pPosition = 2 //position
+            val data = sentence.textEffect
+            if (data.has("position")) pPosition = data.get("position").asInt
+            Log.d(TAG,"values -> pPosition : $pPosition")
+
             val values : ArrayList<String> = ArrayList()
             values.addAll(resources.getStringArray(R.array.teCustomStatic))
-            setParamCustom(tvTeCustom,spTeCustom,"Pozycja",values,0)
+            setParamCustom(tvTeCustom,spTeCustom,"Pozycja",values,pPosition)
             panelTextEffect.setVisibility(true)
-
         }
+        fun upTeStatic() : JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("position", spTeCustom.selectedItemPosition)
+            return dataObj
+        }
+
         fun piTeScroll(){
             Log.d(TAG,"Preparing text effect interface : Scroll")
+            var pScrollType = 2 //scrollType
+            val data = sentence.textEffect
+            if (data.has("scrollType")) pScrollType = data.get("scrollType").asInt
+            Log.d(TAG,"values -> pScrollType : $pScrollType")
             val values : ArrayList<String> = ArrayList()
             values.addAll(resources.getStringArray(R.array.teCustomScroll))
-            setParamCustom(tvTeCustom,spTeCustom,"Pozycja",values,0)
+            setParamCustom(tvTeCustom,spTeCustom,"Pozycja",values,pScrollType)
             panelTextEffect.setVisibility(true)
+        }
+        fun upTeScroll(): JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("scrollType", spTeCustom.selectedItemPosition)
+            return dataObj
+        }
+
+        fun updateTextEffectData() : JsonObject{
+            val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
+            var textEffectData = JsonObject()
+            when (thisTextEffect.name){
+                "Statyczny" -> textEffectData =  upTeStatic()
+                "Scroll" -> textEffectData = upTeScroll()
+            }
+            return textEffectData
         }
 
         fun setupTextEffectInterface(){
@@ -1854,6 +1892,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         fun piBgFire1(){
+            Log.d(TAG,"Preparing bg interface : Fire1")
             var pRows = 2   // default , flareRows
             var pChance = 3 // flareChance
             var pDecay = 6  // flareDecay
@@ -1863,7 +1902,6 @@ class MainActivity : AppCompatActivity(){
             if (data.has("flareChance")) pChance = data.get("flareChance").asInt
             if (data.has("flareDecay")) pDecay = data.get("flareDecay").asInt
             if (data.has("dir")) pDir = data.get("dir").asInt
-            Log.d(TAG,"Preparing bg interface : Fire1")
             Log.d(TAG,"Values -> pPows : $pRows , pChance : $pChance , pDecay : $pDecay , pDir : $pDir")
             val values : ArrayList<String> = ArrayList()
             values.addAll(resources.getStringArray(R.array.bgCustomFire1))
@@ -2014,7 +2052,7 @@ class MainActivity : AppCompatActivity(){
             //set bg index
             if (sentence.background.has("name")) bgName = sentence.background.get("name").asString
             Log.d(TAG,"name from bg : $bgName")
-            index = backgroundList.indexOfFirst { it-> it.name == bgName}
+            index = backgroundList.indexOfFirst { it.name == bgName}
             if (index > - 1) spBgEffect.setSelection(index)
             else spBgEffect.setSelection(0)
 
@@ -2030,27 +2068,28 @@ class MainActivity : AppCompatActivity(){
             //first font name
             if (fontIndex > - 1) spFontName.setSelection(fontIndex)
             else spFontName.setSelection(0)
+
             //size
-            val c1 = fontType.get(0)
-            when (c1){
+            when (fontType.get(0)){
                 's' ->{spFontSize.setSelection(0)}
                 'm' ->{spFontSize.setSelection(1)}
                 'l' ->{spFontSize.setSelection(2)}
                 else ->{spFontSize.setSelection(0)}
             }
             //decoration
-            val c2 = fontType.get(1)
-            var c3= '\u0000'
-            if (fontType.length == 3) c3 = fontType.get(2)
-            var  decoration=""
-            decoration += c2
-            decoration += c3
-            when (decoration){
-                "n" -> spFontDecoration.setSelection(0)
-                "b" -> spFontDecoration.setSelection(1)
-                "i" -> spFontDecoration.setSelection(2)
-                "bi"-> spFontDecoration.setSelection(3)
-                else -> spFontDecoration.setSelection(0)
+            fontType = fontType.drop(1) //remove first
+            when (fontType){
+                "n" -> {spFontDecoration.setSelection(0)}
+                "b" -> {spFontDecoration.setSelection(1)}
+                "i" -> {spFontDecoration.setSelection(2)}
+                "bi"-> {spFontDecoration.setSelection(3)}
+                else -> {spFontDecoration.setSelection(0)}
+            }
+        }
+        fun setFontColor(){
+            if (sentence.font.has("color")){
+                val colorObj= sentence.font.getAsJsonObject("color")
+                setParamColorFromColorObj(colorObj,tvColor, btnColor, getString(R.string.btnPanelFontColor))
             }
         }
 
@@ -2067,7 +2106,7 @@ class MainActivity : AppCompatActivity(){
 
 
                 //## PART totalny miszmasz !!!
-                    val fontObj : JsonObject = JsonObject()
+                    val fontObj  = JsonObject()
                     val thisFont = spFontName.selectedItem as jPanelFont //data from spinner
 
                     fontObj.addProperty("fontId",thisFont.id)
@@ -2101,7 +2140,32 @@ class MainActivity : AppCompatActivity(){
         }
         fun editSentence(){
             if (etSentence.text.isNotEmpty()) {
+                //common and constant
                 newSentence.id = sentence.id
+                newSentence.sentence = etSentence.text.toString()
+                newSentence.bgDelay = getRescaledDelay(sbBgDelay)
+                newSentence.scrollDelay = getRescaledDelay(sbTextDelay)
+                // font object
+                val fontObj  = JsonObject()
+                val thisFont = spFontName.selectedItem as jPanelFont //data from spinner
+                fontObj.addProperty("fontId",thisFont.id)
+                fontObj.addProperty("fontType", getFontType())
+                fontObj.add("color",getColorFromTextView(tvColor))
+                //newSentence.font.add("font",fontObj)
+                newSentence.font = fontObj
+                // text effect
+                val textEffectObj = JsonObject()
+                val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
+                textEffectObj.addProperty("name", thisTextEffect.name)
+                textEffectObj.addProperty("editable", thisTextEffect.editable)
+                textEffectObj.addProperty("type",thisTextEffect.type)
+                textEffectObj.add("data",updateTextEffectData())
+                //newSentence.textEffect.add("textEffect",textEffectObj)
+                newSentence.textEffect = textEffectObj
+
+
+
+                //===================================
                 //bgType , bgId , fontId , inside listeners
                 val index = sentenceList.indexOf(sentence)//old data
                 sentenceList.set(index,newSentence)
@@ -2110,7 +2174,7 @@ class MainActivity : AppCompatActivity(){
                 //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
                 val sentenceJson = Gson().toJson(newSentence)
                 val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
-                sentenceObj.addProperty("cmd","EDIT")
+                sentenceObj.addProperty("cmd","__EDIT")
                 Log.d(TAG, "Json EDIT sentence : $sentenceObj")
             }else{
                 Log.d(TAG,"Edit sentence -> text no set")
@@ -2121,7 +2185,7 @@ class MainActivity : AppCompatActivity(){
             sentenceList.removeAt(index)
             bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
             val del = JsonObject()
-            del.addProperty("cmd","DELETE")
+            del.addProperty("cmd","__DELETE")
             del.addProperty("id",sentence.id)
             Log.d(TAG, "Json DELETE command : $del")
         }
@@ -2327,6 +2391,10 @@ class MainActivity : AppCompatActivity(){
                 etSentence.hint =""
                 etSentence.text.clear()
                 etSentence.text.append(sentence.sentence)
+                setFontIndexes()
+                setFontColor()
+                setRescaledDelay(sbBgDelay, sentence.bgDelay)
+                setRescaledDelay(sbTextDelay, sentence.scrollDelay)
                 setTePositionFromSentence()
                 setBgPositionFromSentence()
             }
@@ -2335,6 +2403,11 @@ class MainActivity : AppCompatActivity(){
                 disableInterface()
                 etSentence.text.clear()
                 etSentence.text.append(sentence.sentence)
+                setFontIndexes()
+                setFontColor()
+                setRescaledDelay(sbBgDelay, sentence.bgDelay)
+                setRescaledDelay(sbTextDelay, sentence.scrollDelay)
+
                 setTePositionFromSentence()
                 setBgPositionFromSentence()
                 //tu nie ma sensu : hideTextEffectInterface()  , hideBackgroundInterface()
