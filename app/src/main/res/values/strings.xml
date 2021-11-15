@@ -57,6 +57,7 @@
     <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
     <string name="tvPanelBgDelay">Szybkosc tla:</string>
     <string name="chooseColor">Wybierz kolor</string>
+    <string name="btnStripColor1">Background</string>
     <!-- devices common section -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>

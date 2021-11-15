@@ -1,15 +1,23 @@
 package com.example.bdlled_02
+/*
+Wcześniej : BtHandler : Handler() -> BtHandler : Handler(Looper.getMainLooper())
+myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
+ private inner class AcceptIncommingThread() : Thread() {
+  -> private inner class AcceptIncommingThread : Thread() {
 
+  //WAS : bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+  val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+  bluetoothAdapter = bluetoothManager.adapter
+ */
 
 import android.app.Dialog
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothServerSocket
-import android.bluetooth.BluetoothSocket
+import android.bluetooth.*
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.util.Log
 import android.view.Menu
@@ -48,8 +56,6 @@ lateinit var dataHandler: Handler //only for data handling from ESP
 var allStripData = Gson().fromJson(jsonStripDataTest_big,jStripData::class.java)
 var allPanelData = Gson().fromJson(jsonPanelDataTest_small,jPanelData::class.java)
 
-var allData = ""
-
 
 class MainActivity : AppCompatActivity(){
     private lateinit var bind : ActivityMainBinding
@@ -72,7 +78,7 @@ class MainActivity : AppCompatActivity(){
 
 
     //----------------------------------------------------------------------------------------------
-    private inner class BtHandler : Handler(){
+    private inner class BtHandler : Handler(Looper.getMainLooper()){
         var allMessage : String =""
         override fun handleMessage(msg: Message) {
             val readBuf = msg.obj as String
@@ -124,7 +130,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
     //----------------------------------------------------------------------------------------------
-    private inner class AcceptIncommingThread() : Thread() {
+    private inner class AcceptIncommingThread : Thread() {
         // val serverSocket: BluetoothServerSocket?
         val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
             //bluetoothAdapter?.listenUsingRfcommWithServiceRecord(SERVICE_NAME,uuid)
@@ -151,7 +157,6 @@ class MainActivity : AppCompatActivity(){
             }
         }
         //------------------------------------------------------------------------------------------
-
         // Closes the connect socket and causes the thread to finish.
         fun cancel() {
             try {
@@ -167,7 +172,7 @@ class MainActivity : AppCompatActivity(){
             val inputStream = socket.inputStream
             val buffer = ByteArray(10240)
             var bytes: Int
-            var thisMessage = "" //      this var is init inside old version
+            var thisMessage: String //      was =""
             Log.d("DEBUG_ESP", "Waiting for data, ...")
             while (true) {
                 try {
@@ -546,7 +551,7 @@ class MainActivity : AppCompatActivity(){
         Podobnie w updateParamBool
      */
     private fun setStripParamBool(pNum : Int, desc : String, state : Int){
-        var tmpBool : Boolean = false
+        var tmpBool  = false
         if (state == 1) tmpBool = true
         when (pNum){
             1-> {
@@ -617,7 +622,7 @@ class MainActivity : AppCompatActivity(){
         val thisEffect = allStripData.effects[bind.spStripEffect.selectedItemPosition]
         if(thisEffect.data.has(parmName)){
             var tmpBoolAsInt = 0
-            if (sw.isChecked == true ) tmpBoolAsInt = 1
+            if (sw.isChecked) tmpBoolAsInt = 1
             thisEffect.data.addProperty(parmName, tmpBoolAsInt)
         } else{
             Toast.makeText(this, "Effect dont have $parmName parameter", Toast.LENGTH_SHORT).show()
@@ -1171,7 +1176,7 @@ class MainActivity : AppCompatActivity(){
                 if (col.has("g")) { g = col.get("g").asInt  }
                 if (col.has("b")) { b = col.get("b").asInt  }
                 setStripParamColor(1 , r , g , b)
-                bind.btnStripColor1.text ="Background"
+                bind.btnStripColor1.text =getString(R.string.btnStripColor1)
             }
             if (thisEffectData.has("bgBright")) {
                 setStripParamVal(1, "Fade :", thisEffectData.get("bgBright").asInt, 1, 10)
@@ -2242,19 +2247,18 @@ class MainActivity : AppCompatActivity(){
                 newSentence.id = sentence.id
                 //Log.d(TAG,"-->before update")
                 prepareDataToUpdate() //same step a add new sentence
-                    sentenceList.set(sentenceIndex , newSentence) // sentence index from header
-                    bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
-                    //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
-                    //Log.d(TAG,"-->before json")
-                    val sentenceJson = Gson().toJson(newSentence)
-                    val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
-                    //From ESP32
-                    //for ADD and UPDATE cmdId and id must me the same
-                    sentenceObj.addProperty("cmd","UPDATE_SET")
-                    sentenceObj.addProperty("cmdId",sentence.id)
-                    Log.d(TAG, "Json Update sentence : $sentenceObj")
-                    ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
-
+                sentenceList[sentenceIndex] = newSentence // sentence index from header
+                bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
+                //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
+                //Log.d(TAG,"-->before json")
+                val sentenceJson = Gson().toJson(newSentence)
+                val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
+                //From ESP32
+                //for ADD and UPDATE cmdId and id must me the same
+                sentenceObj.addProperty("cmd","UPDATE_SET")
+                sentenceObj.addProperty("cmdId",sentence.id)
+                Log.d(TAG, "Json Update sentence : $sentenceObj")
+                ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
             }else{
                 Log.d(TAG,"Update sentence -> text no set")
             }
@@ -2518,12 +2522,12 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(bind.root)
 
-
-
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        //WAS : bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothAdapter = bluetoothManager.adapter
 
         AcceptIncommingThread().start() // listen for controlers , trying to connect to app (backward flow)
-        myHandler = Handler()    //handle data from  threds : AcceptIncommingThread() ,
+        myHandler = Handler(Looper.getMainLooper())    //handle data from  threds : AcceptIncommingThread() ,
         dataHandler = BtHandler()
 
 
@@ -2768,11 +2772,11 @@ class MainActivity : AppCompatActivity(){
         })
         //----bool 1
         bind.swStripBool1.setOnCheckedChangeListener { _, b ->
-//            Toast.makeText(this, "B1:"+b.toString(), Toast.LENGTH_SHORT).show()
+            Log.d(TAG,"bool 1 state : $b")
         }
         //----bool 2
         bind.swStripBool2.setOnCheckedChangeListener { _, b ->
-//            Toast.makeText(this, "B2:"+b.toString(), Toast.LENGTH_SHORT).show()
+            Log.d(TAG,"bool 2 state : $b")
         }
         //----button confirm effect
         bind.btnStripEffectConfirm.setOnClickListener {
@@ -2826,7 +2830,7 @@ class MainActivity : AppCompatActivity(){
             val setMode = JsonObject()
             setMode.addProperty("cmd","SET_MODE")
             setMode.addProperty("mode",bind.spPanelMode.selectedItemPosition)
-            Log.d(TAG,"Mode set : ${setMode.toString()}")
+            Log.d(TAG,"Mode set : $setMode")
         }
         //-----header sentence list
         bind.tvSentenceListHeader.isClickable = true
@@ -2834,7 +2838,7 @@ class MainActivity : AppCompatActivity(){
             val wrapper = ContextThemeWrapper(this, R.style.BasePopupMenu)
             val newPopup = PopupMenu(wrapper, it)
             newPopup.menu.add(Menu.NONE, 1, 0, getString(R.string.popupSentenceNew))
-            newPopup.setOnMenuItemClickListener { it ->
+            newPopup.setOnMenuItemClickListener {
                 Log.d(TAG,"ADD sentence from header click")
                 val thisItem =jPanelSentence()
                 dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderAdd))
@@ -2846,7 +2850,7 @@ class MainActivity : AppCompatActivity(){
         //----Panel sentence list
         bind.lvPanelSentences.isClickable = true
         bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
-        bind.lvPanelSentences.setOnItemLongClickListener { adapterView, view, position, id ->
+        bind.lvPanelSentences.setOnItemLongClickListener { _, view, position, _ ->
             doPopupMenuSentences(view,position)
             false
         }
