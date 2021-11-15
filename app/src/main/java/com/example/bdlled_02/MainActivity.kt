@@ -48,6 +48,8 @@ lateinit var dataHandler: Handler //only for data handling from ESP
 var allStripData = Gson().fromJson(jsonStripDataTest_big,jStripData::class.java)
 var allPanelData = Gson().fromJson(jsonPanelDataTest_small,jPanelData::class.java)
 
+var allData = ""
+
 
 class MainActivity : AppCompatActivity(){
     private lateinit var bind : ActivityMainBinding
@@ -60,12 +62,11 @@ class MainActivity : AppCompatActivity(){
     var stripCustomList :  ArrayList<String> = ArrayList()  //nad tym tez trzeba popracowac, znaczy sie wyjebac
 
     var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
+
     var sentenceList: ArrayList<jPanelSentence> = ArrayList()
     var fontList : ArrayList<jPanelFont> = ArrayList()
     var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
     var textEffectList : ArrayList<jPanelTextEffect> = ArrayList()
-
-    //w łukęcinie
     var fontSizeList : ArrayList<String> = ArrayList()
     var fontDecorationList : ArrayList<String> = ArrayList()
 
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity(){
     private inner class BtHandler : Handler(){
         var allMessage : String =""
         override fun handleMessage(msg: Message) {
-            var readBuf = msg.obj as String
+            val readBuf = msg.obj as String
             //Log.d("DEBUG_INSIDE",readBuf.length.toString())
             when (msg.what){
                 1 ->{
@@ -84,11 +85,37 @@ class MainActivity : AppCompatActivity(){
                     }else{
                         allMessage += readBuf
                         if (allMessage.length-1 > 0) {
-                            jsonStripDataTest_big = allMessage.substring(0, allMessage.length - 1)
-                            allStripData = Gson().fromJson(jsonStripDataTest_big ,jStripData::class.java)
-                            allMessage = ""
-                            Log.d("DEBUG_INSIDE","Data loaded system alive")
-                            piStripMain()
+                            when {
+                                mySelectedBluetoothDevice.name.contains("LEDS_") -> {
+                                    Log.d(TAG, "ALL DATA FROM : LED STRIP")
+                                    jsonStripDataTest_big = allMessage.substring(0, allMessage.length - 1)
+                                    allStripData = Gson().fromJson(jsonStripDataTest_big ,jStripData::class.java)
+                                    allMessage = ""
+                                    Log.d("DEBUG_INSIDE","Data loaded system alive")
+                                    piStripMain()
+                                }
+                                mySelectedBluetoothDevice.name.contains("LEDP_") -> {
+                                    Log.d(TAG, "ALL DATA FROM : LED PANEL")
+                                    allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+                                    Log.d("DEBUG_INSIDE","Clearing all panel lists")
+                                    sentenceList.clear()
+                                    sentenceList.addAll(allPanelData.sentences)
+                                    fontList.clear()
+                                    fontList.addAll(allPanelData.fonts)
+                                    backgroundList.clear()
+                                    backgroundList.addAll(allPanelData.backgrounds)
+                                    textEffectList.clear()
+                                    textEffectList.addAll(allPanelData.textEffects)
+
+                                    bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
+                                    allMessage = ""
+                                    Log.d("DEBUG_INSIDE","----")
+                                }
+                                else -> {
+                                    Log.d(TAG, "Unknown type of selected device")
+                                    allMessage = ""
+                                }
+                            }
                         }
                     }
                 }
@@ -140,7 +167,7 @@ class MainActivity : AppCompatActivity(){
             val inputStream = socket.inputStream
             val buffer = ByteArray(10240)
             var bytes: Int
-            var thisMessage: String = "" //      this var is init inside old version
+            var thisMessage = "" //      this var is init inside old version
             Log.d("DEBUG_ESP", "Waiting for data, ...")
             while (true) {
                 try {
@@ -185,7 +212,11 @@ class MainActivity : AppCompatActivity(){
                     handlePanelsVisibility()
                 }
                 ConnectedThread(appSocket).start()
-                ConnectThread(mySelectedBluetoothDevice).writeMessage("""{"cmd" : "DATA_PLEASE" }""")
+                val cmdWelcome= JsonObject()
+                cmdWelcome.addProperty("cmd","DATA_PLEASE")
+                cmdWelcome.addProperty("cmdId",0)
+                //ConnectThread(mySelectedBluetoothDevice).writeMessage("""{"cmd" : "DATA_PLEASE" }""")
+                ConnectThread(mySelectedBluetoothDevice).writeMessage(cmdWelcome.toString())
             }catch (e1: Exception){
                 Log.d("DEBUG_APP", "Error connecting socket, $e1")
                 myHandler.post {
@@ -1531,6 +1562,7 @@ class MainActivity : AppCompatActivity(){
                     set.addProperty("cmd","SET")
                     set.addProperty("cmdId",thisItem.id)
                     Log.d(TAG,"SET sentence : $set")
+                    ConnectThread(mySelectedBluetoothDevice).writeMessage(set.toString())
                 }
                 R.id.sentenceNew-> {
                     Log.d(TAG,"ADD sentence")
@@ -2198,6 +2230,7 @@ class MainActivity : AppCompatActivity(){
                 sentenceObj.addProperty("cmd","ADD_SET")
                 sentenceObj.addProperty("cmdId",newSentence.id)
                 Log.d(TAG, "Json ADD sentence : $sentenceObj")
+                ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
             }else{
                 Log.d(TAG,"New sentence -> text no set")
             }
@@ -2209,12 +2242,6 @@ class MainActivity : AppCompatActivity(){
                 newSentence.id = sentence.id
                 //Log.d(TAG,"-->before update")
                 prepareDataToUpdate() //same step a add new sentence
-                //===Handle list part and send prepared object
-                //val index = sentenceList.indexOf(sentence)//old ver
-                //Log.d(TAG,"-->before set")
-                //Log.d (TAG,"-->returned index : $index")
-                //if (index > -1){
-                    // sentenceList[index] = newSentence
                     sentenceList.set(sentenceIndex , newSentence) // sentence index from header
                     bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
                     //troszke na okolo obiekt klasy jPanelSentence do stringa , string do obiektu json
@@ -2226,9 +2253,8 @@ class MainActivity : AppCompatActivity(){
                     sentenceObj.addProperty("cmd","UPDATE_SET")
                     sentenceObj.addProperty("cmdId",sentence.id)
                     Log.d(TAG, "Json Update sentence : $sentenceObj")
-                //}else {
-                //    Log.d(TAG ,"NOT updated , index not found!")
-                //}
+                    ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
+
             }else{
                 Log.d(TAG,"Update sentence -> text no set")
             }
@@ -2241,6 +2267,7 @@ class MainActivity : AppCompatActivity(){
             del.addProperty("cmd","DELETE")
             del.addProperty("cmdId",sentence.id)
             Log.d(TAG, "Json DELETE command : $del")
+            ConnectThread(mySelectedBluetoothDevice).writeMessage(del.toString())
         }
 
         // FONT listeners
@@ -2520,16 +2547,27 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(parent: AdapterView<*>,  view: View, position: Int, id: Long) {
                 //Toast.makeText(this@MainActivity, "DEVICE : " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show()
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         //----btn connect
         bind.btnConnect.setOnClickListener {
             val selectedNum = bind.spDevices.selectedItemPosition
             //mySelectedBluetoothDevice = bluetoothAdapter.getRemoteDevice("AC:67:B2:2C:D2:B2")
             mySelectedBluetoothDevice = myDevices[selectedNum]
+
+            when {
+                mySelectedBluetoothDevice.name.contains("LEDS_") -> {
+                    Log.d(TAG,"Selected device is Led strip ")
+                }
+                mySelectedBluetoothDevice.name.contains("LEDP_") -> {
+                    Log.d(TAG,"Selected device is Led panel")
+                }
+                else -> {
+                    Log.d(TAG, "Unknown type of selected device")
+                }
+            }
+
+
             when (espState){
                 EspConnectionState.DISCONNECTED ->{
                     ConnectThread(mySelectedBluetoothDevice).start()
@@ -2546,7 +2584,6 @@ class MainActivity : AppCompatActivity(){
                     Log.d(TAG,"Unknown ESP State")
                 }
             }
-            //           Toast.makeText(this, "Fake Conneting to device", Toast.LENGTH_SHORT).show()
         }
         //------------------------main  strip settings----------------------------------------------
         //-----mode

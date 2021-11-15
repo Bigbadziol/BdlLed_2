@@ -196,7 +196,7 @@ class StartActivity : AppCompatActivity() {
         Log.d(TAG, "BUILDING INTERFACE : all is fine in theory")
         //1) Set header
         bind.tvWelcome.text = getString(R.string.tvWelcomeOk)
-        //2 Start dicavering new devices
+        //2 Start discovering new devices
         bluetoothAdapter.startDiscovery()
         if (bluetoothAdapter.isDiscovering) {
             Log.d(TAG, "[1] Is discovering...")
@@ -214,11 +214,11 @@ class StartActivity : AppCompatActivity() {
         }
         //5) handle new devices
         bind.tvNewDevices.setVisibility(View.VISIBLE)
-        //5.1) Broadcast reciver for new devices
+        //5.1) Broadcast receiver for new devices
         initBrNewDevices() // brNewDevices from new devices
         filterNewDevices = IntentFilter(BluetoothDevice.ACTION_FOUND)
         registerReceiver(brNewDevices, filterNewDevices)
-        //5.2) Broadcast reciver for bond state change
+        //5.2) Broadcast receiver for bond state change
         initBrBoundDevice()
         filterBondDevice = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
         registerReceiver(brBondDevice, filterBondDevice)
@@ -258,7 +258,7 @@ class StartActivity : AppCompatActivity() {
         bind.tvWelcome.text = getString(R.string.tvWelcomeError)
     }
     /*
-        Init broadcast reciver for new devices
+        Init broadcast receiver for new devices
      */
     private fun initBrNewDevices(){
         Log.d(TAG,"Init : broadcast receiver for new devices.")

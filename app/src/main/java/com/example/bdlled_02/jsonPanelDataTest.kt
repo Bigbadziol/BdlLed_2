@@ -4,6 +4,7 @@ var jsonPanelDataTest_small : String = """
 {
   "mode": 0,
   "cmd" : "xxx",
+  "cmdID" : 0 ,
   "fonts": [
     {
         "id": 0,
@@ -351,4 +352,5 @@ var jsonPanelDataTest_small : String = """
     }
   ]
 }    
+
 """.trimIndent()
