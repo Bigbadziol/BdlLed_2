@@ -520,13 +520,46 @@ Zmieniono na ScrollView, z automatu trzeba dodac
             android:layout_height="wrap_content"
             android:background="@color/defaultPanelBackground"
             android:layout_marginTop="10dp">
+            <!-- brightness -->
+            <TableRow
+                android:id="@+id/rowPanelBrightess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvPanelBrightness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tvPanelBrightness"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tvPanelBrightnessVal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lbParam1Val" />
+
+                <SeekBar
+                    android:id="@+id/sbPanelBrightness"
+                    style="@android:style/Widget.Material.SeekBar.Discrete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:min="1"
+                    android:max="5"
+                    android:layout_gravity="center_vertical"
+                    android:progress="1" />
+            </TableRow>
             <!-- work mode -->
             <TableRow
+                android:id="@+id/rowPanelWorkMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lbPanelMode"
+                    android:id="@+id/tvPanelMode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -543,10 +576,9 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     tools:entries="@array/PanelModeList"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>
-
-
             <!-- Panel/Screen main confirm -->
             <TableRow
+                android:id="@+id/rowPanelConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
@@ -558,11 +590,13 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     android:text="@string/btnMainConfirm" />
             </TableRow>
         </TableLayout>
+
         <!-- Panel list sentences-->
         <LinearLayout
             android:id="@+id/panelPanelSentences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvSentenceListHeader"
@@ -580,10 +614,6 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 tools:listitem="@layout/sentence_list_row" />
 
         </LinearLayout>
-
-
-
-
 
         <!-- PANEL TEST -->
         <LinearLayout
@@ -633,19 +663,5 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                 android:text="@string/lbTest"
                 />
         </LinearLayout>
-        <!-- PANEL TEST PART 2 , przeniesione pienterko wyzej -->
-        <!--
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-            <TextView
-                android:id="@+id/lbTest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lbTest"
-                />
-        </ScrollView>
-        -->
     </LinearLayout>
 </ScrollView>

@@ -32,9 +32,11 @@ data class  jPanelSentence(
 )
 
 data class jPanelData(
-    var mode : Int,
-    var cmd : String,
-    var cmdId : Int,
+    var mode : Int = 0,
+    var cmd : String = "xxx",
+    var cmdId : Int = 0,
+    var lastSet : Int = -1,
+    var panelBrightness : Int = 4,
     var fonts : List<jPanelFont>,
     var textEffects : List<jPanelTextEffect>,
     var backgrounds : List<jPanelBackgrounds>,

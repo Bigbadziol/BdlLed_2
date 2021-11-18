@@ -115,6 +115,9 @@ class MainActivity : AppCompatActivity(){
 
                                     bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
                                     allMessage = ""
+                                    //show panels
+                                    showPanelMainSettings()
+                                    showPanelSenteces()
                                     Log.d("DEBUG_INSIDE","----")
                                 }
                                 else -> {
@@ -264,6 +267,7 @@ class MainActivity : AppCompatActivity(){
             EspConnectionState.DISCONNECTED -> {
                 hideMainInterface()
                 hideStripEffectInterface()
+                hidePanelInterfaces()
                 bind.btnConnect.isEnabled = true
                 bind.spDevices.isEnabled = true
                 bind.btnConnect.text = getString(R.string.iConnect)
@@ -272,17 +276,21 @@ class MainActivity : AppCompatActivity(){
             EspConnectionState.CONNECTING ->{
                 hideMainInterface()
                 hideStripEffectInterface()
+                hidePanelInterfaces()
                 bind.btnConnect.isEnabled = false
                 bind.spDevices.isEnabled = false
                 bind.btnConnect.text =getString(R.string.iConnect)
 
             }
             EspConnectionState.CONNECTED -> {
+                //The relevant panels are turned on by BtHandler after downloading the necessary data
                 bind.btnConnect.isEnabled = true
                 bind.spDevices.isEnabled = false
                 bind.btnConnect.text =getString(R.string.iDisconnect)
             }
             EspConnectionState.CONNECTION_ERROR ->{
+                //all panels at this point are invisible becouse preious state "CONNECTING"
+                //hide all panels
                 bind.btnConnect.isEnabled = true
                 bind.spDevices.isEnabled = true
                 bind.btnConnect.text =getString(R.string.iConnect)
@@ -355,30 +363,45 @@ class MainActivity : AppCompatActivity(){
         bind.panelStripMainSettings.setVisibility(false)
     }
 
-    private fun piPanelMain(){
-        //create specific list
-        /*
-        for (s in allPanelData.sentences.indices){
-            sentenceList.add(allPanelData.sentences[s])
-        }
-        */
-        sentenceList.addAll(allPanelData.sentences)
-        fontList.addAll(allPanelData.fonts)
-        backgroundList.addAll(allPanelData.backgrounds)
-        textEffectList.addAll(allPanelData.textEffects)
 
+
+    private fun hidePanelMainSettings(){
         with(bind,{
-            lbPanelMode.setVisibility(true)
-            spPanelMode.setVisibility(true)
-            btnPanelMainConfirm.setVisibility(true)
+            rowPanelBrightess.setVisibility(false)
+            rowPanelWorkMode.setVisibility(false)
+            rowPanelConfirm.setVisibility(false)
+            panelPanelSettings.setVisibility(false)
+        })
+    }
+
+    private fun showPanelMainSettings(){
+        with(bind,{
+            rowPanelBrightess.setVisibility(true)
+            rowPanelWorkMode.setVisibility(false) //DISABLED FOR NOW
+            rowPanelConfirm.setVisibility(true)
+            panelPanelSettings.setVisibility(true)
+        })
+    }
+
+    private fun hidePanelSentences(){
+        with(bind,{
+            tvSentenceListHeader.setVisibility(false)
+            lvPanelSentences.setVisibility(false)
+            panelPanelSentences.setVisibility(false)
+        })
+    }
+
+    private fun showPanelSenteces(){
+        with(bind,{
             tvSentenceListHeader.setVisibility(true)
             lvPanelSentences.setVisibility(true)
             panelPanelSentences.setVisibility(true)
         })
     }
-    private fun hidePanelInterface(){
-        bind.panelPanelSentences.setVisibility(false)
-        bind.panelPanelSettings.setVisibility(false)
+
+    private fun hidePanelInterfaces(){
+        hidePanelMainSettings()
+        hidePanelSentences()
     }
 
     //All set "Metods" simply turn on visibility and set params
@@ -653,8 +676,6 @@ class MainActivity : AppCompatActivity(){
     }
 
     //==========================================================================
-
-
     // "Beat wave" parm1 , parm2 , parm3 , parm4
     private fun piBeatWave(){
         val index = bind.spStripEffect.selectedItemPosition
@@ -1636,7 +1657,6 @@ class MainActivity : AppCompatActivity(){
         val tvTeParam2Val = mDialog.findViewById<View>(R.id.tvPanelTextParam2Val) as TextView
         val sbTeParam2 = mDialog.findViewById<View>(R.id.sbPanelTextParam2) as SeekBar
 
-
         //BACKGROUND Elements
         val panelBg = mDialog.findViewById<View>(R.id.panelPanelBackgroud) as LinearLayout
         // color 1
@@ -1682,6 +1702,7 @@ class MainActivity : AppCompatActivity(){
         val swBgParamBool1 = mDialog.findViewById<View>(R.id.swPanelBgBool1) as SwitchCompat
 
         //test  buttons
+        val panelTests = mDialog.findViewById<View>(R.id.panelPanelTestButtons) as LinearLayout
         val btnTest1 = mDialog.findViewById<View>(R.id.btnLedpTest1) as Button
         val btnTest2 = mDialog.findViewById<View>(R.id.btnLedpTest2) as Button
         val btnTest3 = mDialog.findViewById<View>(R.id.btnLedpTest3) as Button
@@ -2214,6 +2235,13 @@ class MainActivity : AppCompatActivity(){
             return temp
         }
 
+        fun hideTestPanel(){
+            panelTests.setVisibility(false)
+            btnTest1.setVisibility(false)
+            btnTest2.setVisibility(false)
+            btnTest3.setVisibility(false)
+        }
+
         fun addSentence(){
             Log.d(TAG, "TESTING ADD : ")
             if (etSentence.text.isNotEmpty()) {
@@ -2497,13 +2525,10 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-
-
         //wonderfull .....
+        hideTestPanel()
         mDialog.setCancelable(true)
         mDialog.show()
-        //another test
-
         val metrics = resources.displayMetrics
         val width = metrics.widthPixels
         mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -2545,7 +2570,15 @@ class MainActivity : AppCompatActivity(){
         hideMainInterface()
         hideStripEffectInterface()
 
-        piPanelMain()
+        //WARNING FOR TEST ONLY : at this point "test data" are loaded
+        sentenceList.addAll(allPanelData.sentences)
+        fontList.addAll(allPanelData.fonts)
+        backgroundList.addAll(allPanelData.backgrounds)
+        textEffectList.addAll(allPanelData.textEffects)
+        //showPanelMainSettings()
+        //showPanelSenteces()
+        hidePanelInterfaces()
+
         //--------------------------connection panel------------------------------------------------
         bind.spDevices.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,  view: View, position: Int, id: Long) {
@@ -2826,11 +2859,22 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
+        //-----brightness
+        bind.sbPanelBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
+                bind.tvPanelBrightnessVal.text = progress.toString()
+            }
+            override fun onStartTrackingTouch(sb: SeekBar?) {}
+            override fun onStopTrackingTouch(sb: SeekBar?) {}
+        })
+        //-----confirm new settings
         bind.btnPanelMainConfirm.setOnClickListener {
-            val setMode = JsonObject()
-            setMode.addProperty("cmd","SET_MODE")
-            setMode.addProperty("mode",bind.spPanelMode.selectedItemPosition)
-            Log.d(TAG,"Mode set : $setMode")
+            val setConfig = JsonObject()
+            setConfig.addProperty("cmd","SET_DATA")
+            setConfig.addProperty("cmdId",666)
+            setConfig.addProperty("mode",bind.spPanelMode.selectedItemPosition)
+            setConfig.addProperty("brightness",bind.sbPanelBrightness.progress)
+            Log.d(TAG,"Panel config data  NOT SEND NOW: $setConfig")
         }
         //-----header sentence list
         bind.tvSentenceListHeader.isClickable = true

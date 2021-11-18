@@ -604,6 +604,7 @@
 
         <!-- CONFIRM BUTTON - PANEL  -->
         <LinearLayout
+            android:id="@+id/panelPanelAction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -633,6 +634,7 @@
 
         <!-- tests -->
         <LinearLayout
+            android:id="@+id/panelPanelTestButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

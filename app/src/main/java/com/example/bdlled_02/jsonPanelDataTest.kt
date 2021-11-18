@@ -4,7 +4,9 @@ var jsonPanelDataTest_small : String = """
 {
   "mode": 0,
   "cmd" : "xxx",
-  "cmdID" : 0 ,
+  "cmdId" : 0,
+  "lastSet" : -1,
+  "panelBrightness" : 3,
   "fonts": [
     {
         "id": 0,
