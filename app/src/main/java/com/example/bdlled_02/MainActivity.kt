@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(){
 
 
     //----------------------------------------------------------------------------------------------
-    private inner class BtHandler : Handler(Looper.getMainLooper()){
+    private  inner class BtHandler : Handler(Looper.getMainLooper()){
         var allMessage : String =""
         override fun handleMessage(msg: Message) {
             val readBuf = msg.obj as String
@@ -1612,7 +1612,7 @@ class MainActivity : AppCompatActivity(){
     private  fun dialogSentenceAction(sentence : jPanelSentence , mode : String){
         val mDialog = Dialog(this)
         Log.d(TAG,"Passed sentence ID : ${sentence.id} and mode $mode")
-        Log.d(TAG,"Sentence : ${sentence.sentence} ")
+        Log.d(TAG,"Sentence txt: ${sentence.sentence} ")
         val sentenceIndex = sentenceList.indexOf(sentence)
         Log.d(TAG ,"(HEADER) Sentence index : $sentenceIndex")
 
