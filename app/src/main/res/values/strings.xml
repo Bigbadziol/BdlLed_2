@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">BdlLed_02 v2.45</string>
-    <!-- start activity-->
+    <!--            ==== START ACTIVITY ====                 -->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
     <string name="tvWelcomeOk">Witaj</string>
     <string name="tvWelcomeError">\"Bluetooth wyłączone lub zablokowano uprawnienia : Lokalizacja. \"</string>
     <string name="NO_PAIRED_DEVICES">Brak sparowanych urządzeń</string>
     <string name="btnNext">DALEJ</string>
-    <!-- main activity-->
+
+    <!--            ==== MAIN ACTIVITY ====                 -->
     <string name="lbMode">Tryb pracy :</string>
     <string name="btnConnect">Połącz</string>
     <string name="lbStatus">Status :</string>
@@ -16,7 +17,6 @@
     <string name="btnColorMain">Kolor</string>
     <string name="lbPalette">Paleta :</string>
     <string name="btnMainConfirm">Zatwierdz zmiany</string>
-
     <string name="tvEffectName">[NAZWA EFEKTU]</string>
     <string name="lbTimeVal">0</string>
     <string name="btnColor1">Kolor 1</string>
@@ -59,7 +59,7 @@
     <string name="chooseColor">Wybierz kolor</string>
     <string name="btnStripColor1">Background</string>
     <string name="tvPanelBrightness">Jasność</string>
-    <!-- devices common section -->
+    <!-- devices TEST DATA -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>
         <item>LEDL_001</item>
@@ -68,7 +68,8 @@
         <item>LEDLE_001</item>
         <item>LEDLE_115</item>
     </string-array>
-    <!-- strip common section -->
+
+    <!--            ====Strip mode and common data ====                 -->
     <string-array name="StripModeList">
         <item>Wybrany efekt</item>
         <item>Kolejny z listy</item>
@@ -86,6 +87,7 @@
         <item>Heat</item>
     </string-array>
 
+    <!--            ====Strip TEST DATA section ====                 -->
     <string-array name="TestCustomParameterList">
         <item> custom option 1</item>
         <item> custom option 2</item>
@@ -104,7 +106,11 @@
         <item>Easing</item>
     </string-array>
 
-    <!-- Panel common section -->
+    <!--            ====Panel common section ====                 -->
+    <string name="SENTENCE_HINT">Wpisz frazę, max 127 znaków</string>
+    <string name="SENTENCE_REQUIRED">Proszę ,wprowadz slogan.</string>
+    <string name="SENTENCE_CUT">Slogan na długi , został skrucony.</string>
+
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Kogut</item>
@@ -173,8 +179,7 @@
         <item>duzy</item>
     </string-array>
 
-
-
+    <!--            ====Test data for add , edit ,del sentence in dialog ====                 -->
     <string-array name="TestFontName">
         <item>Font 1</item>
         <item>Font 2</item>
@@ -182,8 +187,6 @@
         <item>Font 4</item>
         <item>Font 5</item>
     </string-array>
-
-
 
     <string-array name="TestLedpEffects">
         <item>Ogien</item>

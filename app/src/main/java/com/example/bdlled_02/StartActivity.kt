@@ -30,7 +30,7 @@ const val NO_DEVICE_NAME = "BRAK"
 const val NO_DEVICE_ADDRESS = "urządzeń na liście"
 //const val DEVICE_PREFIX_1 ="LEDS_"
 //const val DEVICE_PREFIX_2 ="LEDP_"
-
+//przetestowac prefixy raz jeszcze , wszystkie stałe do globalnego pliku ?? - przemyslec
 data class DeviceItem(
     val name: String?,
     val address: String?,

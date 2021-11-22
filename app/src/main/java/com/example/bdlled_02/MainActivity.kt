@@ -8,6 +8,8 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
   //WAS : bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
   val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
   bluetoothAdapter = bluetoothManager.adapter
+
+  //---aby byla aktualna wersja
  */
 
 import android.app.Dialog
@@ -32,6 +34,7 @@ import com.example.bdlled_02.databinding.ActivityMainBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.github.dhaval2404.colorpicker.util.setVisibility
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import java.io.IOException
@@ -102,7 +105,17 @@ class MainActivity : AppCompatActivity(){
                                 }
                                 mySelectedBluetoothDevice.name.contains("LEDP_") -> {
                                     Log.d(TAG, "ALL DATA FROM : LED PANEL")
-                                    allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+
+                                    if (allMessage.contains("REMOVE_THAT_FUCKIN_CHAR_IT_IS_DEAM_TEST")){
+                                        Log.d(TAG, "REMOVING CHAR!!!!!!")
+                                        allMessage = allMessage.substring(0, allMessage.length - 1)
+                                        Log.d(TAG, "DATA : $allMessage")
+                                        allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+                                    }else {
+                                        Log.d(TAG, "DATA : $allMessage")
+                                        allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+                                    }
+
                                     Log.d("DEBUG_INSIDE","Clearing all panel lists")
                                     sentenceList.clear()
                                     sentenceList.addAll(allPanelData.sentences)
@@ -1637,6 +1650,7 @@ class MainActivity : AppCompatActivity(){
         val spBgEffect= mDialog.findViewById<View>(R.id.spPanelBackgrounds) as Spinner
 
         val btnConfirm =mDialog.findViewById<View>(R.id.btnPanelConfirm) as Button
+        val btnCancel = mDialog.findViewById<View>(R.id.btnPanelCancel) as Button
 
 
         //TEXT EFFECT PARAMETERS
@@ -1709,26 +1723,22 @@ class MainActivity : AppCompatActivity(){
 
 
         val newSentence = jPanelSentence()
-
         fontSizeList.clear()
         fontSizeList.addAll(resources.getStringArray(R.array.FontSize))
-
         fontDecorationList.clear()
         fontDecorationList.addAll(resources.getStringArray(R.array.FontDecoration))
-
 
        // textEffectList.fin
         spFontName.adapter = FontListAdapter(this@MainActivity,fontList)
         spFontSize.adapter = StringListAdapter(this@MainActivity,fontSizeList)
         spFontDecoration.adapter = StringListAdapter(this@MainActivity,fontDecorationList)
         spTextEffect.adapter =TextEffectListAdapter(this@MainActivity,textEffectList)
-
         spBgEffect.adapter = BgCalcAdapter(this@MainActivity,backgroundList)
 
         tvHeader.text = mode
         //----------------------------------
         //Common functions
-
+        //--for build interface , and get data back
         fun setParamCustom(descriptionTarget : TextView , valuesTarget : Spinner ,description : String ,
                            values : ArrayList<String>, index: Int){
             if (values.isNotEmpty()){
@@ -1818,7 +1828,9 @@ class MainActivity : AppCompatActivity(){
             if (c.has("b")) b = c.get("b").asInt
             tvTarget.setBackgroundColor(Color.rgb(r,g,b))
         }
-
+        //----------------------------------
+        //Interface functions , show , hide , do specific for effect
+        //----Main part , where is the place for : sentence, font attributes , render speed
         fun enableInterface(){
             etSentence.isEnabled = true
             spFontName.isEnabled = true
@@ -1842,7 +1854,7 @@ class MainActivity : AppCompatActivity(){
             spTextEffect.isEnabled = false
             spBgEffect.isEnabled = false
         }
-
+        //---text effect part
         fun hideTextEffectInterface(){
             //Ukrywa poprawnie , jednak przy ponownm włączeniu panelu pokazuje się wszystko
 /*
@@ -1891,7 +1903,6 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("position", spTeCustom.selectedItemPosition)
             return dataObj
         }
-
         fun piTeScroll(){
             Log.d(TAG,"Preparing text effect interface : Scroll")
             var pScrollType = 2 //scrollType
@@ -1908,7 +1919,6 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("scrollType", spTeCustom.selectedItemPosition)
             return dataObj
         }
-
         fun updateTextEffectData() : JsonObject{
             val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
             var textEffectData = JsonObject()
@@ -1918,7 +1928,6 @@ class MainActivity : AppCompatActivity(){
             }
             return textEffectData
         }
-
         fun setupTextEffectInterface(){
             val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
             hideTextEffectInterface()
@@ -1929,7 +1938,7 @@ class MainActivity : AppCompatActivity(){
                 "Scroll" ->piTeScroll()
             }
         }
-
+        //--background part
         fun hideBackgroundInterface() {
             //Log.d(TAG,"Background hiding")
             panelBg.setVisibility(false)
@@ -1955,7 +1964,6 @@ class MainActivity : AppCompatActivity(){
             tvBgParamBool1.setVisibility(false)
             swBgParamBool1.setVisibility(false)
         }
-
         fun piBgFire1(){
             Log.d(TAG,"Preparing bg interface : Fire1")
             var pRows = 2   // default , flareRows
@@ -1984,7 +1992,6 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("flareDecay" , sbBgParam3.progress)
             return dataObj
         }
-
         fun piBgFire2(){
             var pPalette = 2    // palette
             var pHeat = 2       //heat
@@ -1996,16 +2003,17 @@ class MainActivity : AppCompatActivity(){
             val values : ArrayList<String> = ArrayList()
             values.addAll(resources.getStringArray(R.array.bgCustomFire2))
             setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
-            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Heat :",pHeat ,1,5)
+            //heat to fix
+            //setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Heat :",pHeat ,1,5)
             panelBg.setVisibility(true)
         }
         fun upBgFire2(): JsonObject{
             val dataObj = JsonObject()
             dataObj.addProperty("palette", spBgCustomParam.selectedItemPosition)
-            dataObj.addProperty("heat" , sbBgParam1.progress)
+            //heat to fix
+            //dataObj.addProperty("heat" , sbBgParam1.progress)
             return dataObj
         }
-
         fun piBgFire3(){
             var pPalette = 0 //palette
             var pCooling = 6 //cooling
@@ -2030,7 +2038,6 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("sparking" , sbBgParam2.progress)
             return dataObj
         }
-
         fun piBgRain(){
             /*
             Esp data
@@ -2112,6 +2119,27 @@ class MainActivity : AppCompatActivity(){
             return dataObj
         }
 
+        fun piBgStreak(){
+            var pPalette = 0
+            var pLength = 1
+            val data = sentence.background
+            if (data.has("palette")) pPalette = data.get("palette").asInt
+            if (data.has("length")) pLength = data.get("length").asInt
+            Log.d(TAG,"Preparing bg interface : Streak")
+            Log.d(TAG,"Values -> pPalette : $pPalette , pHeat : $pLength")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.StripPaletteList))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Dlugosc :",pLength ,1,5)
+            panelBg.setVisibility(true)
+        }
+        fun upBgStreak(): JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("palette", spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("length" , sbBgParam1.progress)
+            return dataObj
+        }
+
         fun updateBackgroundData() : JsonObject{
             val thisBg = spBgEffect.selectedItem as jPanelBackgrounds
             var bgData = JsonObject()
@@ -2121,11 +2149,11 @@ class MainActivity : AppCompatActivity(){
                     "Fire 2" -> bgData = upBgFire2()
                     "Fire 3" -> bgData = upBgFire3()
                     "Rain" -> bgData = upBgRain()
+                    "Streak" ->bgData = upBgStreak()
                 }
             }
             return bgData
         }
-
         fun setupBackgroundInterface(){
             Log.d(TAG,"--Setup background interface--")
             val thisBackground = spBgEffect.selectedItem as jPanelBackgrounds
@@ -2136,6 +2164,7 @@ class MainActivity : AppCompatActivity(){
                     "Fire 2" -> piBgFire2()
                     "Fire 3" -> piBgFire3()
                     "Rain" ->piBgRain()
+                    "Streak" ->piBgStreak()
                 }
             }
         }
@@ -2242,9 +2271,13 @@ class MainActivity : AppCompatActivity(){
             btnTest3.setVisibility(false)
         }
 
-        fun addSentence(){
+        fun addSentence() : Boolean {
             Log.d(TAG, "TESTING ADD : ")
-            if (etSentence.text.isNotEmpty()) {
+            if(etSentence.text.isEmpty()){
+                Log.d(TAG,"New sentence is empty, no action")
+                return false
+            }
+            //if (etSentence.text.isNotEmpty()) {
                 val newId =  newSentenceId()
                 Log.d(TAG,"New sentence id : $newId")
                 //PART HEADER
@@ -2264,14 +2297,18 @@ class MainActivity : AppCompatActivity(){
                 sentenceObj.addProperty("cmdId",newSentence.id)
                 Log.d(TAG, "Json ADD sentence : $sentenceObj")
                 ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
-            }else{
-                Log.d(TAG,"New sentence -> text no set")
-            }
+            //}else{
+            //    Log.d(TAG,"New sentence -> text no set")
+            //}
+            return true
         }
-
-        fun updateSentence(){
+        fun updateSentence():Boolean{
+            if (etSentence.text.isEmpty()){
+                Log.d(TAG,"Edited sentence is empty, no action.")
+                return false
+            }
             Log.d(TAG,"Update sentence ")
-            if (etSentence.text.isNotEmpty()) {
+            //if (etSentence.text.isNotEmpty()) {
                 newSentence.id = sentence.id
                 //Log.d(TAG,"-->before update")
                 prepareDataToUpdate() //same step a add new sentence
@@ -2287,11 +2324,12 @@ class MainActivity : AppCompatActivity(){
                 sentenceObj.addProperty("cmdId",sentence.id)
                 Log.d(TAG, "Json Update sentence : $sentenceObj")
                 ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
-            }else{
-                Log.d(TAG,"Update sentence -> text no set")
-            }
+           // }else{
+            //    Log.d(TAG,"Update sentence -> text no set")
+           // }
+            return true
         }
-        fun deleteSentence(){
+        fun deleteSentence():Boolean{
             val index = sentenceList.indexOf(sentence)//old data
             sentenceList.removeAt(index)
             bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity, sentenceList)
@@ -2300,6 +2338,7 @@ class MainActivity : AppCompatActivity(){
             del.addProperty("cmdId",sentence.id)
             Log.d(TAG, "Json DELETE command : $del")
             ConnectThread(mySelectedBluetoothDevice).writeMessage(del.toString())
+            return true
         }
 
         // FONT listeners
@@ -2464,24 +2503,33 @@ class MainActivity : AppCompatActivity(){
         // CONFIRM
         btnConfirm.setOnClickListener {
             Log.d(TAG,"Lede sentence confirm.")
+            var result = false
             when(mode){
                 getString(R.string.sentenceHeaderAdd) ->{
-                    addSentence()
+                    result = addSentence()
                 }
                 getString(R.string.sentenceHeaderEdit) ->{
-                    updateSentence()
+                    result = updateSentence()
                 }
                 getString(R.string.sentenceHeaderDelete) ->{
-                    deleteSentence()
+                    result =deleteSentence()
                 }
             }
+            if (result) mDialog.dismiss()
+            else
+            {
+                val info = Snackbar.make(it,getString(R.string.SENTENCE_REQUIRED), Snackbar.LENGTH_SHORT)
+                info.show()
+            }
+        }
+        // CANCEL
+        btnCancel.setOnClickListener {
             mDialog.dismiss()
         }
         //TESTS
         btnTest1.setOnClickListener {
 
         }
-
         btnTest2.setOnClickListener {
 
         }
@@ -2493,12 +2541,12 @@ class MainActivity : AppCompatActivity(){
         when(mode){
             getString(R.string.sentenceHeaderAdd) ->{ //ADD
                 enableInterface()
-                etSentence.hint ="Wpisz frazę"
+                etSentence.hint =getString(R.string.SENTENCE_HINT)
                 etSentence.text.clear()
             }
             getString(R.string.sentenceHeaderEdit) ->{ //EDIT
                 enableInterface()
-                etSentence.hint =""
+                etSentence.hint =getString(R.string.SENTENCE_HINT)
                 etSentence.text.clear()
                 etSentence.text.append(sentence.sentence)
                 setFontIndexes()
@@ -2508,7 +2556,6 @@ class MainActivity : AppCompatActivity(){
                 setTePositionFromSentence()
                 setBgPositionFromSentence()
             }
-
             getString(R.string.sentenceHeaderDelete) ->{ //DELETE
                 disableInterface()
                 etSentence.text.clear()
@@ -2869,12 +2916,18 @@ class MainActivity : AppCompatActivity(){
         })
         //-----confirm new settings
         bind.btnPanelMainConfirm.setOnClickListener {
+           /*
             val setConfig = JsonObject()
             setConfig.addProperty("cmd","SET_DATA")
             setConfig.addProperty("cmdId",666)
             setConfig.addProperty("mode",bind.spPanelMode.selectedItemPosition)
             setConfig.addProperty("brightness",bind.sbPanelBrightness.progress)
-            Log.d(TAG,"Panel config data  NOT SEND NOW: $setConfig")
+            */
+            val setBrightness = JsonObject()
+            setBrightness.addProperty("cmd","SET_BRIGHTNESS")
+            setBrightness.addProperty("newBrightnessParam",bind.sbPanelBrightness.progress)
+            Log.d(TAG,"SET brightness : $setBrightness")
+            ConnectThread(mySelectedBluetoothDevice).writeMessage(setBrightness.toString())
         }
         //-----header sentence list
         bind.tvSentenceListHeader.isClickable = true
