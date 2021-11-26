@@ -9,7 +9,12 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
   val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
   bluetoothAdapter = bluetoothManager.adapter
 
-  //---aby byla aktualna wersja
+  //--- aby byla aktualna wersja
+  //--- w lukecinie text effect : word by word,
+  //--- background effect : Liquid plasma
+  //--- background effect : Big plasma
+  //---26.11.2021
+  //
  */
 
 import android.app.Dialog
@@ -40,8 +45,6 @@ import com.google.gson.JsonObject
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-
-
 
 
 //szukac fontID
@@ -1628,6 +1631,9 @@ class MainActivity : AppCompatActivity(){
         Log.d(TAG,"Sentence txt: ${sentence.sentence} ")
         val sentenceIndex = sentenceList.indexOf(sentence)
         Log.d(TAG ,"(HEADER) Sentence index : $sentenceIndex")
+        Log.d(TAG,"text effect : ${sentence.textEffect}")
+        Log.d(TAG, "background : ${sentence.background}")
+
 
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
@@ -1890,6 +1896,7 @@ class MainActivity : AppCompatActivity(){
             Log.d(TAG,"Preparing text effect interface : Statyczny")
             var pPosition = 2 //position
             val data = sentence.textEffect
+            Log.d(TAG,"Data: $data")
             if (data.has("position")) pPosition = data.get("position").asInt
             Log.d(TAG,"values -> pPosition : $pPosition")
 
@@ -1907,6 +1914,7 @@ class MainActivity : AppCompatActivity(){
             Log.d(TAG,"Preparing text effect interface : Scroll")
             var pScrollType = 2 //scrollType
             val data = sentence.textEffect
+            Log.d(TAG,"Data: $data")
             if (data.has("scrollType")) pScrollType = data.get("scrollType").asInt
             Log.d(TAG,"values -> pScrollType : $pScrollType")
             val values : ArrayList<String> = ArrayList()
@@ -1919,12 +1927,30 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("scrollType", spTeCustom.selectedItemPosition)
             return dataObj
         }
+        //kontrola
+        fun piTeWordByWord(){
+            Log.d(TAG,"Preparing text effect interface : Word by word")
+            var pTime = 3
+            val data = sentence.textEffect
+            Log.d(TAG,"Data: $data")
+            if (data.has("time")) pTime = data.get("time").asInt
+            Log.d(TAG,"values -> time : $pTime")
+            setParamVal(tvTeParam1,tvTeParam1Val,sbTeParam1,"czas w sek :",pTime,1,10)
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeWordByWord():JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("time", sbTeParam1.progress)
+            return dataObj
+        }
+
         fun updateTextEffectData() : JsonObject{
             val thisTextEffect = spTextEffect.selectedItem as jPanelTextEffect
             var textEffectData = JsonObject()
             when (thisTextEffect.name){
                 "Statyczny" -> textEffectData =  upTeStatic()
                 "Scroll" -> textEffectData = upTeScroll()
+                "Slowo po slowie" -> textEffectData = upTeWordByWord()
             }
             return textEffectData
         }
@@ -1936,6 +1962,7 @@ class MainActivity : AppCompatActivity(){
             when (thisTextEffect.name){
                 "Statyczny" -> piTeStatic()
                 "Scroll" ->piTeScroll()
+                "Slowo po slowie" -> piTeWordByWord()
             }
         }
         //--background part
@@ -2118,7 +2145,7 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("fillBg", checked1)
             return dataObj
         }
-
+        //kontrola kontrola kontrola
         fun piBgStreak(){
             var pPalette = 0
             var pLength = 1
@@ -2140,6 +2167,50 @@ class MainActivity : AppCompatActivity(){
             return dataObj
         }
 
+        fun piBgLiquidPlasma(){
+            var pPalette = 2 //0..6
+            var pSmooth = 3 //1..5
+            var pSpeed = 3 //1..5
+            val data = sentence.background
+            if (data.has("palette")) pPalette = data.get("palette").asInt
+            if (data.has("smooth")) pSmooth = data.get("smooth").asInt
+            if (data.has("speed")) pSpeed = data.get("speed").asInt
+            Log.d(TAG,"Values -> palette: $pPalette  , smooth : $pSmooth , speed :  $pSpeed ")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.StripPaletteList))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Wygladzanie:",pSmooth ,1,5)
+            setParamVal(tvBgParam2, tvBgParam2val,sbBgParam2,"Szybkosc:",pSpeed ,1,5)
+            panelBg.setVisibility(true)
+        }
+        fun upBgLiquidPlasma():JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("palette",spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("smooth" , sbBgParam1.progress)
+            dataObj.addProperty("speed" , sbBgParam2.progress)
+           return dataObj
+        }
+
+        fun piBgBigPlasma(){
+            var pPalette = 2 //0..6
+            var pNextMove = 3 //1..5
+            val data = sentence.background
+            if (data.has("palette")) pPalette = data.get("palette").asInt
+            if (data.has("nextMove")) pNextMove = data.get("nextMove").asInt
+            Log.d(TAG,"Values -> palette: $pPalette  , nextMove : $pNextMove")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.StripPaletteList))
+            setParamCustom(tvBgCustomParam ,spBgCustomParam,"Paleta:", values,pPalette)
+            setParamVal(tvBgParam1, tvBgParam1val,sbBgParam1,"Nastepny ruch:",pNextMove ,1,5)
+            panelBg.setVisibility(true)
+        }
+        fun upBgBigPlasma():JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("palette",spBgCustomParam.selectedItemPosition)
+            dataObj.addProperty("nextMove" , sbBgParam1.progress)
+            return dataObj
+        }
+
         fun updateBackgroundData() : JsonObject{
             val thisBg = spBgEffect.selectedItem as jPanelBackgrounds
             var bgData = JsonObject()
@@ -2150,6 +2221,8 @@ class MainActivity : AppCompatActivity(){
                     "Fire 3" -> bgData = upBgFire3()
                     "Rain" -> bgData = upBgRain()
                     "Streak" ->bgData = upBgStreak()
+                    "Liquid plasma" -> bgData = upBgLiquidPlasma()
+                    "Big plasma" -> bgData = upBgBigPlasma()
                 }
             }
             return bgData
@@ -2165,6 +2238,8 @@ class MainActivity : AppCompatActivity(){
                     "Fire 3" -> piBgFire3()
                     "Rain" ->piBgRain()
                     "Streak" ->piBgStreak()
+                    "Liquid plasma" -> piBgLiquidPlasma()
+                    "Big plasma" ->piBgBigPlasma()
                 }
             }
         }
