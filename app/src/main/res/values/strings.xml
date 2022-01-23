@@ -59,6 +59,8 @@
     <string name="chooseColor">Wybierz kolor</string>
     <string name="btnStripColor1">Background</string>
     <string name="tvPanelBrightness">Jasność</string>
+    <!-- -->
+    <string name="dialog_title_pick_color">Wybierz kolor</string>
     <!-- devices TEST DATA -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>
@@ -111,6 +113,9 @@
     <string name="SENTENCE_REQUIRED">Proszę ,wprowadz slogan.</string>
     <string name="SENTENCE_CUT">Slogan na długi , został skrucony.</string>
 
+    <string name="btnPanelFontBorderColor">Ramka</string>
+    <string name="tvPanelBorderType">Obramowanie</string>
+
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Kogut</item>
@@ -131,23 +136,39 @@
         <item>pogrub i pochyl</item>
     </string-array>
 
-    <!-- text effect Static/Simple custom parameters -->
-    <string-array name="teCustomStatic">
-        <item>lewo</item>       //0-left
-        <item>prawo</item>      //1-right
-        <item>centruj</item>    //2-center
+    <!-- font border type  , returns to controller -->
+    <!-- enum BORDER_TYPE{NONE,TOP_LEFT,TOP,TOP_RIGHT,RIGHT,BOTTOM_RIGHT,BOTTOM,BOTTOM_LEFT,LEFT,DIAGONAL_TOPLEFT,DIAGONAL_TOPRIGHT,ALL }; -->
+    <string-array name="BorderType">
+        <item>brak</item>                       <!-- 0 - NONE -->
+        <item>góra lewo</item>                  <!-- 1 - TOP_LEFT -->
+        <item>góra</item>                       <!-- 2 - TOP -->
+        <item>góra prawo</item>                 <!-- 3 - TOP_RIGHT -->
+        <item>prawo></item>                     <!-- 4 - RIGHT -->
+        <item>dół prawo</item>                  <!-- 5 - BOTTOM_RIGHT -->
+        <item>dół </item>                       <!-- 6 - BOTTOM -->
+        <item>dół lewo</item>                   <!-- 7 - BOTTOM_LEFT -->
+        <item>lewo</item>                       <!-- 8 - LEFT -->
+        <item>przekątna od góra - lewo</item>   <!-- 9 - DIAGONAL_TOPLEFT -->
+        <item>przekątna od góra - prawo</item>  <!-- 10 - DIAGONAL_TOPRIGHT -->
+        <item>pełna ramka</item>                <!-- 11 - ALL -->
+    </string-array>
+    <!-- text position Static/Simple custom parameters -->
+    <string-array name="tpCustomStatic">
+        <item>lewo</item>       <!-- 0 - left -->
+        <item>prawo</item>      <!-- 1 - right -->
+        <item>centruj</item>    <!-- 2 - center -->
     </string-array>
 
-    <!-- text effect Scroll custom param -->
-    <string-array name="teCustomScroll">
-        <item>od prawej do lewej</item>         //0- right to left
-        <item>od lewej do prawej</item>         //1 - left to right
-        <item>odbijaj wewnatrz ekranu (X)</item>//2 - bounce inside screen left right (good for short texts)
-        <item>odbijaj caly napis(X)</item>      //3 - bounce outside screen left right
-        <item> gora - dol</item>                //4- top to bottom
-        <item> dół - gora </item>               //5 -bottom to top
-        <item>odbijaj wewnatrz ekranu (Y)</item>//6 -  bounce top to bottom inside screen
-        <item>odbijaj caly napis(Y)</item>      //7 - bounce top bottom outside screen
+    <!-- text position Scroll custom param -->
+    <string-array name="tpCustomScroll">
+        <item>od prawej do lewej</item>         <!-- 0 - right to left -->
+        <item>od lewej do prawej</item>         <!-- 1 - left to right -->
+        <item>odbijaj wewnatrz ekranu (X)</item><!-- 2 - bounce inside screen left right (good for short texts) -->
+        <item>odbijaj caly napis(X)</item>      <!-- 3 - bounce outside screen left right -->
+        <item> gora - dol</item>                <!-- 4 - top to bottom -->
+        <item> dół - gora </item>               <!-- 5 - bottom to top -->
+        <item>odbijaj wewnatrz ekranu (Y)</item><!-- 6 - bounce top to bottom inside screen -->
+        <item>odbijaj caly napis(Y)</item>      <!-- 7 - bounce top bottom outside screen -->
     </string-array>
 
     <!-- background fire 1 -->
@@ -181,17 +202,17 @@
 
     <!--            ====Test data for add , edit ,del sentence in dialog ====                 -->
     <string-array name="TestFontName">
-        <item>Font 1</item>
-        <item>Font 2</item>
-        <item>Font 3</item>
-        <item>Font 4</item>
-        <item>Font 5</item>
+        <item>[T]Font 1</item>
+        <item>[T]Font 2</item>
+        <item>[T]Font 3</item>
+        <item>[T]Font 4</item>
+        <item>[T]Font 5</item>
     </string-array>
 
     <string-array name="TestLedpEffects">
-        <item>Ogien</item>
-        <item>Flaga</item>
-        <item>Cuda na kiju</item>
+        <item>[T]Ogien</item>
+        <item>[T]Flaga</item>
+        <item>[T]Plasma</item>
     </string-array>
 
 </resources>

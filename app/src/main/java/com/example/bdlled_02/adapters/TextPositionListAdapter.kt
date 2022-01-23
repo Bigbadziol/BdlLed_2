@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
-import com.example.bdlled_02.jPanelTextEffect
 import com.example.bdlled_02.jPanelTextPosition
 
-class TextEffectListAdapter(val context: Context, var dataSource: ArrayList<jPanelTextEffect>) : BaseAdapter() {
+class TextPositionListAdapter(val context: Context, var dataSource: ArrayList<jPanelTextPosition>) : BaseAdapter() {
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
