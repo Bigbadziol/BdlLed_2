@@ -1646,36 +1646,36 @@ class MainActivity : AppCompatActivity(){
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)
         mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //PANEL FONT
+        //FONT PARAMETERS
         //header
         val tvHeader = mDialog.findViewById<View>(R.id.tvLedpHeader) as TextView
         val etSentence = mDialog.findViewById<View>(R.id.etLedpSentence) as EditText
-        //font and borders
+        //font name size and decoration
         val spFontName = mDialog.findViewById<View>(R.id.spPanelFontName) as Spinner
         val spFontSize = mDialog.findViewById<View>(R.id.spPanelFontFontSize) as Spinner
         val spFontDecoration = mDialog.findViewById<View>(R.id.spPanelFontFontDecoration) as Spinner
-
+        // font color
         val btnColor = mDialog.findViewById<View>(R.id.btnPanelFontFontColor) as Button
         val tvColor = mDialog.findViewById<View>(R.id.tvPanelFontFontColor) as TextView
-
-        val tvBorderType = mDialog.findViewById<View>(R.id.tvPanelFontBorderType) as TextView
+        // font border type
+        //val tvBorderType = mDialog.findViewById<View>(R.id.tvPanelFontBorderType) as TextView //as label now
         val spBorderType = mDialog.findViewById<View>(R.id.spPanelFontBorderType) as Spinner
-
+        // font border color
         val btnBorderColor = mDialog.findViewById<View>(R.id.btnPanelFontBorderColor) as Button
         val tvBorderColor = mDialog.findViewById<View>(R.id.tvPanelFontBorderColor) as TextView
-        //delays
+        // render delays
         val sbTextDelay = mDialog.findViewById<View>(R.id.sbPanelTextDelay) as SeekBar
         val sbBgDelay = mDialog.findViewById<View>(R.id.sbPanelBgDelay) as SeekBar
-        //
-        val spTextPosition = mDialog.findViewById<View>(R.id.spPanelTextPosition) as Spinner
-        val spBgEffect= mDialog.findViewById<View>(R.id.spPanelBackgrounds) as Spinner
-
+        // action panel buttons
         val btnConfirm =mDialog.findViewById<View>(R.id.btnPanelConfirm) as Button
         val btnCancel = mDialog.findViewById<View>(R.id.btnPanelCancel) as Button
 
 
-        //TEXT Position PARAMETERS
+        //TEXT POSITION PARAMETERS
         val panelTextPosition = mDialog.findViewById<View>(R.id.panelPanelTextPosition) as LinearLayout
+        //position "name/type" Static, scroll, etc...
+        //val tvTpTextPosition = mDialog.findViewById<View>(R.id.tvPanelTextPosition) as TextView //as label now
+        val spTpTextPosition = mDialog.findViewById<View>(R.id.spPanelTextPosition) as Spinner
         //text position custom param
         //val rowTeCustom = mDialog.findViewById<View>(R.id.rowPanelTextCustom) as LinearLayout //Before changes
         val tvTpCustom = mDialog.findViewById<View>(R.id.tvPanelTextPositionCustom) as TextView
@@ -1692,14 +1692,29 @@ class MainActivity : AppCompatActivity(){
         val tvTpParam2Val = mDialog.findViewById<View>(R.id.tvPanelTextPositionParam2Val) as TextView
         val sbTpParam2 = mDialog.findViewById<View>(R.id.sbPanelTextPositionParam2) as SeekBar
 
-        //text effects ........
-
-
-
-        //.....................
+        //TEXT EFFECT PARAMETERS
+        val panelTextEffect = mDialog.findViewById<View>(R.id.panelPanelTextEffect) as LinearLayout
+        // spTeTextEffect - main selector deciding which parameters should be visible
+        val spTeTextEffect = mDialog.findViewById<View>(R.id.spPanelTextEffect) as Spinner
+        // text effect color 1
+        val btnTeColor1 = mDialog.findViewById<View>(R.id.btnPanelTextEffectColor1) as Button
+        val tvTeColor1 = mDialog.findViewById<View>(R.id.tvPanelTextEffectColor1) as TextView
+        // text effect param custom
+        val tvTeCustom = mDialog.findViewById<View>(R.id.tvPanelTextEffectCustom) as TextView
+        val spTeCustom = mDialog.findViewById<View>(R.id.spPanelTextEffectCustom) as Spinner
+        //text position param 1
+        val tvTeParam1 = mDialog.findViewById<View>(R.id.tvPanelTextEffectParam1) as TextView
+        val tvTeParam1Val = mDialog.findViewById<View>(R.id.tvPanelTextEffectParam1Val) as TextView
+        val sbTeParam1 = mDialog.findViewById<View>(R.id.sbPanelTextEffectParam1) as SeekBar
+        //text position param 2
+        val tvTeParam2 = mDialog.findViewById<View>(R.id.tvPanelTextEffectParam2) as TextView
+        val tvTeParam2Val = mDialog.findViewById<View>(R.id.tvPanelTextEffectParam2Val) as TextView
+        val sbTeParam2 = mDialog.findViewById<View>(R.id.sbPanelTextEffectParam2) as SeekBar
 
         //BACKGROUND Elements
         val panelBg = mDialog.findViewById<View>(R.id.panelPanelBackgroud) as LinearLayout
+        // spBgEffect - main selector deciding which parameters should be visible
+        val spBgEffect= mDialog.findViewById<View>(R.id.spPanelBackgrounds) as Spinner
         // color 1
         //val rowBgColor1 = mDialog.findViewById<View>(R.id.rowPanelBgColor1) as LinearLayout
         val btnBgColor1 = mDialog.findViewById<View>(R.id.btnPanelBgColor1) as Button
@@ -1757,18 +1772,18 @@ class MainActivity : AppCompatActivity(){
         fontBorderTypeList.clear()
         fontBorderTypeList.addAll(resources.getStringArray(R.array.BorderType))
 
-       //
+
         spFontName.adapter = FontListAdapter(this@MainActivity,fontList)
         spFontSize.adapter = StringListAdapter(this@MainActivity,fontSizeList)
         spFontDecoration.adapter = StringListAdapter(this@MainActivity,fontDecorationList)
         spBorderType.adapter = StringListAdapter(this@MainActivity,fontBorderTypeList)
-        spTextPosition.adapter =TextPositionListAdapter(this@MainActivity,textPositionList)
+        spTpTextPosition.adapter =TextPositionListAdapter(this@MainActivity,textPositionList)
+        spTeTextEffect.adapter = TextEffectListAdapter(this@MainActivity,textEffectList)
         spBgEffect.adapter = BgCalcAdapter(this@MainActivity,backgroundList)
 
         tvHeader.text = mode
-        //----------------------------------
-        //Common functions
-        //--for build interface , and get data back
+        //------------------------------------------------------------------------------------------
+        //Common functions used to build a specific interface
         fun setParamCustom(descriptionTarget : TextView , valuesTarget : Spinner ,description : String ,
                            values : ArrayList<String>, index: Int){
             if (values.isNotEmpty()){
@@ -1799,33 +1814,6 @@ class MainActivity : AppCompatActivity(){
             boolTarget.setVisibility(true)
             descriptionTarget.text = description
             boolTarget.isChecked = value > 0
-        }
-
-        fun getFontType() : String{
-            var res  = ""
-            when (spFontSize.selectedItemPosition){
-                0-> res ="s"
-                1-> res ="m"
-                2-> res ="l"
-            }
-            when(spFontDecoration.selectedItemPosition) {
-                0 -> res += "n"
-                1 -> res += "b"
-                2 -> res += "i"
-                3 -> res += "bi"
-            }
-            return res
-        }
-
-        fun getRescaledDelay(o : SeekBar) : Int {
-            return 60 - (o.progress * 10)
-        }
-
-        fun setRescaledDelay(target : SeekBar, baseValue : Int){
-            var res = (60 - baseValue) / 10
-            if (res < 1) res = 1
-            if (res > 5) res = 5
-            target.progress = res
         }
 
         fun getColorFromTextView(o : TextView) :JsonObject{
@@ -1859,7 +1847,83 @@ class MainActivity : AppCompatActivity(){
             if (c.has("b")) b = c.get("b").asInt
             tvTarget.setBackgroundColor(Color.rgb(r,g,b))
         }
-        //----------------------------------
+
+        //--- font and delays part -----------------------------------------------------------------
+        fun getFontType() : String{
+            var res  = ""
+            when (spFontSize.selectedItemPosition){
+                0-> res ="s"
+                1-> res ="m"
+                2-> res ="l"
+            }
+            when(spFontDecoration.selectedItemPosition) {
+                0 -> res += "n"
+                1 -> res += "b"
+                2 -> res += "i"
+                3 -> res += "bi"
+            }
+            return res
+        }
+        fun getRescaledDelay(o : SeekBar) : Int {
+            return 60 - (o.progress * 10)
+        }
+        fun setRescaledDelay(target : SeekBar, baseValue : Int){
+            var res = (60 - baseValue) / 10
+            if (res < 1) res = 1
+            if (res > 5) res = 5
+            target.progress = res
+        }
+        fun getBorderType() : Int {
+            var borderTypeIndex = spBorderType.selectedItemPosition
+            if (borderTypeIndex < 0 || borderTypeIndex > 11) borderTypeIndex = 0
+            return borderTypeIndex
+        }
+        fun setFontIndexes(){
+            var fontId = 0
+            var fontType = "sn"
+            if (sentence.font.has("fontId")) fontId = sentence.font.get("fontId").asInt
+            if (sentence.font.has("fontType")) fontType = sentence.font.get("fontType") .asString
+            val fontIndex: Int = fontList.indexOfFirst { it.id == fontId }
+            //first font name
+            if (fontIndex > - 1) spFontName.setSelection(fontIndex)
+            else spFontName.setSelection(0)
+
+            //size
+            when (fontType[0]){
+                's' ->{spFontSize.setSelection(0)}
+                'm' ->{spFontSize.setSelection(1)}
+                'l' ->{spFontSize.setSelection(2)}
+                else ->{spFontSize.setSelection(0)}
+            }
+            //decoration
+            fontType = fontType.drop(1) //remove first
+            when (fontType){
+                "n" -> {spFontDecoration.setSelection(0)}
+                "b" -> {spFontDecoration.setSelection(1)}
+                "i" -> {spFontDecoration.setSelection(2)}
+                "bi"-> {spFontDecoration.setSelection(3)}
+                else -> {spFontDecoration.setSelection(0)}
+            }
+        }
+        fun setFontColor(){
+            if (sentence.font.has("color")){
+                val colorObj= sentence.font.getAsJsonObject("color")
+                setParamColorFromColorObj(colorObj,tvColor, btnColor, getString(R.string.btnPanelFontColor))
+            }
+        }
+        fun setBorderIndexes(){
+            if (sentence.font.has("borderType")){
+                val borderTypeNum = sentence.font.get("borderType").asInt
+                spBorderType.setSelection(borderTypeNum)
+            }
+        }
+        fun setBorderColor(){
+            if (sentence.font.has("borderColor")){
+                val colorObj =  sentence.font.getAsJsonObject("borderColor")
+                setParamColorFromColorObj(colorObj,tvBorderColor,btnBorderColor,getString(R.string.btnPanelFontBorderColor))
+            }
+        }
+        //------------------------------------------------------------------------------------------
         //Interface functions , show , hide , do specific for effect
         //----Main part , where is the place for : sentence, font attributes , render speed
         fun enableInterface(){
@@ -1873,7 +1937,7 @@ class MainActivity : AppCompatActivity(){
 
             sbTextDelay.isEnabled = true
             sbBgDelay.isEnabled = true
-            spTextPosition.isEnabled = true
+            spTpTextPosition.isEnabled = true
             spBgEffect.isEnabled = true
         }
         fun disableInterface(){
@@ -1886,10 +1950,19 @@ class MainActivity : AppCompatActivity(){
             spBorderType.isEnabled = false
             sbTextDelay.isEnabled = false
             sbBgDelay.isEnabled = false
-            spTextPosition.isEnabled = false
+            spTpTextPosition.isEnabled = false
             spBgEffect.isEnabled = false
         }
         //---text position part --------------------------------------------------------------------
+        fun setTpPositionFromSentence(){
+            var tpName =""
+            //set text position index
+            if (sentence.textPosition.has("name")) tpName = sentence.textPosition.get("name").asString
+            Log.d(TAG,"name from text position : $tpName")
+            val index : Int = textPositionList.indexOfFirst { it.name == tpName }
+            if (index > -1) spTpTextPosition.setSelection(index)
+            else spTpTextPosition.setSelection(0)
+        }
         fun hideTextPositionInterface(){
             //Ukrywa poprawnie , jednak przy ponownm włączeniu panelu pokazuje się wszystko
 /*
@@ -1905,11 +1978,12 @@ class MainActivity : AppCompatActivity(){
                 Log.d(TAG,"ERROR - > panel text effect dont have properties to set.")
             }
 */
-//            Log.d(TAG,"Text effect hiding")
             panelTextPosition.setVisibility(false)
-            //rowTeCustom.setVisibility(false)
-            //rowTeParam1.setVisibility(false)
-            //rowTeParam2.setVisibility(false)
+            //depends on value of spTpTextPosition some parameters will be turn on
+            //by default should not be visible
+            //tvTpTextPosition.setVisibility(false)
+            //spTpTextPosition.setVisibility(false)
+
             tvTpCustom.setVisibility(false)
             spTpCustom.setVisibility(false)
 
@@ -1923,16 +1997,16 @@ class MainActivity : AppCompatActivity(){
         }
         fun piTpStatic(){
             var pPosition = 2 //position
-            val te = sentence.textPosition
+            val tp = sentence.textPosition
             val data: JsonObject
-            if (te.has("data")) {
-                data = te.getAsJsonObject("data").asJsonObject
+            if (tp.has("data")) {
+                data = tp.getAsJsonObject("data").asJsonObject
                 if (data.has("position")) pPosition = data.get("position").asInt
             }
-            Log.d(TAG,"[TP] Statczny -> values : pPosition : $pPosition")
+            Log.d(TAG,"[TP] Static -> values : pPosition : $pPosition")
             val values : ArrayList<String> = ArrayList()
-            values.addAll(resources.getStringArray(R.array.tpCustomStatic))
-            setParamCustom(tvTpCustom,spTpCustom,"Pozycja",values,pPosition)
+            values.addAll(resources.getStringArray(R.array.tpStaticCustom))
+            setParamCustom(tvTpCustom,spTpCustom,getString(R.string.lbPositionType),values,pPosition)
             panelTextPosition.setVisibility(true)
         }
         fun upTpStatic() : JsonObject{
@@ -1950,8 +2024,8 @@ class MainActivity : AppCompatActivity(){
             }
             Log.d(TAG,"[TE] Scroll -> values : pScrollType : $pScrollType")
             val values : ArrayList<String> = ArrayList()
-            values.addAll(resources.getStringArray(R.array.tpCustomScroll))
-            setParamCustom(tvTpCustom,spTpCustom,"Pozycja",values,pScrollType)
+            values.addAll(resources.getStringArray(R.array.tpScrollCustom))
+            setParamCustom(tvTpCustom,spTpCustom,getString(R.string.lbPositionType),values,pScrollType)
             panelTextPosition.setVisibility(true)
         }
         fun upTpScroll(): JsonObject{
@@ -1970,7 +2044,7 @@ class MainActivity : AppCompatActivity(){
                 if (data.has("time")) pTime = data.get("time").asInt
             }
             Log.d(TAG,"[TE] WordByWord -> values : time : $pTime")
-            setParamVal(tvTpParam1,tvTpParam1Val,sbTpParam1,"czas w sek :",pTime,1,10)
+            setParamVal(tvTpParam1,tvTpParam1Val,sbTpParam1,getString(R.string.tpWordByWordP1_timeInSec),pTime,1,10)
             panelTextPosition.setVisibility(true)
         }
         fun upTpWordByWord():JsonObject{
@@ -1978,9 +2052,8 @@ class MainActivity : AppCompatActivity(){
             dataObj.addProperty("time", sbTpParam1.progress)
             return dataObj
         }
-
         fun updateTextPositionData() : JsonObject{
-            val thisTextPosition = spTextPosition.selectedItem as jPanelTextPosition
+            val thisTextPosition = spTpTextPosition.selectedItem as jPanelTextPosition
             var textPositionData = JsonObject()
             when (thisTextPosition.name){
                 "Static" -> textPositionData =  upTpStatic()
@@ -1990,9 +2063,9 @@ class MainActivity : AppCompatActivity(){
             return textPositionData
         }
         fun setupTextPositionInterface(){
-            val thisTextPosition = spTextPosition.selectedItem as jPanelTextPosition
-            hideTextPositionInterface()
             Log.d(TAG,"--Setup text position interface--")
+            hideTextPositionInterface()
+            val thisTextPosition = spTpTextPosition.selectedItem as jPanelTextPosition
             when (thisTextPosition.name){
                 "Static" -> piTpStatic()
                 "Scroll" ->piTpScroll()
@@ -2000,9 +2073,144 @@ class MainActivity : AppCompatActivity(){
             }
         }
         //--text effect part -----------------------------------------------------------------------
-        //..
-        //..
+        fun setTePositionFromSentence(){
+            var teName =""
+            if (sentence.textEffect.has("name")) teName = sentence.textEffect.get("name").asString
+            Log.d(TAG,"name from text effect : $teName")
+            val index : Int = textEffectList.indexOfFirst { it.name ==teName }
+            if (index > -1) spTeTextEffect.setSelection(index)
+            else spTeTextEffect.setSelection(0)
+        }
+        fun hideTextEffectInterface(){
+            panelTextEffect.setVisibility(false)
+
+            btnTeColor1.setVisibility(false)
+            tvTeColor1.setVisibility(false)
+
+            tvTeCustom.setVisibility(false)
+            spTeCustom.setVisibility(false)
+
+            tvTeParam1.setVisibility(false)
+            tvTeParam1Val.setVisibility(false)
+            sbTeParam1.setVisibility(false)
+
+            tvTeParam2.setVisibility(false)
+            tvTeParam2Val.setVisibility(false)
+            sbTeParam2.setVisibility(false)
+        }
+        fun piTeSimple(){
+            var pMode = 0// default controller val , range 0..5 , at this point do nothing
+            val te =  sentence.textEffect
+            val data : JsonObject
+            if (te.has("data")){
+                data =  te.getAsJsonObject("data").asJsonObject
+                if (data.has("mode")) pMode = data.get("mode").asInt
+            }
+            Log.d(TAG,"[TE] Simple -> values : pMode : $pMode")
+            setParamVal(tvTeParam1,tvTeParam1Val,sbTeParam1,getString(R.string.teSimpleP1_mode),pMode,0,5)
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeSimple() : JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("mode",sbTeParam1.progress)
+            return dataObj
+        }
+        fun piTeFireText(){
+            var pCooling = 6 //default controller val, range 1..11
+            var pSparking = 6//default controller val, range 1..16
+            val te =  sentence.textEffect
+            val data : JsonObject
+            if (te.has("data")){
+                data =  te.getAsJsonObject("data").asJsonObject
+                if (data.has("cooling")) pCooling = data.get("cooling").asInt
+                if (data.has("sparking")) pSparking = data.get("sparking").asInt
+            }
+            Log.d(TAG,"[TE] Fire text -> values : pCooling : $pCooling , pSparking : $pSparking")
+            setParamVal(tvTeParam1,tvTeParam1Val,sbTeParam1,getString(R.string.teFireTextP1_cooling),pCooling,1,11)
+            setParamVal(tvTeParam2,tvTeParam2Val,sbTeParam2,getString(R.string.teFireTextP2_sparking),pSparking,1,16)
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeFireText() : JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("cooling" , sbTeParam1.progress)
+            dataObj.addProperty("sparking" , sbTeParam2.progress)
+            return dataObj
+        }
+        fun piTeRollingBorder(){
+            var pDir = 0 //default controller val , 0-roll right, 1-roll left
+            val te =  sentence.textEffect
+            val data : JsonObject
+            if (te.has("data")){
+                data =  te.getAsJsonObject("data").asJsonObject
+                if (data.has("dir")) pDir = data.get("dir").asInt
+            }
+            Log.d(TAG,"[TE] Rolling border -> values : pDir : $pDir")
+            val values : ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.teRollingBorderCustom))
+            setParamCustom(tvTeCustom,spTeCustom,getString(R.string.teRollingBorderCustom_desc),values,pDir)
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeRollingBorder():JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("dir",spTeCustom.selectedItemPosition)
+            return dataObj
+        }
+
+        fun piTeColors(){
+            var pDelta = 0// default controller val , range 1..10
+            val te =  sentence.textEffect
+            val data : JsonObject
+            if (te.has("data")){
+                data =  te.getAsJsonObject("data").asJsonObject
+                if (data.has("delta")) pDelta = data.get("delta").asInt
+            }
+            Log.d(TAG,"[TE] Colors -> values : pDelta : $pDelta")
+            setParamVal(tvTeParam1,tvTeParam1Val,sbTeParam1,getString(R.string.teColorsP1_delta),pDelta,1,10)
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeColors():JsonObject{
+            val dataObj = JsonObject()
+            dataObj.addProperty("delta" , sbTeParam1.progress)
+            return dataObj
+        }
+
+        fun updateTextEffectData() :JsonObject{
+            val thisTextEffect = spTeTextEffect.selectedItem as jPanelTextEffect
+            var textEffectData = JsonObject()
+            if (thisTextEffect.type == 200){
+                when (thisTextEffect.name) {
+                    "Simple" -> textEffectData = upTeSimple()
+                    "Fire text" -> textEffectData = upTeFireText()
+                    "Rolling border" -> textEffectData = upTeRollingBorder()
+                    "Colors" -> textEffectData = upTeColors()
+                }
+            }
+            return textEffectData
+        }
+        fun setupTextEffectInterface(){
+            Log.d(TAG, "--Setup text effect interface--")
+            hideTextEffectInterface()
+            val thisTextEffect = spTeTextEffect.selectedItem as jPanelTextEffect
+            if (thisTextEffect.type == 200) {
+                when (thisTextEffect.name) {
+                    "Simple" -> piTeSimple()
+                    "Fire text" -> piTeFireText()
+                    "Rolling border" -> piTeRollingBorder()
+                    "Colors" -> piTeColors()
+                }
+            }
+        }
+
         //--background part ------------------------------------------------------------------------
+        fun setBgPositionFromSentence(){
+            var bgName =""
+            //set bg index
+            if (sentence.background.has("name")) bgName = sentence.background.get("name").asString
+            Log.d(TAG,"name from bg : $bgName")
+            val index : Int = backgroundList.indexOfFirst { it.name == bgName}
+            if (index > - 1) spBgEffect.setSelection(index)
+            else spBgEffect.setSelection(0)
+        }
         fun hideBackgroundInterface() {
             //Log.d(TAG,"Background hiding")
             panelBg.setVisibility(false)
@@ -2027,6 +2235,32 @@ class MainActivity : AppCompatActivity(){
             sbBgParam3.setVisibility(false)
             tvBgParamBool1.setVisibility(false)
             swBgParamBool1.setVisibility(false)
+        }
+        fun piBgSimpleColor(){
+            val bg = sentence.background
+            val data :JsonObject
+            if (bg.has("data")) {
+                data = bg.get("data").asJsonObject
+                if (data.has("color")) {
+                    setParamColorFromColorObj(
+                        data.getAsJsonObject("color"),
+                        tvBgColor1, btnBgColor1, "Color 1:"
+                    )
+                } else {
+                    //esp32 def values
+                    setParamColorFromColorObj(
+                        getColorFromRgb(0, 0, 0),
+                        tvBgColor1, btnBgColor1, "Color 1:"
+                    )
+                }
+            }
+            panelBg.setVisibility(true)
+        }
+        fun upBgSimpleColor() : JsonObject{
+            val dataObj = JsonObject()
+            val color = getColorFromTextView(tvBgColor1)
+            dataObj.add("color", color )
+            return dataObj
         }
         fun piBgFire1(){
             var pRows = 2   // default , flareRows
@@ -2277,6 +2511,7 @@ class MainActivity : AppCompatActivity(){
             var bgData = JsonObject()
             if (thisBg.type == 30) {
                 when (thisBg.name) {
+                    "Selected color" -> bgData = upBgSimpleColor()
                     "Fire 1" -> bgData = upBgFire1()
                     "Fire 2" -> bgData = upBgFire2()
                     "Fire 3" -> bgData = upBgFire3()
@@ -2294,6 +2529,7 @@ class MainActivity : AppCompatActivity(){
             hideBackgroundInterface()
             if (thisBackground.type == 30){
                 when (thisBackground.name){
+                    "Selected color" ->piBgSimpleColor()
                     "Fire 1" -> piBgFire1()
                     "Fire 2" -> piBgFire2()
                     "Fire 3" -> piBgFire3()
@@ -2304,75 +2540,7 @@ class MainActivity : AppCompatActivity(){
                 }
             }
         }
-
-        fun setTpPositionFromSentence(){
-            var tpName =""
-            //set text position index
-            if (sentence.textPosition.has("name")) tpName = sentence.textPosition.get("name").asString
-            Log.d(TAG,"name from text position : $tpName")
-            val index : Int = textPositionList.indexOfFirst { it.name == tpName }
-            if (index > -1) spTextPosition.setSelection(index)
-            else spTextPosition.setSelection(0)
-
-        }
-
-        fun setBgPositionFromSentence(){
-            var bgName =""
-            //set bg index
-            if (sentence.background.has("name")) bgName = sentence.background.get("name").asString
-            Log.d(TAG,"name from bg : $bgName")
-            val index : Int = backgroundList.indexOfFirst { it.name == bgName}
-            if (index > - 1) spBgEffect.setSelection(index)
-            else spBgEffect.setSelection(0)
-
-        }
-
-        fun setFontIndexes(){
-            var fontId = 0
-            var fontType = "sn"
-            if (sentence.font.has("fontId")) fontId = sentence.font.get("fontId").asInt
-            if (sentence.font.has("fontType")) fontType = sentence.font.get("fontType") .asString
-            val fontIndex: Int = fontList.indexOfFirst { it.id == fontId }
-            //first font name
-            if (fontIndex > - 1) spFontName.setSelection(fontIndex)
-            else spFontName.setSelection(0)
-
-            //size
-            when (fontType[0]){
-                's' ->{spFontSize.setSelection(0)}
-                'm' ->{spFontSize.setSelection(1)}
-                'l' ->{spFontSize.setSelection(2)}
-                else ->{spFontSize.setSelection(0)}
-            }
-            //decoration
-            fontType = fontType.drop(1) //remove first
-            when (fontType){
-                "n" -> {spFontDecoration.setSelection(0)}
-                "b" -> {spFontDecoration.setSelection(1)}
-                "i" -> {spFontDecoration.setSelection(2)}
-                "bi"-> {spFontDecoration.setSelection(3)}
-                else -> {spFontDecoration.setSelection(0)}
-            }
-        }
-        fun setFontColor(){
-            if (sentence.font.has("color")){
-                val colorObj= sentence.font.getAsJsonObject("color")
-                setParamColorFromColorObj(colorObj,tvColor, btnColor, getString(R.string.btnPanelFontColor))
-            }
-        }
-        fun setBorderIndexes(){
-            if (sentence.font.has("borderType")){
-                val borderTypeNum = sentence.font.get("borderType").asInt
-                spBorderType.setSelection(borderTypeNum)
-            }
-        }
-
-        fun setBorderColor(){
-            if (sentence.font.has("borderColor")){
-                val colorObj =  sentence.font.getAsJsonObject("borderColor")
-                setParamColorFromColorObj(colorObj,tvBorderColor,btnBorderColor,getString(R.string.btnPanelFontBorderColor))
-            }
-        }
+        //-------------------------------------------------------------------------------
 
         fun prepareDataToUpdate(){
             newSentence.sentence = etSentence.text.toString()
@@ -2384,11 +2552,13 @@ class MainActivity : AppCompatActivity(){
             fontObj.addProperty("fontId",thisFont.id)
             fontObj.addProperty("fontType", getFontType())
             fontObj.add("color",getColorFromTextView(tvColor))
+            fontObj.addProperty("borderType",getBorderType())
+            fontObj.add("borderColor",getColorFromTextView(tvBorderColor))
             newSentence.font = fontObj
 
             // text position
             val textPositionObj = JsonObject()
-            val thisTextPosition = spTextPosition.selectedItem as jPanelTextPosition
+            val thisTextPosition = spTpTextPosition.selectedItem as jPanelTextPosition
             textPositionObj.addProperty("name", thisTextPosition.name)
             textPositionObj.addProperty("editable", thisTextPosition.editable)
             textPositionObj.addProperty("type",thisTextPosition.type)
@@ -2396,8 +2566,13 @@ class MainActivity : AppCompatActivity(){
             newSentence.textPosition = textPositionObj
 
             // text effect.....
-            //........
-            //........
+            val textEffectObj = JsonObject()
+            val thisTextEffect = spTeTextEffect.selectedItem as jPanelTextEffect
+            textEffectObj.addProperty("name",thisTextEffect.name)
+            textEffectObj.addProperty("editable",thisTextEffect.editable)
+            textEffectObj.addProperty("type",thisTextEffect.type)
+            textEffectObj.add("data",updateTextEffectData())
+            newSentence.textEffect = textEffectObj
 
             //background
             val backgroundObj = JsonObject()
@@ -2538,7 +2713,6 @@ class MainActivity : AppCompatActivity(){
                 }
                 .show()
         }
-
         btnBorderColor.setOnClickListener {
             Log.d(TAG,"Lede border color button clicked.")
             ColorPickerDialog
@@ -2553,10 +2727,9 @@ class MainActivity : AppCompatActivity(){
         }
 
         // TEXT Position listeners
-        spTextPosition.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spTpTextPosition.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
                 when(mode){
                     getString(R.string.sentenceHeaderAdd) ->{ //ADD
                         setupTextPositionInterface()
@@ -2587,9 +2760,41 @@ class MainActivity : AppCompatActivity(){
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+
         //TEXT Effect listeners
-        //...
-        //...
+        spTeTextEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                when(mode){
+                    getString(R.string.sentenceHeaderAdd) ->{ //ADD
+                        setupTextEffectInterface()
+                    }
+                    getString(R.string.sentenceHeaderEdit) ->{ //EDIT
+                        setupTextEffectInterface()
+                    }
+                    getString(R.string.sentenceHeaderDelete) ->{ //DELETE
+                        hideTextEffectInterface()
+                    }
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                Log.d(TAG,"Led panel text effect name NOTHING selected")
+            }
+        }
+        sbTeParam1.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
+                tvTeParam1Val.text =  progress.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        sbTeParam2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
+                tvTeParam2Val.text =  progress.toString()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         // BACKGROUND listeners
         spBgEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -2728,6 +2933,12 @@ class MainActivity : AppCompatActivity(){
                 //hm...
                 //przetestowac , tu raczej ustawienie domyslnych indexow
                 //font,size,decoration , bordertype , itp;
+                spFontName.setSelection(0) // first definied font
+                spFontSize.setSelection(0)
+                spFontDecoration.setSelection(0)
+                spTpTextPosition.setSelection(0)
+                spTeTextEffect.setSelection(0)
+                spBgEffect.setSelection(0)
             }
             getString(R.string.sentenceHeaderEdit) ->{ //EDIT
                 enableInterface()
@@ -2741,6 +2952,7 @@ class MainActivity : AppCompatActivity(){
                 setRescaledDelay(sbBgDelay, sentence.bgDelay)
                 setRescaledDelay(sbTextDelay, sentence.scrollDelay)
                 setTpPositionFromSentence()
+                setTePositionFromSentence()
                 setBgPositionFromSentence()
             }
             getString(R.string.sentenceHeaderDelete) ->{ //DELETE
@@ -2755,6 +2967,7 @@ class MainActivity : AppCompatActivity(){
                 setRescaledDelay(sbTextDelay, sentence.scrollDelay)
 
                 setTpPositionFromSentence()
+                setTePositionFromSentence()
                 setBgPositionFromSentence()
                 //tu nie ma sensu : hideTextEffectInterface()  , hideBackgroundInterface()
                 //bo listenery zadzialaja pozniej i tak przestawia
@@ -2970,7 +3183,7 @@ class MainActivity : AppCompatActivity(){
         bind.btnStripColor1.setOnClickListener {
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
-                .setTitle(R.string.dialog_title_pick_color)           	// Default "Choose Color"
+                .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
                 .setColorShape(ColorShape.CIRCLE)   // Default ColorShape.CIRCLE
                 .setDefaultColor("#ff0000")     // Pass Default Color
                 .setColorListener { _, colorHex ->
@@ -2983,7 +3196,7 @@ class MainActivity : AppCompatActivity(){
         bind.btnStripColor2.setOnClickListener {
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
-                .setTitle(R.string.dialog_title_pick_color)           	// Default "Choose Color"
+                .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
                 .setColorShape(ColorShape.CIRCLE)   // Default ColorShape.CIRCLE
                 .setDefaultColor("#ff0000")     // Pass Default Color
                 .setColorListener { _, colorHex ->
