@@ -44,234 +44,171 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="20sp">
-            <!-- Font panel -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- sentence to set -->
-                <LinearLayout
-                    android:id="@+id/rowPanelSentence"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:id="@+id/etLedpSentence"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autofillHints="Tekst do wyswietlenia"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        tools:text="Sample sentence"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </LinearLayout> <!-- END:sentence to set -->
-                <!-- header font settings -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvPanelFontHeader"
-                        style="@style/panelHeaderInfo"
-                        android:text="@string/headerFontSettings" />
-                </LinearLayout><!-- END:header font settings -->
-                <!-- font name -->
-                <LinearLayout
-                    android:id="@+id/rowPanelFontName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/spPanelFontName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/TestFontName"
-                        android:minHeight="48sp"
-                        android:paddingTop="10sp"
-                        tools:entries="@array/TestFontName" />
-                </LinearLayout> <!-- END:font name -->
-                <!-- size and decoration -->
+            <!-- text and font card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvTextAndFont"
+                style="@style/cardPanelCommon">
+                <!-- Text and Font panel -->
                 <LinearLayout
-                    android:id="@+id/rowPanelFontSizeDecor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Spinner
-                        android:id="@+id/spPanelFontFontSize"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:minHeight="48sp"
-                        android:entries="@array/FontSize"
-                        tools:entries="@array/FontSize" />
-                    <Spinner
-                        android:id="@+id/spPanelFontFontDecoration"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:minHeight="48sp"
-                        android:entries="@array/FontDecoration"
-                        tools:entries="@array/FontDecoration" />
-            </LinearLayout> <!-- END:size and decoration -->
-                <!-- font color -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/panelTextAndFont"
+                    style="@style/panelData">
+                    <!-- header font settings -->
+                    <LinearLayout
+                        android:id="@+id/rowTextAndFontHeader"
+                        style="@style/panelDataLine">
+                        <TextView
+                            android:id="@+id/tvPanelFontHeader"
+                            style="@style/panelHeaderInfo"
+                            android:text="@string/headerFontSettings" />
+                    </LinearLayout><!-- END:header font settings -->
+                    <!-- sentence to set -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelSentence"
+                        style="@style/panelDataLine">
+                        <EditText
+                            android:id="@+id/etLedpSentence"
+                            style="@style/panelData_text"
+                            android:autofillHints="@string/panelSentenceHint"
+                            tools:text="Sample sentence"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </LinearLayout> <!-- END:sentence to set -->
+                    <!-- font name -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelFontName"
+                        style="@style/panelDataLine">
+                        <Spinner
+                            android:id="@+id/spPanelFontName"
+                            style="@style/panelData_spinner_big"
+                            android:entries="@array/TestFontName"
+                            tools:entries="@array/TestFontName" />
+                    </LinearLayout> <!-- END:font name -->
+                    <!-- size and decoration -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelFontSizeDecor"
+                        style="@style/panelDataLine">
+                        <Spinner
+                            android:id="@+id/spPanelFontFontSize"
+                            style="@style/panelData_spinner_small"
+                            android:entries="@array/FontSize"
+                            tools:entries="@array/FontSize" />
+                        <Spinner
+                            android:id="@+id/spPanelFontFontDecoration"
+                            style="@style/panelData_spinner_small"
+                            android:entries="@array/FontDecoration"
+                            tools:entries="@array/FontDecoration" />
+                    </LinearLayout> <!-- END:size and decoration -->
+                    <!-- font color -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelTafFontColor"
+                        style="@style/panelDataLine">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPanelFontFontColor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:text="@string/btnPanelFontColor"
-                        android:textAllCaps="true"
-                        tools:ignore="TextContrastCheck" />
-                    <TextView
-                        android:id="@+id/tvPanelFontFontColor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="10sp"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:minHeight="32dp"
-                        android:text="" />
-                </LinearLayout>  <!-- END:font color -->
-                <!-- font border type -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvPanelFontBorderType"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:minHeight="32dp"
-                        android:text="@string/tvPanelBorderType"
-                        android:textSize="16sp"
-                        android:gravity="center_vertical"
-                        tools:ignore="TextContrastCheck" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPanelFontFontColor"
+                            style="@style/panelData_button_color"
+                            android:text="@string/btnPanelFontColor"
+                            android:textAllCaps="true"
+                            tools:ignore="TextContrastCheck" />
+                        <TextView
+                            android:id="@+id/tvPanelFontFontColor"
+                            style="@style/panelData_textview_color"
+                            android:background="@color/white"
+                            />
+                    </LinearLayout>  <!-- END:font color -->
+                    <!-- font border type -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelTafBorderType"
+                        style="@style/panelDataLine">
+                        <TextView
+                            android:id="@+id/tvPanelFontBorderType"
+                            style="@style/panelData_textView_param"
+                            android:text="@string/tvPanelBorderType"
+                            tools:ignore="TextContrastCheck" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/spPanelFontBorderType"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:minHeight="48sp"
-                        android:paddingTop="10sp"
-                        android:entries="@array/BorderType"
-                        tools:entries="@array/BorderType"/>
-                </LinearLayout> <!-- END:font border type -->
-                <!-- font border color -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPanelFontBorderColor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:text="@string/btnPanelFontBorderColor"
-                        android:textAllCaps="true"
-                        tools:ignore="TextContrastCheck" />
-                    <TextView
-                        android:id="@+id/tvPanelFontBorderColor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="10sp"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:minHeight="32dp"
-                        android:text="" />
-                </LinearLayout><!-- END:font border color -->
-                <!-- header render speed -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvPanelFontRenderDelays"
-                        style="@style/panelHeaderInfo"
-                        android:text="@string/headerRenderDelays" />
-                </LinearLayout><!-- END:header render speed -->
-                <!-- text effect speed -->
-                <LinearLayout
-                    android:id="@+id/rowPanelTextDelay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvPanelTextDelay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
-                        android:text="@string/tvPanelTextDelay"
-                        android:textSize="16sp"
-                        tools:ignore="TextContrastCheck" />
-                    <SeekBar
-                        android:id="@+id/sbPanelTextDelay"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="1"
-                        android:max="5"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
-                </LinearLayout> <!-- END:text effect speed -->
-                <!-- background speed -->
-                <LinearLayout
-                    android:id="@+id/rowPanelBgDelay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvPanelBgDelay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
-                        android:text="@string/tvPanelBgDelay"
-                        android:textSize="16sp"
-                        tools:ignore="TextContrastCheck" />
-                    <SeekBar
-                        android:id="@+id/sbPanelBgDelay"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="1"
-                        android:max="5"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
-                </LinearLayout> <!-- END:background speed -->
-            </LinearLayout><!-- END:Font panel -->
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/spPanelFontBorderType"
+                            style="@style/panelData_spinner_medium"
+                            android:entries="@array/BorderType"
+                            tools:entries="@array/BorderType"/>
+                    </LinearLayout> <!-- END:font border type -->
+                    <!-- font border color -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelTafBorderColor"
+                        style="@style/panelDataLine">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPanelFontBorderColor"
+                            style="@style/panelData_button_color"
+                            android:text="@string/btnPanelFontBorderColor"
+                            tools:ignore="TextContrastCheck" />
+                        <TextView
+                            android:id="@+id/tvPanelFontBorderColor"
+                            style="@style/panelData_textview_color" />
+                    </LinearLayout><!-- END:font border color -->
+                </LinearLayout><!-- END:Font panel -->
+            </androidx.cardview.widget.CardView>
+            <!-- END:text and font card -->
 
+            <!-- Render speed card view -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRender"
+                style="@style/cardPanelCommon">
+                <!-- Render text and background speed -->
+                <LinearLayout
+                    android:id="@+id/panelRender"
+                    style="@style/panelData">
+                    <!-- header render speed -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelTafRender"
+                        style="@style/panelDataLine">
+                        <TextView
+                            android:id="@+id/tvPanelTafRender"
+                            style="@style/panelHeaderInfo"
+                            android:text="@string/headerRenderDelays" />
+                    </LinearLayout><!-- END:header render speed -->
+                    <!-- text effect speed -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelTextDelay"
+                        style="@style/panelDataLine">
+                        <TextView
+                            android:id="@+id/tvPanelTextDelay"
+                            style="@style/panelData_textView_param"
+                            android:text="@string/tvPanelTextDelay"
+                            tools:ignore="TextContrastCheck" />
+                        <SeekBar
+                            android:id="@+id/sbPanelTextDelay"
+                            style="@style/panelData_seekbar_param"/>
+                    </LinearLayout> <!-- END:text effect speed -->
+
+                    <!-- background speed -->
+                    <LinearLayout
+                        android:id="@+id/rowPanelBgDelay"
+                        style="@style/panelDataLine">
+                        <TextView
+                            android:id="@+id/tvPanelBgDelay"
+                            style="@style/panelData_textView_param"
+                            android:text="@string/tvPanelBgDelay"
+                            tools:ignore="TextContrastCheck" />
+                        <SeekBar
+                            android:id="@+id/sbPanelBgDelay"
+                            style="@style/panelData_seekbar_param" />
+                    </LinearLayout> <!-- END:background speed -->
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!-- END:Render speed card view -->
+
+
+            <!-- text position card view -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvTextPosition"
+                style="@style/cardPanelCommon">
             <!-- Text position panel -->
             <LinearLayout
                 android:id="@+id/panelPanelTextPosition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                style="@style/panelData">
                 <!-- text position header -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/rowPanelTextPositionHeader"
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextPositionHeader"
                         style="@style/panelHeaderInfo"
@@ -280,144 +217,102 @@
                 <!-- Main position type -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextPosition"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
+<!--
                     <TextView
                         android:id="@+id/tvPanelTextPosition"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_textView_param"
                         android:text="@string/lbPosition"
-                        android:textSize="16sp"
-                        android:layout_gravity="center_vertical"
                         tools:ignore="TextContrastCheck" />
+-->
+<!-- style also changed panelData_spinner_medium to panelData_spinner_big -->
                     <Spinner
                         android:id="@+id/spPanelTextPosition"
-                        android:minHeight="48sp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        style="@style/panelData_spinner_big"
                         android:entries="@array/TestCustomPosition"
                         tools:entries="@array/TestCustomPosition" />
                 </LinearLayout> <!-- END:Main position type -->
                 <!-- custom param 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextPositionCustom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextPositionCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/lbPositionType"
-                        android:textSize="16sp"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbCustom"
                         tools:ignore="TextContrastCheck" />
-
                     <Spinner
                         android:id="@+id/spPanelTextPositionCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:minHeight="48dp"
+                        style="@style/panelData_spinner_medium"
                         tools:entries="@array/TestCustomPositionType"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout><!-- END:custom param 1 -->
                 <!--  param 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextPositionParam1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
                         android:text="@string/lbParam1"
-                        android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam1Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
                         android:text="@string/lbParam1Val"
-                        android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextPositionParam1"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:max="255"
-                        android:min="0"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6" />
                 </LinearLayout> <!-- END:param 1 -->
                 <!--  param 2 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextPositionParam2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
                         android:text="@string/lbParam2"
-                        android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam2Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val"
-                        android:textSize="16sp"
+                        android:text="@string/lbParam2Val"
                         tools:ignore="TextContrastCheck" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextPositionParam2"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="0"
-                        android:max="255"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
                 </LinearLayout> <!-- END:param 2 -->
             </LinearLayout> <!-- END:Text position panel -->
+            </androidx.cardview.widget.CardView>
+            <!-- END:text position card view -->
 
+
+
+            <!-- text effect card view -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvTextEffect"
+                style="@style/cardPanelCommon">
             <!-- Text effect panel -->
             <LinearLayout
                 android:id="@+id/panelPanelTextEffect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                style="@style/panelData">
                 <!-- text effect header -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:id="@+id/rowPanelTexEffectHeader"
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextEffectHeader"
                         style="@style/panelHeaderInfo"
@@ -426,161 +321,105 @@
                 <!-- text effect type -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextEffect"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
+<!--
                     <TextView
                         android:id="@+id/tvPanelTeTextEffect"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="16sp"
+                        style="@style/panelData_textView_param"
                         android:text="@string/lbTextEffect" />
+-->
+<!-- style also changed panelData_spinner_medium to panelData_spinner_big -->
+
                     <Spinner
                         android:id="@+id/spPanelTextEffect"
-                        android:minHeight="48sp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        style="@style/panelData_spinner_big"
                         android:entries="@array/TestTextEffects"
                         tools:entries="@array/TestTextEffects" />
                 </LinearLayout><!-- END:text effect type -->
                 <!-- text effect color 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextEffectColor1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelTextEffectColor1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_button_color"
                         android:text="@string/btnColor1" />
                     <TextView
                         android:id="@+id/tvPanelTextEffectColor1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10sp"
-                        android:minHeight="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:text=""
+                        style="@style/panelData_textview_color"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </LinearLayout><!-- END: text effect color 1 -->
                 <!-- text effect custom param -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextEffectCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="16sp"
+                        style="@style/panelData_textView_param"
                         android:text="@string/lbCustom" />
                     <Spinner
                         android:id="@+id/spPanelTextEffectCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:entries="@array/TestCustomParameterList"
-                        android:minHeight="48dp"
-                        android:spinnerMode="dialog"
+                        style="@style/panelData_spinner_medium"
                         tools:entries="@array/TestCustomParameterList"
                         tools:ignore="SpeakableTextPresentCheck" />
-
                 </LinearLayout><!-- END:text effect custom param -->
                 <!-- Text effect param 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTextEffectParam1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam1Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam1"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="0"
-                        android:max="255"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
                 </LinearLayout><!-- END:Text effect param 1 -->
                 <!-- Text effect param 2 -->
                 <LinearLayout
                     android:id="@+id/rowPanelTeParam2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:textSize="16sp"
                         android:text="@string/lbParam2" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam2Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam2"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="0"
-                        android:max="255"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
                 </LinearLayout><!-- END:Text effect param 2 -->
             </LinearLayout><!-- END:Text effect panel -->
+            </androidx.cardview.widget.CardView>
+            <!-- END: text effect card view -->
 
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvBackground"
+                style="@style/cardPanelCommon">
             <!-- Background panel -->
             <LinearLayout
                 android:id="@+id/panelPanelBackgroud"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                style="@style/panelData">
                 <!-- background header -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBackgroundHeader"
                         style="@style/panelHeaderInfo"
@@ -588,274 +427,161 @@
                 </LinearLayout><!-- END:background header -->
                 <!-- Background effect selection -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20sp">
+                    style="@style/panelDataLine">
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spPanelBackgrounds"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48sp"
-                        android:paddingTop="10sp"
+                        style="@style/panelData_spinner_big"
                         android:entries="@array/TestBackgroundEffects"
                         tools:entries="@array/TestBackgroundEffects"/>
                 </LinearLayout> <!-- Background effect selection -->
                 <!-- color 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgColor1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_button_color"
                         android:text="@string/btnColor1" />
                     <TextView
                         android:id="@+id/tvPanelBgColor1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10sp"
-                        android:minHeight="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:text=""
+                        style="@style/panelData_textview_color"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </LinearLayout>
                 <!-- color 2 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgColor2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_button_color"
                         android:text="@string/btnColor2" />
                     <TextView
                         android:id="@+id/tvPanelBgColor2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10sp"
-                        android:minHeight="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:text=""
+                        style="@style/panelData_textview_color"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </LinearLayout>
                 <!-- color 3 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgColor3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_button_color"
                         android:text="@string/btnColor3" />
                     <TextView
                         android:id="@+id/tvPanelBgColor3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10sp"
-                        android:minHeight="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:text=""
+                        style="@style/panelData_textview_color"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </LinearLayout>
                 <!-- color 4 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgColor4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/panelData_button_color"
                         android:text="@string/btnColor4" />
                     <TextView
                         android:id="@+id/tvPanelBgColor4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10sp"
-                        android:minHeight="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:background="@color/teal_200"
-                        android:enabled="false"
-                        android:text=""
+                        style="@style/panelData_textview_color"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </LinearLayout>
                 <!-- CUSTOM  Parameter-->
                 <LinearLayout
                     android:id="@+id/rowPanelBgCustomParam"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBgCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="16sp"
+                        style="@style/panelData_textView_param"
                         android:text="@string/lbCustom" />
                     <Spinner
                         android:id="@+id/spPanelBgCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:entries="@array/TestCustomParameterList"
-                        android:minHeight="48dp"
-                        android:spinnerMode="dialog"
+                        style="@style/panelData_spinner_medium"
                         tools:entries="@array/TestCustomParameterList"
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
                 <!-- Background param 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgParam1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBgParam1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1" />
                     <TextView
                         android:id="@+id/tvPanelBgParam1Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam1"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="0"
-                        android:max="255"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6" />
                 </LinearLayout>
                 <!-- Background param 2 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgParam2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBgParam2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:textSize="16sp"
                         android:text="@string/lbParam2" />
                     <TextView
                         android:id="@+id/tvPanelBgParam2Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam2"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:min="0"
-                        android:max="255"
-                        android:layout_gravity="center_vertical"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
                 </LinearLayout>
                 <!-- Background param 3 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgParam3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBgParam3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="32dp"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:textSize="16sp"
                         android:text="@string/lbParam3" />
                     <TextView
                         android:id="@+id/tvPanelBgParam3Val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:textSize="16sp"
                         android:text="@string/lbParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam3"
-                        style="@android:style/Widget.Material.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:max="255"
-                        android:min="0"
-                        android:progress="0" />
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
                 </LinearLayout>
                 <!-- Bool param 1 -->
                 <LinearLayout
                     android:id="@+id/rowPanelBgBool1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/panelDataLine">
                     <TextView
                         android:id="@+id/tvPanelBgBool1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="32dp"
-                        android:gravity="center_vertical"
+                        style="@style/panelData_textView_param"
                         android:layout_weight="3"
-                        android:textSize="16sp"
                         android:text="@string/lbBool1" />
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/swPanelBgBool1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="1.5"
                         android:checked="false"
                         tools:ignore="DuplicateSpeakableTextCheck" />
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"/>
+                        android:layout_weight="4.5"/>
                 </LinearLayout>
             </LinearLayout> <!-- END:Background panel -->
+            </androidx.cardview.widget.CardView>
+
+
 
             <!-- Button action panel  -->
             <LinearLayout

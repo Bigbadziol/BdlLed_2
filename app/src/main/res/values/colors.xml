@@ -24,4 +24,6 @@
     <color name="deviceRowBackground">#90CAF9</color>
     <color name="deviceRowTextBackground">#155483</color>
     <color name="deviceRowText">#00C532</color>
+
+    <color name="colorSelectionDefault">@color/black</color>
 </resources>

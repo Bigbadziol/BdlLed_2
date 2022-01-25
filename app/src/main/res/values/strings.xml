@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdlLed_02 v2.45</string>
+    <string name="app_name">BdlLed_02 v2.79</string>
     <!--            ==== START ACTIVITY ====                 -->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
@@ -19,6 +19,7 @@
     <string name="btnMainConfirm">Zatwierdz zmiany</string>
     <string name="tvEffectName">[NAZWA EFEKTU]</string>
     <string name="lbTimeVal">0</string>
+
     <string name="btnColor1">Kolor 1</string>
     <string name="btnColor2">Kolor 2</string>
     <string name="btnColor3">Kolor 3</string>
@@ -38,6 +39,8 @@
     <string name="lbParam4Val">4</string>
     <string name="lbBool1">Bool 1:</string>
     <string name="lbBool2">Bool 2:</string>
+
+
     <string name="btnEffectConfirm">Zatwierdz zmiany</string>
     <string name="btnAddDevice">Dodaj</string>
     <string name="iConnect">Połącz</string>
@@ -61,6 +64,44 @@
     <string name="chooseColor">Wybierz kolor</string>
     <string name="btnStripColor1">Background</string>
     <string name="tvPanelBrightness">Jasność</string>
+
+    <string name="stBeatWaveP1_pulse1">puls 1:</string> <!-- pulse 1 -->
+    <string name="stBeatWaveP2_pulse2">puls 2:</string> <!-- pulse 2 -->
+    <string name="stBeatWaveP3_pulse3">puls 3:</string> <!-- pulse 3 -->
+    <string name="stBeatWaveP4_pulse4">puls 4:</string> <!-- pulse 4 -->
+
+    <string name="stBlendWaveP1_speed">szybkosc:</string> <!-- speed -->
+    <string name="stBlendWaveP2_mH1">krok 1:</string> <!-- step 1 -->
+    <string name="stBlendWaveP3_mH2">krok 2:</string> <!-- step 2 -->
+
+    <string name="stBlurP1_speed">szybkosc:</string> <!-- speed -->
+    <string name="stBlurP2_o1">ofset 1:</string> <!-- offset 1 -->
+    <string name="stBlurP3_o2">ofset 2:</string> <!-- offset 2 -->
+    <string name="stBlurP4_o3">ofset 3:</string> <!-- offset 3 -->
+
+    <string name="stConfetiP1_fade">zanikanie:</string> <!-- fade -->
+    <string name="stConfetiP2_mdiff">ofset 1:</string> <!-- offset 1-->
+
+    <string name="stSinelonP1_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stSinelonP2_fade">zanikanie:</string> <!-- fade -->
+
+    <string name="stBpmP1_bpm">szybkosc:</string> <!-- bpm -->
+
+    <string name="stJuggleP1_step">krok:</string> <!-- step -->
+    <string name="stJuggleP2_fade">zanikanie:</string> <!-- fade -->
+
+    <string name="stDotBeatP1_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stDotBeatP2_fadeMod">zanikanie:</string> <!-- fade -->
+
+    <string name="stEasingP1_multiplier">zanikanie:</string> <!-- fade -->
+
+    <string name="stHyperDot_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stHyperDot_low">dol:</string> <!-- low -->
+    <string name="stHyperDot_high">gora:</string> <!-- high -->
+
+
+
+
     <!-- -->
     <string name="dialog_title_pick_color">Wybierz kolor</string>
     <!-- devices TEST DATA -->
@@ -119,17 +160,18 @@
     <string name="tvPanelBorderType">Obramowanie:</string>
 
     <string name="lbPosition">Pozycja:</string>
-    <string name="lbPositionType">Rodzaj:</string>
+   <!-- <string name="lbPositionType">Rodzaj:</string> -->
 
     <string name="lbTextEffect">Nazwa efektu:</string>
 
+    <string name="panelSentenceHint">Wprowadz swoj tekst</string>
 
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Here is a place for:xxx</item>
     </string-array>
 
-    <string name="headerFontSettings">Ustawienia czcionki</string>
+    <string name="headerFontSettings">Tekst i Czcionka</string>
     <string name="headerRenderDelays"> Szybkosc wyswietlania</string>
 
     <string-array name="FontSize">
@@ -161,9 +203,11 @@
         <item>pełna ramka</item>                <!-- 11 - ALL -->
     </string-array>
 
+    <!-- ...................................................................................... -->
     <!-- ..................... text position parameters description ........................... -->
     <string name="headerTextPosition"> Pozycjonowanie tekstu</string>
     <!-- text position Static/Simple custom parameters -->
+    <string name="tpStaticCustomDescription">Pozytcja:</string> <!-- position -->
     <string-array name="tpStaticCustom">
         <item>lewo</item>       <!-- 0 - left -->
         <item>prawo</item>      <!-- 1 - right -->
@@ -171,6 +215,7 @@
     </string-array>
 
     <!-- text position Scroll custom param -->
+    <string name="tpScrollCustomDescription">Kierunek:</string>
     <string-array name="tpScrollCustom">
         <item>od prawej do lewej</item>         <!-- 0 - right to left -->
         <item>od lewej do prawej</item>         <!-- 1 - left to right -->
@@ -181,7 +226,10 @@
         <item>odbijaj wewnatrz ekranu (Y)</item><!-- 6 - bounce top to bottom inside screen -->
         <item>odbijaj caly napis(Y)</item>      <!-- 7 - bounce top bottom outside screen -->
     </string-array>
-    <string name="tpWordByWordP1_timeInSec">Czas w sek:</string>
+    <!-- word by word -->
+    <string name="tpWordByWordP1_timeInSec">Czas w sek:</string> <!-- time in sec -->
+
+    <!-- ..................................................................................... -->
     <!-- ....................... text effect param description ............................... -->
     <string name="headerTextEffect">Efekt tekstu</string>
     <string name="teSimpleP1_mode">Tryb:</string>
@@ -194,18 +242,26 @@
         <item>lewo</item>
     </string-array>
     <string name="teColorsP1_delta">Delta:</string>
-
+    <!-- ..................................................................................... -->
     <!-- ..................Panel Background parameter description ............................. -->
     <string name="headerBackground">Efekt tla</string>
+    <!-- Simple color -->
+    <string name="bgSimpleColorColor1">Kolor tla:</string> <!-- background color -->
+
     <!-- background fire 1 -->
-    <string-array name="bgCustomFire1">
+    <string name="bgFire1CustomDescription">Kierunek:</string>
+    <string-array name="bgFire1Custom">
         <item>dol</item>
         <item>gora</item>
         <item>dol i gora</item>
     </string-array>
+    <string name="bgFire1P1_rows">Wiersze:</string>     <!-- rows -->
+    <string name="bgFire1P2_chance">Szansa:</string>    <!-- chance -->
+    <string name="bgFire1P3_decay">Zanik:</string>      <!-- decay -->
 
     <!-- background fire 2 -->
-    <string-array name="bgCustomFire2">
+    <string name="bgFire2CustomDescription">Paleta:</string> <!-- palette -->
+    <string-array name="bgFire2Custom">
         <item>toksyczny</item>
         <item>klasyczny</item>
         <item>zolto- czerwony</item>
@@ -213,18 +269,39 @@
     </string-array>
 
     <!-- background fire 3 -->
+    <string name="bgFire3CustomDescription">Paleta:</string> <!-- palette -->
     <string-array name="bgCustomFire3">
         <item>czerwona</item>
         <item>niebieska</item>
         <item>zielona</item>
     </string-array>
+    <string name="bgFire3P1_cooling">Chlodzenie:</string>   <!-- cooling -->
+    <string name="bgFire3P2_sparking">Iskry:</string>        <!-- sparking -->
 
     <!-- background Rain -->
-    <string-array name="bgCustomRain">
+    <string name="bgRainColor1">Gora:</string>     <!-- top color -->
+    <string name="bgRainColor2">Srodek:</string>  <!-- middle color -->
+    <string name="bgRainColor3">Dol:</string>     <!-- bottom color -->
+    <string name="bgRainCustomDescription">Rozmiar:</string>
+    <string-array name="bgRainCustom">
         <item>mały</item>
         <item>średni</item>
         <item>duzy</item>
     </string-array>
+    <string name="bgRainB1_blur">Rozmycie:</string> <!-- blur -->
+
+    <!-- background Streak -->
+    <string name="bgStreakCustomDescription">Paleta:</string>   <!-- palette -->
+    <string name="bgStreakP1_length">Dlugosc:</string>          <!-- length -->
+
+    <!-- background Liquid plasma -->
+    <string name="bgLiquidPlasmaCustomDescription">Paleta:</string> <!-- palette -->
+    <string name="bgLiquidPlasmaP1_smooth">Równanie:</string>       <!-- smooth -->
+    <string name="bgLiquidPlasmaP2_speed">Szybkosc:</string>        <!-- speed -->
+
+    <!-- background Big plasma -->
+    <string name="bgBigPlasmaCustomDescription">Paleta:</string>    <!-- palette -->
+    <string name="bgBigPlasmaP1_nextmove">Nastepny ruch:</string>   <!-- next move -->
     <!-- .................................................................................... -->
     <!--            ====Test data for add , edit ,del sentence in dialog ====                 -->
     <string-array name="TestCustomPosition">

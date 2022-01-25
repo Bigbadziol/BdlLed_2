@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:padding="10dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/ledp_dialog_bg">
+    <!-- MAIN FRAME -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <!-- HEADER work mode : ADD , UPDATE , DEL -->
+        <LinearLayout
+            android:id="@+id/rowlPanelHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvLedpHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                tools:text="[EDYCJA]" />
+        </LinearLayout> <!-- END:Header work mode-->
+        <!-- Sentence all data - container for specyfic panels -->
+        <LinearLayout
+            android:id="@+id/panelPanelCommon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20sp">
+            <!-- Font panel -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- sentence to set -->
+                <LinearLayout
+                    android:id="@+id/rowPanelSentence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/etLedpSentence"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="Tekst do wyswietlenia"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        tools:text="Sample sentence"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout> <!-- END:sentence to set -->
+                <!-- header font settings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelFontHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerFontSettings" />
+                </LinearLayout><!-- END:header font settings -->
+                <!-- font name -->
+                <LinearLayout
+                    android:id="@+id/rowPanelFontName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spPanelFontName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/TestFontName"
+                        android:minHeight="48sp"
+                        android:paddingTop="10sp"
+                        tools:entries="@array/TestFontName" />
+                </LinearLayout> <!-- END:font name -->
+                <!-- size and decoration -->
+                <LinearLayout
+                    android:id="@+id/rowPanelFontSizeDecor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/spPanelFontFontSize"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48sp"
+                        android:entries="@array/FontSize"
+                        tools:entries="@array/FontSize" />
+                    <Spinner
+                        android:id="@+id/spPanelFontFontDecoration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48sp"
+                        android:entries="@array/FontDecoration"
+                        tools:entries="@array/FontDecoration" />
+            </LinearLayout> <!-- END:size and decoration -->
+                <!-- font color -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelFontFontColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="@string/btnPanelFontColor"
+                        android:textAllCaps="true"
+                        tools:ignore="TextContrastCheck" />
+                    <TextView
+                        android:id="@+id/tvPanelFontFontColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="10sp"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:minHeight="32dp"
+                        android:text="" />
+                </LinearLayout>  <!-- END:font color -->
+                <!-- font border type -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelFontBorderType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="32dp"
+                        android:text="@string/tvPanelBorderType"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        tools:ignore="TextContrastCheck" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spPanelFontBorderType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:minHeight="48sp"
+                        android:paddingTop="10sp"
+                        android:entries="@array/BorderType"
+                        tools:entries="@array/BorderType"/>
+                </LinearLayout> <!-- END:font border type -->
+                <!-- font border color -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelFontBorderColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="@string/btnPanelFontBorderColor"
+                        android:textAllCaps="true"
+                        tools:ignore="TextContrastCheck" />
+                    <TextView
+                        android:id="@+id/tvPanelFontBorderColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="10sp"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:minHeight="32dp"
+                        android:text="" />
+                </LinearLayout><!-- END:font border color -->
+                <!-- header render speed -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTafRender"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerRenderDelays" />
+                </LinearLayout><!-- END:header render speed -->
+                <!-- text effect speed -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextDelay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextDelay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/tvPanelTextDelay"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+                    <SeekBar
+                        android:id="@+id/sbPanelTextDelay"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="1"
+                        android:max="5"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout> <!-- END:text effect speed -->
+                <!-- background speed -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgDelay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgDelay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/tvPanelBgDelay"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+                    <SeekBar
+                        android:id="@+id/sbPanelBgDelay"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="1"
+                        android:max="5"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout> <!-- END:background speed -->
+            </LinearLayout><!-- END:Font panel -->
+
+            <!-- Text position panel -->
+            <LinearLayout
+                android:id="@+id/panelPanelTextPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- text position header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerTextPosition" />
+                </LinearLayout><!-- END:text position header -->
+                <!-- Main position type -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextPosition"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbPosition"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="TextContrastCheck" />
+                    <Spinner
+                        android:id="@+id/spPanelTextPosition"
+                        android:minHeight="48sp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/TestCustomPosition"
+                        tools:entries="@array/TestCustomPosition" />
+                </LinearLayout> <!-- END:Main position type -->
+                <!-- custom param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextPositionCustom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbCustom"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="TextContrastCheck" />
+
+                    <Spinner
+                        android:id="@+id/spPanelTextPositionCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:minHeight="48dp"
+                        tools:entries="@array/TestCustomPositionType"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout><!-- END:custom param 1 -->
+                <!--  param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextPositionParam1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionParam1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/lbParam1"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionParam1Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <SeekBar
+                        android:id="@+id/sbPanelTextPositionParam1"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:max="255"
+                        android:min="0"
+                        android:progress="0" />
+                </LinearLayout> <!-- END:param 1 -->
+                <!--  param 2 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextPositionParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionParam2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="@string/lbParam2"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tvPanelTextPositionParam2Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val"
+                        android:textSize="16sp"
+                        tools:ignore="TextContrastCheck" />
+
+                    <SeekBar
+                        android:id="@+id/sbPanelTextPositionParam2"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout> <!-- END:param 2 -->
+            </LinearLayout> <!-- END:Text position panel -->
+
+            <!-- Text effect panel -->
+            <LinearLayout
+                android:id="@+id/panelPanelTextEffect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- text effect header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerTextEffect" />
+                </LinearLayout><!-- END:text effect header -->
+                <!-- text effect type -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextEffect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTeTextEffect"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:text="@string/lbTextEffect" />
+                    <Spinner
+                        android:id="@+id/spPanelTextEffect"
+                        android:minHeight="48sp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/TestTextEffects"
+                        tools:entries="@array/TestTextEffects" />
+                </LinearLayout><!-- END:text effect type -->
+                <!-- text effect color 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextEffectColor1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelTextEffectColor1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/btnColor1" />
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectColor1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10sp"
+                        android:minHeight="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:text=""
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout><!-- END: text effect color 1 -->
+                <!-- text effect custom param -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:text="@string/lbCustom" />
+                    <Spinner
+                        android:id="@+id/spPanelTextEffectCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/TestCustomParameterList"
+                        android:minHeight="48dp"
+                        android:spinnerMode="dialog"
+                        tools:entries="@array/TestCustomParameterList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout><!-- END:text effect custom param -->
+                <!-- Text effect param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTextEffectParam1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectParam1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:layout_weight="2"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1" />
+
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectParam1Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1Val" />
+
+                    <SeekBar
+                        android:id="@+id/sbPanelTextEffectParam1"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout><!-- END:Text effect param 1 -->
+                <!-- Text effect param 2 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelTeParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectParam2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:layout_weight="2"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam2" />
+
+                    <TextView
+                        android:id="@+id/tvPanelTextEffectParam2Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1Val" />
+
+                    <SeekBar
+                        android:id="@+id/sbPanelTextEffectParam2"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout><!-- END:Text effect param 2 -->
+            </LinearLayout><!-- END:Text effect panel -->
+
+            <!-- Background panel -->
+            <LinearLayout
+                android:id="@+id/panelPanelBackgroud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- background header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBackgroundHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerBackground" />
+                </LinearLayout><!-- END:background header -->
+                <!-- Background effect selection -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20sp">
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spPanelBackgrounds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48sp"
+                        android:paddingTop="10sp"
+                        android:entries="@array/TestBackgroundEffects"
+                        tools:entries="@array/TestBackgroundEffects"/>
+                </LinearLayout> <!-- Background effect selection -->
+                <!-- color 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgColor1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelBgColor1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/btnColor1" />
+                    <TextView
+                        android:id="@+id/tvPanelBgColor1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10sp"
+                        android:minHeight="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:text=""
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- color 2 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgColor2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelBgColor2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/btnColor2" />
+                    <TextView
+                        android:id="@+id/tvPanelBgColor2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10sp"
+                        android:minHeight="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:text=""
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- color 3 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgColor3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelBgColor3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/btnColor3" />
+                    <TextView
+                        android:id="@+id/tvPanelBgColor3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10sp"
+                        android:minHeight="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:text=""
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- color 4 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgColor4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelBgColor4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/btnColor4" />
+                    <TextView
+                        android:id="@+id/tvPanelBgColor4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10sp"
+                        android:minHeight="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:background="@color/teal_200"
+                        android:enabled="false"
+                        android:text=""
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- CUSTOM  Parameter-->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgCustomParam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:text="@string/lbCustom" />
+                    <Spinner
+                        android:id="@+id/spPanelBgCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/TestCustomParameterList"
+                        android:minHeight="48dp"
+                        android:spinnerMode="dialog"
+                        tools:entries="@array/TestCustomParameterList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- Background param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgParam1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgParam1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:layout_weight="2"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1" />
+                    <TextView
+                        android:id="@+id/tvPanelBgParam1Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1Val" />
+                    <SeekBar
+                        android:id="@+id/sbPanelBgParam1"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout>
+                <!-- Background param 2 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgParam2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:layout_weight="2"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam2" />
+                    <TextView
+                        android:id="@+id/tvPanelBgParam2Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1Val" />
+                    <SeekBar
+                        android:id="@+id/sbPanelBgParam2"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:min="0"
+                        android:max="255"
+                        android:layout_gravity="center_vertical"
+                        android:progress="0" />
+                </LinearLayout>
+                <!-- Background param 3 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgParam3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgParam3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:layout_weight="2"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam3" />
+                    <TextView
+                        android:id="@+id/tvPanelBgParam3Val"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/lbParam1Val" />
+                    <SeekBar
+                        android:id="@+id/sbPanelBgParam3"
+                        style="@android:style/Widget.Material.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:max="255"
+                        android:min="0"
+                        android:progress="0" />
+                </LinearLayout>
+                <!-- Bool param 1 -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBgBool1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvPanelBgBool1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="32dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:textSize="16sp"
+                        android:text="@string/lbBool1" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swPanelBgBool1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:checked="false"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"/>
+                </LinearLayout>
+            </LinearLayout> <!-- END:Background panel -->
+
+            <!-- Button action panel  -->
+            <LinearLayout
+                android:id="@+id/panelPanelAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPanelConfirm"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/btnLedeConfirm"
+                    android:textAllCaps="true"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPanelCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:text="Anuluj"
+                    android:textAllCaps="true"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </LinearLayout> <!-- Button action panel -->
+        </LinearLayout> <!--END:CSentence all data - container for specyfic panels-->
+
+        <!-- Test button panel -->
+        <LinearLayout
+            android:id="@+id/panelPanelTestButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--test button 1-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLedpTest1"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+
+                android:text="@string/btnTest1"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <!--test button 2-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLedpTest2"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/btnTest2"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <!--test button 3-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLedpTest3"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/btnTest3"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout> <!-- END:Test button panel -->
+    </LinearLayout> <!-- END:MAIN FRAME -->
+
+</ScrollView>

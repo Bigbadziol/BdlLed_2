@@ -12,6 +12,7 @@
         <item name="colorOnSecondary">@color/black</item>
 
 
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -55,14 +56,117 @@
         <item name="android:textSize">24sp</item>
         <item name="android:itemBackground">@color/deviceRowTextBackground</item>
     </style>
+
+
+
+
+    <!-- Common card panel-->
+    <style name="cardPanelCommon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="cardBackgroundColor">@color/amber_100</item>
+        <item name="cardElevation">10dp</item>
+        <item name="cardCornerRadius">15dp</item>
+    </style>
+
+    <style name="panelData">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="panelDataLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="panelData_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <!-- for : select font name -->
+    <style name="panelData_spinner_big">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="panelData_spinner_medium">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- for : select font size and decoration type -->
+    <style name="panelData_spinner_small">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="panelData_button_color">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="panelData_textview_color">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginHorizontal">10sp</item>
+        <item name="android:background">@color/colorSelectionDefault</item>
+        <item name="android:enabled">false</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:text"></item>
+    </style>
+
+    <style name="panelData_textView_param">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <style name="panelData_seekbar_param">
+        <item name="android:theme">@android:style/Widget.Material.SeekBar.Discrete</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:min">1</item>
+        <item name="android:max">6</item>
+        <item name="android:progress">1</item>
+        <item name="android:minHeight">36dp</item>
+    </style>
+
+
+    <!-- common header in panel -->
     <!-- w tym przypadku nie itemBackground a zwykly background -->
     <style name="panelHeaderInfo">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/deviceRowText</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:background">@color/deviceRowTextBackground</item>
     </style>
+
+
+
 
 </resources>
