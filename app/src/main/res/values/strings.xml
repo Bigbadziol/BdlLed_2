@@ -61,6 +61,44 @@
     <string name="chooseColor">Wybierz kolor</string>
     <string name="btnStripColor1">Background</string>
     <string name="tvPanelBrightness">Jasność</string>
+
+    <string name="stBeatWaveP1_pulse1">puls 1:</string> <!-- pulse 1 -->
+    <string name="stBeatWaveP2_pulse2">puls 2:</string> <!-- pulse 2 -->
+    <string name="stBeatWaveP3_pulse3">puls 3:</string> <!-- pulse 3 -->
+    <string name="stBeatWaveP4_pulse4">puls 4:</string> <!-- pulse 4 -->
+
+    <string name="stBlendWaveP1_speed">szybkosc:</string> <!-- speed -->
+    <string name="stBlendWaveP2_mH1">krok 1:</string> <!-- step 1 -->
+    <string name="stBlendWaveP3_mH2">krok 2:</string> <!-- step 2 -->
+
+    <string name="stBlurP1_speed">szybkosc:</string> <!-- speed -->
+    <string name="stBlurP2_o1">ofset 1:</string> <!-- offset 1 -->
+    <string name="stBlurP3_o2">ofset 2:</string> <!-- offset 2 -->
+    <string name="stBlurP4_o3">ofset 3:</string> <!-- offset 3 -->
+
+    <string name="stConfetiP1_fade">zanikanie:</string> <!-- fade -->
+    <string name="stConfetiP2_mdiff">ofset 1:</string> <!-- offset 1-->
+
+    <string name="stSinelonP1_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stSinelonP2_fade">zanikanie:</string> <!-- fade -->
+
+    <string name="stBpmP1_bpm">szybkosc:</string> <!-- bpm -->
+
+    <string name="stJuggleP1_step">krok:</string> <!-- step -->
+    <string name="stJuggleP2_fade">zanikanie:</string> <!-- fade -->
+
+    <string name="stDotBeatP1_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stDotBeatP2_fadeMod">zanikanie:</string> <!-- fade -->
+
+    <string name="stEasingP1_multiplier">zanikanie:</string> <!-- fade -->
+
+    <string name="stHyperDot_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stHyperDot_low">dol:</string> <!-- low -->
+    <string name="stHyperDot_high">gora:</string> <!-- high -->
+
+
+
+
     <!-- -->
     <string name="dialog_title_pick_color">Wybierz kolor</string>
     <!-- devices TEST DATA -->
