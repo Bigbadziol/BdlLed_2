@@ -10,7 +10,7 @@ import com.example.bdlled_02.R
 import com.example.bdlled_02.jPanelSentence
 
 class SentenceListAdapter(private val  context: Activity, var items : ArrayList<jPanelSentence>) :
-    ArrayAdapter<jPanelSentence>(context , R.layout.device_list_row, items){
+    ArrayAdapter<jPanelSentence>(context , R.layout.sentence_list_row, items){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
         val view : View = layoutInflater.inflate(R.layout.sentence_list_row,null)

@@ -4,16 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/led_device_devices_header.xml" value="0.21875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/led_device_row_style.xml" value="0.273" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/ledp_dialog_bg.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/scrolled_bg.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/sentence_row_style.xml" value="0.273" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/va_test.xml" value="0.2546875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/device_list_row.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialog.xml" value="0.2744503411675512" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialogV2.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialog_orginal.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialog_v2.xml" value="0.3157467532467532" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/sentence_list_row.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/sentence_list_row.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/spinner_row.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/test_cardview.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/menu/sentences_popup.xml" value="0.20416666666666666" />

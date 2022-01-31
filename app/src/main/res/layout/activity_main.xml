@@ -8,612 +8,462 @@ Zmieniono na ScrollView, z automatu trzeba dodac
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:padding="10dp"
+    android:background="@drawable/scrollview_bg"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/defaultBackground"
-        android:layout_margin="10dp"
+        android:background="@color/defaultPanelBackground"
         android:orientation="vertical">
-        <!-- Connection panel -->
-        <TableLayout
-            android:id="@+id/panelConnection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/defaultPanelBackground">
-            <!-- connect and devices list -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnConnect"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnConnect"
-                    tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+        <!-- connection card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvConnection"
+            style="@style/cardPanelCommon">
+            <!-- Connection panel -->
+            <LinearLayout
+                android:id="@+id/panelConnection"
+                style="@style/panelData">
+                <!-- header select device -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/tvSelectDeviceHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerSelectDevice" />
+                </LinearLayout>
+                <!-- connect and devices list -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnConnect"
+                        style="@style/panelData_button"
+                        android:text="@string/btnConnect"
+                        tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+                    <Spinner
+                        android:id="@+id/spDevices"
+                        style="@style/panelData_spinner_medium"
+                        android:entries="@array/TestDeviceList" />
+                </LinearLayout>
+                <!-- status list -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/lbStatus"
+                        style="@style/panelData_textView_param"
+                        android:layout_marginBottom="5dp"
 
-                <Spinner
-                    android:id="@+id/spDevices"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:entries="@array/TestDeviceList"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog" />
-            </TableRow>
-            <!-- status list -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                        android:text="@string/lbStatus" />
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        style="@style/panelData_textView_param"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="2"
+                        tools:text="is connected" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- END: connection card -->
 
-                <TextView
-                    android:id="@+id/lbStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbStatus"
-                    android:textSize="16sp" />
+        <!-- strip settings card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStripSettings"
+            style="@style/cardPanelCommon">
+            <!-- Main settings  panel-->
+            <LinearLayout
+                android:id="@+id/panelStripMainSettings"
+                style="@style/panelData">
+                <!-- header strip panel-->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripHeader">
+                    <TextView
+                        android:id="@+id/tvStripPanelHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerStripPanel" />
+                </LinearLayout>
+                <!-- work mode -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripMode">
+                    <TextView
+                        android:id="@+id/lbStripMode"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbMode" />
+                    <Spinner
+                        android:id="@+id/spStripMode"
+                        style="@style/panelData_spinner_medium"
+                        tools:entries="@array/StripModeList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- default / current effect -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectSelect">
+                    <TextView
+                        android:id="@+id/lbStripEffect"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbEffects"/>
+                    <Spinner
+                        android:id="@+id/spStripEffect"
+                        style="@style/panelData_spinner_medium"
+                        android:entries="@array/TestEffectList"
+                        tools:entries="@array/TestEffectList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- Time auto or random effect change-->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripTime">
+                    <TextView
+                        android:id="@+id/lbStripTime"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/lbTime"/>
 
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    tools:text="is connected" />
-            </TableRow>
-        </TableLayout>
-        <!-- Main settings  panel-->
-        <TableLayout
-            android:id="@+id/panelStripMainSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/defaultPanelBackground"
-            android:layout_marginTop="10dp">
-            <!-- work mode -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lbStripTimeVal"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbTimeVal" />
 
-                <TextView
-                    android:id="@+id/lbStripMode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbMode"
-                    android:textSize="16sp" />
+                    <SeekBar
+                        android:id="@+id/sbStripTime"
+                        style="@style/panelData_seekbar_param"
+                        android:min="10"
+                        android:max="120"
+                        android:layout_weight="6" />
+                </LinearLayout>
+                <!-- Default color pick-->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripColor">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStripColorMain"
+                        style="@style/panelData_button_color"
+                        android:text="@string/btnColorMain" />
 
-                <Spinner
-                    android:id="@+id/spStripMode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/StripModeList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- default / current effect -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvStripColorMain"
+                        style="@style/panelData_textview_color"
+                        android:background="@color/white"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- Main strip confirm -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripConfirm">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStripMainConfirm"
+                        style="@style/panelData_button"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/btnMainConfirm" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/lbStripEffect"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbEffects"
-                    android:textSize="16sp" />
+        <!-- strip effect  card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStripEffectSettings"
+            style="@style/cardPanelCommon">
+            <!-- Effect panel -->
+            <LinearLayout
+                android:id="@+id/panelEffect"
+                style="@style/panelData">
+                <!-- Effect name as header -->
+                <LinearLayout
+                    android:id="@+id/rowStripEffectName"
+                    style="@style/panelDataLine"
+                    >
+                    <TextView
+                        android:id="@+id/tvStripEffectName"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/tvEffectName">
+                    </TextView>
+                </LinearLayout>
+                <!-- Color 1 pick -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectColor1">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStripColor1"
+                        style="@style/panelData_button_color"
+                        android:text="@string/btnColor1" />
+                    <TextView
+                        android:id="@+id/edStripColor1"
+                        style="@style/panelData_textview_color"
+                        android:background="@color/green_400"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- Color 2 pick -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectColor2">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStripColor2"
+                        style="@style/panelData_button_color"
+                        android:text="@string/btnColor2"/>
+                    <TextView
+                        android:id="@+id/edStripColor2"
+                        style="@style/panelData_textview_color"
+                        android:background="@color/blue_400"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- palette pick-->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectPalette">
+                    <TextView
+                        android:id="@+id/lbStripPalette"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbPalette" />
+                    <Spinner
+                        android:id="@+id/spStripPalette"
+                        style="@style/panelData_spinner_medium"
+                        android:entries="@array/commonPaleteList"
+                        tools:entries="@array/commonPaleteList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- custom parametr pick -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectCustom">
+                    <TextView
+                        android:id="@+id/lbStripCustom"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbCustom" />
+                    <Spinner
+                        android:id="@+id/spStripCustom"
+                        style="@style/panelData_spinner_medium"
+                        android:entries="@array/TestCustomParameterList"
+                        tools:entries="@array/TestCustomParameterList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- param 1 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectParam1"
+                    >
+                    <TextView
+                        android:id="@+id/lbStripParam1"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/lbParam1" />
+                    <TextView
+                        android:id="@+id/lbStripParam1Val"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val" />
+                    <SeekBar
+                        android:id="@+id/sbStripParam1"
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6" />
+                </LinearLayout>
+                <!-- param 2 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectParam2">
+                    <TextView
+                        android:id="@+id/lbStripParam2"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/lbParam2" />
+                    <TextView
+                        android:id="@+id/lbStripParam2Val"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam2Val" />
+                    <SeekBar
+                        android:id="@+id/sbStripParam2"
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
+                </LinearLayout>
+                <!-- param 3 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectParam3">
+                    <TextView
+                        android:id="@+id/lbStripParam3"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/lbParam3" />
+                    <TextView
+                        android:id="@+id/lbStripParam3Val"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam3Val" />
+                    <SeekBar
+                        android:id="@+id/sbStripParam3"
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
+                </LinearLayout>
+                <!-- param 4 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectParam4">
+                    <TextView
+                        android:id="@+id/lbStripParam4"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/lbParam4" />
 
-                <Spinner
-                    android:id="@+id/spStripEffect"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:entries="@array/TestEffectList"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/TestEffectList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- Time auto or random effect change-->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lbStripParam4Val"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam4Val" />
 
-                <TextView
-                    android:id="@+id/lbStripTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="40dp"
-                    android:layout_weight="2"
-                    android:text="@string/lbTime"
-                    android:textSize="16sp" />
+                    <SeekBar
+                        android:id="@+id/sbStripParam4"
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6"/>
+                </LinearLayout>
+                <!-- bool 1 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectBool1">
+                    <TextView
+                        android:id="@+id/lbStripBool1"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="3"
+                        android:text="@string/lbBool1" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swStripBool1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:checked="false"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4.5"/>
+                </LinearLayout>
+                <!--bool 2 -->
+                <LinearLayout
+                    style="@style/panelDataLine"
+                    android:id="@+id/rowStripEffectBool2">
+                    <TextView
+                        android:id="@+id/lbStripBool2"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="3"
+                        android:text="@string/lbBool2" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swStripBool2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:checked="false"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4.5"/>
+                </LinearLayout>
+                <!-- Effect confirm button -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStripEffectConfirm"
+                        style="@style/panelData_button"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/btnEffectConfirm" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/lbStripTimeVal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/lbTimeVal"
-                    android:textSize="16sp" />
+<!-- ............. PANEL PART .............................. -->
+        <!-- panel settings  card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvPanelSettings"
+            style="@style/cardPanelCommon">
+            <!-- Led Screen/Panel main settings -->
+            <LinearLayout
+                android:id="@+id/panelPanelSettings"
+                style="@style/panelData">
+                <!-- header panel -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/tvPanelHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/headerPanelPanel" />
+                </LinearLayout>
+                <!-- brightness -->
+                <LinearLayout
+                    android:id="@+id/rowPanelBrightess"
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/tvPanelBrightness"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="2"
+                        android:text="@string/tvPanelBrightness"/>
+                    <TextView
+                        android:id="@+id/tvPanelBrightnessVal"
+                        style="@style/panelData_textView_param"
+                        android:layout_weight="1"
+                        android:text="@string/lbParam1Val" />
 
-                <SeekBar
-                    android:id="@+id/sbStripTime"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="6"
-                    android:max="255"
-                    android:progress="0" />
-            </TableRow>
-            <!-- Default color pick-->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <SeekBar
+                        android:id="@+id/sbPanelBrightness"
+                        style="@style/panelData_seekbar_param"
+                        android:layout_weight="6" />
+                </LinearLayout>
+                <!-- work mode -->
+                <LinearLayout
+                    android:id="@+id/rowPanelWorkMode"
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/tvPanelMode"
+                        style="@style/panelData_textView_param"
+                        android:text="@string/lbMode" />
+                    <Spinner
+                        android:id="@+id/spPanelMode"
+                        style="@style/panelData_spinner_medium"
+                        tools:entries="@array/PanelModeList"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+                <!-- Panel/Screen main confirm -->
+                <LinearLayout
+                    android:id="@+id/rowPanelConfirm"
+                    style="@style/panelDataLine">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPanelMainConfirm"
+                        style="@style/panelData_button"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/btnMainConfirm" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStripColorMain"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnColorMain" />
-
-                <TextView
-                    android:id="@+id/tvStripColorMain"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="10sp"
-                    android:layout_weight="2"
-                    android:background="@color/teal_200"
-                    android:enabled="false"
-                    android:minHeight="32dp"
-                    android:text=""
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- Main confirm -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStripMainConfirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnMainConfirm" />
-
-            </TableRow>
-        </TableLayout>
-        <!-- Effect panel -->
-        <TableLayout
-            android:id="@+id/panelEffect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/defaultPanelBackground"
-            android:layout_marginTop="10sp">
-            <!-- Effect name -->
-            <TableRow
-                android:id="@+id/rEffectName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvStripEffectName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:padding="10sp"
-                    android:text="@string/tvEffectName">
-                </TextView>
-            </TableRow>
-            <!-- Color 1 pick -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStripColor1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnColor1" />
-
-                <TextView
-                    android:id="@+id/edStripColor1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10sp"
-                    android:minHeight="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:background="@color/teal_200"
-                    android:enabled="false"
-                    android:text=""
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- Color 2 pick -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStripColor2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnColor2"/>
-
-                <TextView
-                    android:id="@+id/edStripColor2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="32dp"
-                    android:layout_marginHorizontal="10sp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:background="@color/teal_200"
-                    android:enabled="false"
-                    android:text=""
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- palette pick-->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripPalette"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbPalette" />
-
-                <Spinner
-                    android:id="@+id/spStripPalette"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:entries="@array/StripPaletteList"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/StripPaletteList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- custom parametr pick -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripCustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbCustom" />
-
-                <Spinner
-                    android:id="@+id/spStripCustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:entries="@array/TestCustomParameterList"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/TestCustomParameterList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- param 1 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripParam1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="32dp"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1" />
-
-                <TextView
-                    android:id="@+id/lbStripParam1Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1Val" />
-
-                <SeekBar
-                    android:id="@+id/sbStripParam1"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
-                    android:layout_gravity="center_vertical"
-                    android:progress="0" />
-            </TableRow>
-            <!-- param 2 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripParam2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="32dp"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam2" />
-
-                <TextView
-                    android:id="@+id/lbStripParam2Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam2Val" />
-
-                <SeekBar
-                    android:id="@+id/sbStripParam2"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
-                    android:layout_gravity="center_vertical"
-                    android:progress="0" />
-            </TableRow>
-            <!-- param 3 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripParam3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="32dp"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam3" />
-
-                <TextView
-                    android:id="@+id/lbStripParam3Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam3Val" />
-
-                <SeekBar
-                    android:id="@+id/sbStripParam3"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
-                    android:layout_gravity="center_vertical"
-                    android:progress="0" />
-            </TableRow>
-            <!-- param 4 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripParam4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="32dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam4" />
-
-                <TextView
-                    android:id="@+id/lbStripParam4Val"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam4Val" />
-
-                <SeekBar
-                    android:id="@+id/sbStripParam4"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="0"
-                    android:max="255"
-                    android:layout_gravity="center_vertical"
-                    android:progress="0" />
-            </TableRow>
-            <!-- bool 1 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripBool1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="32dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="3"
-                    android:textSize="16sp"
-                    android:text="@string/lbBool1" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swStripBool1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:checked="false"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"/>
-            </TableRow>
-            <!--bool 2 -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/lbStripBool2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:minHeight="32dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="3"
-                    android:textSize="16sp"
-                    android:text="@string/lbBool2" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swStripBool2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2">
-                </androidx.appcompat.widget.SwitchCompat>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"/>
-            </TableRow>
-
-            <!-- Effect confirm button -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStripEffectConfirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnEffectConfirm" />
-            </TableRow>
-        </TableLayout>
-
-        <!-- Led Screen/Panel main settings -->
-        <TableLayout
-            android:id="@+id/panelPanelSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/defaultPanelBackground"
-            android:layout_marginTop="10dp">
-            <!-- brightness -->
-            <TableRow
-                android:id="@+id/rowPanelBrightess"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tvPanelBrightness"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/tvPanelBrightness"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/tvPanelBrightnessVal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/lbParam1Val" />
-
-                <SeekBar
-                    android:id="@+id/sbPanelBrightness"
-                    style="@android:style/Widget.Material.SeekBar.Discrete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:min="1"
-                    android:max="5"
-                    android:layout_gravity="center_vertical"
-                    android:progress="1" />
-            </TableRow>
-            <!-- work mode -->
-            <TableRow
-                android:id="@+id/rowPanelWorkMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvPanelMode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbMode"
-                    android:textSize="16sp" />
-
-                <Spinner
-                    android:id="@+id/spPanelMode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:minHeight="48dp"
-                    android:spinnerMode="dialog"
-                    tools:entries="@array/PanelModeList"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </TableRow>
-            <!-- Panel/Screen main confirm -->
-            <TableRow
-                android:id="@+id/rowPanelConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPanelMainConfirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btnMainConfirm" />
-            </TableRow>
-        </TableLayout>
-
+        <!-- panel settings  card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvPanelSentences"
+            style="@style/cardPanelCommon">
         <!-- Panel list sentences-->
-        <LinearLayout
-            android:id="@+id/panelPanelSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tvSentenceListHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginHorizontal="10dp"
-                style="@style/deviceListHeader"
-                android:text="@string/tvSentenceListHeader"
-                android:visibility="visible" />
-            <ListView
-                android:id="@+id/lvPanelSentences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/sentence_list_row" />
-
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/panelPanelSentences"
+                style="@style/panelData">
+                <!-- sentence header -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <TextView
+                        android:id="@+id/tvSentenceListHeader"
+                        style="@style/panelHeaderInfo"
+                        android:text="@string/tvSentenceListHeader" />
+                </LinearLayout>
+                <!-- list of sentences -->
+                <LinearLayout
+                    style="@style/panelDataLine">
+                    <ListView
+                    android:id="@+id/lvPanelSentences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/sentence_list_row" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- PANEL TEST -->
         <LinearLayout

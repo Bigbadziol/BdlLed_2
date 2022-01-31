@@ -11,7 +11,6 @@ import android.widget.TextView
 data class DeviceListModel (var deviceName : String, var deviceAdress : String, var iconId : Int)
 
 
-
 class DeviceListAdapter(private val  context: Activity, var items : ArrayList<DeviceListModel>) :
     ArrayAdapter<DeviceListModel>(context , R.layout.device_list_row , items){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

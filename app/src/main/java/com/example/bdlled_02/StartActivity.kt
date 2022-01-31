@@ -1,4 +1,12 @@
-//Start Activity o co chodzi ????
+//Zajebisty problem po aktualizacji z dnia 26.01.2022
+//STANDARD_1 26_01_2022
+//_TODO: Consider calling
+//ActivityCompat#requestPermissions
+//here to request the missing permissions, and then overriding
+//public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//int[] grantResults)
+//to handle the case where the user grants the permission. See the documentation
+//for ActivityCompat#requestPermissions for more details.
 package com.example.bdlled_02
 
 import android.Manifest
@@ -20,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import com.example.bdlled_02.databinding.ActivityStartBinding
@@ -71,7 +80,7 @@ class StartActivity : AppCompatActivity() {
     private var conditions = Conditions(false, false)
     private var requestBluetoothEnable =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Log.d(TAG, "IT RESULT CODE: ${it.resultCode.toString()}")
+            Log.d(TAG, "IT RESULT CODE: ${it.resultCode}")
             //kiedy bt jest wlaczone , result -1 , kiedy wylaczone i wlaczamy i akceptujemy tez -1
             //a jak odrzucamy to 0
             if (it.resultCode == -1) {
@@ -100,7 +109,7 @@ class StartActivity : AppCompatActivity() {
                     " Please go to the app settings and manually turn on " +
                             "\"location permission\". Without this permission, I do not work. "
                 )
-                builder.setPositiveButton("Ok") { dialog, which -> }
+                builder.setPositiveButton("Ok") { _, _ -> }
                 val dialog: AlertDialog = builder.create()
                 dialog.show()
                 Log.d(TAG, " V2-> Permission denied, - contract 2")
@@ -187,9 +196,18 @@ class StartActivity : AppCompatActivity() {
         }
 
         if (this.bluetoothAdapter.isDiscovering){
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH
+                    //Manifest.permission.BLUETOOTH_SCAN
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                //STANDARD_1 26_01_2022
+                    Log.d(TAG,"[START ACTIVITY][BT] OnDestroy - no scan permission")
+                return
+            }
             bluetoothAdapter.cancelDiscovery()
         }
-
     }
 
     private fun buildInterfaceOk() {
@@ -197,6 +215,16 @@ class StartActivity : AppCompatActivity() {
         //1) Set header
         bind.tvWelcome.text = getString(R.string.tvWelcomeOk)
         //2 Start discovering new devices
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH
+                //Manifest.permission.BLUETOOTH_SCAN
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //STANDARD_1 26_01_2022
+            Log.d(TAG,"[START ACTIVITY][BT] buildInterfaceOk - no scan permission")
+            return
+        }
         bluetoothAdapter.startDiscovery()
         if (bluetoothAdapter.isDiscovering) {
             Log.d(TAG, "[1] Is discovering...")
@@ -207,13 +235,13 @@ class StartActivity : AppCompatActivity() {
         getPairedDevices() // from bt adapter to list view paired devices
         //4) handle action on paired devices
         bind.lvPairedDevices.isClickable = true
-        bind.lvPairedDevices.setOnItemLongClickListener { adapterView, view, position, id ->
+        bind.lvPairedDevices.setOnItemLongClickListener { _, view, position, _ ->
             doPopupMenuForPairedDevices(view, position)//TODOTODO
             PAIRED_DEVICES_SELECTED = position //put to companion bject
             false
         }
         //5) handle new devices
-        bind.tvNewDevices.setVisibility(View.VISIBLE)
+        bind.tvNewDevices.visibility = View.VISIBLE
         //5.1) Broadcast receiver for new devices
         initBrNewDevices() // brNewDevices from new devices
         filterNewDevices = IntentFilter(BluetoothDevice.ACTION_FOUND)
@@ -222,13 +250,13 @@ class StartActivity : AppCompatActivity() {
         initBrBoundDevice()
         filterBondDevice = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
         registerReceiver(brBondDevice, filterBondDevice)
-        bind.lvNewDevices.setOnItemLongClickListener { adapterView, view, position, id ->
+        bind.lvNewDevices.setOnItemLongClickListener { _, view, position, _ ->
             doPopupMenuForNewDevices(view, position)
             false
         }
 
         //6) go to main aplication
-        bind.btnNext.setOnClickListener {
+        bind.btnNext.setOnClickListener { it ->
             Log.d(TAG,"Device list (empty) : ")
             DEVICE_LIST.clear()
             pairedDevices.forEach {
@@ -268,6 +296,17 @@ class StartActivity : AppCompatActivity() {
                 if (BluetoothDevice.ACTION_FOUND == action) {
                     val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     device?.let {
+                        if (ActivityCompat.checkSelfPermission(
+                                this@StartActivity,
+                                Manifest.permission.BLUETOOTH
+                                //Manifest.permission.BLUETOOTH_CONNECT
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            //STANDARD_1 26_01_2022
+                            //uzupelniono kontekst z this na this@StartActivity
+                            Log.d(TAG,"[START ACTIVITY][BT] initBrNewDevices - no connect permission")
+                            return
+                        }
                         if (it.name.contains("LEDS_") || it.name.contains("LEDP_")){
                             //displayDeviceDetails(DeviceItem(it.name, it.address, false))
                             if (device.bondState== BluetoothDevice.BOND_NONE){
@@ -277,8 +316,12 @@ class StartActivity : AppCompatActivity() {
                                     newDevices.add(device)
                                     val icon: Int
                                     if (it.name.contains("LEDS_") || it.name.contains("LEDP_")) {
-                                        if (it.name.contains("LEDS_")) icon = R.drawable.icon_strip //ikonka listwy
-                                        else icon = R.drawable.icon_panel //ikonka ekranu
+                                        //old version
+                                        //if (it.name.contains("LEDS_")) icon = R.drawable.icon_strip //ikonka listwy
+                                        //else icon = R.drawable.icon_panel //ikonka ekranu
+                                        icon =
+                                            if (it.name.contains("LEDS_")) R.drawable.icon_strip //ikonka listwy
+                                            else R.drawable.icon_panel //ikonka ekranu
                                         newDeviceList.add(DeviceListModel(it.name, it.address, icon))
                                         bind.lvNewDevices.adapter =  DeviceListAdapter(this@StartActivity,newDeviceList)
                                     }
@@ -303,6 +346,17 @@ class StartActivity : AppCompatActivity() {
                 val action = intent?.action
                 if (BluetoothDevice.ACTION_BOND_STATE_CHANGED == action){
                     val thisDevice: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+                    if (ActivityCompat.checkSelfPermission(
+                            this@StartActivity,
+                            Manifest.permission.BLUETOOTH
+                            //Manifest.permission.BLUETOOTH_SCAN
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        //STANDARD_1 26_01_2022
+                        //uzupelniono kontekst z this na this@StartActivity
+                        Log.d(TAG,"[START ACTIVITY][BT] initBrBoundDevice - no scan permission")
+                        return
+                    }
                     Log.d(TAG,"Broadcast reciver (bond) is discavering  test : ${bluetoothAdapter.isDiscovering}")
                     when (thisDevice?.bondState){
                         BluetoothDevice.BOND_NONE ->{
@@ -337,6 +391,17 @@ class StartActivity : AppCompatActivity() {
     //from get list of paired devices form adapter ,put to paired device list view
     private  fun getPairedDevices(){
         Log.d(TAG,"entry : get paired device ")
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH
+                //Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //STANDARD_1 26_01_2022
+            //a tu kontekst NIE wymaga uzupełnienia
+            Log.d(TAG,"[START ACTIVITY][BT] getPairedDevices - no connect permission")
+            return
+        }
         pairedDevices = bluetoothAdapter.bondedDevices
         var icon : Int
         var myDevices = 0
@@ -345,8 +410,8 @@ class StartActivity : AppCompatActivity() {
         pairedDevices.forEach {
             displayDeviceDetails(DeviceItem(it.name, it.address, true)) //DEBUG LOG
             if (it.name.contains("LEDS_") || it.name.contains("LEDP_")) {
-                if (it.name.contains("LEDS_")) icon = R.drawable.icon_strip //ikonka listwy
-                else icon = R.drawable.icon_panel //ikonka ekranu
+                icon = if (it.name.contains("LEDS_")) R.drawable.icon_strip //ikonka listwy
+                else R.drawable.icon_panel //ikonka ekranu
                 pairedDeviceList.add(DeviceListModel(it.name, it.address, icon))
                 myDevices++
             }
@@ -359,6 +424,17 @@ class StartActivity : AppCompatActivity() {
     }
     //try to remove bond between app and device
     private fun removeBond(device: BluetoothDevice) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH
+                //Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //STANDARD_1 26_01_2022
+            //a tu kontekst NIE wymaga uzupełnienia
+            Log.d(TAG,"[START ACTIVITY][BT] removeBond - no connect permission")
+            return
+        }
         Log.d(TAG, "Try remove bond with : ${device.name}")
         try {
             device::class.java.getMethod("removeBond").invoke(device)
@@ -380,14 +456,25 @@ class StartActivity : AppCompatActivity() {
             pairedPopup.menu.add(Menu.NONE, 1, 0, "Skanuj w poszukiwaniu urządzeń")
             pairedPopup.menu.add(Menu.NONE, 2, 1, "Usun urządzenie")
         }
-        pairedPopup.setOnMenuItemClickListener { it->
+        pairedPopup.setOnMenuItemClickListener {
             when (it.itemId){
                 1 -> {
                     //Toast.makeText(this, "skanuj : "+pos.toString(), Toast.LENGTH_SHORT).show()
-                    if (this.bluetoothAdapter.isDiscovering){
-                        bluetoothAdapter.cancelDiscovery()
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH
+                            //Manifest.permission.BLUETOOTH_SCAN
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        if (this.bluetoothAdapter.isDiscovering) {
+                            bluetoothAdapter.cancelDiscovery()
+                        }
+                        bluetoothAdapter.startDiscovery()
+                    }else{
+                        //STANDARD_1 26_01_2022
+                        //tu na odwrot czy == granted
+                        Log.d(TAG,"[START ACTIVITY][BT] removeBond - no scan permission")
                     }
-                    bluetoothAdapter.startDiscovery()
                 }
                 2 ->{
                     //Toast.makeText(this, "usun : "+pos.toString(), Toast.LENGTH_SHORT).show()
@@ -416,9 +503,21 @@ class StartActivity : AppCompatActivity() {
             val thisItem = bind.lvNewDevices.getItemAtPosition(pos) as DeviceListModel
             var thisDevice: BluetoothDevice
             newPopup.menu.add(Menu.NONE, 1, 0, "Paruj urządzenie")
-            newPopup.setOnMenuItemClickListener { it ->
+            newPopup.setOnMenuItemClickListener {
                 thisDevice = bluetoothAdapter.getRemoteDevice(thisItem.deviceAdress)
-                thisDevice.createBond()
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.BLUETOOTH
+                        //Manifest.permission.BLUETOOTH_CONNECT
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    thisDevice.createBond()
+                }else{
+                    //STANDARD_1 26_01_2022
+                    //tu na odwrot czy == granted
+                    Log.d(TAG,"[START ACTIVITY][BT] doPopupMenuForNewDevices - no connect permission")
+                }
+
                 //BluetoothDevice.ACTION_PAIRING_REQUEST , niepotrzebne narazie
                 //BluetoothDevice.ACTION_BOND_STATE_CHANGED , na na naklepany reciver
                 false

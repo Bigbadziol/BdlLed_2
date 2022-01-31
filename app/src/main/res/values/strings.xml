@@ -1,17 +1,23 @@
 <resources>
     <string name="app_name">BdlLed_02 v2.79</string>
-    <!--            ==== START ACTIVITY ====                 -->
+    <!-- ...............................START ACTIVITY ......................................... -->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
     <string name="tvWelcomeOk">Witaj</string>
     <string name="tvWelcomeError">\"Bluetooth wyłączone lub zablokowano uprawnienia : Lokalizacja. \"</string>
     <string name="NO_PAIRED_DEVICES">Brak sparowanych urządzeń</string>
     <string name="btnNext">DALEJ</string>
+    <string name="btnAddDevice">Dodaj</string>
 
-    <!--            ==== MAIN ACTIVITY ====                 -->
-    <string name="lbMode">Tryb pracy :</string>
+    <!-- ......................MAIN ACTIVITY - connection panel .................................-->
     <string name="btnConnect">Połącz</string>
+    <string name="iConnect">Połącz</string> <!-- button description witch depends on esp connection state -->
+    <string name="iDisconnect">Rozłącz</string> <!-- button description witch depends on esp connection state -->
     <string name="lbStatus">Status :</string>
+    <!--  ..............................MAIN ACTIVITY .......................................... -->
+
+
+    <string name="lbMode">Tryb pracy :</string>
     <string name="lbEffects">Wybrany efekt :</string>
     <string name="lbTime">Czas zmiany :</string>
     <string name="btnColorMain">Kolor</string>
@@ -19,7 +25,8 @@
     <string name="btnMainConfirm">Zatwierdz zmiany</string>
     <string name="tvEffectName">[NAZWA EFEKTU]</string>
     <string name="lbTimeVal">0</string>
-
+    <!-- ....................Default values for interface elements ............................. -->
+    <!-- ................. for strip and panel effects ......................................... -->
     <string name="btnColor1">Kolor 1</string>
     <string name="btnColor2">Kolor 2</string>
     <string name="btnColor3">Kolor 3</string>
@@ -39,32 +46,31 @@
     <string name="lbParam4Val">4</string>
     <string name="lbBool1">Bool 1:</string>
     <string name="lbBool2">Bool 2:</string>
-
-
-    <string name="btnEffectConfirm">Zatwierdz zmiany</string>
-    <string name="btnAddDevice">Dodaj</string>
-    <string name="iConnect">Połącz</string>
-    <string name="iDisconnect">Rozłącz</string>
     <string name="lbTest">Jakies testowe dane</string>
-    <string name="btnLedeConfirm">Potwierdź</string>
-    <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
-    <string name="popupSentenceSet">Ustaw</string>
-    <string name="popupSentenceNew">Utwórz</string>
-    <string name="popupSentenceEdit">Edytuj</string>
-    <string name="popupSentenceDelete">Usuń</string>
-    <string name="sentenceHeaderAdd">[DODAJ]</string>
-    <string name="sentenceHeaderEdit">[EDYTUJ]</string>
-    <string name="sentenceHeaderDelete">[USUN]</string>
-    <string name="tvSentenceListHeader">Sentencje</string>
-    <string name="btnPanelFontColor">Czcionka</string>
+    <string name="dialog_title_pick_color">Wybierz kolor</string> <!-- DUPLICATION -->
+    <string name="chooseColor">Wybierz kolor</string> <!-- header in color pick dialog -->
 
-    <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
-    <string name="tvPanelBgDelay">Szybkosc tla:</string>
+    <string-array name="commonPaleteList">
+        <item>Chmury</item>     <!-- Cloud -->
+        <item>Lawa</item>       <!-- Lava -->
+        <item>Ocean</item>      <!-- Ocean -->
+        <item>Las</item>        <!-- Forest -->
+        <item>Tecza</item>      <!-- Rainbow -->
+        <item>Impreza</item>    <!-- Party -->
+        <item>Cieplo</item>     <!-- Heat -->
+    </string-array>
 
-    <string name="chooseColor">Wybierz kolor</string>
-    <string name="btnStripColor1">Background</string>
-    <string name="tvPanelBrightness">Jasność</string>
+    <!-- ...............................Strip main panel menu .................................. -->
+    <!--            ====Strip mode and common data ====                 -->
+    <string-array name="StripModeList">
+        <item>Wybrany efekt</item>      <!-- -->
+        <item>Kolejny z listy</item>
+        <item>Losowy z listy </item>
+        <item>Jednolity kolor</item>
+    </string-array>
+    <string name="btnEffectConfirm">Zatwierdz zmiany</string>
 
+    <!-- ......................... strip effect params description ............................. -->
     <string name="stBeatWaveP1_pulse1">puls 1:</string> <!-- pulse 1 -->
     <string name="stBeatWaveP2_pulse2">puls 2:</string> <!-- pulse 2 -->
     <string name="stBeatWaveP3_pulse3">puls 3:</string> <!-- pulse 3 -->
@@ -99,11 +105,85 @@
     <string name="stHyperDot_low">dol:</string> <!-- low -->
     <string name="stHyperDot_high">gora:</string> <!-- high -->
 
+    <string name="stBeatSinGradientP1_speed1">Szybkosc 1:</string>
+    <string name="stBeatSinGradientP2_speed2">Szybkosc 2:</string>
+
+    <string name="stFire1P1_cooling">Chlodzenie:</string>
+    <string name="stFire1P2_sparking">Iskry:</string>
+    <string name="stFire1TwoFlamesP1_cooling">Chlodzenie:</string>
+    <string name="stFire1TwoFlamesP2_sparking">Iskry:</string>
+    <string name="stWormP1_adjust">Wyrownanie:</string>
+    <string name="stWormP2_nextblend">Nastepne mieszanie:</string>
+    <string name="stFire2P1_intensity">Sila:</string>
+    <string name="stFire2P2_speed">Szybkosc:</string>
+    <string name="stNoise1P1_low">zakres niski:</string>
+    <string name="stNoiseP2_high">Zakres wysoki:</string>
+    <string name="stJuggle2P1_dots">Punkty:</string>
+    <string name="stJuggle2P2_beat">Tempo:</string>
+    <string name="stJuggle2P3_fade">Zanikanie:</string>
+    <string name="stRunningColorDotsCustomDesc">Kierunek:</string>
+    <string name="stDisco1P1_flash">Blyski:</string>   <!-- next move -->
+    <string name="stRunningColorDots2C1_background">Tlo:</string>
+    <string name="stRunningColorDotsP1_bgbright">Zanikanie:</string>
+    <string name="stRunningColorDotsB1_bgstatic">Mieszanie:</string>
+    <string name="stDiscoDotsP1_phasetime">Nastepna faza za (sek):</string>
+    <string name="stPlasmaP1_low">Zakres niski:</string>
+    <string name="stPlasmaP2_high">Zakres wysoki:</string>
+    <string name="stPlasmaP3_speed">Speed:</string>
+    <string name="stRainbowSineP1_speed">Szybkosc:</string>
+    <string name="stRainbowSineP2_huestep">Krok dla barw:</string>
+    <string name="stFastRainbowP1_speed">Szybkosc:</string>
+    <string name="stFastRainbowP2_delta">Intensywnosc:</string>
+    <string name="stPulseRainbowCustomDescription">Kierunek</string>
+    <string name="stPulseRainbowP1_rot">Rotacja:</string>
+    <string name="stPulseRainbowP2_hue">Krok dla barw:</string>
+    <string name="stPulseRainbowP3_delay">Opoznienie:</string>
+    <string name="stFireworksP1_size">Rozmiar:</string>
+    <string name="stFireworksP2_speed">Szybkosc:</string>
+    <string name="stFireworks2P1_life">Czas trwania:</string>
+    <string name="stFireworks2P2_fade">Zanikanie:</string>
+    <string name="stSinNeonCustomDesctiption">Tryb:</string>
+    <string-array name="stSinNeonCustom">
+        <item>krok po kroku</item>
+        <item>losowa faza</item>
+    </string-array>
+    <string name="stSinNeonP1_phasetime">Czas fazy:</string>
+    <string name="stCaruselCustomDescription">Tryb:</string>
+    <string-array name="stCaruselCustom">
+        <item>krok po kroku</item>
+        <item>losowa faza</item>
+    </string-array>
+    <string name="stCaruselP1_phasetime">Czas trwania fazy:</string>
+    <string name="stCaruselP2_freq">Amplituda:</string>
+    <string name="stColorWipeP1_delay1">Przerwa 1:</string>
+    <string name="stColorWipeP2_delay2">Przerwa 2:</string>
+    <string name="stColorWipeB1_clear">Czyszczenie:</string>
+    <string name="stBounceBarP1_size">Rozmiar:</string>
+    <string name="stBounceBarP2_delay">Opoznienie:</string>
+    <string name="stChilloutP1_heat">Intensywnosc:</string>
+    <string name="stChilloutP2_delay">Opoznienie:</string>
+    <string name="stCometP1_size">Size :</string>
+    <string name="stCometP2_delay">Opoznienie:</string>
+    <string name="stCometB1_solid">Tryb teczy:</string>
+
+    <!-- ....................................................................................... -->
 
 
+    <string name="btnLedeConfirm">Potwierdź</string>
+    <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
+    <string name="popupSentenceSet">Ustaw</string>
+    <string name="popupSentenceNew">Utwórz</string>
+    <string name="popupSentenceEdit">Edytuj</string>
+    <string name="popupSentenceDelete">Usuń</string>
+    <string name="sentenceHeaderAdd">[DODAJ]</string>
+    <string name="sentenceHeaderEdit">[EDYTUJ]</string>
+    <string name="sentenceHeaderDelete">[USUN]</string>
+    <string name="tvSentenceListHeader">Sentencje</string>
+    <string name="btnPanelFontColor">Czcionka</string>
 
-    <!-- -->
-    <string name="dialog_title_pick_color">Wybierz kolor</string>
+
+    <string name="tvPanelBrightness">Jasność</string>
+
     <!-- devices TEST DATA -->
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>
@@ -114,23 +194,6 @@
         <item>LEDLE_115</item>
     </string-array>
 
-    <!--            ====Strip mode and common data ====                 -->
-    <string-array name="StripModeList">
-        <item>Wybrany efekt</item>      <!-- -->
-        <item>Kolejny z listy</item>
-        <item>Losowy z listy </item>
-        <item>Jednolity kolor</item>
-    </string-array>
-
-    <string-array name="StripPaletteList">
-        <item>Chmury</item>     <!-- Cloud -->
-        <item>Lawa</item>       <!-- Lava -->
-        <item>Ocean</item>      <!-- Ocean -->
-        <item>Las</item>        <!-- Forest -->
-        <item>Tecza</item>      <!-- Rainbow -->
-        <item>Impreza</item>    <!-- Party -->
-        <item>Cieplo</item>     <!-- Heat -->
-    </string-array>
 
     <!--            ====Strip TEST DATA section ====                 -->
     <string-array name="TestCustomParameterList">
@@ -156,24 +219,19 @@
     <string name="SENTENCE_REQUIRED">Proszę ,wprowadz slogan.</string>
     <string name="SENTENCE_CUT">Slogan na długi , został skrucony.</string>
 
-    <string name="btnPanelFontBorderColor">Ramka</string>
-    <string name="tvPanelBorderType">Obramowanie:</string>
 
     <string name="lbPosition">Pozycja:</string>
-   <!-- <string name="lbPositionType">Rodzaj:</string> -->
-
     <string name="lbTextEffect">Nazwa efektu:</string>
 
-    <string name="panelSentenceHint">Wprowadz swoj tekst</string>
-
+    <!-- this is defined but not used realy -->
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Here is a place for:xxx</item>
     </string-array>
-
+    <!-- ...................................................................................... -->
+    <!-- ..................... text and font .................................................. -->
     <string name="headerFontSettings">Tekst i Czcionka</string>
-    <string name="headerRenderDelays"> Szybkosc wyswietlania</string>
-
+    <string name="panelSentenceHint">Wprowadz swoj tekst</string>
     <string-array name="FontSize">
         <item>Mały</item>   <!-- small -->
         <item>Sredni</item> <!-- medium -->
@@ -187,6 +245,8 @@
         <item>pogrub i pochyl</item>    <!-- bold and italic -->
     </string-array>
 
+    <string name="btnPanelFontBorderColor">Ramka</string>
+    <string name="tvPanelBorderType">Obramowanie:</string>
     <!-- font border type  , returns to controller -->
     <string-array name="BorderType">
         <item>brak</item>                       <!-- 0 - NONE -->
@@ -202,6 +262,11 @@
         <item>przekątna od góra - prawo</item>  <!-- 10 - DIAGONAL_TOPRIGHT -->
         <item>pełna ramka</item>                <!-- 11 - ALL -->
     </string-array>
+    <!-- ...................................................................................... -->
+    <!-- ................................. render time ........................................ -->
+    <string name="headerRenderDelays"> Szybkosc wyswietlania</string>
+    <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
+    <string name="tvPanelBgDelay">Szybkosc tla:</string>
 
     <!-- ...................................................................................... -->
     <!-- ..................... text position parameters description ........................... -->
@@ -301,7 +366,15 @@
 
     <!-- background Big plasma -->
     <string name="bgBigPlasmaCustomDescription">Paleta:</string>    <!-- palette -->
-    <string name="bgBigPlasmaP1_nextmove">Nastepny ruch:</string>   <!-- next move -->
+    <string name="bgBigPlasmaP1_nextmove">Nastepny ruch:</string>
+
+
+
+
+    <string name="headerSelectDevice">Wybierz urządzenie</string>
+    <string name="headerStripPanel">Listwa</string>
+    <string name="headerPanelPanel">Panel</string>
+
     <!-- .................................................................................... -->
     <!--            ====Test data for add , edit ,del sentence in dialog ====                 -->
     <string-array name="TestCustomPosition">

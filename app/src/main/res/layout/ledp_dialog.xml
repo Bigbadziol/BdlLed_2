@@ -6,13 +6,11 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:padding="10dp"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/ledp_dialog_bg">
+    android:background="@drawable/scrollview_bg">
     <!-- MAIN FRAME -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,11 +38,8 @@
         <!-- Sentence all data - container for specyfic panels -->
         <LinearLayout
             android:id="@+id/panelPanelCommon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            style="@style/panelData"
             android:layout_marginTop="20sp">
-
             <!-- text and font card -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvTextAndFont"
@@ -107,13 +102,12 @@
                             android:id="@+id/btnPanelFontFontColor"
                             style="@style/panelData_button_color"
                             android:text="@string/btnPanelFontColor"
-                            android:textAllCaps="true"
                             tools:ignore="TextContrastCheck" />
+
                         <TextView
                             android:id="@+id/tvPanelFontFontColor"
                             style="@style/panelData_textview_color"
-                            android:background="@color/white"
-                            />
+                            android:background="@color/white" />
                     </LinearLayout>  <!-- END:font color -->
                     <!-- font border type -->
                     <LinearLayout

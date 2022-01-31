@@ -7,7 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/defaultBackground"
+    android:padding="10dp"
+    android:background="@drawable/scrollview_bg"
+
+
     tools:context=".MainActivity">
     <TextView
         android:id="@+id/tvWelcome"
@@ -17,6 +20,7 @@
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:text="@string/tvWelcomeOk"/>
+
     <TextView
         android:id="@+id/tvPairedDevices"
         android:layout_width="match_parent"
@@ -25,9 +29,9 @@
         android:layout_marginHorizontal="10dp"
         style="@style/deviceListHeader"
         android:text="@string/tvPairedDevices"
-        android:visibility="visible"
-        />
-    <ListView
+        android:visibility="visible" />
+
+        <ListView
         android:id="@+id/lvPairedDevices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +39,7 @@
         android:layout_marginHorizontal="10dp"
         tools:listitem="@layout/device_list_row"
         />
+
     <TextView
         android:id="@+id/tvNewDevices"
         android:layout_width="match_parent"
@@ -51,22 +56,13 @@
         android:layout_marginHorizontal="10dp"
         tools:listitem="@layout/device_list_row"
         />
-
+    <LinearLayout
+    style="@style/panelDataLine">
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
+        style="@style/panelData_button"
+        android:layout_marginStart="10dp"
         android:text="@string/btnNext"
          tools:ignore="TextContrastCheck" />
-<!--
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTest0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TEST 00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="TextContrastCheck" />
--->
-
+    </LinearLayout>
 </LinearLayout>
