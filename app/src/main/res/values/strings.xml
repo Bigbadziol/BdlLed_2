@@ -18,11 +18,12 @@
 
 
     <string name="lbMode">Tryb pracy :</string>
-    <string name="lbEffects">Wybrany efekt :</string>
+    <string name="lbEffects">Wybierz efekt :</string>
     <string name="lbTime">Czas zmiany :</string>
     <string name="btnColorMain">Kolor</string>
     <string name="lbPalette">Paleta :</string>
     <string name="btnMainConfirm">Zatwierdz zmiany</string>
+    <string name="lbEffectNamePrefix">Ustawienia :</string>
     <string name="tvEffectName">[NAZWA EFEKTU]</string>
     <string name="lbTimeVal">0</string>
     <!-- ....................Default values for interface elements ............................. -->
