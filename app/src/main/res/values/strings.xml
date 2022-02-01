@@ -28,6 +28,8 @@
     <string name="lbTimeVal">0</string>
     <!-- ....................Default values for interface elements ............................. -->
     <!-- ................. for strip and panel effects ......................................... -->
+    <string name="dlColorTitle">Proszę wybierz kolor</string>
+    <string name="dlColorBtnOk">Zatwierdz</string> <!-- in new color picker dialog, button ok -->
     <string name="btnColor1">Kolor 1</string>
     <string name="btnColor2">Kolor 2</string>
     <string name="btnColor3">Kolor 3</string>

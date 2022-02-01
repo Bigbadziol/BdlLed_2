@@ -46,6 +46,7 @@ import com.github.dhaval2404.colorpicker.util.setVisibility
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -2852,6 +2853,7 @@ class MainActivity : AppCompatActivity(){
         }
         btnColor.setOnClickListener {
             Log.d(TAG, "Lede sentence color button clicked.")
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(R.string.dialog_title_pick_color)
@@ -2860,6 +2862,19 @@ class MainActivity : AppCompatActivity(){
                 .setColorListener { _, colorHex ->
                     tvColor.setBackgroundColor(Color.parseColor(colorHex))
                 }
+                .show()
+
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelColorFont")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvColor.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
         btnBorderColor.setOnClickListener {
@@ -3005,6 +3020,7 @@ class MainActivity : AppCompatActivity(){
         })
 
         btnBgColor1.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3014,8 +3030,22 @@ class MainActivity : AppCompatActivity(){
                     tvBgColor1.setBackgroundColor(Color.parseColor(colorHex))
                 }
                 .show()
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelBgColor1")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvBgColor1.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
+                .show()
+
         }
         btnBgColor2.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3025,8 +3055,23 @@ class MainActivity : AppCompatActivity(){
                     tvBgColor2.setBackgroundColor(Color.parseColor(colorHex))
                 }
                 .show()
+
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelBgColor2")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvBgColor2.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
+                .show()
+
         }
         btnBgColor3.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3036,8 +3081,23 @@ class MainActivity : AppCompatActivity(){
                     tvBgColor3.setBackgroundColor(Color.parseColor(colorHex))
                 }
                 .show()
+
+ */
+
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelBgColor3")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvBgColor3.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
+                .show()
         }
         btnBgColor4.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3046,6 +3106,18 @@ class MainActivity : AppCompatActivity(){
                 .setColorListener { _, colorHex ->
                     tvBgColor4.setBackgroundColor(Color.parseColor(colorHex))
                 }
+                .show()
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelBgColor4")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvBgColor4.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
 
@@ -3335,6 +3407,8 @@ class MainActivity : AppCompatActivity(){
         })
         //----main color pick
         bind.btnStripColorMain.setOnClickListener {
+/*
+            //old colorpicker
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
                 .setTitle(R.string.dialog_title_pick_color)           	// Default "Choose Color"
@@ -3345,6 +3419,19 @@ class MainActivity : AppCompatActivity(){
                     bind.tvStripColorMain.setBackgroundColor(thisColorInt)
 //                  Toast.makeText(this, "Main Color HEX:"+colorHex+"  ", Toast.LENGTH_SHORT).show()
                 }.show()
+*/
+
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefStripColorSolid")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    bind.tvStripColorMain.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
+                .show()
         }
         //----confirm
         bind.btnStripMainConfirm.setOnClickListener {
@@ -3361,6 +3448,10 @@ class MainActivity : AppCompatActivity(){
             allStripData.config.color.r = Color.red(colInt)
             allStripData.config.color.g = Color.green(colInt)
             allStripData.config.color.b = Color.blue(colInt)
+
+            updatedColor.addProperty("r",Color.red(colInt))
+            updatedColor.addProperty("g",Color.green(colInt))
+            updatedColor.addProperty("b",Color.blue(colInt))
 
             when (bind.spStripEffect.selectedItem as String) {
                 "Beat wave" -> upBeatWave()
@@ -3420,6 +3511,7 @@ class MainActivity : AppCompatActivity(){
         //------------------------Strip effect settings---------------------------------------------
         //----pick color 1
         bind.btnStripColor1.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
                 .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
@@ -3430,9 +3522,24 @@ class MainActivity : AppCompatActivity(){
                     bind.edStripColor1.setBackgroundColor(Color.parseColor(colorHex))
                 }
                 .show()
+
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefStripColor1")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    bind.edStripColor1.setBackgroundColor(color)
+
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
+                .show()
         }
         //----pick color 2
         bind.btnStripColor2.setOnClickListener {
+/*
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
                 .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
@@ -3442,6 +3549,19 @@ class MainActivity : AppCompatActivity(){
                     //Toast.makeText(this, "Test1 Color"+colorHex+" ", Toast.LENGTH_SHORT).show()
                     bind.edStripColor2.setBackgroundColor(Color.parseColor(colorHex))
                 }
+                .show()
+
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefStripColorColor2")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    bind.edStripColor2.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
         //----palette pick
