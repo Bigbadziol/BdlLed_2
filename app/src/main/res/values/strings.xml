@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">BdlLed_02 v2.79</string>
+    <string name="app_name">BdLed v1.0</string>
+    <!-- ....................................................................................... -->
+    <string name="espDisconnected">Rozłączono</string>
+    <string name="espConnecting">Lączę się</string>
+    <string name="espConnected">Połączono</string>
+    <string name="espConnectionError">Urzadzenie nie dostępne</string>
+    <string name="espUnknown">[BLAD]Nieznany</string>
+
     <!-- ...............................START ACTIVITY ......................................... -->
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
@@ -14,99 +21,108 @@
     <string name="iConnect">Połącz</string> <!-- button description witch depends on esp connection state -->
     <string name="iDisconnect">Rozłącz</string> <!-- button description witch depends on esp connection state -->
     <string name="lbStatus">Status :</string>
-    <!--  ..............................MAIN ACTIVITY .......................................... -->
 
-
-    <string name="lbMode">Tryb pracy :</string>
-    <string name="lbEffects">Wybierz efekt :</string>
-    <string name="lbTime">Czas zmiany :</string>
-    <string name="btnColorMain">Kolor</string>
-    <string name="lbPalette">Paleta :</string>
-    <string name="btnMainConfirm">Zatwierdz zmiany</string>
-    <string name="lbEffectNamePrefix">Ustawienia :</string>
-    <string name="tvEffectName">[NAZWA EFEKTU]</string>
-    <string name="lbTimeVal">0</string>
     <!-- ....................Default values for interface elements ............................. -->
     <!-- ................. for strip and panel effects ......................................... -->
     <string name="dlColorTitle">Proszę wybierz kolor</string>
     <string name="dlColorBtnOk">Zatwierdz</string> <!-- in new color picker dialog, button ok -->
-    <string name="btnColor1">Kolor 1</string>
-    <string name="btnColor2">Kolor 2</string>
-    <string name="btnColor3">Kolor 3</string>
-    <string name="btnColor4">Kolor 4</string>
+
+    <string name="btnCommonColor1">Kolor 1</string>
+    <string name="btnCommonColor2">Kolor 2</string>
+    <string name="btnCommonColor3">Kolor 3</string>
+    <string name="btnCommonColor4">Kolor 4</string>
     <string name="btnTest1">test 1</string>
     <string name="btnTest2">test 2</string>
     <string name="btnTest3">test 3</string>
     <string name="btnTest4">test 4</string>
-    <string name="lbCustom">Zmienny :</string>
-    <string name="lbParam1">Param 1:</string>
-    <string name="lbParam1Val">1</string>
-    <string name="lbParam2">Param 2:</string>
-    <string name="lbParam2Val">2</string>
-    <string name="lbParam3">Param 3:</string>
-    <string name="lbParam3Val">3</string>
-    <string name="lbParam4">Param 4:</string>
-    <string name="lbParam4Val">4</string>
-    <string name="lbBool1">Bool 1:</string>
-    <string name="lbBool2">Bool 2:</string>
+    <string name="lbCommonCustom">Zmienny :</string>
+    <string name="lbCommonParam1">Param 1:</string>
+    <string name="lbCommonParam1Val">1</string>
+    <string name="lbCommonParam2">Param 2:</string>
+    <string name="lbCommonParam2Val">2</string>
+    <string name="lbCommonParam3">Param 3:</string>
+    <string name="lbCommonParam3Val">3</string>
+    <string name="lbCommonParam4">Param 4:</string>
+    <string name="lbCommonParam4Val">4</string>
+    <string name="lbCommonBool1">Bool 1:</string>
+    <string name="lbCommonBool2">Bool 2:</string>
     <string name="lbTest">Jakies testowe dane</string>
-    <string name="dialog_title_pick_color">Wybierz kolor</string> <!-- DUPLICATION -->
-    <string name="chooseColor">Wybierz kolor</string> <!-- header in color pick dialog -->
 
+    <string name="commonPalette_cloud">Chmury</string>
+    <string name="commonPalette_lava">Lawa</string>
+    <string name="commonPalette_ocean">Ocean</string>
+    <string name="commonPalette_forest">Las</string>
+    <string name="commonPalette_rainbow">Tęcza</string>
+    <string name="commonPalette_party">Impreza</string>
+    <string name="commonPalette_heat">Ciepło</string>
     <string-array name="commonPaleteList">
-        <item>Chmury</item>     <!-- Cloud -->
-        <item>Lawa</item>       <!-- Lava -->
-        <item>Ocean</item>      <!-- Ocean -->
-        <item>Las</item>        <!-- Forest -->
-        <item>Tecza</item>      <!-- Rainbow -->
-        <item>Impreza</item>    <!-- Party -->
-        <item>Cieplo</item>     <!-- Heat -->
+        <item>@string/commonPalette_cloud</item>     <!-- Cloud -->
+        <item>@string/commonPalette_lava</item>       <!-- Lava -->
+        <item>@string/commonPalette_ocean</item>      <!-- Ocean -->
+        <item>@string/commonPalette_forest</item>        <!-- Forest -->
+        <item>@string/commonPalette_rainbow</item>      <!-- Rainbow -->
+        <item>@string/commonPalette_party</item>    <!-- Party -->
+        <item>@string/commonPalette_heat</item>     <!-- Heat -->
     </string-array>
 
-    <!-- ...............................Strip main panel menu .................................. -->
-    <!--            ====Strip mode and common data ====                 -->
+
+    <!--  ..............................Strip main .. .......................................... -->
+    <string name="headerStripPanel">Listwa</string>
+    <string name="lbStripMode">Tryb pracy :</string>
+    <string name="lbStripEffects">Wybierz efekt :</string>
+    <string name="lbStripTime">Czas zmiany :</string>
+    <string name="btnStripColorMain">Kolor</string>
+    <string name="lbStripPalette">Paleta :</string>
+    <string name="btnStripConfirm">Zatwierdz zmiany</string>
+    <string name="lbStripEffectNamePrefix">Ustawienia :</string>
+    <string name="tvStripEffectName">[NAZWA EFEKTU]</string>
+    <string name="lbStripTimeVal">0</string>
+
+    <string name="stripMode_selected">Wybrany efekt</string>
+    <string name="stripMode_next">Kolejny z listy</string>
+    <string name="stripMode_random">Losowy z listy</string>
+    <string name="stripMode_solid">Wybrany kolor</string>
     <string-array name="StripModeList">
-        <item>Wybrany efekt</item>      <!-- -->
-        <item>Kolejny z listy</item>
-        <item>Losowy z listy </item>
-        <item>Jednolity kolor</item>
+        <item>@string/stripMode_selected</item>
+        <item>@string/stripMode_next</item>
+        <item>@string/stripMode_random</item>
+        <item>@string/stripMode_solid</item>
     </string-array>
-    <string name="btnEffectConfirm">Zatwierdz zmiany</string>
 
     <!-- ......................... strip effect params description ............................. -->
-    <string name="stBeatWaveP1_pulse1">puls 1:</string> <!-- pulse 1 -->
-    <string name="stBeatWaveP2_pulse2">puls 2:</string> <!-- pulse 2 -->
-    <string name="stBeatWaveP3_pulse3">puls 3:</string> <!-- pulse 3 -->
-    <string name="stBeatWaveP4_pulse4">puls 4:</string> <!-- pulse 4 -->
+    <string name="stBeatWaveP1_pulse1">Puls 1:</string> <!-- pulse 1 -->
+    <string name="stBeatWaveP2_pulse2">Puls 2:</string> <!-- pulse 2 -->
+    <string name="stBeatWaveP3_pulse3">Puls 3:</string> <!-- pulse 3 -->
+    <string name="stBeatWaveP4_pulse4">Puls 4:</string> <!-- pulse 4 -->
 
-    <string name="stBlendWaveP1_speed">szybkosc:</string> <!-- speed -->
-    <string name="stBlendWaveP2_mH1">krok 1:</string> <!-- step 1 -->
-    <string name="stBlendWaveP3_mH2">krok 2:</string> <!-- step 2 -->
+    <string name="stBlendWaveP1_speed">Szybkosc:</string> <!-- speed -->
+    <string name="stBlendWaveP2_mH1">Krok 1:</string> <!-- step 1 -->
+    <string name="stBlendWaveP3_mH2">Krok 2:</string> <!-- step 2 -->
 
-    <string name="stBlurP1_speed">szybkosc:</string> <!-- speed -->
-    <string name="stBlurP2_o1">ofset 1:</string> <!-- offset 1 -->
-    <string name="stBlurP3_o2">ofset 2:</string> <!-- offset 2 -->
-    <string name="stBlurP4_o3">ofset 3:</string> <!-- offset 3 -->
+    <string name="stBlurP1_speed">Szybkosc:</string> <!-- speed -->
+    <string name="stBlurP2_o1">Ofset 1:</string> <!-- offset 1 -->
+    <string name="stBlurP3_o2">Ofset 2:</string> <!-- offset 2 -->
+    <string name="stBlurP4_o3">Ofset 3:</string> <!-- offset 3 -->
 
-    <string name="stConfetiP1_fade">zanikanie:</string> <!-- fade -->
-    <string name="stConfetiP2_mdiff">ofset 1:</string> <!-- offset 1-->
+    <string name="stConfetiP1_fade">Zanikanie:</string> <!-- fade -->
+    <string name="stConfetiP2_mdiff">Ofset 1:</string> <!-- offset 1-->
 
-    <string name="stSinelonP1_bpm">szybkosc:</string> <!-- bpm -->
-    <string name="stSinelonP2_fade">zanikanie:</string> <!-- fade -->
+    <string name="stSinelonP1_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stSinelonP2_fade">Zanikanie:</string> <!-- fade -->
 
-    <string name="stBpmP1_bpm">szybkosc:</string> <!-- bpm -->
+    <string name="stBpmP1_bpm">Szybkosc:</string> <!-- bpm -->
 
-    <string name="stJuggleP1_step">krok:</string> <!-- step -->
-    <string name="stJuggleP2_fade">zanikanie:</string> <!-- fade -->
+    <string name="stJuggleP1_step">Krok:</string> <!-- step -->
+    <string name="stJuggleP2_fade">Zanikanie:</string> <!-- fade -->
 
-    <string name="stDotBeatP1_bpm">szybkosc:</string> <!-- bpm -->
-    <string name="stDotBeatP2_fadeMod">zanikanie:</string> <!-- fade -->
+    <string name="stDotBeatP1_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stDotBeatP2_fadeMod">Zanikanie:</string> <!-- fade -->
 
-    <string name="stEasingP1_multiplier">zanikanie:</string> <!-- fade -->
+    <string name="stEasingP1_multiplier">Zanikanie:</string> <!-- fade -->
 
-    <string name="stHyperDot_bpm">szybkosc:</string> <!-- bpm -->
-    <string name="stHyperDot_low">dol:</string> <!-- low -->
-    <string name="stHyperDot_high">gora:</string> <!-- high -->
+    <string name="stHyperDot_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stHyperDot_low">Dol:</string> <!-- low -->
+    <string name="stHyperDot_high">Gora:</string> <!-- high -->
 
     <string name="stBeatSinGradientP1_speed1">Szybkosc 1:</string>
     <string name="stBeatSinGradientP2_speed2">Szybkosc 2:</string>
@@ -145,19 +161,26 @@
     <string name="stFireworksP2_speed">Szybkosc:</string>
     <string name="stFireworks2P1_life">Czas trwania:</string>
     <string name="stFireworks2P2_fade">Zanikanie:</string>
+
     <string name="stSinNeonCustomDesctiption">Tryb:</string>
+    <string name="stSinNeonCustom_next">Kolejna faza</string>
+    <string name="stSinNeonCustom_random">Losowa faza</string>
     <string-array name="stSinNeonCustom">
-        <item>krok po kroku</item>
-        <item>losowa faza</item>
+        <item>@string/stSinNeonCustom_next</item>
+        <item>@string/stSinNeonCustom_random</item>
     </string-array>
     <string name="stSinNeonP1_phasetime">Czas fazy:</string>
+
     <string name="stCaruselCustomDescription">Tryb:</string>
+    <string name="stCaruselCustom_next">Kolejna faza</string>
+    <string name="stCaruselCustom_random">Losowa faza</string>
     <string-array name="stCaruselCustom">
-        <item>krok po kroku</item>
-        <item>losowa faza</item>
+        <item>@string/stCaruselCustom_next</item>
+        <item>@string/stCaruselCustom_random</item>
     </string-array>
     <string name="stCaruselP1_phasetime">Czas trwania fazy:</string>
     <string name="stCaruselP2_freq">Amplituda:</string>
+
     <string name="stColorWipeP1_delay1">Przerwa 1:</string>
     <string name="stColorWipeP2_delay2">Przerwa 2:</string>
     <string name="stColorWipeB1_clear">Czyszczenie:</string>
@@ -165,40 +188,11 @@
     <string name="stBounceBarP2_delay">Opoznienie:</string>
     <string name="stChilloutP1_heat">Intensywnosc:</string>
     <string name="stChilloutP2_delay">Opoznienie:</string>
-    <string name="stCometP1_size">Size :</string>
+    <string name="stCometP1_size">Rozmiar:</string>
     <string name="stCometP2_delay">Opoznienie:</string>
     <string name="stCometB1_solid">Tryb teczy:</string>
 
-    <!-- ....................................................................................... -->
-
-
-    <string name="btnLedeConfirm">Potwierdź</string>
-    <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
-    <string name="popupSentenceSet">Ustaw</string>
-    <string name="popupSentenceNew">Utwórz</string>
-    <string name="popupSentenceEdit">Edytuj</string>
-    <string name="popupSentenceDelete">Usuń</string>
-    <string name="sentenceHeaderAdd">[DODAJ]</string>
-    <string name="sentenceHeaderEdit">[EDYTUJ]</string>
-    <string name="sentenceHeaderDelete">[USUN]</string>
-    <string name="tvSentenceListHeader">Sentencje</string>
-    <string name="btnPanelFontColor">Czcionka</string>
-
-
-    <string name="tvPanelBrightness">Jasność</string>
-
-    <!-- devices TEST DATA -->
-    <string-array name="TestDeviceList">
-        <item>LEDL_666</item>
-        <item>LEDL_001</item>
-        <item>LEDL_134</item>
-        <item>LEDL_xxx</item>
-        <item>LEDLE_001</item>
-        <item>LEDLE_115</item>
-    </string-array>
-
-
-    <!--            ====Strip TEST DATA section ====                 -->
+    <!--  ............................ Strip test data ......................................... -->
     <string-array name="TestCustomParameterList">
         <item>[T]custom option 1</item>
         <item>[T]custom option 2</item>
@@ -216,88 +210,139 @@
         <item>[T]Dot beat</item>
         <item>[T]Easing</item>
     </string-array>
-    <!-- ====================================================================================== -->
-    <!--                           Panel common section ====                                    -->
-    <string name="SENTENCE_HINT">Wpisz frazę, max 127 znaków</string>
-    <string name="SENTENCE_REQUIRED">Proszę ,wprowadz slogan.</string>
-    <string name="SENTENCE_CUT">Slogan na długi , został skrucony.</string>
 
 
-    <string name="lbPosition">Pozycja:</string>
-    <string name="lbTextEffect">Nazwa efektu:</string>
-
+    <!-- ======================================================================================= -->
+    <!-- .............................Panel main................................................ -->
+    <string name="headerSelectDevice">Wybierz urządzenie</string>
+    <string name="tvPanelBrightness">Jasność</string>
+    <string name="tvPanelBrightnessVal">0</string>
+    <string name="lbPanelMode">Tryb pracy :</string>
     <!-- this is defined but not used realy -->
     <string-array name="PanelModeList">
         <item>Wyswietlaj sentencje</item>
         <item>Here is a place for:xxx</item>
     </string-array>
-    <!-- ...................................................................................... -->
-    <!-- ..................... text and font .................................................. -->
+    <string name="btnPanelConfirm">Zatwierdz zmiany</string>
+
+    <!-- .......................................Panel .......................................... -->
+    <string name="headerPanelPanel">Panel</string>
+    <string name="btnLedeConfirm">Potwierdź</string>
+    <string name="etSentence_hint">Wpisz tu swoją wzniosłą myśl</string>
+    <string name="popupSentenceSet">Ustaw</string>
+    <string name="popupSentenceNew">Utwórz</string>
+    <string name="popupSentenceEdit">Edytuj</string>
+    <string name="popupSentenceDelete">Usuń</string>
+    <string name="sentenceHeaderAdd">[DODAJ]</string>
+    <string name="sentenceHeaderEdit">[EDYTUJ]</string>
+    <string name="sentenceHeaderDelete">[USUN]</string>
+    <string name="tvSentenceListHeader">Sentencje</string>
+    <string name="btnPanelFontColor">Czcionka</string>
+
+    <!--  .......................  Panel common section .......................................  -->
+    <string name="SENTENCE_HINT">Wpisz frazę, max 127 znaków</string>
+    <string name="SENTENCE_REQUIRED">Proszę ,wprowadz slogan.</string>
+    <string name="SENTENCE_CUT">Slogan na długi , został skrucony.</string>
+
+    <string name="lbPosition">Pozycja:</string>
+    <string name="lbTextEffect">Nazwa efektu:</string>
+
+
+    <!-- ..................... text and font ................................................... -->
     <string name="headerFontSettings">Tekst i Czcionka</string>
     <string name="panelSentenceHint">Wprowadz swoj tekst</string>
+
+    <string name="fontSize_small">Mały</string>
+    <string name="fontSize_medium">Sredni</string>
+    <string name="fontSize_big">Duzy</string>
     <string-array name="FontSize">
-        <item>Mały</item>   <!-- small -->
-        <item>Sredni</item> <!-- medium -->
-        <item>Duży</item>   <!-- large -->
+        <item>@string/fontSize_small</item>   <!-- small -->
+        <item>@string/fontSize_medium</item>  <!-- medium -->
+        <item>@string/fontSize_big</item>     <!-- large -->
     </string-array>
 
+    <string name="fontDecoration_none">Brak</string>
+    <string name="fontDecoration_bold">Pogrub</string>
+    <string name="fontDecoration_italic">Pochyl</string>
+    <string name="fontDecoration_boldItalic">Pogrub i pochyl</string>
     <string-array name="FontDecoration">
-        <item>brak</item>               <!-- none -->
-        <item>pogrub</item>             <!-- bold -->
-        <item>pochyl</item>             <!-- italic -->
-        <item>pogrub i pochyl</item>    <!-- bold and italic -->
+        <item>@string/fontDecoration_none</item>          <!-- none -->
+        <item>@string/fontDecoration_bold</item>          <!-- bold -->
+        <item>@string/fontDecoration_italic</item>        <!-- italic -->
+        <item>@string/fontDecoration_boldItalic</item>    <!-- bold and italic -->
     </string-array>
 
     <string name="btnPanelFontBorderColor">Ramka</string>
     <string name="tvPanelBorderType">Obramowanie:</string>
     <!-- font border type  , returns to controller -->
+    <string name="borderType_none">Brak</string>
+    <string name="borderType_topLeft">Góra lewo</string>
+    <string name="borderType_top">Góra</string>
+    <string name="borderType_topRight">Góra prawo</string>
+    <string name="borderType_right">Prawo</string>
+    <string name="borderType_bottomRight">Dół prawo</string>
+    <string name="borderType_bottom">Dół</string>
+    <string name="borderType_bottomLeft">Dół lewo</string>
+    <string name="borderType_left">Góra</string>
+    <string name="borderType_diagonalTopLeft">Przekątna od góra-lewo</string>
+    <string name="borderType_diagonalTopRight">Przekątna od góra-prawo</string>
+    <string name="borderType_full">Pełna ramka</string>
     <string-array name="BorderType">
-        <item>brak</item>                       <!-- 0 - NONE -->
-        <item>góra lewo</item>                  <!-- 1 - TOP_LEFT -->
-        <item>góra</item>                       <!-- 2 - TOP -->
-        <item>góra prawo</item>                 <!-- 3 - TOP_RIGHT -->
-        <item>prawo</item>                      <!-- 4 - RIGHT -->
-        <item>dół prawo</item>                  <!-- 5 - BOTTOM_RIGHT -->
-        <item>dół </item>                       <!-- 6 - BOTTOM -->
-        <item>dół lewo</item>                   <!-- 7 - BOTTOM_LEFT -->
-        <item>lewo</item>                       <!-- 8 - LEFT -->
-        <item>przekątna od góra - lewo</item>   <!-- 9 - DIAGONAL_TOPLEFT -->
-        <item>przekątna od góra - prawo</item>  <!-- 10 - DIAGONAL_TOPRIGHT -->
-        <item>pełna ramka</item>                <!-- 11 - ALL -->
+        <item>@string/borderType_none</item>              <!-- 0 - NONE -->
+        <item>@string/borderType_topLeft</item>           <!-- 1 - TOP_LEFT -->
+        <item>@string/borderType_top</item>               <!-- 2 - TOP -->
+        <item>@string/borderType_topRight</item>          <!-- 3 - TOP_RIGHT -->
+        <item>@string/borderType_right</item>             <!-- 4 - RIGHT -->
+        <item>@string/borderType_bottomRight</item>       <!-- 5 - BOTTOM_RIGHT -->
+        <item>@string/borderType_bottom</item>            <!-- 6 - BOTTOM -->
+        <item>@string/borderType_bottomLeft</item>        <!-- 7 - BOTTOM_LEFT -->
+        <item>@string/borderType_left</item>              <!-- 8 - LEFT -->
+        <item>@string/borderType_diagonalTopLeft</item>   <!-- 9 - DIAGONAL_TOPLEFT -->
+        <item>@string/borderType_diagonalTopRight</item>  <!-- 10 - DIAGONAL_TOPRIGHT -->
+        <item>@string/borderType_full</item>              <!-- 11 - ALL/FULL -->
     </string-array>
-    <!-- ...................................................................................... -->
+
     <!-- ................................. render time ........................................ -->
     <string name="headerRenderDelays"> Szybkosc wyswietlania</string>
     <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
     <string name="tvPanelBgDelay">Szybkosc tla:</string>
 
-    <!-- ...................................................................................... -->
     <!-- ..................... text position parameters description ........................... -->
     <string name="headerTextPosition"> Pozycjonowanie tekstu</string>
     <!-- text position Static/Simple custom parameters -->
     <string name="tpStaticCustomDescription">Pozytcja:</string> <!-- position -->
+    <string name="tpStaticCustom_left">Lewo</string>
+    <string name="tpStaticCustom_right">Prawo</string>
+    <string name="tpStaticCustom_center">Centruj</string>
     <string-array name="tpStaticCustom">
-        <item>lewo</item>       <!-- 0 - left -->
-        <item>prawo</item>      <!-- 1 - right -->
-        <item>centruj</item>    <!-- 2 - center -->
+        <item>@string/tpStaticCustom_left</item>       <!-- 0 - left -->
+        <item>@string/tpStaticCustom_right</item>      <!-- 1 - right -->
+        <item>@string/tpStaticCustom_center</item>     <!-- 2 - center -->
     </string-array>
 
     <!-- text position Scroll custom param -->
     <string name="tpScrollCustomDescription">Kierunek:</string>
+    <string name="tpScrollCustom_rightLeft">Od prawej do lewej</string>
+    <string name="tpScrollCustom_leftRight">Od lewej do prawej</string>
+    <string name="tpScrollCustom_bounceInsideX">Odbijaj wewnątrz ekranu(X)</string>
+    <string name="tpScrollCustom_bounceOutsideX">Odbijaj cały napis(X)</string>
+    <string name="tpScrollCustom_topBottom">Góra - dół</string>
+    <string name="tpScrollCustom_bottomTop">Dół - góra</string>
+    <string name="tpScrollCustom_bounceInsideY">Odbijaj wewnątrz ekranu(Y)</string>
+    <string name="tpScrollCustom_bounceOutsideY">Odbijaj cały napis(Y) </string>
     <string-array name="tpScrollCustom">
-        <item>od prawej do lewej</item>         <!-- 0 - right to left -->
-        <item>od lewej do prawej</item>         <!-- 1 - left to right -->
-        <item>odbijaj wewnatrz ekranu (X)</item><!-- 2 - bounce inside screen left right (good for short texts) -->
-        <item>odbijaj caly napis(X)</item>      <!-- 3 - bounce outside screen left right -->
-        <item> gora - dol</item>                <!-- 4 - top to bottom -->
-        <item> dół - gora </item>               <!-- 5 - bottom to top -->
-        <item>odbijaj wewnatrz ekranu (Y)</item><!-- 6 - bounce top to bottom inside screen -->
-        <item>odbijaj caly napis(Y)</item>      <!-- 7 - bounce top bottom outside screen -->
+        <item>@string/tpScrollCustom_rightLeft</item>       <!-- 0 - right to left -->
+        <item>@string/tpScrollCustom_leftRight</item>       <!-- 1 - left to right -->
+        <item>@string/tpScrollCustom_bounceInsideX</item>   <!-- 2 - bounce inside screen left right (good for short texts) -->
+        <item>@string/tpScrollCustom_bounceOutsideX</item>  <!-- 3 - bounce outside screen left right -->
+        <item>@string/tpScrollCustom_topBottom</item>       <!-- 4 - top to bottom -->
+        <item>@string/tpScrollCustom_bottomTop</item>       <!-- 5 - bottom to top -->
+        <item>@string/tpScrollCustom_bounceInsideY</item>   <!-- 6 - bounce top to bottom inside screen -->
+        <item>@string/tpScrollCustom_bounceOutsideY</item>  <!-- 7 - bounce top bottom outside screen -->
     </string-array>
     <!-- word by word -->
     <string name="tpWordByWordP1_timeInSec">Czas w sek:</string> <!-- time in sec -->
 
-    <!-- ..................................................................................... -->
     <!-- ....................... text effect param description ............................... -->
     <string name="headerTextEffect">Efekt tekstu</string>
     <string name="teSimpleP1_mode">Tryb:</string>
@@ -305,23 +350,28 @@
     <string name="teFireTextP2_sparking">Iskry:</string>
 
     <string name="teRollingBorderCustom_desc">Kierunek:</string>
+    <string name="teRollingBorderCustom_right">Obracaj w prawo</string>
+    <string name="teRollingBorderCustom_left">Obracaj w lewo</string>
     <string-array name="teRollingBorderCustom">
-        <item>prawo</item>
-        <item>lewo</item>
+        <item>@string/teRollingBorderCustom_right</item>
+        <item>@string/teRollingBorderCustom_left</item>
     </string-array>
     <string name="teColorsP1_delta">Delta:</string>
-    <!-- ..................................................................................... -->
+
     <!-- ..................Panel Background parameter description ............................. -->
     <string name="headerBackground">Efekt tla</string>
     <!-- Simple color -->
     <string name="bgSimpleColorColor1">Kolor tla:</string> <!-- background color -->
 
     <!-- background fire 1 -->
-    <string name="bgFire1CustomDescription">Kierunek:</string>
+    <string name="bgFire1CustomDescription">Pozycja:</string>
+    <string name="bgFire1Custom_bottom">Ogien od dołu</string>
+    <string name="bgFire1Custom_top">Ogień od góry</string>
+    <string name="bgFire1Custom_both">Ogień z obu stron</string>
     <string-array name="bgFire1Custom">
-        <item>dol</item>
-        <item>gora</item>
-        <item>dol i gora</item>
+        <item>@string/bgFire1Custom_bottom</item>
+        <item>@string/bgFire1Custom_top</item>
+        <item>@string/bgFire1Custom_both</item>
     </string-array>
     <string name="bgFire1P1_rows">Wiersze:</string>     <!-- rows -->
     <string name="bgFire1P2_chance">Szansa:</string>    <!-- chance -->
@@ -329,11 +379,15 @@
 
     <!-- background fire 2 -->
     <string name="bgFire2CustomDescription">Paleta:</string> <!-- palette -->
+    <string name="bgFire2Custom_toxic">Toksyczna</string>
+    <string name="bgFire2Custom_clasic">Klasyczna</string>
+    <string name="bgFire2Custom_yellowRed">Żółto-czerwona</string>
+    <string name="bgFire2Custom_blueViolet">Niebiesko-Fioletowa</string>
     <string-array name="bgFire2Custom">
-        <item>toksyczny</item>
-        <item>klasyczny</item>
-        <item>zolto- czerwony</item>
-        <item>niebiesko- fioletowy</item>
+        <item>@string/bgFire2Custom_toxic</item>
+        <item>@string/bgFire2Custom_clasic</item>
+        <item>@string/bgFire2Custom_yellowRed</item>
+        <item>@string/bgFire2Custom_blueViolet</item>
     </string-array>
 
     <!-- background fire 3 -->
@@ -372,14 +426,17 @@
     <string name="bgBigPlasmaP1_nextmove">Nastepny ruch:</string>
 
 
+    <!-- .....  Test data for add , edit ,del sentence in dialog and some devices names  ....... -->
 
+    <string-array name="TestDeviceList">
+        <item>LEDL_666</item>
+        <item>LEDL_001</item>
+        <item>LEDL_134</item>
+        <item>LEDL_xxx</item>
+        <item>LEDLE_001</item>
+        <item>LEDLE_115</item>
+    </string-array>
 
-    <string name="headerSelectDevice">Wybierz urządzenie</string>
-    <string name="headerStripPanel">Listwa</string>
-    <string name="headerPanelPanel">Panel</string>
-
-    <!-- .................................................................................... -->
-    <!--            ====Test data for add , edit ,del sentence in dialog ====                 -->
     <string-array name="TestCustomPosition">
         <item>[T]Static</item>
         <item>[T]Scroll</item>
@@ -418,5 +475,16 @@
         <item>[T]Flaga</item>
         <item>[T]Plasma</item>
     </string-array>
+
+    <!-- ?!!?!?!?!?!?!?!!?!?!?!?!?!?!?!?!?!?!?? -->
+    <string name="keyTpStatic">Statyczny</string>
+    <string name="keyTpScroll">Przewijany tekst</string>
+    <string name="keyTpWordByWord">Slowo po slowie</string>
+
+    <string name="keyTeSimple">Tekst w wybranym kolorze</string>
+    <string name="keyTeFireText">Płonące litery</string>
+    <string name="keyTeRollingBorder">Obracająca się ramka</string>
+    <string name="keyTeColors">Pulsujące kolory</string>
+
 
 </resources>

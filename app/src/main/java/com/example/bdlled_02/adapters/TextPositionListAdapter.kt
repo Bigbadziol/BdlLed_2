@@ -1,3 +1,7 @@
+/*
+* 13.02.2022
+*  Od teraz nazwe traktuje się jako klucz , tłumaczenie na podstawie zasobów z stringów
+ */
 package com.example.bdlled_02.adapters
 
 import android.content.Context
@@ -15,6 +19,8 @@ class TextPositionListAdapter(val context: Context, var dataSource: ArrayList<jP
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val vh: ItemHolder
+        var translatedDescription ="ERROR"
+
         if (convertView == null) {
             view = inflater.inflate(R.layout.spinner_row, parent, false)
             vh = ItemHolder(view)
@@ -24,7 +30,18 @@ class TextPositionListAdapter(val context: Context, var dataSource: ArrayList<jP
             view = convertView
             vh = view.tag as ItemHolder
         }
-        vh.label.text = dataSource.get(position).name
+
+        val sourceKey :String = dataSource.get(position).name
+        when (sourceKey){
+            "Static" -> translatedDescription = context.getString(R.string.keyTpStatic)
+            "Scroll" -> translatedDescription = context.getString(R.string.keyTpScroll)
+            "Word by word" -> translatedDescription =context.getString(R.string.keyTpWordByWord)
+        }
+
+        if (translatedDescription == "ERROR")  dataSource.removeAt(position)
+        //old
+        //vh.label.text = dataSource.get(position).name
+        vh.label.text = translatedDescription
         return view
     }
 

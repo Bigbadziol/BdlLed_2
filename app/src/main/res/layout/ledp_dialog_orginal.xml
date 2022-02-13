@@ -313,7 +313,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/lbCustom"
+                        android:text="@string/lbCommonCustom"
                         android:textSize="16sp"
                         android:layout_gravity="center_vertical"
                         tools:ignore="TextContrastCheck" />
@@ -341,7 +341,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:minHeight="32dp"
-                        android:text="@string/lbParam1"
+                        android:text="@string/lbCommonParam1"
                         android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
@@ -351,7 +351,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val"
+                        android:text="@string/lbCommonParam1Val"
                         android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
@@ -380,7 +380,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:minHeight="32dp"
-                        android:text="@string/lbParam2"
+                        android:text="@string/lbCommonParam2"
                         android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
@@ -390,7 +390,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val"
+                        android:text="@string/lbCommonParam1Val"
                         android:textSize="16sp"
                         tools:ignore="TextContrastCheck" />
 
@@ -457,7 +457,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/btnColor1" />
+                        android:text="@string/btnCommonColor1" />
                     <TextView
                         android:id="@+id/tvPanelTextEffectColor1"
                         android:layout_width="0dp"
@@ -483,7 +483,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
                         android:textSize="16sp"
-                        android:text="@string/lbCustom" />
+                        android:text="@string/lbCommonCustom" />
                     <Spinner
                         android:id="@+id/spPanelTextEffectCustom"
                         android:layout_width="0dp"
@@ -510,7 +510,7 @@
                         android:minHeight="32dp"
                         android:layout_weight="2"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1" />
+                        android:text="@string/lbCommonParam1" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam1Val"
@@ -519,7 +519,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam1"
@@ -546,7 +546,7 @@
                         android:minHeight="32dp"
                         android:layout_weight="2"
                         android:textSize="16sp"
-                        android:text="@string/lbParam2" />
+                        android:text="@string/lbCommonParam2" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam2Val"
@@ -555,7 +555,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam2"
@@ -612,7 +612,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/btnColor1" />
+                        android:text="@string/btnCommonColor1" />
                     <TextView
                         android:id="@+id/tvPanelBgColor1"
                         android:layout_width="0dp"
@@ -637,7 +637,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/btnColor2" />
+                        android:text="@string/btnCommonColor2" />
                     <TextView
                         android:id="@+id/tvPanelBgColor2"
                         android:layout_width="0dp"
@@ -662,7 +662,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/btnColor3" />
+                        android:text="@string/btnCommonColor3" />
                     <TextView
                         android:id="@+id/tvPanelBgColor3"
                         android:layout_width="0dp"
@@ -687,7 +687,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/btnColor4" />
+                        android:text="@string/btnCommonColor4" />
                     <TextView
                         android:id="@+id/tvPanelBgColor4"
                         android:layout_width="0dp"
@@ -714,7 +714,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
                         android:textSize="16sp"
-                        android:text="@string/lbCustom" />
+                        android:text="@string/lbCommonCustom" />
                     <Spinner
                         android:id="@+id/spPanelBgCustom"
                         android:layout_width="0dp"
@@ -740,7 +740,7 @@
                         android:minHeight="32dp"
                         android:layout_weight="2"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1" />
+                        android:text="@string/lbCommonParam1" />
                     <TextView
                         android:id="@+id/tvPanelBgParam1Val"
                         android:layout_width="0dp"
@@ -748,7 +748,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam1"
                         style="@android:style/Widget.Material.SeekBar.Discrete"
@@ -774,7 +774,7 @@
                         android:minHeight="32dp"
                         android:layout_weight="2"
                         android:textSize="16sp"
-                        android:text="@string/lbParam2" />
+                        android:text="@string/lbCommonParam2" />
                     <TextView
                         android:id="@+id/tvPanelBgParam2Val"
                         android:layout_width="0dp"
@@ -782,7 +782,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam2"
                         style="@android:style/Widget.Material.SeekBar.Discrete"
@@ -808,7 +808,7 @@
                         android:minHeight="32dp"
                         android:layout_weight="2"
                         android:textSize="16sp"
-                        android:text="@string/lbParam3" />
+                        android:text="@string/lbCommonParam3" />
                     <TextView
                         android:id="@+id/tvPanelBgParam3Val"
                         android:layout_width="0dp"
@@ -816,7 +816,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:textSize="16sp"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam3"
                         style="@android:style/Widget.Material.SeekBar.Discrete"
@@ -842,7 +842,7 @@
                         android:gravity="center_vertical"
                         android:layout_weight="3"
                         android:textSize="16sp"
-                        android:text="@string/lbBool1" />
+                        android:text="@string/lbCommonBool1" />
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/swPanelBgBool1"
                         android:layout_width="0dp"

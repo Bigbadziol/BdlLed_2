@@ -95,7 +95,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <TextView
                             android:id="@+id/lbStripMode"
                             style="@style/panelData_textView_param"
-                            android:text="@string/lbMode" />
+                            android:text="@string/lbStripMode" />
                         <Spinner
                             android:id="@+id/spStripMode"
                             style="@style/panelData_spinner_medium"
@@ -109,7 +109,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <TextView
                             android:id="@+id/lbStripEffect"
                             style="@style/panelData_textView_param"
-                            android:text="@string/lbEffects"/>
+                            android:text="@string/lbStripEffects"/>
                         <Spinner
                             android:id="@+id/spStripEffect"
                             style="@style/panelData_spinner_medium"
@@ -125,13 +125,13 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripTime"
                             style="@style/panelData_textView_param"
                             android:layout_weight="2"
-                            android:text="@string/lbTime"/>
+                            android:text="@string/lbStripTime"/>
 
                         <TextView
                             android:id="@+id/lbStripTimeVal"
                             style="@style/panelData_textView_param"
                             android:layout_weight="1"
-                            android:text="@string/lbTimeVal" />
+                            android:text="@string/lbStripTimeVal" />
 
                         <SeekBar
                             android:id="@+id/sbStripTime"
@@ -147,7 +147,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnStripColorMain"
                             style="@style/panelData_button_color"
-                            android:text="@string/btnColorMain" />
+                            android:text="@string/btnStripColorMain" />
 
                         <TextView
                             android:id="@+id/tvStripColorMain"
@@ -169,7 +169,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <TextView
                             android:id="@+id/tvStripEffectName"
                             style="@style/panelHeaderInfo"
-                            android:text="@string/tvEffectName">
+                            android:text="@string/tvStripEffectName">
                         </TextView>
                     </LinearLayout>
                     <!-- Color 1 pick -->
@@ -179,7 +179,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnStripColor1"
                             style="@style/panelData_button_color"
-                            android:text="@string/btnColor1" />
+                            android:text="@string/btnCommonColor1" />
                         <TextView
                             android:id="@+id/edStripColor1"
                             style="@style/panelData_textview_color"
@@ -193,7 +193,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnStripColor2"
                             style="@style/panelData_button_color"
-                            android:text="@string/btnColor2"/>
+                            android:text="@string/btnCommonColor2"/>
                         <TextView
                             android:id="@+id/edStripColor2"
                             style="@style/panelData_textview_color"
@@ -207,7 +207,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <TextView
                             android:id="@+id/lbStripPalette"
                             style="@style/panelData_textView_param"
-                            android:text="@string/lbPalette" />
+                            android:text="@string/lbStripPalette" />
                         <Spinner
                             android:id="@+id/spStripPalette"
                             style="@style/panelData_spinner_medium"
@@ -222,7 +222,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         <TextView
                             android:id="@+id/lbStripCustom"
                             style="@style/panelData_textView_param"
-                            android:text="@string/lbCustom" />
+                            android:text="@string/lbCommonCustom" />
                         <Spinner
                             android:id="@+id/spStripCustom"
                             style="@style/panelData_spinner_medium"
@@ -239,12 +239,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripParam1"
                             style="@style/panelData_textView_param"
                             android:layout_weight="2"
-                            android:text="@string/lbParam1" />
+                            android:text="@string/lbCommonParam1" />
                         <TextView
                             android:id="@+id/lbStripParam1Val"
                             style="@style/panelData_textView_param"
                             android:layout_weight="1"
-                            android:text="@string/lbParam1Val" />
+                            android:text="@string/lbCommonParam1Val" />
                         <SeekBar
                             android:id="@+id/sbStripParam1"
                             style="@style/panelData_seekbar_param"
@@ -258,12 +258,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripParam2"
                             style="@style/panelData_textView_param"
                             android:layout_weight="2"
-                            android:text="@string/lbParam2" />
+                            android:text="@string/lbCommonParam2" />
                         <TextView
                             android:id="@+id/lbStripParam2Val"
                             style="@style/panelData_textView_param"
                             android:layout_weight="1"
-                            android:text="@string/lbParam2Val" />
+                            android:text="@string/lbCommonParam2Val" />
                         <SeekBar
                             android:id="@+id/sbStripParam2"
                             style="@style/panelData_seekbar_param"
@@ -277,12 +277,12 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripParam3"
                             style="@style/panelData_textView_param"
                             android:layout_weight="2"
-                            android:text="@string/lbParam3" />
+                            android:text="@string/lbCommonParam3" />
                         <TextView
                             android:id="@+id/lbStripParam3Val"
                             style="@style/panelData_textView_param"
                             android:layout_weight="1"
-                            android:text="@string/lbParam3Val" />
+                            android:text="@string/lbCommonParam3Val" />
                         <SeekBar
                             android:id="@+id/sbStripParam3"
                             style="@style/panelData_seekbar_param"
@@ -296,13 +296,13 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripParam4"
                             style="@style/panelData_textView_param"
                             android:layout_weight="2"
-                            android:text="@string/lbParam4" />
+                            android:text="@string/lbCommonParam4" />
 
                         <TextView
                             android:id="@+id/lbStripParam4Val"
                             style="@style/panelData_textView_param"
                             android:layout_weight="1"
-                            android:text="@string/lbParam4Val" />
+                            android:text="@string/lbCommonParam4Val" />
 
                         <SeekBar
                             android:id="@+id/sbStripParam4"
@@ -317,7 +317,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripBool1"
                             style="@style/panelData_textView_param"
                             android:layout_weight="3"
-                            android:text="@string/lbBool1" />
+                            android:text="@string/lbCommonBool1" />
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/swStripBool1"
                             android:layout_width="0dp"
@@ -338,7 +338,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                             android:id="@+id/lbStripBool2"
                             style="@style/panelData_textView_param"
                             android:layout_weight="3"
-                            android:text="@string/lbBool2" />
+                            android:text="@string/lbCommonBool2" />
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/swStripBool2"
                             android:layout_width="0dp"
@@ -360,7 +360,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         android:id="@+id/btnStripMainConfirm"
                         style="@style/panelData_button"
                         android:layout_marginStart="10dp"
-                        android:text="@string/btnMainConfirm" />
+                        android:text="@string/btnStripConfirm" />
                 </LinearLayout>
             </LinearLayout> <!-- panel "strip" settings + effect  -->
         </androidx.cardview.widget.CardView>
@@ -395,7 +395,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         android:id="@+id/tvPanelBrightnessVal"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/tvPanelBrightnessVal" />
 
                     <SeekBar
                         android:id="@+id/sbPanelBrightness"
@@ -409,7 +409,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                     <TextView
                         android:id="@+id/tvPanelMode"
                         style="@style/panelData_textView_param"
-                        android:text="@string/lbMode" />
+                        android:text="@string/lbPanelMode" />
                     <Spinner
                         android:id="@+id/spPanelMode"
                         style="@style/panelData_spinner_medium"
@@ -424,7 +424,7 @@ Zmieniono na ScrollView, z automatu trzeba dodac
                         android:id="@+id/btnPanelMainConfirm"
                         style="@style/panelData_button"
                         android:layout_marginStart="10dp"
-                        android:text="@string/btnMainConfirm" />
+                        android:text="@string/btnPanelConfirm" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

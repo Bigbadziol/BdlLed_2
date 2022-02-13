@@ -4,14 +4,14 @@
     <!--
     BLUETOOTH - Umożliwia aplikacjom łączenie się ze sparowanymi urządzeniami Bluetooth.
     BLUETOOTH_ADMIN - Umożliwia aplikacjom wykrywanie i parowanie urządzeń bluetooth.
-    BLUETOOTH_ADVERTISE - Wymagane, aby móc reklamować się na pobliskich urządzeniach Bluetooth.
-    BLUETOOTH_CONNECT - Wymagane, aby móc połączyć się ze sparowanym urządzeniem Bluetooth.
+    (31+ - A12)BLUETOOTH_ADVERTISE - Wymagane, aby móc reklamować się na pobliskich urządzeniach Bluetooth.
+    (31+ - A12)BLUETOOTH_CONNECT - Wymagane, aby móc połączyć się ze sparowanym urządzeniem Bluetooth.
     BLUETOOTH_PRIVILEGED -Umożliwia aplikacjom parowanie urządzeń Bluetooth bez interakcji z użytkownikiem oraz zezwalanie lub
             niezezwalanie na dostęp do książki telefonicznej lub wiadomości.
-	BLUETOOTH_SCAN - Wymagane, aby móc wykrywać i parować pobliskie urządzenia Bluetooth.
+	(31+ - A12)BLUETOOTH_SCAN - Wymagane, aby móc wykrywać i parować pobliskie urządzenia Bluetooth.
     ACCESS_FINE_LOCATION - jest konieczne, ponieważ skanowanie Bluetooth może zbierać informacje o lokalizacji użytkownika.
             Informacje te mogą pochodzić z własnych urządzeń użytkownika, a także z nadajników Bluetooth używanych w lokalizacjach
-             takich jak sklepy i obiekty tranzytowe
+             takich jak sklepy i obiekty tranzytowe , MUSI być włączone dla api < 31 , dla 31>= MOZE A NIE MUSI
 
     Jeśli aplikacja jest kierowana do API 28 (android 9) lub niższego, możesz zadeklarować uprawnienie ACCESS_COARSE_LOCATION
     zamiast uprawnienia ACCESS_FINE_LOCATION.
@@ -20,12 +20,24 @@
     Usługi działające w systemie Android 10 lub nowszym nie mogą wykrywać urządzeń Bluetooth,
      chyba że mają uprawnienia ACCESS_BACKGROUND_LOCATION.
     -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<!-- 02.02.2022 dodano :
+    - android:maxSdkVersion="30" dla BUUETOOTH , BLUETOOTH_ADMIN
+    - wylaczono perma ACCESS_COARSE_LOCATION , BO DOCELOWE API TO 29+, a do jest dla <29
+
+Jeśli Twoja aplikacja nie używa wyników skanowania Bluetooth do określania fizycznej lokalizacji,
+możesz zdecydowanie założyć, że Twoja aplikacja nigdy nie korzysta z uprawnień Bluetooth do określania fizycznej lokalizacji.
+TO :
+ - wywalic FINE LOCATION , a do BLUETOOTH_SKAN dodac android:usesPermissionFlags="neverForLocation"
+-->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!--
  Jeśli Bluetooth jest krytycznym elementem aplikacji,
     możesz dodać flagi do pliku manifestu wskazujące to wymaganie.

@@ -233,7 +233,7 @@
                     <TextView
                         android:id="@+id/tvPanelTextPositionCustom"
                         style="@style/panelData_textView_param"
-                        android:text="@string/lbCustom"
+                        android:text="@string/lbCommonCustom"
                         tools:ignore="TextContrastCheck" />
                     <Spinner
                         android:id="@+id/spPanelTextPositionCustom"
@@ -250,14 +250,14 @@
                         android:id="@+id/tvPanelTextPositionParam1"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam1"
+                        android:text="@string/lbCommonParam1"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam1Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val"
+                        android:text="@string/lbCommonParam1Val"
                         tools:ignore="TextContrastCheck" />
 
                     <SeekBar
@@ -274,14 +274,14 @@
                         android:id="@+id/tvPanelTextPositionParam2"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam2"
+                        android:text="@string/lbCommonParam2"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/tvPanelTextPositionParam2Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam2Val"
+                        android:text="@string/lbCommonParam2Val"
                         tools:ignore="TextContrastCheck" />
 
                     <SeekBar
@@ -337,7 +337,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelTextEffectColor1"
                         style="@style/panelData_button_color"
-                        android:text="@string/btnColor1" />
+                        android:text="@string/btnCommonColor1" />
                     <TextView
                         android:id="@+id/tvPanelTextEffectColor1"
                         style="@style/panelData_textview_color"
@@ -349,7 +349,7 @@
                     <TextView
                         android:id="@+id/tvPanelTextEffectCustom"
                         style="@style/panelData_textView_param"
-                        android:text="@string/lbCustom" />
+                        android:text="@string/lbCommonCustom" />
                     <Spinner
                         android:id="@+id/spPanelTextEffectCustom"
                         style="@style/panelData_spinner_medium"
@@ -364,13 +364,13 @@
                         android:id="@+id/tvPanelTextEffectParam1"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam1" />
+                        android:text="@string/lbCommonParam1" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam1Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam1"
@@ -385,13 +385,13 @@
                         android:id="@+id/tvPanelTextEffectParam2"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam2" />
+                        android:text="@string/lbCommonParam2" />
 
                     <TextView
                         android:id="@+id/tvPanelTextEffectParam2Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
 
                     <SeekBar
                         android:id="@+id/sbPanelTextEffectParam2"
@@ -435,7 +435,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor1"
                         style="@style/panelData_button_color"
-                        android:text="@string/btnColor1" />
+                        android:text="@string/btnCommonColor1" />
                     <TextView
                         android:id="@+id/tvPanelBgColor1"
                         style="@style/panelData_textview_color"
@@ -448,7 +448,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor2"
                         style="@style/panelData_button_color"
-                        android:text="@string/btnColor2" />
+                        android:text="@string/btnCommonColor2" />
                     <TextView
                         android:id="@+id/tvPanelBgColor2"
                         style="@style/panelData_textview_color"
@@ -461,7 +461,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor3"
                         style="@style/panelData_button_color"
-                        android:text="@string/btnColor3" />
+                        android:text="@string/btnCommonColor3" />
                     <TextView
                         android:id="@+id/tvPanelBgColor3"
                         style="@style/panelData_textview_color"
@@ -474,7 +474,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPanelBgColor4"
                         style="@style/panelData_button_color"
-                        android:text="@string/btnColor4" />
+                        android:text="@string/btnCommonColor4" />
                     <TextView
                         android:id="@+id/tvPanelBgColor4"
                         style="@style/panelData_textview_color"
@@ -487,7 +487,7 @@
                     <TextView
                         android:id="@+id/tvPanelBgCustom"
                         style="@style/panelData_textView_param"
-                        android:text="@string/lbCustom" />
+                        android:text="@string/lbCommonCustom" />
                     <Spinner
                         android:id="@+id/spPanelBgCustom"
                         style="@style/panelData_spinner_medium"
@@ -502,12 +502,12 @@
                         android:id="@+id/tvPanelBgParam1"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam1" />
+                        android:text="@string/lbCommonParam1" />
                     <TextView
                         android:id="@+id/tvPanelBgParam1Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam1"
                         style="@style/panelData_seekbar_param"
@@ -521,12 +521,12 @@
                         android:id="@+id/tvPanelBgParam2"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam2" />
+                        android:text="@string/lbCommonParam2" />
                     <TextView
                         android:id="@+id/tvPanelBgParam2Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam2"
                         style="@style/panelData_seekbar_param"
@@ -540,12 +540,12 @@
                         android:id="@+id/tvPanelBgParam3"
                         style="@style/panelData_textView_param"
                         android:layout_weight="2"
-                        android:text="@string/lbParam3" />
+                        android:text="@string/lbCommonParam3" />
                     <TextView
                         android:id="@+id/tvPanelBgParam3Val"
                         style="@style/panelData_textView_param"
                         android:layout_weight="1"
-                        android:text="@string/lbParam1Val" />
+                        android:text="@string/lbCommonParam1Val" />
                     <SeekBar
                         android:id="@+id/sbPanelBgParam3"
                         style="@style/panelData_seekbar_param"
@@ -559,7 +559,7 @@
                         android:id="@+id/tvPanelBgBool1"
                         style="@style/panelData_textView_param"
                         android:layout_weight="3"
-                        android:text="@string/lbBool1" />
+                        android:text="@string/lbCommonBool1" />
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/swPanelBgBool1"
                         android:layout_width="0dp"

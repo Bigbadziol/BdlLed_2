@@ -29,6 +29,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -70,6 +71,7 @@ var allStripData = Gson().fromJson(jsonStripDataTest_big,jStripData::class.java)
 var allPanelData = Gson().fromJson(jsonPanelDataTest_small,jPanelData::class.java)
 
 
+
 class MainActivity : AppCompatActivity(){
     private lateinit var bind : ActivityMainBinding
     var myDevices : ArrayList<BluetoothDevice> = ArrayList() //list form start activity
@@ -90,8 +92,6 @@ class MainActivity : AppCompatActivity(){
     var textPositionList : ArrayList<jPanelTextPosition> = ArrayList()
     var textEffectList : ArrayList<jPanelTextEffect> = ArrayList()
     var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
-
-
 
 
     //----------------------------------------------------------------------------------------------
@@ -320,6 +320,18 @@ class MainActivity : AppCompatActivity(){
             }
         }
     }
+
+    //this is a quick fix becouse some problems with description translaction in enum class
+    private fun espStateDescription(): String{
+        when (espState){
+            EspConnectionState.DISCONNECTED -> return getString(R.string.espDisconnected)
+            EspConnectionState.CONNECTED -> return getString(R.string.espConnected)
+            EspConnectionState.CONNECTING -> return getString(R.string.espConnecting)
+            EspConnectionState.CONNECTION_ERROR -> return getString(R.string.espConnectionError)
+        }
+    }
+
+
     /*
         Prepare main settings interface : turn on visibility of components,
         get data from json
@@ -358,7 +370,9 @@ class MainActivity : AppCompatActivity(){
                 bind.btnConnect.text =getString(R.string.iConnect)
             }
         }
-        bind.tvStatus.text = espState.description
+        // old version
+        //bind.tvStatus.text = espState.description
+        bind.tvStatus.text = espStateDescription()
     }
 
     private fun piConnection(){
@@ -531,26 +545,26 @@ class MainActivity : AppCompatActivity(){
     //hide everything , set all values to default
     private fun defaultStripEffectInterface(){
         //set default values
-        bind.tvStripEffectName.text = resources.getString(R.string.tvEffectName)
+        bind.tvStripEffectName.text = resources.getString(R.string.tvStripEffectName)
         bind.edStripColor1.setBackgroundColor(Color.parseColor("#000000"))
-        bind.btnStripColor1.text = getString(R.string.btnColor1)
+        bind.btnStripColor1.text = getString(R.string.btnCommonColor1)
         bind.edStripColor2.setBackgroundColor(Color.parseColor("#000000"))
-        bind.btnStripColor2.text = getString(R.string.btnColor2)
-        bind.lbStripPalette.text = resources.getString(R.string.lbPalette)
+        bind.btnStripColor2.text = getString(R.string.btnCommonColor2)
+        bind.lbStripPalette.text = resources.getString(R.string.lbStripPalette)
         bind.spStripPalette.setSelection(0)
-        bind.lbStripCustom.text = resources.getString(R.string.lbCustom)
+        bind.lbStripCustom.text = resources.getString(R.string.lbCommonCustom)
         bind.spStripCustom.setSelection(0)
-        bind.lbStripParam1.text = resources.getString(R.string.lbParam1)
+        bind.lbStripParam1.text = resources.getString(R.string.lbCommonParam1)
         clearStripParamVal(bind.sbStripParam1)
-        bind.lbStripParam2.text = resources.getString(R.string.lbParam2)
+        bind.lbStripParam2.text = resources.getString(R.string.lbCommonParam2)
         clearStripParamVal(bind.sbStripParam2)
-        bind.lbStripParam3.text = resources.getString(R.string.lbParam3)
+        bind.lbStripParam3.text = resources.getString(R.string.lbCommonParam3)
         clearStripParamVal(bind.sbStripParam3)
-        bind.lbStripParam4.text = resources.getString(R.string.lbParam4)
+        bind.lbStripParam4.text = resources.getString(R.string.lbCommonParam4)
         clearStripParamVal(bind.sbStripParam4)
-        bind.lbStripBool1.text = resources.getString(R.string.lbBool1)
+        bind.lbStripBool1.text = resources.getString(R.string.lbCommonBool1)
         bind.swStripBool1.isChecked = false
-        bind.lbStripBool2.text = resources.getString(R.string.lbBool2)
+        bind.lbStripBool2.text = resources.getString(R.string.lbCommonBool2)
         bind.swStripBool2.isChecked = false
         //hide everything
         bind.rowStripEffectName.setVisibility(false)
@@ -566,10 +580,9 @@ class MainActivity : AppCompatActivity(){
         bind.rowStripEffectBool2.setVisibility(false)
     }
 
-
     //Strip name also turn on strip effect panel !!
     private fun setStripEffectName(name : String ){
-        val prefixAndName = getString(R.string.lbEffectNamePrefix) + name
+        val prefixAndName = getString(R.string.lbStripEffectNamePrefix) + name
         bind.panelStripEffect.setVisibility(true)
         bind.rowStripEffectName.setVisibility(true)
         bind.tvStripEffectName.text = prefixAndName
@@ -2877,11 +2890,12 @@ class MainActivity : AppCompatActivity(){
                 //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
+
         btnBorderColor.setOnClickListener {
             Log.d(TAG, "Lede border color button clicked.")
             ColorPickerDialog
                 .Builder(this)
-                .setTitle(getString(R.string.dialog_title_pick_color))
+                .setTitle(getString(R.string.dlColorTitle))
                 .setColorShape(ColorShape.CIRCLE)
                 .setDefaultColor("#ff0000")
                 .setColorListener { _, colorHex ->
