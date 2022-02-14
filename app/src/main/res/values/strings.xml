@@ -308,6 +308,11 @@
     <string name="tvPanelBgDelay">Szybkosc tla:</string>
 
     <!-- ..................... text position parameters description ........................... -->
+    <!-- translation in TextPositionListAdapter, more info there -->
+    <string name="keyTpStatic">Statyczny</string>           <!-- name from esp ="Static" -->
+    <string name="keyTpScroll">Przewijany tekst</string>    <!-- name from esp ="Scroll" -->
+    <string name="keyTpWordByWord">Slowo po slowie</string> <!-- name from esp ="Word by word" -->
+
     <string name="headerTextPosition"> Pozycjonowanie tekstu</string>
     <!-- text position Static/Simple custom parameters -->
     <string name="tpStaticCustomDescription">Pozytcja:</string> <!-- position -->
@@ -344,6 +349,12 @@
     <string name="tpWordByWordP1_timeInSec">Czas w sek:</string> <!-- time in sec -->
 
     <!-- ....................... text effect param description ............................... -->
+    <!-- translation in TextEffectListAdapter , more info there-->
+    <string name="keyTeSimple">Tekst w wybranym kolorze</string>    <!--name from esp = "Simple" -->
+    <string name="keyTeFireText">Płonące litery</string>            <!--name from esp = "Fire text" -->
+    <string name="keyTeRollingBorder">Obracająca się ramka</string> <!--name from esp = "Rolling border" -->
+    <string name="keyTeColors">Pulsujące kolory</string>            <!--name from esp = "Colors" -->
+
     <string name="headerTextEffect">Efekt tekstu</string>
     <string name="teSimpleP1_mode">Tryb:</string>
     <string name="teFireTextP1_cooling">Chlodzenie:</string>
@@ -359,7 +370,32 @@
     <string name="teColorsP1_delta">Delta:</string>
 
     <!-- ..................Panel Background parameter description ............................. -->
+    <!-- translation in BackgroundAdapter, more info there-->
+    <!-- with params -->
+    <string name="keyBgSelectedColor">Wybrany kolor</string>    <!--name from esp = "Selected color" -->
+    <string name="keyBgFire1">Ogień 1</string>                  <!--name from esp = "Fire 1" -->
+    <string name="keyBgFire2">Ogień 2</string>                  <!--name from esp = "Fire 2" -->
+    <string name="keyBgFire3">Ogień 3</string>                  <!--name from esp = "Fire 3" -->
+    <string name="keyBgRain">Deszcz</string>                    <!--name from esp = "Rain" -->
+    <string name="keyBgStreak">Smugi</string>                   <!--name from esp = "Streak" -->
+    <string name="keyBgLiquidPlasma">Ciekła plazma</string>     <!--name from esp = "Liquid plasma" -->
+    <string name="keyBgBigPlasma">Organiczna plazma</string>    <!--name from esp = "Big plasma" -->
+    <!-- recorded -->
+    <string name="keyBgDarkNet">Ciemna sieć</string>            <!--name from esp = "Dark net" -->
+    <string name="keyBgDrops">Krople</string>                   <!--name from esp = "Drops" -->
+    <string name="keyBgLightLines">Jasne linie</string>         <!--name from esp = "Light lines" -->
+    <string name="keyBgSpiral">Spirala</string>                 <!--name from esp = "Spiral" -->
+    <string name="keyBgSquaeres">Kwadraty</string>              <!--name from esp = "Squares" -->
+    <string name="keyBgStars">Gwiazdy</string>                  <!--name from esp = "Stars" -->
+    <string name="keyBgColorFluid">Płynne kolory</string>       <!--name from esp = "Color fluid" -->
+    <string name="keyBgColormania">Kolormania</string>          <!--name from esp = "Colormania" -->
+    <string name="keyBgDancingColors">Tańczące kolory</string>  <!--name from esp = "Dancing colors" -->
+    <string name="keyBgFireOctopus">Ognista ośmiornica</string> <!--name from esp = "Fire octopus" -->
+    <string name="keyBgEvilEye">Złe oko</string>                <!--name from esp = "Evil eye" -->
+    <string name="keyBgSpotlights">Reflektory</string>          <!--name from esp = "Spotlights" -->
+
     <string name="headerBackground">Efekt tla</string>
+
     <!-- Simple color -->
     <string name="bgSimpleColorColor1">Kolor tla:</string> <!-- background color -->
 
@@ -392,10 +428,13 @@
 
     <!-- background fire 3 -->
     <string name="bgFire3CustomDescription">Paleta:</string> <!-- palette -->
+    <string name="bgFire3Custom_red">Czerwona</string>
+    <string name="bgFire3Custom_blue">Niebieska</string>
+    <string name="bgFire3Custom_green">Zielona</string>
     <string-array name="bgCustomFire3">
-        <item>czerwona</item>
-        <item>niebieska</item>
-        <item>zielona</item>
+        <item>@string/bgFire3Custom_red</item>
+        <item>@string/bgFire3Custom_blue</item>
+        <item>@string/bgFire3Custom_green</item>
     </string-array>
     <string name="bgFire3P1_cooling">Chlodzenie:</string>   <!-- cooling -->
     <string name="bgFire3P2_sparking">Iskry:</string>        <!-- sparking -->
@@ -405,9 +444,13 @@
     <string name="bgRainColor2">Srodek:</string>  <!-- middle color -->
     <string name="bgRainColor3">Dol:</string>     <!-- bottom color -->
     <string name="bgRainCustomDescription">Rozmiar:</string>
+    <string name="bgRainCustom_small">Mały</string>
+    <string name="bgRainCustom_medium">Sredni</string>
+    <string name="bgRainCustom_big">Duży</string>
     <string-array name="bgRainCustom">
-        <item>mały</item>
-        <item>średni</item>
+        <item>@string/bgRainCustom_small</item>
+        <item>@string/bgRainCustom_medium</item>
+        <item>@string/bgRainCustom_big</item>
         <item>duzy</item>
     </string-array>
     <string name="bgRainB1_blur">Rozmycie:</string> <!-- blur -->
@@ -476,15 +519,39 @@
         <item>[T]Plasma</item>
     </string-array>
 
-    <!-- ?!!?!?!?!?!?!?!!?!?!?!?!?!?!?!?!?!?!?? -->
-    <string name="keyTpStatic">Statyczny</string>
-    <string name="keyTpScroll">Przewijany tekst</string>
-    <string name="keyTpWordByWord">Slowo po slowie</string>
-
-    <string name="keyTeSimple">Tekst w wybranym kolorze</string>
-    <string name="keyTeFireText">Płonące litery</string>
-    <string name="keyTeRollingBorder">Obracająca się ramka</string>
-    <string name="keyTeColors">Pulsujące kolory</string>
+    <string name="keyStBeatWave">Pulsująca fala</string>              <!--name from esp = "Beat wave" -->
+    <string name="keyStBlendWave">Mieszana fala</string>              <!--name from esp = "Blend wave" -->
+    <string name="keyStBlur">Plama</string>                           <!--name from esp = "Blur" -->
+    <string name="keyStConfeti">Konfetti</string>                     <!--name from esp = "Confeti" -->
+    <string name="keyStSinelon">Sinelon</string>                      <!--name from esp = "Sinelon" -->
+    <string name="keyStBpm">Bpm</string>                              <!--name from esp = "Bpm" -->
+    <string name="keyStJuggle">Żongler</string>                       <!--name from esp = "Juggle" -->
+    <string name="keyStDotBeat">Kropkobit</string>                    <!--name from esp = "Dot beat" -->
+    <string name="keyStEasing">Wygładzacz</string>                    <!--name from esp = "Easing" -->
+    <string name="keyStHyperDot">Turbo kropa</string>                 <!--name from esp = "Hyper dot" -->
+    <string name="keyStBeatSinGradient">Płynny gradient</string>      <!--name from esp = "Beat sin gradient" -->
+    <string name="keyStFire1">Ogień 1</string>                        <!--name from esp = "Fire 1" -->
+    <string name="keyStFire1TwoFlames">Ogień 1 dwa płomienie</string> <!--name from esp = "Fire 1 two flames" -->
+    <string name="keyStWorm">Robak</string>                           <!--name from esp = "Worm" -->
+    <string name="keyStFire2">Ogień 2</string>                        <!--name from esp = "Fire 2" -->
+    <string name="keyStNoise1">Szum 1</string>                        <!--name from esp = "Noise 1" -->
+    <string name="keyStJuggle2">Żongler 2</string>                    <!--name from esp = "Juggle 2" -->
+    <string name="keyStRunningColorDots">Pędzące kropki</string>      <!--name from esp = "Running color dots" -->
+    <string name="keyStDisco1">Disco 1</string>                       <!--name from esp = "Disco 1" -->
+    <string name="keyStRunningColorDots2">Pędzące kropki 2</string>   <!--name from esp = "Running color dots 2" -->
+    <string name="keyStDiscoDots">Kropki disco</string>               <!--name from esp = "Disco dots" -->
+    <string name="keyStPlasma">Plazma</string>                        <!--name from esp = "Plasma" -->
+    <string name="keyStRainbowSine">Sinusowa tęcza</string>           <!--name from esp = "Rainbow sine" -->
+    <string name="keyStFastRainbow">Szybka tęcza</string>             <!--name from esp = "Fast rainbow" -->
+    <string name="keyStPulseRainbow">Pulsująca tęcza</string>         <!--name from esp = "Pulse rainbow" -->
+    <string name="keyStFireworks">Fajerwerki</string>                 <!--name from esp = "Fireworks" -->
+    <string name="keyStFirewworks2">Fajerwerki 2</string>             <!--name from esp = "Fireworks 2" -->
+    <string name="keyStSinNeon">Sineon</string>                       <!--name from esp = "Sin-neon" -->
+    <string name="keyStCarusel">Karuzela</string>                     <!--name from esp = "Carusel" -->
+    <string name="keyStColorWipe">Koloro-wymazywacz</string>          <!--name from esp = "Color Wipe" --> <!-- literowka, duże W -->
+    <string name="keyStBounceBar">Odbijalny pasek</string>            <!--name from esp = "Bounce bar" -->
+    <string name="keyStChillout">Luzik</string>                       <!--name from esp = "Chillout" -->
+    <string name="keyStComet">Kometa</string>                         <!--name from esp = "Comet" -->
 
 
 </resources>

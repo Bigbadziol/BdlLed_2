@@ -452,12 +452,18 @@ class MainActivity : AppCompatActivity(){
 
     private fun piStripMain(){
         // var stripEffectNames  = arrayOf<String>() // old version before StringlistAdapter
+/*
+        // troche nowsza wersja , ale znow stara
         val stripEffectNames : ArrayList<String> = ArrayList()
         for (e in allStripData.effects.indices){
             stripEffectNames += allStripData.effects[e].name
         }
         //val adapterEffectNames = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripEffectNames)
         val adapterEffectNames = StringListAdapter(this@MainActivity, stripEffectNames)
+*/
+        var stripEffectList   : ArrayList<jStripEffect> = ArrayList()
+        stripEffectList.addAll(allStripData.effects)
+
         with(
             bind,
         ) {
@@ -467,8 +473,10 @@ class MainActivity : AppCompatActivity(){
             piStrip_core() // set minimum visibility
             spStripMode.setSelection(allStripData.config.mode, false)
 
-            if (stripEffectNames.size > 0) {
-                spStripEffect.adapter = adapterEffectNames
+//Bylo stripEffectNames
+            if (stripEffectList.size > 0) {
+//                spStripEffect.adapter = adapterEffectNames
+                spStripEffect.adapter = StripEffectListAdapter(this@MainActivity,stripEffectList)
                 spStripEffect.setSelection(allStripData.config.selected)
             } else {
                 //lbStripEffect.setVisibility(false)
@@ -3369,7 +3377,9 @@ class MainActivity : AppCompatActivity(){
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 allStripData.config.selected = position
-                when (parent.getItemAtPosition(position)) {
+
+                val thisEffect = bind.spStripEffect.getItemAtPosition(position) as jStripEffect
+                when (thisEffect.name){
                     "Beat wave" -> piBeatWave()
                     "Blend wave" -> piBlendWave()
                     "Blur" -> piBlur()
@@ -3467,7 +3477,8 @@ class MainActivity : AppCompatActivity(){
             updatedColor.addProperty("g",Color.green(colInt))
             updatedColor.addProperty("b",Color.blue(colInt))
 
-            when (bind.spStripEffect.selectedItem as String) {
+            val  effect =  bind.spStripEffect.selectedItem as jStripEffect
+            when (effect.name){
                 "Beat wave" -> upBeatWave()
                 "Blend wave" -> upBlendWave()
                 "Blur" -> upBlur()

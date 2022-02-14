@@ -5,12 +5,14 @@
 package com.example.bdlled_02.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
+import com.example.bdlled_02.TAG
 import com.example.bdlled_02.jPanelTextPosition
 
 class TextPositionListAdapter(val context: Context, var dataSource: ArrayList<jPanelTextPosition>) : BaseAdapter() {
@@ -38,7 +40,10 @@ class TextPositionListAdapter(val context: Context, var dataSource: ArrayList<jP
             "Word by word" -> translatedDescription =context.getString(R.string.keyTpWordByWord)
         }
 
-        if (translatedDescription == "ERROR")  dataSource.removeAt(position)
+        if (translatedDescription == "ERROR"){
+            Log.d(TAG,"[ERROR]Text position adapter -> key : $sourceKey not found, deleted from data source.")
+            dataSource.removeAt(position)
+        }
         //old
         //vh.label.text = dataSource.get(position).name
         vh.label.text = translatedDescription
