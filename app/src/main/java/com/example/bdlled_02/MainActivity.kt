@@ -29,7 +29,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -748,16 +747,16 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("pulse1")) {
-                setStripParamVal(1, "Pulse 1:", thisEffectData.get("pulse1").asInt, 1, 30)
+                setStripParamVal(1, getString(R.string.stBeatWaveP1_pulse1), thisEffectData.get("pulse1").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse2")) {
-                setStripParamVal(2, "Pulse 2:", thisEffectData.get("pulse2").asInt, 1, 30)
+                setStripParamVal(2, getString(R.string.stBeatWaveP2_pulse2), thisEffectData.get("pulse2").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse3")) {
-                setStripParamVal(3, "Pulse 3:", thisEffectData.get("pulse3").asInt, 1, 30)
+                setStripParamVal(3,getString(R.string.stBeatWaveP3_pulse3), thisEffectData.get("pulse3").asInt, 1, 30)
             }
             if (thisEffectData.has("pulse4")) {
-                setStripParamVal(4, "Pulse 4:", thisEffectData.get("pulse4").asInt, 1, 30)
+                setStripParamVal(4, getString(R.string.stBeatWaveP4_pulse4), thisEffectData.get("pulse4").asInt, 1, 30)
             }
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
@@ -778,13 +777,13 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setStripParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 12)
+                setStripParamVal(1, getString(R.string.stBlendWaveP1_speed), thisEffectData.get("speed").asInt, 1, 12)
             }
             if (thisEffectData.has("mH1")) {
-                setStripParamVal(2, "Step 1:", thisEffectData.get("mH1").asInt, 1, 24)
+                setStripParamVal(2, getString(R.string.stBlendWaveP2_mH1), thisEffectData.get("mH1").asInt, 1, 24)
             }
             if (thisEffectData.has("mH2")) {
-                setStripParamVal(3, "Step 2:", thisEffectData.get("mH2").asInt, 1, 24)
+                setStripParamVal(3, getString(R.string.stBlendWaveP3_mH2), thisEffectData.get("mH2").asInt, 1, 24)
             }
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
@@ -804,16 +803,16 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("speed")) {
-                setStripParamVal(1, "Speed:", thisEffectData.get("speed").asInt, 1, 10)
+                setStripParamVal(1, getString(R.string.stBlurP1_speed), thisEffectData.get("speed").asInt, 1, 10)
             }
             if (thisEffectData.has("o1")) {
-                setStripParamVal(2, "Offset 1:", thisEffectData.get("o1").asInt, 1, 20)
+                setStripParamVal(2, getString(R.string.stBlurP2_o1), thisEffectData.get("o1").asInt, 1, 20)
             }
             if (thisEffectData.has("o2")) {
-                setStripParamVal(3, "Offset 2:", thisEffectData.get("o2").asInt, 1, 20)
+                setStripParamVal(3, getString(R.string.stBlurP3_o2), thisEffectData.get("o2").asInt, 1, 20)
             }
             if (thisEffectData.has("o3")) {
-                setStripParamVal(4, "Offset 3:", thisEffectData.get("o3").asInt, 1, 20)
+                setStripParamVal(4, getString(R.string.stBlurP4_o3), thisEffectData.get("o3").asInt, 1, 20)
             }
         }else{
             Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
@@ -837,10 +836,10 @@ class MainActivity : AppCompatActivity(){
                 setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("fade")) {
-                setStripParamVal(1, "Fade :", thisEffectData.get("fade").asInt, 1, 16)
+                setStripParamVal(1, getString(R.string.stConfetiP1_fade), thisEffectData.get("fade").asInt, 1, 16)
             }
             if (thisEffectData.has("mDiff")) {
-                setStripParamVal(2, "Ofset 1 :", thisEffectData.get("mDiff").asInt, 1, 15)
+                setStripParamVal(2, getString(R.string.stConfetiP2_mdiff), thisEffectData.get("mDiff").asInt, 1, 15)
             }
         }
     }
@@ -858,10 +857,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 1, 25)
+                setStripParamVal(1, getString(R.string.stSinelonP1_bpm), thisEffectData.get("bpm").asInt, 1, 25)
             }
             if (thisEffectData.has("fade")) {
-                setStripParamVal(2, "Fade:", thisEffectData.get("fade").asInt, 1, 20)
+                setStripParamVal(2, getString(R.string.stSinelonP2_fade), thisEffectData.get("fade").asInt, 1, 20)
             }
         }
     }
@@ -881,7 +880,7 @@ class MainActivity : AppCompatActivity(){
                 setStripPalette(thisEffectData.get("pIndex").asInt)
             }
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Speed :", thisEffectData.get("bpm").asInt, 1, 12)
+                setStripParamVal(1, getString(R.string.stBpmP1_bpm), thisEffectData.get("bpm").asInt, 1, 12)
             }
         }
     }
@@ -898,10 +897,10 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("stepHue")) {
-                setStripParamVal(1, "Step :", thisEffectData.get("stepHue").asInt, 1, 8)
+                setStripParamVal(1, getString(R.string.stJuggleP1_stepHue), thisEffectData.get("stepHue").asInt, 1, 8)
             }
             if (thisEffectData.has("fade")) {
-                setStripParamVal(2, "Fade :", thisEffectData.get("fade").asInt, 1, 25)
+                setStripParamVal(2, getString(R.string.stJuggleP2_fade), thisEffectData.get("fade").asInt, 1, 25)
             }
         }
     }
@@ -936,10 +935,10 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(2 , r , g , b)
             }
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Bpm :", thisEffectData.get("bpm").asInt, 1, 7)
+                setStripParamVal(1, getString(R.string.stDotBeatP1_bpm), thisEffectData.get("bpm").asInt, 1, 7)
             }
             if (thisEffectData.has("fadeMod")) {
-                setStripParamVal(2, "Fade:", thisEffectData.get("fadeMod").asInt, 1, 10)
+                setStripParamVal(2, getString(R.string.stDotBeatP2_fadeMod), thisEffectData.get("fadeMod").asInt, 1, 10)
             }
         }
     }
@@ -969,7 +968,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("multiplier")) {
-                setStripParamVal(1, "Fade :", thisEffectData.get("multiplier").asInt, 1, 8)
+                setStripParamVal(1, getString(R.string.stEasingP1_multiplier), thisEffectData.get("multiplier").asInt, 1, 8)
             }
         }
     }
@@ -997,13 +996,13 @@ class MainActivity : AppCompatActivity(){
                 setStripParamColor(1 , r , g , b)
             }
             if (thisEffectData.has("bpm")) {
-                setStripParamVal(1, "Fade :", thisEffectData.get("bpm").asInt, 1, 20)
+                setStripParamVal(1, getString(R.string.stHyperDotP1_bpm), thisEffectData.get("bpm").asInt, 1, 20)
             }
             if (thisEffectData.has("low")) {
-                setStripParamVal(2, "Low :", thisEffectData.get("low").asInt, 1, 5)
+                setStripParamVal(2, getString(R.string.stHyperDotP2_low), thisEffectData.get("low").asInt, 1, 5)
             }
             if (thisEffectData.has("high")) {
-                setStripParamVal(3, "High :", thisEffectData.get("high").asInt, 1, 10)
+                setStripParamVal(3, getString(R.string.stHyperDotP3_high), thisEffectData.get("high").asInt, 1, 10)
             }
         }
     }
@@ -1104,11 +1103,11 @@ class MainActivity : AppCompatActivity(){
 
             if (thisEffectData.has("dir")) {
                 val customParams = arrayOf(
-                    "right to left",
-                    "left to right",
-                    "both sites"
+                    getString(R.string.stFire2Custom_rightToLeft),
+                    getString(R.string.stFire2Custom_leftToRight),
+                    getString(R.string.stFire2Custom_bothSites)
                 )
-                setStripCustom("Direction :", customParams,thisEffectData.get("dir").asInt)
+                setStripCustom(getString(R.string.stFire2CustomDescription), customParams,thisEffectData.get("dir").asInt)
             }
             if (thisEffectData.has("intensity")) {
                 setStripParamVal(1, getString(R.string.stFire2P1_intensity), thisEffectData.get("intensity").asInt, 1, 5)
@@ -1188,10 +1187,10 @@ class MainActivity : AppCompatActivity(){
             }
             if (thisEffectData.has("dir")) {
                 val customParams = arrayOf(
-                    "left to right",
-                    "right to left"
+                    getString(R.string.stRunningColorDotsCustom_leftToRight),
+                    getString(R.string.stRunningColorDotsCustom_rightToLeft)
                 )
-                setStripCustom(getString(R.string.stRunningColorDotsCustomDesc), customParams,thisEffectData.get("dir").asInt)
+                setStripCustom(getString(R.string.stRunningColorDotsCustomDescription), customParams,thisEffectData.get("dir").asInt)
             }
         }
     }
@@ -1243,10 +1242,10 @@ class MainActivity : AppCompatActivity(){
                 bind.btnStripColor1.text =getString(R.string.stRunningColorDots2C1_background)
             }
             if (thisEffectData.has("bgBright")) {
-                setStripParamVal(1, getString(R.string.stRunningColorDotsP1_bgbright), thisEffectData.get("bgBright").asInt, 1, 10)
+                setStripParamVal(1, getString(R.string.stRunningColorDots2P1_bgbright), thisEffectData.get("bgBright").asInt, 1, 10)
             }
             if (thisEffectData.has("bgStatic")){
-                setStripParamBool(1,getString(R.string.stRunningColorDotsB1_bgstatic),thisEffectData.get("bgStatic").asInt)
+                setStripParamBool(1,getString(R.string.stRunningColorDots2B1_bgstatic),thisEffectData.get("bgStatic").asInt)
             }
         }
     }
@@ -1351,8 +1350,8 @@ class MainActivity : AppCompatActivity(){
 
             if (thisEffectData.has("dir")) {
                 val customParams = arrayOf(
-                    "forward",
-                    "backward",
+                    getString(R.string.stPulseRainbowCustom_forward),
+                    getString(R.string.stPulseRainbowCustom_backward)
                 )
                 setStripCustom(getString(R.string.stPulseRainbowCustomDescription), customParams,thisEffectData.get("dir").asInt)
             }
@@ -1423,12 +1422,11 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("mode")) {
-                //WARNING!
                 val customParams = resources.getStringArray(R.array.stSinNeonCustom)
-                setStripCustom(getString(R.string.stSinNeonCustomDesctiption), customParams,thisEffectData.get("mode").asInt)
+                setStripCustom(getString(R.string.stSinNeonCustomDescription), customParams,thisEffectData.get("mode").asInt)
             }
             if (thisEffectData.has("phaseTime")) {
-                setStripParamVal(1, getString(R.string.stSinNeonP1_phasetime), thisEffectData.get("phaseTime").asInt, 10, 30)
+                setStripParamVal(1, getString(R.string.stSinNeonP1_phaseTime), thisEffectData.get("phaseTime").asInt, 10, 30)
             }
         }
     }
@@ -1444,12 +1442,11 @@ class MainActivity : AppCompatActivity(){
         if (allStripData.effects[index].editable > 0) {
             val thisEffectData = allStripData.effects[index].data
             if (thisEffectData.has("mode")) {
-                //WORNING
                 val customParams = resources.getStringArray(R.array.stCaruselCustom)
                 setStripCustom(getString(R.string.stCaruselCustomDescription), customParams,thisEffectData.get("mode").asInt)
             }
             if (thisEffectData.has("phaseTime")) {
-                setStripParamVal(1, getString(R.string.stCaruselP1_phasetime), thisEffectData.get("phaseTime").asInt, 5, 30)
+                setStripParamVal(1, getString(R.string.stCaruselP1_phaseTime), thisEffectData.get("phaseTime").asInt, 5, 30)
             }
             if (thisEffectData.has("freq")) {
                 setStripParamVal(2, getString(R.string.stCaruselP2_freq), thisEffectData.get("freq").asInt, 1, 3)

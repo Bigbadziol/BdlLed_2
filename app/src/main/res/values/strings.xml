@@ -56,13 +56,13 @@
     <string name="commonPalette_party">Impreza</string>
     <string name="commonPalette_heat">Ciepło</string>
     <string-array name="commonPaleteList">
-        <item>@string/commonPalette_cloud</item>     <!-- Cloud -->
+        <item>@string/commonPalette_cloud</item>      <!-- Cloud -->
         <item>@string/commonPalette_lava</item>       <!-- Lava -->
         <item>@string/commonPalette_ocean</item>      <!-- Ocean -->
-        <item>@string/commonPalette_forest</item>        <!-- Forest -->
-        <item>@string/commonPalette_rainbow</item>      <!-- Rainbow -->
-        <item>@string/commonPalette_party</item>    <!-- Party -->
-        <item>@string/commonPalette_heat</item>     <!-- Heat -->
+        <item>@string/commonPalette_forest</item>     <!-- Forest -->
+        <item>@string/commonPalette_rainbow</item>    <!-- Rainbow -->
+        <item>@string/commonPalette_party</item>      <!-- Party -->
+        <item>@string/commonPalette_heat</item>       <!-- Heat -->
     </string-array>
 
 
@@ -73,7 +73,7 @@
     <string name="lbStripTime">Czas zmiany :</string>
     <string name="btnStripColorMain">Kolor</string>
     <string name="lbStripPalette">Paleta :</string>
-    <string name="btnStripConfirm">Zatwierdz zmiany</string>
+    <string name="btnStripConfirm">Zatwierdź zmiany</string>
     <string name="lbStripEffectNamePrefix">Ustawienia :</string>
     <string name="tvStripEffectName">[NAZWA EFEKTU]</string>
     <string name="lbStripTimeVal">0</string>
@@ -90,16 +90,50 @@
     </string-array>
 
     <!-- ......................... strip effect params description ............................. -->
+    <!-- more info in : StripEffectListAdapter, key[name] is used in adapter to translation -->
+    <string name="keyStBeatWave">Pulsująca fala</string>              <!--name from esp = "Beat wave" -->
+    <string name="keyStBlendWave">Mieszana fala</string>              <!--name from esp = "Blend wave" -->
+    <string name="keyStBlur">Plama</string>                           <!--name from esp = "Blur" -->
+    <string name="keyStConfeti">Konfetti</string>                     <!--name from esp = "Confeti" -->
+    <string name="keyStSinelon">Sinelon</string>                      <!--name from esp = "Sinelon" -->
+    <string name="keyStBpm">Bpm</string>                              <!--name from esp = "Bpm" -->
+    <string name="keyStJuggle">Żongler</string>                       <!--name from esp = "Juggle" -->
+    <string name="keyStDotBeat">Kropkobit</string>                    <!--name from esp = "Dot beat" -->
+    <string name="keyStEasing">Wygładzacz</string>                    <!--name from esp = "Easing" -->
+    <string name="keyStHyperDot">Turbo kropa</string>                 <!--name from esp = "Hyper dot" -->
+    <string name="keyStBeatSinGradient">Płynny gradient</string>      <!--name from esp = "Beat sin gradient" -->
+    <string name="keyStFire1">Ogień 1</string>                        <!--name from esp = "Fire 1" -->
+    <string name="keyStFire1TwoFlames">Ogień 1 dwa płomienie</string> <!--name from esp = "Fire 1 two flames" -->
+    <string name="keyStWorm">Robak</string>                           <!--name from esp = "Worm" -->
+    <string name="keyStFire2">Ogień 2</string>                        <!--name from esp = "Fire 2" -->
+    <string name="keyStNoise1">Szum 1</string>                        <!--name from esp = "Noise 1" -->
+    <string name="keyStJuggle2">Żongler 2</string>                    <!--name from esp = "Juggle 2" -->
+    <string name="keyStRunningColorDots">Pędzące kropki</string>      <!--name from esp = "Running color dots" -->
+    <string name="keyStDisco1">Disco 1</string>                       <!--name from esp = "Disco 1" -->
+    <string name="keyStRunningColorDots2">Pędzące kropki 2</string>   <!--name from esp = "Running color dots 2" -->
+    <string name="keyStDiscoDots">Kropki disco</string>               <!--name from esp = "Disco dots" -->
+    <string name="keyStPlasma">Plazma</string>                        <!--name from esp = "Plasma" -->
+    <string name="keyStRainbowSine">Sinusowa tęcza</string>           <!--name from esp = "Rainbow sine" -->
+    <string name="keyStFastRainbow">Szybka tęcza</string>             <!--name from esp = "Fast rainbow" -->
+    <string name="keyStPulseRainbow">Pulsująca tęcza</string>         <!--name from esp = "Pulse rainbow" -->
+    <string name="keyStFireworks">Fajerwerki</string>                 <!--name from esp = "Fireworks" -->
+    <string name="keyStFirewworks2">Fajerwerki 2</string>             <!--name from esp = "Fireworks 2" -->
+    <string name="keyStSinNeon">Sineon</string>                       <!--name from esp = "Sin-neon" -->
+    <string name="keyStCarusel">Karuzela</string>                     <!--name from esp = "Carusel" -->
+    <string name="keyStColorWipe">Koloro-wymazywacz</string>          <!--name from esp = "Color Wipe" --> <!-- literowka, duże W -->
+    <string name="keyStBounceBar">Odbijalny pasek</string>            <!--name from esp = "Bounce bar" -->
+    <string name="keyStChillout">Luzik</string>                       <!--name from esp = "Chillout" -->
+    <string name="keyStComet">Kometa</string>                         <!--name from esp = "Comet" -->
     <string name="stBeatWaveP1_pulse1">Puls 1:</string> <!-- pulse 1 -->
     <string name="stBeatWaveP2_pulse2">Puls 2:</string> <!-- pulse 2 -->
     <string name="stBeatWaveP3_pulse3">Puls 3:</string> <!-- pulse 3 -->
     <string name="stBeatWaveP4_pulse4">Puls 4:</string> <!-- pulse 4 -->
 
-    <string name="stBlendWaveP1_speed">Szybkosc:</string> <!-- speed -->
+    <string name="stBlendWaveP1_speed">Szybkość:</string> <!-- speed -->
     <string name="stBlendWaveP2_mH1">Krok 1:</string> <!-- step 1 -->
     <string name="stBlendWaveP3_mH2">Krok 2:</string> <!-- step 2 -->
 
-    <string name="stBlurP1_speed">Szybkosc:</string> <!-- speed -->
+    <string name="stBlurP1_speed">Szybkość:</string> <!-- speed -->
     <string name="stBlurP2_o1">Ofset 1:</string> <!-- offset 1 -->
     <string name="stBlurP3_o2">Ofset 2:</string> <!-- offset 2 -->
     <string name="stBlurP4_o3">Ofset 3:</string> <!-- offset 3 -->
@@ -107,69 +141,97 @@
     <string name="stConfetiP1_fade">Zanikanie:</string> <!-- fade -->
     <string name="stConfetiP2_mdiff">Ofset 1:</string> <!-- offset 1-->
 
-    <string name="stSinelonP1_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stSinelonP1_bpm">Szybkość:</string> <!-- bpm -->
     <string name="stSinelonP2_fade">Zanikanie:</string> <!-- fade -->
 
-    <string name="stBpmP1_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stBpmP1_bpm">Szybkość:</string> <!-- bpm -->
 
-    <string name="stJuggleP1_step">Krok:</string> <!-- step -->
+    <string name="stJuggleP1_stepHue">Krok:</string> <!-- step -->
     <string name="stJuggleP2_fade">Zanikanie:</string> <!-- fade -->
 
-    <string name="stDotBeatP1_bpm">Szybkosc:</string> <!-- bpm -->
+    <string name="stDotBeatP1_bpm">Szybkość:</string> <!-- bpm -->
     <string name="stDotBeatP2_fadeMod">Zanikanie:</string> <!-- fade -->
 
     <string name="stEasingP1_multiplier">Zanikanie:</string> <!-- fade -->
 
-    <string name="stHyperDot_bpm">Szybkosc:</string> <!-- bpm -->
-    <string name="stHyperDot_low">Dol:</string> <!-- low -->
-    <string name="stHyperDot_high">Gora:</string> <!-- high -->
+    <string name="stHyperDotP1_bpm">Szybkość:</string> <!-- bpm -->
+    <string name="stHyperDotP2_low">Dół:</string> <!-- low -->
+    <string name="stHyperDotP3_high">Góra:</string> <!-- high -->
 
-    <string name="stBeatSinGradientP1_speed1">Szybkosc 1:</string>
-    <string name="stBeatSinGradientP2_speed2">Szybkosc 2:</string>
+    <string name="stBeatSinGradientP1_speed1">Szybkość 1:</string>
+    <string name="stBeatSinGradientP2_speed2">Szybkość 2:</string>
 
-    <string name="stFire1P1_cooling">Chlodzenie:</string>
+    <string name="stFire1P1_cooling">Chłodzenie:</string>
     <string name="stFire1P2_sparking">Iskry:</string>
-    <string name="stFire1TwoFlamesP1_cooling">Chlodzenie:</string>
+
+    <string name="stFire1TwoFlamesP1_cooling">Chłodzenie:</string>
     <string name="stFire1TwoFlamesP2_sparking">Iskry:</string>
-    <string name="stWormP1_adjust">Wyrownanie:</string>
+    <string name="stWormP1_adjust">Wyrównanie:</string>
     <string name="stWormP2_nextblend">Nastepne mieszanie:</string>
-    <string name="stFire2P1_intensity">Sila:</string>
-    <string name="stFire2P2_speed">Szybkosc:</string>
+
+    <string name="stFire2CustomDescription">Kierunek:</string>
+    <string name="stFire2Custom_rightToLeft">Od prawej do lewej</string>
+    <string name="stFire2Custom_leftToRight">Od lewej do prawej</string>
+    <string name="stFire2Custom_bothSites">Z obu stron</string>
+    <string-array name="stFire2Custom">
+        <item>@string/stFire2Custom_rightToLeft</item>
+        <item>@string/stFire2Custom_leftToRight</item>
+        <item>@string/stFire2Custom_bothSites</item>
+    </string-array>
+    <string name="stFire2P1_intensity">Siła:</string>
+    <string name="stFire2P2_speed">Szybkość:</string>
+
     <string name="stNoise1P1_low">zakres niski:</string>
     <string name="stNoiseP2_high">Zakres wysoki:</string>
+
     <string name="stJuggle2P1_dots">Punkty:</string>
     <string name="stJuggle2P2_beat">Tempo:</string>
     <string name="stJuggle2P3_fade">Zanikanie:</string>
-    <string name="stRunningColorDotsCustomDesc">Kierunek:</string>
-    <string name="stDisco1P1_flash">Blyski:</string>   <!-- next move -->
-    <string name="stRunningColorDots2C1_background">Tlo:</string>
-    <string name="stRunningColorDotsP1_bgbright">Zanikanie:</string>
-    <string name="stRunningColorDotsB1_bgstatic">Mieszanie:</string>
+
+    <string name="stRunningColorDotsCustomDescription">Kierunek:</string>
+    <string name="stRunningColorDotsCustom_leftToRight">Od lewej do prawej</string>
+    <string name="stRunningColorDotsCustom_rightToLeft">Od prawej do lewej</string>
+
+    <string name="stDisco1P1_flash">Błyski:</string>   <!-- next move -->
+
+    <string name="stRunningColorDots2C1_background">Tło:</string>
+    <string name="stRunningColorDots2P1_bgbright">Zanikanie:</string>
+    <string name="stRunningColorDots2B1_bgstatic">Mieszanie:</string>
+
     <string name="stDiscoDotsP1_phasetime">Nastepna faza za (sek):</string>
+
     <string name="stPlasmaP1_low">Zakres niski:</string>
     <string name="stPlasmaP2_high">Zakres wysoki:</string>
-    <string name="stPlasmaP3_speed">Speed:</string>
-    <string name="stRainbowSineP1_speed">Szybkosc:</string>
+    <string name="stPlasmaP3_speed">Szybkość:</string>
+
+    <string name="stRainbowSineP1_speed">Szybkość:</string>
     <string name="stRainbowSineP2_huestep">Krok dla barw:</string>
-    <string name="stFastRainbowP1_speed">Szybkosc:</string>
-    <string name="stFastRainbowP2_delta">Intensywnosc:</string>
-    <string name="stPulseRainbowCustomDescription">Kierunek</string>
+
+    <string name="stFastRainbowP1_speed">Szybkość:</string>
+    <string name="stFastRainbowP2_delta">Intensywność:</string>
+
+    <string name="stPulseRainbowCustomDescription">Kierunek:</string>
+    <string name="stPulseRainbowCustom_forward">Do przodu</string>
+    <string name="stPulseRainbowCustom_backward">Do tyłu</string>
+
     <string name="stPulseRainbowP1_rot">Rotacja:</string>
     <string name="stPulseRainbowP2_hue">Krok dla barw:</string>
-    <string name="stPulseRainbowP3_delay">Opoznienie:</string>
+    <string name="stPulseRainbowP3_delay">Opóźnienie:</string>
+
     <string name="stFireworksP1_size">Rozmiar:</string>
-    <string name="stFireworksP2_speed">Szybkosc:</string>
+    <string name="stFireworksP2_speed">Szybkość:</string>
+
     <string name="stFireworks2P1_life">Czas trwania:</string>
     <string name="stFireworks2P2_fade">Zanikanie:</string>
 
-    <string name="stSinNeonCustomDesctiption">Tryb:</string>
+    <string name="stSinNeonCustomDescription">Tryb:</string>
     <string name="stSinNeonCustom_next">Kolejna faza</string>
     <string name="stSinNeonCustom_random">Losowa faza</string>
     <string-array name="stSinNeonCustom">
         <item>@string/stSinNeonCustom_next</item>
         <item>@string/stSinNeonCustom_random</item>
     </string-array>
-    <string name="stSinNeonP1_phasetime">Czas fazy:</string>
+    <string name="stSinNeonP1_phaseTime">Czas fazy:</string>
 
     <string name="stCaruselCustomDescription">Tryb:</string>
     <string name="stCaruselCustom_next">Kolejna faza</string>
@@ -178,19 +240,22 @@
         <item>@string/stCaruselCustom_next</item>
         <item>@string/stCaruselCustom_random</item>
     </string-array>
-    <string name="stCaruselP1_phasetime">Czas trwania fazy:</string>
+    <string name="stCaruselP1_phaseTime">Czas trwania fazy:</string>
     <string name="stCaruselP2_freq">Amplituda:</string>
 
     <string name="stColorWipeP1_delay1">Przerwa 1:</string>
     <string name="stColorWipeP2_delay2">Przerwa 2:</string>
     <string name="stColorWipeB1_clear">Czyszczenie:</string>
+
     <string name="stBounceBarP1_size">Rozmiar:</string>
-    <string name="stBounceBarP2_delay">Opoznienie:</string>
-    <string name="stChilloutP1_heat">Intensywnosc:</string>
-    <string name="stChilloutP2_delay">Opoznienie:</string>
+    <string name="stBounceBarP2_delay">Opóźnienie:</string>
+
+    <string name="stChilloutP1_heat">Intensywność:</string>
+    <string name="stChilloutP2_delay">Opóźnienie:</string>
+
     <string name="stCometP1_size">Rozmiar:</string>
-    <string name="stCometP2_delay">Opoznienie:</string>
-    <string name="stCometB1_solid">Tryb teczy:</string>
+    <string name="stCometP2_delay">Opóźnienie:</string>
+    <string name="stCometB1_solid">Tryb tęczy:</string>
 
     <!--  ............................ Strip test data ......................................... -->
     <string-array name="TestCustomParameterList">
@@ -215,7 +280,7 @@
     <!-- ======================================================================================= -->
     <!-- .............................Panel main................................................ -->
     <string name="headerSelectDevice">Wybierz urządzenie</string>
-    <string name="tvPanelBrightness">Jasność</string>
+    <string name="tvPanelBrightness">Jasność:</string>
     <string name="tvPanelBrightnessVal">0</string>
     <string name="lbPanelMode">Tryb pracy :</string>
     <!-- this is defined but not used realy -->
@@ -223,7 +288,7 @@
         <item>Wyswietlaj sentencje</item>
         <item>Here is a place for:xxx</item>
     </string-array>
-    <string name="btnPanelConfirm">Zatwierdz zmiany</string>
+    <string name="btnPanelConfirm">Zatwierdź zmiany</string>
 
     <!-- .......................................Panel .......................................... -->
     <string name="headerPanelPanel">Panel</string>
@@ -250,11 +315,11 @@
 
     <!-- ..................... text and font ................................................... -->
     <string name="headerFontSettings">Tekst i Czcionka</string>
-    <string name="panelSentenceHint">Wprowadz swoj tekst</string>
+    <string name="panelSentenceHint">Wprowadz swój tekst</string>
 
     <string name="fontSize_small">Mały</string>
     <string name="fontSize_medium">Sredni</string>
-    <string name="fontSize_big">Duzy</string>
+    <string name="fontSize_big">Duży</string>
     <string-array name="FontSize">
         <item>@string/fontSize_small</item>   <!-- small -->
         <item>@string/fontSize_medium</item>  <!-- medium -->
@@ -302,16 +367,16 @@
         <item>@string/borderType_full</item>              <!-- 11 - ALL/FULL -->
     </string-array>
 
-    <!-- ................................. render time ........................................ -->
-    <string name="headerRenderDelays"> Szybkosc wyswietlania</string>
-    <string name="tvPanelTextDelay">Szybkosc tekstu:</string>
-    <string name="tvPanelBgDelay">Szybkosc tla:</string>
+    <!-- ................................. render time ......................................... -->
+    <string name="headerRenderDelays">Szybkość wyświetlania</string>
+    <string name="tvPanelTextDelay">Szybkość tekstu:</string>
+    <string name="tvPanelBgDelay">Szybkość tla:</string>
 
-    <!-- ..................... text position parameters description ........................... -->
+    <!-- ..................... text position parameters description ............................ -->
     <!-- translation in TextPositionListAdapter, more info there -->
     <string name="keyTpStatic">Statyczny</string>           <!-- name from esp ="Static" -->
     <string name="keyTpScroll">Przewijany tekst</string>    <!-- name from esp ="Scroll" -->
-    <string name="keyTpWordByWord">Slowo po slowie</string> <!-- name from esp ="Word by word" -->
+    <string name="keyTpWordByWord">Słowo po słowie</string> <!-- name from esp ="Word by word" -->
 
     <string name="headerTextPosition"> Pozycjonowanie tekstu</string>
     <!-- text position Static/Simple custom parameters -->
@@ -348,7 +413,7 @@
     <!-- word by word -->
     <string name="tpWordByWordP1_timeInSec">Czas w sek:</string> <!-- time in sec -->
 
-    <!-- ....................... text effect param description ............................... -->
+    <!-- ........................ text effect param description ................................ -->
     <!-- translation in TextEffectListAdapter , more info there-->
     <string name="keyTeSimple">Tekst w wybranym kolorze</string>    <!--name from esp = "Simple" -->
     <string name="keyTeFireText">Płonące litery</string>            <!--name from esp = "Fire text" -->
@@ -357,7 +422,7 @@
 
     <string name="headerTextEffect">Efekt tekstu</string>
     <string name="teSimpleP1_mode">Tryb:</string>
-    <string name="teFireTextP1_cooling">Chlodzenie:</string>
+    <string name="teFireTextP1_cooling">Chłodzenie:</string>
     <string name="teFireTextP2_sparking">Iskry:</string>
 
     <string name="teRollingBorderCustom_desc">Kierunek:</string>
@@ -369,7 +434,7 @@
     </string-array>
     <string name="teColorsP1_delta">Delta:</string>
 
-    <!-- ..................Panel Background parameter description ............................. -->
+    <!-- ...................Panel Background parameter description ............................. -->
     <!-- translation in BackgroundAdapter, more info there-->
     <!-- with params -->
     <string name="keyBgSelectedColor">Wybrany kolor</string>    <!--name from esp = "Selected color" -->
@@ -394,10 +459,10 @@
     <string name="keyBgEvilEye">Złe oko</string>                <!--name from esp = "Evil eye" -->
     <string name="keyBgSpotlights">Reflektory</string>          <!--name from esp = "Spotlights" -->
 
-    <string name="headerBackground">Efekt tla</string>
+    <string name="headerBackground">Efekt tła</string>
 
     <!-- Simple color -->
-    <string name="bgSimpleColorColor1">Kolor tla:</string> <!-- background color -->
+    <string name="bgSimpleColorColor1">Kolor tła:</string> <!-- background color -->
 
     <!-- background fire 1 -->
     <string name="bgFire1CustomDescription">Pozycja:</string>
@@ -436,13 +501,13 @@
         <item>@string/bgFire3Custom_blue</item>
         <item>@string/bgFire3Custom_green</item>
     </string-array>
-    <string name="bgFire3P1_cooling">Chlodzenie:</string>   <!-- cooling -->
+    <string name="bgFire3P1_cooling">Chłodzenie:</string>   <!-- cooling -->
     <string name="bgFire3P2_sparking">Iskry:</string>        <!-- sparking -->
 
     <!-- background Rain -->
-    <string name="bgRainColor1">Gora:</string>     <!-- top color -->
+    <string name="bgRainColor1">Góra:</string>     <!-- top color -->
     <string name="bgRainColor2">Srodek:</string>  <!-- middle color -->
-    <string name="bgRainColor3">Dol:</string>     <!-- bottom color -->
+    <string name="bgRainColor3">Dól:</string>     <!-- bottom color -->
     <string name="bgRainCustomDescription">Rozmiar:</string>
     <string name="bgRainCustom_small">Mały</string>
     <string name="bgRainCustom_medium">Sredni</string>
@@ -462,7 +527,7 @@
     <!-- background Liquid plasma -->
     <string name="bgLiquidPlasmaCustomDescription">Paleta:</string> <!-- palette -->
     <string name="bgLiquidPlasmaP1_smooth">Równanie:</string>       <!-- smooth -->
-    <string name="bgLiquidPlasmaP2_speed">Szybkosc:</string>        <!-- speed -->
+    <string name="bgLiquidPlasmaP2_speed">Szybkość:</string>        <!-- speed -->
 
     <!-- background Big plasma -->
     <string name="bgBigPlasmaCustomDescription">Paleta:</string>    <!-- palette -->
@@ -470,7 +535,6 @@
 
 
     <!-- .....  Test data for add , edit ,del sentence in dialog and some devices names  ....... -->
-
     <string-array name="TestDeviceList">
         <item>LEDL_666</item>
         <item>LEDL_001</item>
@@ -512,46 +576,10 @@
         <item>[T]text effect custom 3 </item>
     </string-array>
 
-
     <string-array name="TestBackgroundEffects">
         <item>[T]Ogien</item>
         <item>[T]Flaga</item>
         <item>[T]Plasma</item>
     </string-array>
-
-    <string name="keyStBeatWave">Pulsująca fala</string>              <!--name from esp = "Beat wave" -->
-    <string name="keyStBlendWave">Mieszana fala</string>              <!--name from esp = "Blend wave" -->
-    <string name="keyStBlur">Plama</string>                           <!--name from esp = "Blur" -->
-    <string name="keyStConfeti">Konfetti</string>                     <!--name from esp = "Confeti" -->
-    <string name="keyStSinelon">Sinelon</string>                      <!--name from esp = "Sinelon" -->
-    <string name="keyStBpm">Bpm</string>                              <!--name from esp = "Bpm" -->
-    <string name="keyStJuggle">Żongler</string>                       <!--name from esp = "Juggle" -->
-    <string name="keyStDotBeat">Kropkobit</string>                    <!--name from esp = "Dot beat" -->
-    <string name="keyStEasing">Wygładzacz</string>                    <!--name from esp = "Easing" -->
-    <string name="keyStHyperDot">Turbo kropa</string>                 <!--name from esp = "Hyper dot" -->
-    <string name="keyStBeatSinGradient">Płynny gradient</string>      <!--name from esp = "Beat sin gradient" -->
-    <string name="keyStFire1">Ogień 1</string>                        <!--name from esp = "Fire 1" -->
-    <string name="keyStFire1TwoFlames">Ogień 1 dwa płomienie</string> <!--name from esp = "Fire 1 two flames" -->
-    <string name="keyStWorm">Robak</string>                           <!--name from esp = "Worm" -->
-    <string name="keyStFire2">Ogień 2</string>                        <!--name from esp = "Fire 2" -->
-    <string name="keyStNoise1">Szum 1</string>                        <!--name from esp = "Noise 1" -->
-    <string name="keyStJuggle2">Żongler 2</string>                    <!--name from esp = "Juggle 2" -->
-    <string name="keyStRunningColorDots">Pędzące kropki</string>      <!--name from esp = "Running color dots" -->
-    <string name="keyStDisco1">Disco 1</string>                       <!--name from esp = "Disco 1" -->
-    <string name="keyStRunningColorDots2">Pędzące kropki 2</string>   <!--name from esp = "Running color dots 2" -->
-    <string name="keyStDiscoDots">Kropki disco</string>               <!--name from esp = "Disco dots" -->
-    <string name="keyStPlasma">Plazma</string>                        <!--name from esp = "Plasma" -->
-    <string name="keyStRainbowSine">Sinusowa tęcza</string>           <!--name from esp = "Rainbow sine" -->
-    <string name="keyStFastRainbow">Szybka tęcza</string>             <!--name from esp = "Fast rainbow" -->
-    <string name="keyStPulseRainbow">Pulsująca tęcza</string>         <!--name from esp = "Pulse rainbow" -->
-    <string name="keyStFireworks">Fajerwerki</string>                 <!--name from esp = "Fireworks" -->
-    <string name="keyStFirewworks2">Fajerwerki 2</string>             <!--name from esp = "Fireworks 2" -->
-    <string name="keyStSinNeon">Sineon</string>                       <!--name from esp = "Sin-neon" -->
-    <string name="keyStCarusel">Karuzela</string>                     <!--name from esp = "Carusel" -->
-    <string name="keyStColorWipe">Koloro-wymazywacz</string>          <!--name from esp = "Color Wipe" --> <!-- literowka, duże W -->
-    <string name="keyStBounceBar">Odbijalny pasek</string>            <!--name from esp = "Bounce bar" -->
-    <string name="keyStChillout">Luzik</string>                       <!--name from esp = "Chillout" -->
-    <string name="keyStComet">Kometa</string>                         <!--name from esp = "Comet" -->
-
 
 </resources>

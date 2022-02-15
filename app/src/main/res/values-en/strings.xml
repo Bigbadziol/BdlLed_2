@@ -72,14 +72,14 @@
     <string name="stSinelonP1_bpm">Bpm:</string>
     <string name="stSinelonP2_fade">Fade:</string>
     <string name="stBpmP1_bpm">Bpm:</string>
-    <string name="stJuggleP1_step">Step:</string>
+    <string name="stJuggleP1_stepHue">Step:</string>
     <string name="stJuggleP2_fade">Fade:</string>
     <string name="stDotBeatP1_bpm">Speed:</string>
     <string name="stDotBeatP2_fadeMod">Fade:</string>
     <string name="stEasingP1_multiplier">Fade:</string>
-    <string name="stHyperDot_bpm">Bpm:</string>
-    <string name="stHyperDot_low">Low:</string>
-    <string name="stHyperDot_high">High:</string>
+    <string name="stHyperDotP1_bpm">Bpm:</string>
+    <string name="stHyperDotP2_low">Low:</string>
+    <string name="stHyperDotP3_high">High:</string>
     <string name="stBeatSinGradientP1_speed1">Speed 1:</string>
     <string name="stBeatSinGradientP2_speed2">Speed 2:</string>
     <string name="stFire1P1_cooling">Cooling:</string>
@@ -95,11 +95,11 @@
     <string name="stJuggle2P1_dots">Dots:</string>
     <string name="stJuggle2P2_beat">Beat:</string>
     <string name="stJuggle2P3_fade">Fade:</string>
-    <string name="stRunningColorDotsCustomDesc">Direction:</string>
+    <string name="stRunningColorDotsCustomDescription">Direction:</string>
     <string name="stDisco1P1_flash">Flash:</string>
     <string name="stRunningColorDots2C1_background">Background:</string>
-    <string name="stRunningColorDotsP1_bgbright">Fade:</string>
-    <string name="stRunningColorDotsB1_bgstatic">Blending:</string>
+    <string name="stRunningColorDots2P1_bgbright">Fade:</string>
+    <string name="stRunningColorDots2B1_bgstatic">Blending:</string>
     <string name="stDiscoDotsP1_phasetime">Next phase(sec):</string>
     <string name="stPlasmaP1_low">Low:</string>
     <string name="stPlasmaP2_high">High:</string>
@@ -116,10 +116,10 @@
     <string name="stFireworksP2_speed">Speed:</string>
     <string name="stFireworks2P1_life">Duration:</string>
     <string name="stFireworks2P2_fade">Fade:</string>
-    <string name="stSinNeonCustomDesctiption">Mode:</string>
-    <string name="stSinNeonP1_phasetime">Next phase(sec):</string>
+    <string name="stSinNeonCustomDescription">Mode:</string>
+    <string name="stSinNeonP1_phaseTime">Next phase(sec):</string>
     <string name="stCaruselCustomDescription">Mode:</string>
-    <string name="stCaruselP1_phasetime">Duration phase:</string>
+    <string name="stCaruselP1_phaseTime">Duration phase:</string>
     <string name="stCaruselP2_freq">Frequency:</string>
     <string name="stColorWipeP1_delay1">Delay 1:</string>
     <string name="stColorWipeP2_delay2">Delay 2:</string>
@@ -132,7 +132,7 @@
     <string name="stCometP2_delay">Delay:</string>
     <string name="stCometB1_solid">Rainbow:</string>
     <string name="headerSelectDevice">Select device</string>
-    <string name="tvPanelBrightness">Brightness</string>
+    <string name="tvPanelBrightness">Brightness:</string>
     <string name="lbPanelMode">Mode:</string>
     <string name="btnPanelConfirm">Confirm</string>
     <string name="headerPanelPanel">Panel</string>
@@ -316,6 +316,14 @@
     <string name="keyStBounceBar">Bounce bar</string>
     <string name="keyStChillout">Chillout</string>
     <string name="keyStComet">Comet</string>
+    <string name="stFire2CustomDescription">Direction:</string>
+    <string name="stFire2Custom_rightToLeft">Right to left</string>
+    <string name="stFire2Custom_leftToRight">Left to right</string>
+    <string name="stFire2Custom_bothSites">Both sites</string>
+    <string name="stRunningColorDotsCustom_leftToRight">Left to right</string>
+    <string name="stRunningColorDotsCustom_rightToLeft">Right to left</string>
+    <string name="stPulseRainbowCustom_forward">Forward</string>
+    <string name="stPulseRainbowCustom_backward">Backward</string>
 
     <!-- ............................................................. -->
 
