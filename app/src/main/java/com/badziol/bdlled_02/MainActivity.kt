@@ -3323,13 +3323,13 @@ class MainActivity : AppCompatActivity(){
 
             when {
                 mySelectedBluetoothDevice.name.contains("LEDS_") -> {
-                    Log.d(TAG,"Selected device is Led strip ")
+                    Log.d(TAG,"Selected device is Led-strip ")
                 }
                 mySelectedBluetoothDevice.name.contains("LEDP_") -> {
-                    Log.d(TAG,"Selected device is Led panel")
+                    Log.d(TAG,"Selected device is Led-panel")
                 }
                 else -> {
-                    Log.d(TAG, "Unknown type of selected device")
+                    Log.d(TAG, "Unknown type of selected device.")
                 }
             }
 
@@ -3559,7 +3559,7 @@ class MainActivity : AppCompatActivity(){
                 })
                 .attachAlphaSlideBar(false) // the default value is true.
                 .attachBrightnessSlideBar(true) // the default value is true.
-                //.setBottomSpace(12) // avible in : 2.2.4
+                //.setBottomSpace(12) // avaible in : 2.2.4
                 .show()
         }
         //----pick color 2
