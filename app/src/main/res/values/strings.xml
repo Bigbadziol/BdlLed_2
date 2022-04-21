@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BdLed v1.0</string>
+    <string name="app_name">BdLed v1.0a</string>
     <!-- ....................................................................................... -->
     <string name="espDisconnected">Rozłączono</string>
     <string name="espConnecting">Lączę się</string>

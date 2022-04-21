@@ -1,4 +1,4 @@
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 var jsonStripDataTest_small = """{
     "cmd":"DATA",
 	"config": {

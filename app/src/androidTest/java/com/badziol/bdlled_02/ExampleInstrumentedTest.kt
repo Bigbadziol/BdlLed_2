@@ -1,4 +1,4 @@
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

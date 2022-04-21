@@ -2,7 +2,7 @@
 * 13.02.2022
 *  Od teraz nazwe traktuje się jako klucz , tłumaczenie na podstawie zasobów z stringów
  */
-package com.example.bdlled_02.adapters
+package com.badziol.bdlled_02.adapters
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
-import com.example.bdlled_02.TAG
-import com.example.bdlled_02.jPanelTextEffect
+import com.badziol.bdlled_02.TAG
+import com.badziol.bdlled_02.jPanelTextEffect
 
 
 class TextEffectListAdapter(val context: Context, var dataSource: ArrayList<jPanelTextEffect>) : BaseAdapter() {

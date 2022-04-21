@@ -11,7 +11,7 @@
     android:background="@drawable/scrollview_bg"
 
 
-    tools:context=".MainActivity">
+    tools:context="com.badziol.bdlled_02.MainActivity">
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="match_parent"

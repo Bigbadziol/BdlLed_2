@@ -7,7 +7,7 @@ android {
     compileSdk 28
 
     defaultConfig {
-        applicationId "com.example.bdlled_02"
+        applicationId "com.badziol.bdlled_02"
         minSdk 28
         targetSdk 31
         versionCode 1

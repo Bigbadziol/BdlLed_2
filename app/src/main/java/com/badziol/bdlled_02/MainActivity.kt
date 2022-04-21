@@ -1,4 +1,4 @@
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 /*
 Wcześniej : BtHandler : Handler() -> BtHandler : Handler(Looper.getMainLooper())
 myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
@@ -38,7 +38,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
-import com.example.bdlled_02.adapters.*
+import com.badziol.bdlled_02.adapters.*
+import com.example.bdlled_02.R
 import com.example.bdlled_02.databinding.ActivityMainBinding
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
@@ -66,8 +67,8 @@ lateinit var espSocket: BluetoothSocket
 lateinit var myHandler: Handler
 lateinit var dataHandler: Handler //only for data handling from ESP
 
-var allStripData = Gson().fromJson(jsonStripDataTest_big,jStripData::class.java)
-var allPanelData = Gson().fromJson(jsonPanelDataTest_small,jPanelData::class.java)
+var allStripData = Gson().fromJson(jsonStripDataTest_big, jStripData::class.java)
+var allPanelData = Gson().fromJson(jsonPanelDataTest_small, jPanelData::class.java)
 
 
 
@@ -122,7 +123,9 @@ class MainActivity : AppCompatActivity(){
                                 mySelectedBluetoothDevice.name.contains("LEDS_") -> {
                                     Log.d(TAG, "ALL DATA FROM : LED STRIP")
                                     jsonStripDataTest_big = allMessage.substring(0, allMessage.length - 1)
-                                    allStripData = Gson().fromJson(jsonStripDataTest_big ,jStripData::class.java)
+                                    allStripData = Gson().fromJson(
+                                        jsonStripDataTest_big ,
+                                        jStripData::class.java)
                                     allMessage = ""
                                     Log.d("DEBUG_INSIDE","Data loaded system alive")
                                     piStripMain()
@@ -134,10 +137,10 @@ class MainActivity : AppCompatActivity(){
                                         Log.d(TAG, "REMOVING CHAR!!!!!!")
                                         allMessage = allMessage.substring(0, allMessage.length - 1)
                                         Log.d(TAG, "DATA : $allMessage")
-                                        allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+                                        allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
                                     }else {
                                         Log.d(TAG, "DATA : $allMessage")
-                                        allPanelData = Gson().fromJson(allMessage,jPanelData::class.java)
+                                        allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
                                     }
 
                                     Log.d("DEBUG_INSIDE","Clearing panel lists :sentences , font, position , effect , background")
@@ -179,7 +182,7 @@ class MainActivity : AppCompatActivity(){
         val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
             //bluetoothAdapter?.listenUsingRfcommWithServiceRecord(SERVICE_NAME,uuid)
 
-            bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME,uuid)
+            bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME, uuid)
         }
 
         override fun run() {
@@ -759,7 +762,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(4, getString(R.string.stBeatWaveP4_pulse4), thisEffectData.get("pulse4").asInt, 1, 30)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBeatWave(){
@@ -786,7 +789,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(3, getString(R.string.stBlendWaveP3_mH2), thisEffectData.get("mH2").asInt, 1, 24)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBlendWave() {
@@ -815,7 +818,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(4, getString(R.string.stBlurP4_o3), thisEffectData.get("o3").asInt, 1, 20)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upBlur(){
@@ -1116,7 +1119,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(2, getString(R.string.stFire2P2_speed), thisEffectData.get("speed").asInt, 1, 5)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upFire2(){
@@ -1166,7 +1169,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(3, getString(R.string.stJuggle2P3_fade), thisEffectData.get("fade").asInt, 1, 10)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upJuggle2() {
@@ -1365,7 +1368,7 @@ class MainActivity : AppCompatActivity(){
                 setStripParamVal(3, getString(R.string.stPulseRainbowP3_delay), thisEffectData.get("delay").asInt, 1, 5)
             }
         }else{
-            Toast.makeText(this,"This "+allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"This "+ allStripData.effects[index].name+ "is not editable",Toast.LENGTH_SHORT).show()
         }
     }
     private fun upPulseRainbow(){
@@ -1601,14 +1604,14 @@ class MainActivity : AppCompatActivity(){
 
         sentencePopup.setOnMenuItemClickListener {
             when (it.itemId){
-                R.id.sentenceSet-> {
+                R.id.sentenceSet -> {
                     val set = JsonObject()
                     set.addProperty("cmd","SET")
                     set.addProperty("cmdId",thisItem.id)
                     Log.d(TAG,"SET sentence : $set")
                     ConnectThread(mySelectedBluetoothDevice).writeMessage(set.toString())
                 }
-                R.id.sentenceNew-> {
+                R.id.sentenceNew -> {
                     Log.d(TAG,"ADD sentence")
                     dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderAdd))
                 }
@@ -1626,7 +1629,7 @@ class MainActivity : AppCompatActivity(){
         sentencePopup.show()
     }
 
-    private  fun dialogSentenceAction(sentence : jPanelSentence , mode : String) {
+    private  fun dialogSentenceAction(sentence : jPanelSentence, mode : String) {
         val mDialog = Dialog(this)
         Log.d(TAG, "Passed sentence ID : ${sentence.id} and mode $mode")
         Log.d(TAG, "Sentence txt: ${sentence.sentence} ")
@@ -3682,7 +3685,7 @@ class MainActivity : AppCompatActivity(){
             newPopup.menu.add(Menu.NONE, 1, 0, getString(R.string.popupSentenceNew))
             newPopup.setOnMenuItemClickListener {
                 Log.d(TAG,"ADD sentence from header click")
-                val thisItem =jPanelSentence()
+                val thisItem = jPanelSentence()
                 dialogSentenceAction(thisItem,getString(R.string.sentenceHeaderAdd))
                 false
             }

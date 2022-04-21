@@ -1,11 +1,11 @@
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 
 import com.google.gson.JsonObject
 
 data class jStripConfig(
-    var mode : Int ,
-    var selected : Int ,
-    var color : jColor ,
+    var mode : Int,
+    var selected : Int,
+    var color : jColor,
     var time : Int
 )
 

@@ -1,4 +1,4 @@
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 /*
 * 12.02.2022
 * At this point description means nothing

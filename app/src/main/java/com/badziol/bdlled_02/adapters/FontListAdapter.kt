@@ -1,4 +1,4 @@
-package com.example.bdlled_02.adapters
+package com.badziol.bdlled_02.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
-import com.example.bdlled_02.jPanelFont
+import com.badziol.bdlled_02.jPanelFont
 
 
 class FontListAdapter(val context: Context, var dataSource: ArrayList<jPanelFont>) : BaseAdapter() {

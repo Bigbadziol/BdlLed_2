@@ -1,4 +1,4 @@
-package com.example.bdlled_02.adapters
+package com.badziol.bdlled_02.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
-import com.example.bdlled_02.jPanelSentence
+import com.badziol.bdlled_02.jPanelSentence
 
 class SentenceListAdapter(private val  context: Activity, var items : ArrayList<jPanelSentence>) :
     ArrayAdapter<jPanelSentence>(context , R.layout.sentence_list_row, items){

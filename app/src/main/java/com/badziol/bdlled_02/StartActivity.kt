@@ -7,7 +7,7 @@
 //int[] grantResults)
 //to handle the case where the user grants the permission. See the documentation
 //for ActivityCompat#requestPermissions for more details.
-package com.example.bdlled_02
+package com.badziol.bdlled_02
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -31,6 +31,9 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
+import com.example.bdlled_02.DeviceListAdapter
+import com.example.bdlled_02.DeviceListModel
+import com.example.bdlled_02.R
 import com.example.bdlled_02.databinding.ActivityStartBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -267,7 +270,7 @@ class StartActivity : AppCompatActivity() {
             }
             if (DEVICE_LIST.count() > 0) {
                 Log.d(TAG, "Push : ${DEVICE_LIST.count()} devices to next acitivity ")
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("START_DEVICE_LIST", DEVICE_LIST)
                 intent.putExtra("START_CURRENT_SELECTED", PAIRED_DEVICES_SELECTED)
                 startActivity(intent)
@@ -375,7 +378,8 @@ class StartActivity : AppCompatActivity() {
                             // , zatem , robimy to troszkę na około
                             var tmpIcon = 0
                             if (thisDevice.name.contains("LEDS_")) tmpIcon = R.drawable.icon_strip
-                            else if (thisDevice.name.contains("LEDP_")) tmpIcon = R.drawable.icon_panel
+                            else if (thisDevice.name.contains("LEDP_")) tmpIcon =
+                                R.drawable.icon_panel
                             val  dmDevice = DeviceListModel(thisDevice.name,thisDevice.address,tmpIcon)
                             val c = newDeviceList.contains(dmDevice)
                             val i = newDeviceList.indexOf(dmDevice)
@@ -417,7 +421,13 @@ class StartActivity : AppCompatActivity() {
             }
         }
         if (myDevices == 0){
-            pairedDeviceList.add(DeviceListModel(NO_DEVICE_NAME,NO_DEVICE_ADDRESS,R.drawable.icon_no_devices))
+            pairedDeviceList.add(
+                DeviceListModel(
+                    NO_DEVICE_NAME,
+                    NO_DEVICE_ADDRESS,
+                    R.drawable.icon_no_devices
+                )
+            )
         }
         bind.lvPairedDevices.adapter =  DeviceListAdapter(this,pairedDeviceList)
         //bind.lvPairedDevices.deferNotifyDataSetChanged() nie uzywac , powoduje odroczenie dla zmian adaptera defakto

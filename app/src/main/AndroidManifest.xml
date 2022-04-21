@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  zmienione z package="com.example.bdlled_02" na package="com.badziol.bdlled_02"
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bdlled_02">
     <!--
@@ -54,7 +57,7 @@ TO :
         android:supportsRtl="true"
         android:theme="@style/Theme.BdlLed_02">
         <activity
-            android:name=".StartActivity"
+            android:name="com.badziol.bdlled_02.StartActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -64,7 +67,7 @@ TO :
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.badziol.bdlled_02.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

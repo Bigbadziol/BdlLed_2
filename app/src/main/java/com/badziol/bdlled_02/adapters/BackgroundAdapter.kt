@@ -3,7 +3,7 @@
 *  Od teraz nazwe traktuje się jako klucz , tłumaczenie na podstawie zasobów z stringów
 * Wazne ! Dostęp do danych troszkę inaczej zrealizowany niz w TextPositionAdapter czy TextEffectAdapter
  */
-package com.example.bdlled_02.adapters
+package com.badziol.bdlled_02.adapters
 
 import android.app.Activity
 import android.util.Log
@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bdlled_02.R
-import com.example.bdlled_02.TAG
-import com.example.bdlled_02.jPanelBackgrounds
+import com.badziol.bdlled_02.TAG
+import com.badziol.bdlled_02.jPanelBackgrounds
 
 
 //Background calculated , only for panel devices
