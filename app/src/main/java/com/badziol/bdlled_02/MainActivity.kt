@@ -1,5 +1,8 @@
 package com.badziol.bdlled_02
 /*
+22.04.2022 - przy ustawianiu tla nagranego wcześniej(typ=10) zwracany jest teraz pusty obiekt
+    "data":{}, w celu ujednolicenia podejscia
+----
 Wcześniej : BtHandler : Handler() -> BtHandler : Handler(Looper.getMainLooper())
 myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
  private inner class AcceptIncommingThread() : Thread() {
@@ -463,7 +466,7 @@ class MainActivity : AppCompatActivity(){
         //val adapterEffectNames = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripEffectNames)
         val adapterEffectNames = StringListAdapter(this@MainActivity, stripEffectNames)
 */
-        var stripEffectList   : ArrayList<jStripEffect> = ArrayList()
+        val stripEffectList   : ArrayList<jStripEffect> = ArrayList()
         stripEffectList.addAll(allStripData.effects)
 
         with(
@@ -2297,6 +2300,56 @@ class MainActivity : AppCompatActivity(){
             return dataObj
         }
 
+        fun piTeNoise(){
+            var pIndex = 0  // default controller val , range 0..6
+            var pLow = 1    // default controller val , 1..10
+            var pHigh = 1   // default controller val , 1..10
+            val te = sentence.textEffect
+            val data: JsonObject
+            if (te.has("data")) {
+                data = te.getAsJsonObject("data").asJsonObject
+                if (data.has("pIndex")) pIndex = data.get("pIndex").asInt
+                if (data.has("low")) pLow = data.get("low") .asInt
+                if (data.has("high")) pHigh = data.get("high").asInt
+            }
+            Log.d(TAG, "[TE] Noise -> values : pIndex: $pIndex , low: $pLow , high: $pHigh")
+            val values: ArrayList<String> = ArrayList()
+            values.addAll(resources.getStringArray(R.array.commonPaleteList))
+            setParamCustom(
+                tvTeCustom,
+                spTeCustom,
+                getString(R.string.commonPaletteName),
+                values,
+                pIndex
+            )
+            setParamVal(
+                tvTeParam1,
+                tvTeParam1Val,
+                sbTeParam1,
+                getString(R.string.teNoiseP1_low),
+                pLow,
+                1,
+                10
+            )
+            setParamVal(
+                tvTeParam2,
+                tvTeParam2Val,
+                sbTeParam2,
+                getString(R.string.teNoiseP2_high),
+                pHigh,
+                1,
+                10
+            )
+            panelTextEffect.setVisibility(true)
+        }
+        fun upTeNoise(): JsonObject {
+            val dataObj = JsonObject()
+            dataObj.addProperty("pIndex", spTeCustom.selectedItemPosition)
+            dataObj.addProperty("low", sbTeParam1.progress)
+            dataObj.addProperty("high", sbTeParam2.progress)
+            return dataObj
+        }
+
         fun updateTextEffectData(): JsonObject {
             val thisTextEffect = spTeTextEffect.selectedItem as jPanelTextEffect
             var textEffectData = JsonObject()
@@ -2306,6 +2359,7 @@ class MainActivity : AppCompatActivity(){
                     "Fire text" -> textEffectData = upTeFireText()
                     "Rolling border" -> textEffectData = upTeRollingBorder()
                     "Colors" -> textEffectData = upTeColors()
+                    "Noise" -> textEffectData = upTeNoise()
                 }
             }
             return textEffectData
@@ -2321,6 +2375,7 @@ class MainActivity : AppCompatActivity(){
                     "Fire text" -> piTeFireText()
                     "Rolling border" -> piTeRollingBorder()
                     "Colors" -> piTeColors()
+                    "Noise" ->piTeNoise()
                 }
             }
         }
@@ -2366,7 +2421,8 @@ class MainActivity : AppCompatActivity(){
             panelBg.setVisibility(true) // show only main background selector
         }
         //common for all non editable mostly recorded backgrounds
-        //At this point prepareDataToUpdate() check bg type , if type != 30 ignore adding data
+        //At this point prepareDataToUpdate() check bg type , if type = 30 add parameters to data, if type = 10
+        // is empty object "data":{}
         /*
         fun upBgRecordedBackgrounds():JsonObject{
             val dataObj = JsonObject()
@@ -2679,6 +2735,7 @@ class MainActivity : AppCompatActivity(){
                     "Big plasma" -> bgData = upBgBigPlasma()
                 }
             }
+            //if this bg type == 10 (recorded background) , return empty object
             return bgData
         }
 
@@ -2742,8 +2799,10 @@ class MainActivity : AppCompatActivity(){
             backgroundObj.addProperty("name", thisBackground.name)
             backgroundObj.addProperty("editable", thisBackground.editable)
             backgroundObj.addProperty("type", thisBackground.type)
-            // if..type == 10 , don't add unnecessary data
-            if (thisBackground.type == 30)  backgroundObj.add("data", updateBackgroundData())
+            // if..type == 10 , empty "data" should be returned
+            // if..type == 30 , parameters is "data" should be returned
+            if (thisBackground.type == 30 || thisBackground.type == 10)
+                backgroundObj.add("data", updateBackgroundData())
             newSentence.background = backgroundObj
         }
 
@@ -2898,9 +2957,9 @@ class MainActivity : AppCompatActivity(){
                 //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
-
         btnBorderColor.setOnClickListener {
             Log.d(TAG, "Lede border color button clicked.")
+/*
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.dlColorTitle))
@@ -2909,6 +2968,19 @@ class MainActivity : AppCompatActivity(){
                 .setColorListener { _, colorHex ->
                     tvBorderColor.setBackgroundColor(Color.parseColor(colorHex))
                 }
+                .show()
+ */
+            com.skydoves.colorpickerview.ColorPickerDialog.Builder(this)
+                .setTitle(R.string.dlColorTitle)
+                .setPreferenceName("prefPanelColorBorder")
+                .setPositiveButton(getString(R.string.dlColorBtnOk), ColorEnvelopeListener { envelope, _ ->
+                    val color = envelope.color
+                    tvBorderColor.setBackgroundColor(color)
+                    //tvColor.setBackgroundColor(color)
+                })
+                .attachAlphaSlideBar(false) // the default value is true.
+                .attachBrightnessSlideBar(true) // the default value is true.
+                //.setBottomSpace(12) // avible in : 2.2.4
                 .show()
         }
 

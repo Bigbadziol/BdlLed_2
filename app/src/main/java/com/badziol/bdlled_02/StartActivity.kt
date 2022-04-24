@@ -31,6 +31,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
+import com.example.bdlled_02.BuildConfig
 import com.example.bdlled_02.DeviceListAdapter
 import com.example.bdlled_02.DeviceListModel
 import com.example.bdlled_02.R
@@ -152,10 +153,11 @@ class StartActivity : AppCompatActivity() {
         bind = ActivityStartBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(bind.root)
-
-        Log.d(TAG,"BUild version : ${Build.VERSION.SDK_INT} -> ${Build.VERSION.CODENAME}")
-        val currentDebug = getString(R.string.app_name)
-        Log.d(TAG,"CURRENT DEBUG : $currentDebug")
+        var gradleVersion  = BuildConfig.VERSION_CODE.toString();
+            gradleVersion += ":" + BuildConfig.VERSION_NAME;
+        Log.d(TAG,"Sdk compiled : ${Build.VERSION.SDK_INT} -> ${Build.VERSION.CODENAME}")
+        //val currentDebug = getString(R.string.app_name)
+        Log.d(TAG,"CURRENT DEBUG : $gradleVersion")
 
         pairedDeviceList = ArrayList()
         newDeviceList = ArrayList()
