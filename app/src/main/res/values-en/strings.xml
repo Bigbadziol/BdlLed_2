@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BdLed v1.0</string>
+    <string name="app_name">BdLed v1.01</string>
     <string name="tvPairedDevices">"Available devices "</string>
     <string name="tvNewDevices">"Devices found "</string>
     <string name="tvWelcomeOk">Welcome</string>
@@ -12,7 +12,7 @@
     <string name="lbCommonParam3Val">3</string>
     <string name="lbCommonParam4Val">4</string>
     <string name="NO_PAIRED_DEVICES">"No paired devices "</string>
-    <string name="btnNext">Next</string>
+    <string name="btnNext">NEXT</string>
     <string name="btnAddDevice">Add</string>
     <string name="btnConnect">Connect</string>
     <string name="iConnect">Connect</string>
@@ -324,6 +324,10 @@
     <string name="stRunningColorDotsCustom_rightToLeft">Right to left</string>
     <string name="stPulseRainbowCustom_forward">Forward</string>
     <string name="stPulseRainbowCustom_backward">Backward</string>
+    <string name="teNoiseP1_low">Noise 1:</string>
+    <string name="teNoiseP2_high">Noise 2:</string>
+    <string name="keyTeNoise">Noise</string>
+    <string name="commonPaletteName">Palette:</string>
 
     <!-- ............................................................. -->
 

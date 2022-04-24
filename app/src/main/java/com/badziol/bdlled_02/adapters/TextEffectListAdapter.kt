@@ -40,6 +40,7 @@ class TextEffectListAdapter(val context: Context, var dataSource: ArrayList<jPan
             "Fire text" -> translatedDescription = context.getString(R.string.keyTeFireText)
             "Rolling border" -> translatedDescription =context.getString(R.string.keyTeRollingBorder)
             "Colors"-> translatedDescription = context.getString(R.string.keyTeColors)
+            "Noise" -> translatedDescription = context.getString(R.string.keyTeNoise)
         }
         if (translatedDescription == "ERROR"){
             Log.d(TAG,"[ERROR]Text effect adapter -> key : $sourceKey not found, deleted from data source.")
