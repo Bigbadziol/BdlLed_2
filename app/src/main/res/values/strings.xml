@@ -546,12 +546,11 @@
 
     <!-- .....  Test data for add , edit ,del sentence in dialog and some devices names  ....... -->
     <string-array name="TestDeviceList">
-        <item>LEDL_666</item>
-        <item>LEDL_001</item>
-        <item>LEDL_134</item>
-        <item>LEDL_xxx</item>
-        <item>LEDLE_001</item>
-        <item>LEDLE_115</item>
+        <item>LEDS_aaaa</item>
+        <item>LEDS_bbbb</item>
+        <item>LEDP_xxxx</item>
+        <item>LEDP_yyyy</item>
+
     </string-array>
 
     <string-array name="TestCustomPosition">

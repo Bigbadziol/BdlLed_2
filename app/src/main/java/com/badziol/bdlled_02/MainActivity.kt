@@ -1,5 +1,6 @@
 package com.badziol.bdlled_02
 /*
+//673 linia
 22.04.2022 - przy ustawianiu tla nagranego wcześniej(typ=10) zwracany jest teraz pusty obiekt
     "data":{}, w celu ujednolicenia podejscia
 ----
@@ -22,6 +23,7 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
  */
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.bluetooth.*
 import android.content.Context
@@ -44,8 +46,8 @@ import androidx.core.app.ActivityCompat
 import com.badziol.bdlled_02.adapters.*
 import com.example.bdlled_02.R
 import com.example.bdlled_02.databinding.ActivityMainBinding
-import com.github.dhaval2404.colorpicker.ColorPickerDialog
-import com.github.dhaval2404.colorpicker.model.ColorShape
+//import com.github.dhaval2404.colorpicker.ColorPickerDialog //old color picker
+//import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.github.dhaval2404.colorpicker.util.setVisibility
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -54,10 +56,6 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-
-
-//szukac fontID
-
 
 
 const val SERVICE_NAME = "KrzysService"
@@ -100,26 +98,21 @@ class MainActivity : AppCompatActivity(){
     //----------------------------------------------------------------------------------------------
      private  inner class BtHandler : Handler(Looper.getMainLooper()){
         var allMessage : String =""
+        // gotBtPermToConnect - test if got specyfic permission
+        @SuppressLint("MissingPermission")
         override fun handleMessage(msg: Message) {
             val readBuf = msg.obj as String
             //Log.d("DEBUG_INSIDE",readBuf.length.toString())
             when (msg.what){
                 1 ->{
                     //Log.d("INSIDE_BUF",readBuf.length.toString())
-                    if (readBuf.length == 330){
+                    if (readBuf.length == 330){ //330 - size of buffer set in ESP-IDF
                         allMessage += readBuf
                     }else{
                         allMessage += readBuf
                         if (allMessage.length-1 > 0) {
-                            if (ActivityCompat.checkSelfPermission(
-                                    this@MainActivity,
-                                    Manifest.permission.BLUETOOTH
-                                    //Manifest.permission.BLUETOOTH_CONNECT
-                                ) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                //STANDARD_1 26_01_2022
-                                //uzupelniono kontekst z this na this@StartActivity
-                                Log.d(TAG,"[MAIN ACTIVITY][BT] handleMessage")
+                            if (!gotBtPermToConnect(this@MainActivity,"[MAIN ACTIVITY][BT] handleMessage")){
+                                Log.d(TAG,"class : BtHandler , fun : handleMessage - fatal error")
                                 return
                             }
                             when {
@@ -159,7 +152,6 @@ class MainActivity : AppCompatActivity(){
                                     backgroundList.clear()
                                     backgroundList.addAll(allPanelData.backgrounds)
 
-
                                     bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
                                     allMessage = ""
                                     //show panels
@@ -170,22 +162,26 @@ class MainActivity : AppCompatActivity(){
                                 else -> {
                                     Log.d(TAG, "Unknown type of selected device")
                                     allMessage = ""
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                                    }
+                            } // test if name contains LEDS_ or LEDP_ prefix
+                        } //readBuf > 0 but != 330
+                    } //redBuf == 330
+                } //msg idetifier
+            }//there is a message
             super.handleMessage(msg)
         }
     }
     //----------------------------------------------------------------------------------------------
+    @SuppressLint("MissingPermission")
     private inner class AcceptIncommingThread : Thread() {
         // val serverSocket: BluetoothServerSocket?
         val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
             //bluetoothAdapter?.listenUsingRfcommWithServiceRecord(SERVICE_NAME,uuid)
 
-            bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME, uuid)
+            //ZDECYDOWANIE OBADAC
+            //if (gotBtPermToConnect(this@MainActivity,"class : AcceptIncommingThread - fatal error ")){
+                bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME, uuid)
+           // }
         }
 
         override fun run() {
@@ -224,20 +220,13 @@ class MainActivity : AppCompatActivity(){
             val inputStream = socket.inputStream
             val buffer = ByteArray(10240)
             var bytes: Int
-            var thisMessage: String //      was =""
+            var thisMessage: String
             Log.d("DEBUG_ESP", "Waiting for data, ...")
             while (true) {
                 try {
-                    /*
-                    //OLD VERSION
-                    bytes = inputStream.read(buffer, bytes, 10240 - bytes)
-                    val thisMessage= String(buffer).substring(0, bytes-1) //linuxy/windowsy , znak konca
-                    bytes = 0
-                     */
                     bytes = inputStream.read(buffer)
                     //Log.d("DEBUG_DATA_SIZE", bytes.toString())
                     thisMessage  = String(buffer, 0, bytes)
-                    //if (bytes == -1 || bytes == 0 || bytes == null){ Log.d("DBT_S", "WHY ?????") }
                     dataHandler.obtainMessage(1,thisMessage).sendToTarget()
                 } catch (e :IOException) {
                     e.printStackTrace()
@@ -254,11 +243,13 @@ class MainActivity : AppCompatActivity(){
     // samo utworzenie serwisu : poszlo do try PO sprawdzeniu uprawnien
     //--------------------------------------------------------------------------------------
     private inner class ConnectThread(device: BluetoothDevice): Thread() {
+        @SuppressLint("MissingPermission")
         private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
         //private lateinit var newSocket : BluetoothSocket
         //var myDevice = device
         //var buffer = ByteArray(10240) // old ver
         //var bytes: Int = 0    //old ver
+        @SuppressLint("MissingPermission")
         override fun run() {
             try {
                 Log.d("DEBUG_APP", "Connecting socket")
@@ -267,6 +258,8 @@ class MainActivity : AppCompatActivity(){
                     handlePanelsVisibility()
                 }
                 appSocket = newSocket
+/*
+                // stary perm check
                 if (ActivityCompat.checkSelfPermission(
                         this@MainActivity,
                         Manifest.permission.BLUETOOTH
@@ -278,7 +271,14 @@ class MainActivity : AppCompatActivity(){
                     Log.d(TAG,"[START ACTIVITY][BT] ConnectThread")
                     return
                 }
+*/
+
                 //newSocket = myDevice.createInsecureRfcommSocketToServiceRecord(uuid)
+                if (!gotBtPermToConnect(this@MainActivity,
+                        "[MAIN ACTIVITY][BT] ConnectThread")) {
+                    Log.d(TAG , "[MAIN ACTIVITY] class : ConnectThread, fun : run - fatal error")
+                    return
+                }
                 appSocket.connect()
 
                 Log.d("DEBUG_APP", "Socket connected")
@@ -326,7 +326,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    //this is a quick fix becouse some problems with description translaction in enum class
+    //this is a quick fix because some problems with description translaction in enum class
     private fun espStateDescription(): String{
         when (espState){
             EspConnectionState.DISCONNECTED -> return getString(R.string.espDisconnected)
@@ -380,34 +380,37 @@ class MainActivity : AppCompatActivity(){
         bind.tvStatus.text = espStateDescription()
     }
 
+    @SuppressLint("MissingPermission")
     private fun piConnection(){
         //CONNECTION PART
         //now from Bluetooth device list  to string list to device adapter....
         //var myDevicesNames = arrayOf<String>() // old version with no custom draw
         val myDevicesNames : ArrayList<String> = ArrayList()
-
 /*
-        //STANDARD_1
-        //BYLO
-        for (d in myDevices){
-            val name = d.name
-            myDevicesNames += name
-        }
-        //JEST
- */
+        //stary perm check
          if (ActivityCompat.checkSelfPermission(
                 this,
                  Manifest.permission.BLUETOOTH
                 //Manifest.permission.BLUETOOTH_CONNECT
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-             Log.d(TAG,"[Main ACTIVITY][BT] piConnection")
+             Log.d(TAG,"[MAIN ACTIVITY][BT] piConnection")
             return
         }else {
              for (d in myDevices) {
                  myDevicesNames += d.name
              }
         }
+*/
+        if (!gotBtPermToConnect(this,"[MAIN ACTIVITY][BT] piConnection")){
+            Log.d(TAG,"fun : piConnection - fatal error")
+            return
+        }else{
+            for (d in myDevices) {
+                myDevicesNames += d.name
+            }
+        }
+
         // this is a old version with no custom draw
         //val adapterDevices = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,myDevicesNames)
         val adapterDevices = StringListAdapter(this@MainActivity, myDevicesNames)
@@ -456,36 +459,21 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun piStripMain(){
-        // var stripEffectNames  = arrayOf<String>() // old version before StringlistAdapter
-/*
-        // troche nowsza wersja , ale znow stara
-        val stripEffectNames : ArrayList<String> = ArrayList()
-        for (e in allStripData.effects.indices){
-            stripEffectNames += allStripData.effects[e].name
-        }
-        //val adapterEffectNames = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripEffectNames)
-        val adapterEffectNames = StringListAdapter(this@MainActivity, stripEffectNames)
-*/
         val stripEffectList   : ArrayList<jStripEffect> = ArrayList()
         stripEffectList.addAll(allStripData.effects)
 
         with(
             bind,
         ) {
-            //visibility
             //here is new visibility version
             //specific interface is called by spStripMode listener
             piStrip_core() // set minimum visibility
             spStripMode.setSelection(allStripData.config.mode, false)
 
-//Bylo stripEffectNames
             if (stripEffectList.size > 0) {
-//                spStripEffect.adapter = adapterEffectNames
                 spStripEffect.adapter = StripEffectListAdapter(this@MainActivity,stripEffectList)
                 spStripEffect.setSelection(allStripData.config.selected)
             } else {
-                //lbStripEffect.setVisibility(false)
-                //spStripEffect.setVisibility(false)
                 rowStripEffectSelect.setVisibility(false)
             }
             sbStripTime.setProgress(allStripData.config.time, false)
@@ -498,7 +486,6 @@ class MainActivity : AppCompatActivity(){
                 ),
             )
         }
-
     }
 
     private fun hideStripInterface(){
@@ -532,11 +519,11 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun showPanelSenteces(){
-        with(bind,{
+        with(bind) {
             tvSentenceListHeader.setVisibility(true)
             lvPanelSentences.setVisibility(true)
             panelPanelSentences.setVisibility(true)
-        })
+        }
     }
 
     private fun hidePanelInterfaces(){

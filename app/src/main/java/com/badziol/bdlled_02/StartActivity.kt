@@ -56,7 +56,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import com.example.bdlled_02.BuildConfig
@@ -111,6 +110,15 @@ class StartActivity : AppCompatActivity() {
     private lateinit var  bluetoothManager : BluetoothManager
 
     private var conditions = Conditions(false, false)
+
+    //pozwolenia dla api >=31 (android 12+)
+    private val requestBluetoothPermNew =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            permissions.entries.forEach {
+                Log.d(TAG, "${it.key} = ${it.value}")
+            }
+        }
+
    /*
    //requestBluetoothEnable - wersja przed kombinowaniem
     private var requestBluetoothEnable =
@@ -131,6 +139,7 @@ class StartActivity : AppCompatActivity() {
         }
 
     */
+    //pozwolenia dla api <=30 (android 11 max i ponizej)
     private var requestBluetoothEnable = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             //jesli jest wlaczone z automatu bedzie granted dla api 12
@@ -214,12 +223,25 @@ class StartActivity : AppCompatActivity() {
         conditions.permissionsOk = checkPermissions()
 
         Log.d(TAG, "FIRST conditions check :")
+        Log.d(TAG,"${conditions}")
         if (conditions.isReady()) {
             conditions.log()
             buildInterfaceOk()
         }else{
             buildInterfaceError()
-            if(!conditions.isBtEnabled)  requestBluetoothEnable.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
+            //wersja orginalna
+            //if(!conditions.isBtEnabled)  requestBluetoothEnable.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
+            //nowa
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                requestBluetoothPermNew.launch(arrayOf(
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT))
+            }
+            else{
+                val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                requestBluetoothEnable.launch(enableBtIntent)
+            }
+
             if(!conditions.permissionsOk)  requestPermissionLocation.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
@@ -245,39 +267,11 @@ class StartActivity : AppCompatActivity() {
         }
 
         if (this.bluetoothAdapter.isDiscovering){
-            if (gotBtPermToScan("[START ACTIVITY][BT] OnDestroy - no scan permission")){
+            if (gotBtPermToScan(this,"[START ACTIVITY][BT] OnDestroy")){
                 bluetoothAdapter.cancelDiscovery()
             }else{
                 Log.d(TAG, "fun : OnDestroy - fatal error")
             }
-/*
-            //wywalone do zewnetrznej funkcji
-            var gotPerm  = true
-            if (Build.VERSION.SDK_INT <=30) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.BLUETOOTH
-                        //Manifest.permission.BLUETOOTH_SCAN
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    gotPerm = false
-                    Log.d(TAG, "[START ACTIVITY][BT] OnDestroy - no scan permission API <= 30")
-                }
-            }
-            if (Build.VERSION.SDK_INT >=31) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        //Manifest.permission.BLUETOOTH
-                        Manifest.permission.BLUETOOTH_SCAN
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    gotPerm = false
-                    Log.d(TAG, "[START ACTIVITY][BT] OnDestroy - no scan permission API >= 31")
-                }
-            }
-            if (gotPerm) bluetoothAdapter.cancelDiscovery()
-
- */
         }
     }
 
@@ -285,7 +279,7 @@ class StartActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun buildInterfaceOk() {
         Log.d(TAG, "BUILDING INTERFACE : all is fine in theory")
-        if (!gotBtPermToScan("[START ACTIVITY][BT] buildInterfaceOk - no scan permission")){
+        if (!gotBtPermToScan(this,"[START ACTIVITY][BT] buildInterfaceOk")){
             Log.d(TAG,"fun : buildInterfaceOk - fatal error")
             return
         }
@@ -365,35 +359,12 @@ class StartActivity : AppCompatActivity() {
                 if (BluetoothDevice.ACTION_FOUND == action) {
                     val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     device?.let {
-                        if (!gotBtPermToScan("[START ACTIVITY][BT] initBrNewDevices - no scan permission")){
-                            Log.d(TAG,"fun : initBrNewDevices - fatal error")
-                            return
-                        }
-/*
-                        // na pale 11 i starszy
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-                            if (ActivityCompat.checkSelfPermission(
-                                    this@StartActivity,
-                                    Manifest.permission.BLUETOOTH
-                                ) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                Log.d(TAG, "[START ACTIVITY][BT] initBrNewDevices - no connect permission - API 28-30"
-                                )
+                        context?.let{
+                            if (!gotBtPermToScan(context,"[START ACTIVITY][BT] initBrNewDevices")){
+                                Log.d(TAG,"fun : initBrNewDevices - fatal error")
                                 return
                             }
                         }
-                        //na pale android 12 i nowszy
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            if (ActivityCompat.checkSelfPermission(
-                                    this@StartActivity,
-                                    Manifest.permission.BLUETOOTH_SCAN
-                                ) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                Log.d(TAG, "[START ACTIVITY][BT] initBrNewDevices - no connect permission - API 31+")
-                                return
-                            }
-                        }
-*/
 
                         if (it.name.contains("LEDS_") || it.name.contains("LEDP_")){
                             //displayDeviceDetails(DeviceItem(it.name, it.address, false))
@@ -437,24 +408,13 @@ class StartActivity : AppCompatActivity() {
                 val action = intent?.action
                 if (BluetoothDevice.ACTION_BOND_STATE_CHANGED == action){
                     val thisDevice: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-                    if (!gotBtPermToScan("[START ACTIVITY][BT] initBrBoundDevice - no scan permission")){
-                        Log.d(TAG,"fun : initBrBoundDevice - fatal error")
-                        return
+                    context?.let {
+                        if (!gotBtPermToScan(context,"[START ACTIVITY][BT] initBrBoundDevice")){
+                            Log.d(TAG,"fun : initBrBoundDevice - fatal error")
+                            return
+                        }
                     }
-/*
-                    //starsza wersja
-                    if (ActivityCompat.checkSelfPermission(
-                            this@StartActivity,
-                            Manifest.permission.BLUETOOTH
-                            //Manifest.permission.BLUETOOTH_SCAN
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        //STANDARD_1 26_01_2022
-                        //uzupelniono kontekst z this na this@StartActivity
-                        Log.d(TAG,"[START ACTIVITY][BT] initBrBoundDevice - no scan permission")
-                        return
-                    }
-*/
+
                     Log.d(TAG,"Broadcast reciver (bond) is discavering  test : ${bluetoothAdapter.isDiscovering}")
                     when (thisDevice?.bondState){
                         BluetoothDevice.BOND_NONE ->{
@@ -482,7 +442,6 @@ class StartActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
         }
     }
@@ -492,21 +451,7 @@ class StartActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private  fun getPairedDevices(){
         Log.d(TAG,"entry : get paired device ")
-/*
-        //przed zmianami
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.BLUETOOTH
-                //Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            //STANDARD_1 26_01_2022
-            //a tu kontekst NIE wymaga uzupełnienia
-            Log.d(TAG,"[START ACTIVITY][BT] getPairedDevices - no connect permission")
-            return
-        }
- */
-        if (!gotBtPermToScan("[START ACTIVITY][BT] getPairedDevices - no connect permission")){
+        if (!gotBtPermToScan(this,"[START ACTIVITY][BT] getPairedDevices")){
             Log.d(TAG,"fun : getPairedDevices - fatal error")
             return
         }
@@ -560,11 +505,11 @@ class StartActivity : AppCompatActivity() {
 */
 
         // na ten moment profilaktycznie 2 testy
-        if (!gotBtPermToScan("[START ACTIVITY][BT] removeBond - no scan permission")){
+        if (!gotBtPermToScan(this,"[START ACTIVITY][BT] removeBond")){
             Log.d(TAG,"fun : removeBond - fatal error")
             return
         }
-        if (!gotBtPermToConnect("[START ACTIVITY][BT] removeBond - no connect permission")){
+        if (!gotBtPermToConnect(this,"[START ACTIVITY][BT] removeBond")){
             Log.d(TAG,"fun : removeBond - fatal error")
             return
         }
@@ -597,25 +542,7 @@ class StartActivity : AppCompatActivity() {
             when (it.itemId){
                 1 -> {
                     //Toast.makeText(this, "skanuj : "+pos.toString(), Toast.LENGTH_SHORT).show()
-                    //zmiana
-/*
-                    if (ActivityCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.BLUETOOTH
-                            //Manifest.permission.BLUETOOTH_SCAN
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        if (this.bluetoothAdapter.isDiscovering) {
-                            bluetoothAdapter.cancelDiscovery()
-                        }
-                        bluetoothAdapter.startDiscovery()
-                    }else{
-                        //STANDARD_1 26_01_2022
-                        //tu na odwrot czy == granted
-                        Log.d(TAG,"[START ACTIVITY][BT] removeBond - no scan permission")
-                    }
-*/
-                    if (gotBtPermToScan("[START ACTIVITY][BT MENU] scan - no scan permission")){
+                    if (gotBtPermToScan(this,"[START ACTIVITY][BT MENU] scan")){
                         if (this.bluetoothAdapter.isDiscovering) {
                             bluetoothAdapter.cancelDiscovery()
                             Log.d(TAG,"Canceling discovery.")
@@ -657,30 +584,11 @@ class StartActivity : AppCompatActivity() {
             newPopup.setOnMenuItemClickListener {
                 thisDevice = bluetoothAdapter.getRemoteDevice(thisItem.deviceAdress)
                 //nowe
-                if (!gotBtPermToConnect("[START ACTIVITY][BT] doPopupMenuForNewDevices - no connect permission")){
+                if (!gotBtPermToConnect(this,"[START ACTIVITY][BT] doPopupMenuForNewDevices")){
                     Log.d(TAG,"fun : doPopupMenuForNewDevices - fatal error")
                 }else{
                     thisDevice.createBond()
                 }
-/*
-                //stare
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.BLUETOOTH
-                        //Manifest.permission.BLUETOOTH_CONNECT
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    thisDevice.createBond()
-                }else{
-                    //STANDARD_1 26_01_2022
-                    //tu na odwrot czy == granted
-                    Log.d(TAG,"[START ACTIVITY][BT] doPopupMenuForNewDevices - no connect permission")
-                }
-
-                //BluetoothDevice.ACTION_PAIRING_REQUEST , niepotrzebne narazie
-                //BluetoothDevice.ACTION_BOND_STATE_CHANGED ,  na naklepany reciver
-
- */
                 false
             }
             newPopup.show()
@@ -740,7 +648,7 @@ class StartActivity : AppCompatActivity() {
         Log.d(TAG,"CURRENT DEBUG -> $gradleVersion")
         Log.d(TAG,"----------------")
     }
-
+/*
     private fun gotBtPermToScan(errorMessage : String) : Boolean{
         var gotPerm  = true
         if (Build.VERSION.SDK_INT <=30) {
@@ -804,5 +712,5 @@ class StartActivity : AppCompatActivity() {
         }
         return gotPerm
     }
-
+*/
 }
