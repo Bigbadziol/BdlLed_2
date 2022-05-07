@@ -1,30 +1,4 @@
-/*
-//onCreate
-       if (bluetoothAdapter.isEnabled){
-            Log.d(TAG,"Bt is enabled.")
-        }else{
-            Log.d(TAG,"Bt is NOT enabled")
-        }
 
-        // na pale 11 i starszy
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
-            requestBtPermissions.launch(arrayOf(
-                Manifest.permission.BLUETOOTH,
-                Manifest.permission.BLUETOOTH_ADMIN))
-
-        }
-        //na pale android 12 i nowszy
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requestBtPermissions.launch(arrayOf(
-                Manifest.permission.BLUETOOTH_SCAN,
-                Manifest.permission.BLUETOOTH_CONNECT))
-        }
-
-        //na pale wlaczenie
-        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        requestBluetoothEnable.launch(enableBtIntent)
-
- */
 //Zajebisty problem po aktualizacji z dnia 26.01.2022
 //STANDARD_1 26_01_2022
 //_TODO: Consider calling
@@ -617,8 +591,8 @@ class StartActivity : AppCompatActivity() {
             } else {
                 arrayOf(
                     Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.ACCESS_FINE_LOCATION
+                    Manifest.permission.BLUETOOTH_SCAN
+                    //Manifest.permission.ACCESS_FINE_LOCATION
                 )
             }
         var permNum = 0
@@ -648,69 +622,5 @@ class StartActivity : AppCompatActivity() {
         Log.d(TAG,"CURRENT DEBUG -> $gradleVersion")
         Log.d(TAG,"----------------")
     }
-/*
-    private fun gotBtPermToScan(errorMessage : String) : Boolean{
-        var gotPerm  = true
-        if (Build.VERSION.SDK_INT <=30) {
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) <=30 , BLUETOOTH")
-            }
 
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH_ADMIN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) <=30 , BLUETOOTH_ADMIN")
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >=31) {
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH_SCAN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) >= 31")
-            }
-        }
-        return gotPerm
-    }
-
-    private fun gotBtPermToConnect(errorMessage : String) : Boolean{
-        var gotPerm  = true
-        if (Build.VERSION.SDK_INT <=30) {
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) <=30 , BLUETOOTH")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH_ADMIN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) <=30 , BLUETOOTH_ADMIN")
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >=31) {
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage (API) >= 31")
-            }
-        }
-        return gotPerm
-    }
-*/
 }

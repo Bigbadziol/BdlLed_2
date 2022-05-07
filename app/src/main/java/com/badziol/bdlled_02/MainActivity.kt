@@ -1,6 +1,5 @@
 package com.badziol.bdlled_02
 /*
-//673 linia
 22.04.2022 - przy ustawianiu tla nagranego wcześniej(typ=10) zwracany jest teraz pusty obiekt
     "data":{}, w celu ujednolicenia podejscia
 ----
@@ -22,12 +21,12 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
   //
  */
 
-import android.Manifest
+// import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.bluetooth.*
 import android.content.Context
-import android.content.pm.PackageManager
+//import android.content.pm.PackageManager //old , now gotBtPermToConnect , gotBtPermToScan
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -42,7 +41,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.app.ActivityCompat
+//import androidx.core.app.ActivityCompat
 import com.badziol.bdlled_02.adapters.*
 import com.example.bdlled_02.R
 import com.example.bdlled_02.databinding.ActivityMainBinding
@@ -75,21 +74,21 @@ var allPanelData = Gson().fromJson(jsonPanelDataTest_small, jPanelData::class.ja
 
 class MainActivity : AppCompatActivity(){
     private lateinit var bind : ActivityMainBinding
-    var myDevices : ArrayList<BluetoothDevice> = ArrayList() //list form start activity
-    var startPos : Int = 0 // position in list , current sellected device
+    private var myDevices : ArrayList<BluetoothDevice> = ArrayList() //list form start activity
+    private var startPos : Int = 0 // position in list , current sellected device
     var espState : EspConnectionState = EspConnectionState.DISCONNECTED
 
-    var stripModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
-    var stripPaletteList : ArrayList<String> = ArrayList()  //load data from resources in onCreate
-    var stripCustomList :  ArrayList<String> = ArrayList()  //nad tym tez trzeba popracowac, znaczy sie wyjebac
+    private var stripModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
+    private var stripPaletteList : ArrayList<String> = ArrayList()  //load data from resources in onCreate
+    private var stripCustomList :  ArrayList<String> = ArrayList()  //nad tym tez trzeba popracowac, znaczy sie wyjebac
 
-    var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
+    private var panelModeList : ArrayList<String> = ArrayList() //load data from resources in onCreate
 
     var sentenceList: ArrayList<jPanelSentence> = ArrayList()
     var fontList : ArrayList<jPanelFont> = ArrayList()
-    var fontSizeList : ArrayList<String> = ArrayList()
-    var fontDecorationList : ArrayList<String> = ArrayList()
-    var fontBorderTypeList : ArrayList<String> = ArrayList()
+    private var fontSizeList : ArrayList<String> = ArrayList()
+    private var fontDecorationList : ArrayList<String> = ArrayList()
+    private var fontBorderTypeList : ArrayList<String> = ArrayList()
     var textPositionList : ArrayList<jPanelTextPosition> = ArrayList()
     var textEffectList : ArrayList<jPanelTextEffect> = ArrayList()
     var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
@@ -418,7 +417,7 @@ class MainActivity : AppCompatActivity(){
         bind.spDevices.setSelection(startPos)
     }
 
-    private fun piStrip_core(){
+    private fun piStripCore(){
         with(bind,){
             cvStripInterface.setVisibility(true)
             panelStrip.setVisibility(true)
@@ -428,7 +427,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
     private fun piStripModeSelectedEffect(){
-        piStrip_core()
+        piStripCore()
         with(bind,){
             rowStripEffectSelect.setVisibility(true)
             rowStripTime.setVisibility(false)
@@ -439,8 +438,8 @@ class MainActivity : AppCompatActivity(){
     }
     //for :auto next and random next effect modes
     private fun piStripModeRandom(){
-        piStrip_core()
-        with(bind,) {
+        piStripCore()
+        with(bind) {
             rowStripEffectSelect.setVisibility(false)
             rowStripTime.setVisibility(true)
             rowStripColor.setVisibility(false)
@@ -449,8 +448,8 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun piStripModeColor(){
-        piStrip_core()
-        with(bind,){
+        piStripCore()
+        with(bind){
             rowStripEffectSelect.setVisibility(false)
             rowStripTime.setVisibility(false)
             rowStripColor.setVisibility(true)
@@ -466,7 +465,7 @@ class MainActivity : AppCompatActivity(){
         ) {
             //here is new visibility version
             //specific interface is called by spStripMode listener
-            piStrip_core() // set minimum visibility
+            piStripCore() // set minimum visibility
             spStripMode.setSelection(allStripData.config.mode, false)
 
             if (stripEffectList.size > 0) {
@@ -3300,7 +3299,8 @@ class MainActivity : AppCompatActivity(){
         mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
-
+    //gotBtPermToConnect - check permmision
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         bind = ActivityMainBinding.inflate(layoutInflater)
 
@@ -3321,22 +3321,14 @@ class MainActivity : AppCompatActivity(){
         myHandler = Handler(Looper.getMainLooper())    //handle data from  threds : AcceptIncommingThread() ,
         dataHandler = BtHandler()
 
-
         //data from StartActivity
         myDevices = intent.getParcelableArrayListExtra<BluetoothDevice>("START_DEVICE_LIST") as ArrayList<BluetoothDevice>
-        Log.i("ESP_DEVICE_LIST_SIZE", "${myDevices.size}")
+        Log.d(TAG, "Pushed array of bt device size : ${myDevices.size}")
         startPos = intent.getIntExtra("START_CURRENT_SELECTED",0)
-/*
-        //BYLO
-        for (d in myDevices){
-            val adr = d.address
-            val name = d.name
-            Log.i("ESP_MAIN","$adr -> $name")
-        }
- */
-        //STANDARD_1 26_01_2022
+
         var adr: String
         var name :String
+/*
         if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.BLUETOOTH
@@ -3350,7 +3342,18 @@ class MainActivity : AppCompatActivity(){
             for (d in myDevices) {
                 adr = d.address
                 name = d.name
-                    Log.i("ESP_MAIN", "$adr -> $name")
+                    Log.d(TAG, "$adr -> $name")
+            }
+        }
+*/
+        if(!gotBtPermToConnect(this,"[MAIN ACTIVITY][BT] onCreate")){
+            Log.d(TAG,"fun : onCreate - fatal error")
+            return
+        }else{
+            for (d in myDevices) {
+                adr = d.address
+                name = d.name
+                Log.d(TAG, "$adr -> $name")
             }
         }
 
@@ -3598,6 +3601,7 @@ class MainActivity : AppCompatActivity(){
         //----pick color 1
         bind.btnStripColor1.setOnClickListener {
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
                 .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
@@ -3626,6 +3630,7 @@ class MainActivity : AppCompatActivity(){
         //----pick color 2
         bind.btnStripColor2.setOnClickListener {
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)        				// Pass Activity Instance
                 .setTitle(R.string.dialog_title_pick_color) // Default "Choose Color"
@@ -3660,7 +3665,6 @@ class MainActivity : AppCompatActivity(){
         //----custom pick
         val adapterCustom = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,stripCustomList)
 
-        //adapterCustom.also { bind.spCustom.adapter = it } // ?!?!!?!!?!?!??!?!?!!? JA JEBIE
         bind.spStripCustom.adapter = adapterCustom
         bind.spStripCustom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {}
@@ -3726,6 +3730,7 @@ class MainActivity : AppCompatActivity(){
         //-----confirm new settings
         bind.btnPanelMainConfirm.setOnClickListener {
            /*
+            //Some dummy test
             val setConfig = JsonObject()
             setConfig.addProperty("cmd","SET_DATA")
             setConfig.addProperty("cmdId",666)
