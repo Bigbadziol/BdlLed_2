@@ -461,7 +461,6 @@ class MainActivity : AppCompatActivity(){
     private fun piStripMain(){
         val stripEffectList   : ArrayList<jStripEffect> = ArrayList()
         stripEffectList.addAll(allStripData.effects)
-
         with(
             bind,
         ) {
@@ -1629,7 +1628,6 @@ class MainActivity : AppCompatActivity(){
         Log.d(TAG, "text effect : ${sentence.textEffect}")
         Log.d(TAG, "background : ${sentence.background}")
 
-
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mDialog.setContentView(R.layout.ledp_dialog)//WARNING was ledp_dialog
         mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -1753,7 +1751,6 @@ class MainActivity : AppCompatActivity(){
         val btnTest2 = mDialog.findViewById<View>(R.id.btnLedpTest2) as Button
         val btnTest3 = mDialog.findViewById<View>(R.id.btnLedpTest3) as Button
 
-
         val newSentence = jPanelSentence()
         fontSizeList.clear()
         fontSizeList.addAll(resources.getStringArray(R.array.FontSize))
@@ -1761,7 +1758,6 @@ class MainActivity : AppCompatActivity(){
         fontDecorationList.addAll(resources.getStringArray(R.array.FontDecoration))
         fontBorderTypeList.clear()
         fontBorderTypeList.addAll(resources.getStringArray(R.array.BorderType))
-
 
         spFontName.adapter = FontListAdapter(this@MainActivity, fontList)
         spFontSize.adapter = StringListAdapter(this@MainActivity, fontSizeList)
@@ -2921,6 +2917,7 @@ class MainActivity : AppCompatActivity(){
         btnColor.setOnClickListener {
             Log.d(TAG, "Lede sentence color button clicked.")
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(R.string.dialog_title_pick_color)
@@ -2947,6 +2944,7 @@ class MainActivity : AppCompatActivity(){
         btnBorderColor.setOnClickListener {
             Log.d(TAG, "Lede border color button clicked.")
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.dlColorTitle))
@@ -3102,6 +3100,7 @@ class MainActivity : AppCompatActivity(){
 
         btnBgColor1.setOnClickListener {
 /*
+            // Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3127,6 +3126,7 @@ class MainActivity : AppCompatActivity(){
         }
         btnBgColor2.setOnClickListener {
 /*
+            // Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3153,6 +3153,7 @@ class MainActivity : AppCompatActivity(){
         }
         btnBgColor3.setOnClickListener {
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
@@ -3179,6 +3180,7 @@ class MainActivity : AppCompatActivity(){
         }
         btnBgColor4.setOnClickListener {
 /*
+            //Old color picker
             ColorPickerDialog
                 .Builder(this)
                 .setTitle(getString(R.string.chooseColor))
