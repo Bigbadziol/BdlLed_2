@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+13.05.2022
   zmienione z package="com.example.bdlled_02" na package="com.badziol.bdlled_02"
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,13 +34,16 @@ możesz zdecydowanie założyć, że Twoja aplikacja nigdy nie korzysta z uprawn
 TO :
  - wywalic FINE LOCATION , a do BLUETOOTH_SKAN dodac android:usesPermissionFlags="neverForLocation"
 -->
+    <!-- api max max 30 -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <!--
+    31+
     android:usesPermissionFlags="neverForLocation" - uses permission od sdk 31
     ACCESS_FINE_LOCATION , ACCESS_COARSE_LOCATION android:maxSdkVersion="30"
     -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
 
