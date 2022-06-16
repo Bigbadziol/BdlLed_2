@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@drawable/scrollview_bg"
-
-
-    tools:context="com.badziol.bdlled_02.MainActivity">
+   >
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="match_parent"
@@ -31,13 +26,13 @@
         android:text="@string/tvPairedDevices"
         android:visibility="visible" />
 
-        <ListView
+    <ListView
         android:id="@+id/lvPairedDevices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginHorizontal="10dp"
-        tools:listitem="@layout/device_list_row"
+        tools:listitem="@layout/device_list_row_new"
         />
 
     <TextView
@@ -54,15 +49,25 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginHorizontal="10dp"
-        tools:listitem="@layout/device_list_row"
+        tools:listitem="@layout/device_list_row_new"
         />
     <LinearLayout
-    style="@style/panelDataLine">
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNext"
-        style="@style/panelData_button"
-        android:layout_marginStart="10dp"
-        android:text="@string/btnNext"
-         tools:ignore="TextContrastCheck" />
+        style="@style/panelDataLine">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFind"
+            style="@style/panelData_button"
+            android:layout_marginStart="10dp"
+            android:text="@string/btnFind"
+            android:enabled="false"
+            tools:ignore="TextContrastCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            style="@style/panelData_button"
+            android:layout_marginStart="10dp"
+            android:text="@string/btnNext"
+            android:enabled="false"
+            tools:ignore="TextContrastCheck" />
     </LinearLayout>
 </LinearLayout>
+

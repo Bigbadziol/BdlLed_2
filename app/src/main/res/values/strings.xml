@@ -8,13 +8,20 @@
     <string name="espUnknown">[BLAD]Nieznany</string>
 
     <!-- ...............................START ACTIVITY ......................................... -->
+    <!-- this two strings NO_DEVICE_ are put to paired device list if any device dont have
+        prefix LEDP_ , LEDS_ -->
+    <string name="NO_DEVICE_NAME">BRAK</string>
+    <string name="NO_DEVICE_ADRESS" >URZADZEN</string>
     <string name="tvPairedDevices">Dostępne urządzenia</string>
     <string name="tvNewDevices">Odnalezione urządzenia</string>
-    <string name="tvWelcomeOk">Witaj</string>
-    <string name="tvWelcomeError">\"Bluetooth wyłączone lub zablokowano uprawnienia : Lokalizacja. \"</string>
     <string name="NO_PAIRED_DEVICES">Brak sparowanych urządzeń</string>
+    <string name="tvWelcomeOk">Witaj</string>
+    <string name="tvWelcomeErr_BtPerms">Bluetooth wyłaczone oraz brak uprawnien.</string>
+    <string name="tvWelcomeErr_Bt">Bluetooth wyłaczone</string>
+    <string name="tvWelcomeErr_Perms">Brak uprawnien</string>
     <string name="btnNext">DALEJ</string>
-    <string name="btnAddDevice">Dodaj</string>
+    <string name="btnFind">SZUKAJ</string>
+    <string name="btnFind2">SZUKAM…</string>
 
     <!-- ......................MAIN ACTIVITY - connection panel .................................-->
     <string name="btnConnect">Połącz</string>

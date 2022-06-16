@@ -4,7 +4,6 @@
     <string name="tvPairedDevices">"Available devices "</string>
     <string name="tvNewDevices">"Devices found "</string>
     <string name="tvWelcomeOk">Welcome</string>
-    <string name="tvWelcomeError">"Bluetooth is turned off or no \"location\" permission "</string>
     <string name="lbStripTimeVal">0</string>
     <string name="tvPanelBrightnessVal">0</string>
     <string name="lbCommonParam1Val">1</string>
@@ -13,7 +12,6 @@
     <string name="lbCommonParam4Val">4</string>
     <string name="NO_PAIRED_DEVICES">"No paired devices "</string>
     <string name="btnNext">NEXT</string>
-    <string name="btnAddDevice">Add</string>
     <string name="btnConnect">Connect</string>
     <string name="iConnect">Connect</string>
     <string name="iDisconnect">"Disconnect "</string>
@@ -328,6 +326,13 @@
     <string name="teNoiseP2_high">Noise 2:</string>
     <string name="keyTeNoise">Noise</string>
     <string name="commonPaletteName">Palette:</string>
+    <string name="NO_DEVICE_NAME">NO</string>
+    <string name="NO_DEVICE_ADRESS">DEVICES</string>
+    <string name="tvWelcomeErr_BtPerms">Bluetooth is off and no permissions.</string>
+    <string name="tvWelcomeErr_Bt">Bluetooth is off</string>
+    <string name="tvWelcomeErr_Perms">No permissions</string>
+    <string name="btnFind">Search</string>
+    <string name="btnFind2">Searching</string>
 
     <!-- ............................................................. -->
 

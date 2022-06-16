@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2405" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/device_add.xml" value="0.1015" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/device_no.xml" value="0.1015" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/device_remove.xml" value="0.1025" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2405" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2405" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/icon_no_devices.xml" value="0.2405" />
@@ -17,8 +20,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/sentence_row_style.xml" value="0.273" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/drawable/va_test.xml" value="0.2546875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/activity_start.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/device_list_row.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/device_list_row_new.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialog.xml" value="0.2744503411675512" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialogV2.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/User/AndroidStudioProjects/BdlLed_2/app/src/main/res/layout/ledp_dialog_orginal.xml" value="0.33" />

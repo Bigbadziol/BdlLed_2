@@ -1,5 +1,8 @@
 package com.badziol.bdlled_02
 /*
+16.06.2022 - wydaje sie , ze REDMI Note 10 pro ma problem z implementacją BT,
+wymaga perm BLUETOOTH , ktore powinno obowiazywac tylko do Androida 11
+
 22.04.2022 - przy ustawianiu tla nagranego wcześniej(typ=10) zwracany jest teraz pusty obiekt
     "data":{}, w celu ujednolicenia podejscia
 ----
@@ -22,17 +25,15 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
  */
 
 // import android.Manifest
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.bluetooth.*
 import android.content.Context
-//import android.content.pm.PackageManager //old , now gotBtPermToConnect , gotBtPermToScan
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -41,6 +42,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.ActivityCompat
 //import androidx.core.app.ActivityCompat
 import com.badziol.bdlled_02.adapters.*
 import com.example.bdlled_02.R
@@ -92,25 +94,64 @@ class MainActivity : AppCompatActivity(){
     var textPositionList : ArrayList<jPanelTextPosition> = ArrayList()
     var textEffectList : ArrayList<jPanelTextEffect> = ArrayList()
     var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
+    //----------------------------------------------------------------------------------------------
+    private fun gotBtPerms(context: Context, errorMessage : String) : Boolean{
+        var gotPerm  = true
+        //Android 11 or less
+        if (Build.VERSION.SDK_INT <=30) {
 
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH")
+            }
 
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH_ADMIN
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH_ADMIN")
+            }
+        }
+        //Android 12+
+        if (Build.VERSION.SDK_INT >=31) {
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH_SCAN
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_SCAN ")
+            }
+
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH_CONNECT
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_CONNECT ")
+            }
+        }
+
+        return gotPerm
+    }
     //----------------------------------------------------------------------------------------------
      private  inner class BtHandler : Handler(Looper.getMainLooper()){
         var allMessage : String =""
-        // gotBtPermToConnect - test if got specyfic permission
+
         @SuppressLint("MissingPermission")
         override fun handleMessage(msg: Message) {
             val readBuf = msg.obj as String
-            //Log.d("DEBUG_INSIDE",readBuf.length.toString())
             when (msg.what){
                 1 ->{
-                    //Log.d("INSIDE_BUF",readBuf.length.toString())
                     if (readBuf.length == 330){ //330 - size of buffer set in ESP-IDF
                         allMessage += readBuf
                     }else{
                         allMessage += readBuf
                         if (allMessage.length-1 > 0) {
-                            if (!gotBtPermToConnect(this@MainActivity,"[MAIN ACTIVITY][BT] handleMessage")){
+                            if (!gotBtPerms(this@MainActivity,"[MAIN ACTIVITY][BT] handleMessage")){
                                 Log.d(TAG,"class : BtHandler , fun : handleMessage - fatal error")
                                 return
                             }
@@ -171,16 +212,14 @@ class MainActivity : AppCompatActivity(){
         }
     }
     //----------------------------------------------------------------------------------------------
+/*
     @SuppressLint("MissingPermission")
     private inner class AcceptIncommingThread : Thread() {
-        // val serverSocket: BluetoothServerSocket?
         val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
-            //bluetoothAdapter?.listenUsingRfcommWithServiceRecord(SERVICE_NAME,uuid)
-
             //ZDECYDOWANIE OBADAC
-            //if (gotBtPermToConnect(this@MainActivity,"class : AcceptIncommingThread - fatal error ")){
+            //if (gotBtPerms(this@MainActivity,"class : AcceptIncommingThread - fatal error ")){
                 bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME, uuid)
-           // }
+            //}
         }
 
         override fun run() {
@@ -213,11 +252,12 @@ class MainActivity : AppCompatActivity(){
             }
         }
     }
+  */
     //----------------------------------------------------------------------------------------------
     private inner class ConnectedThread(private val socket: BluetoothSocket) : Thread() {
         override fun run() {
             val inputStream = socket.inputStream
-            val buffer = ByteArray(10240)
+            val buffer = ByteArray(20240)
             var bytes: Int
             var thisMessage: String
             Log.d("DEBUG_ESP", "Waiting for data, ...")
@@ -244,12 +284,8 @@ class MainActivity : AppCompatActivity(){
     private inner class ConnectThread(device: BluetoothDevice): Thread() {
         @SuppressLint("MissingPermission")
         private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
-        //private lateinit var newSocket : BluetoothSocket
-        //var myDevice = device
-        //var buffer = ByteArray(10240) // old ver
-        //var bytes: Int = 0    //old ver
-        @SuppressLint("MissingPermission")
         override fun run() {
+            bluetoothAdapter.cancelDiscovery()
             try {
                 Log.d("DEBUG_APP", "Connecting socket")
                 myHandler.post {
@@ -257,25 +293,16 @@ class MainActivity : AppCompatActivity(){
                     handlePanelsVisibility()
                 }
                 appSocket = newSocket
-/*
-                // stary perm check
-                if (ActivityCompat.checkSelfPermission(
-                        this@MainActivity,
-                        Manifest.permission.BLUETOOTH
-                        //Manifest.permission.BLUETOOTH_CONNECT
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    //STANDARD_1 26_01_2022
-                    //uzupelniono kontekst z this na this@StartActivity
-                    Log.d(TAG,"[START ACTIVITY][BT] ConnectThread")
+
+                if (!gotBtPerms(this@MainActivity,
+                        "[MAIN ACTIVITY][BT] ConnectThread")) {
                     return
                 }
-*/
-
-                //newSocket = myDevice.createInsecureRfcommSocketToServiceRecord(uuid)
-                if (!gotBtPermToConnect(this@MainActivity,
-                        "[MAIN ACTIVITY][BT] ConnectThread")) {
-                    Log.d(TAG , "[MAIN ACTIVITY] class : ConnectThread, fun : run - fatal error")
+                if (ActivityCompat.checkSelfPermission(
+                        this@MainActivity,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
                     return
                 }
                 appSocket.connect()
@@ -299,9 +326,6 @@ class MainActivity : AppCompatActivity(){
                     handlePanelsVisibility()
                 }
             }
-            // ConnectedThread w teorii, ten kod w tym miejscu zwyczajnie nie jest odpalany
-            // Na pale osobny wątek w pętli głownej
-
         }
         fun writeMessage(newMessage: String){
             Log.d("DEBUG_APP", "Sending")
@@ -385,23 +409,8 @@ class MainActivity : AppCompatActivity(){
         //now from Bluetooth device list  to string list to device adapter....
         //var myDevicesNames = arrayOf<String>() // old version with no custom draw
         val myDevicesNames : ArrayList<String> = ArrayList()
-/*
-        //stary perm check
-         if (ActivityCompat.checkSelfPermission(
-                this,
-                 Manifest.permission.BLUETOOTH
-                //Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-             Log.d(TAG,"[MAIN ACTIVITY][BT] piConnection")
-            return
-        }else {
-             for (d in myDevices) {
-                 myDevicesNames += d.name
-             }
-        }
-*/
-        if (!gotBtPermToConnect(this,"[MAIN ACTIVITY][BT] piConnection")){
+
+        if (!gotBtPerms(this,"[MAIN ACTIVITY][BT] piConnection")){
             Log.d(TAG,"fun : piConnection - fatal error")
             return
         }else{
@@ -3299,7 +3308,7 @@ class MainActivity : AppCompatActivity(){
         mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
-    //gotBtPermToConnect - check permmision
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         bind = ActivityMainBinding.inflate(layoutInflater)
@@ -3313,11 +3322,11 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(bind.root)
 
-        //WAS : bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
 
-        AcceptIncommingThread().start() // listen for controlers , trying to connect to app (backward flow)
+        //AT Androi12 this generate unfixable for me error
+        //AcceptIncommingThread().start() // listen for controlers , trying to connect to app (backward flow)
         myHandler = Handler(Looper.getMainLooper())    //handle data from  threds : AcceptIncommingThread() ,
         dataHandler = BtHandler()
 
@@ -3328,25 +3337,8 @@ class MainActivity : AppCompatActivity(){
 
         var adr: String
         var name :String
-/*
-        if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.BLUETOOTH
-                    //Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            //uzupelniono kontekst z this na this@StartActivity
-            Log.d(TAG,"[MAIN ACTIVITY][BT] onCreate")
-            return
-        }else {
-            for (d in myDevices) {
-                adr = d.address
-                name = d.name
-                    Log.d(TAG, "$adr -> $name")
-            }
-        }
-*/
-        if(!gotBtPermToConnect(this,"[MAIN ACTIVITY][BT] onCreate")){
+
+        if(!gotBtPerms(this,"[MAIN ACTIVITY][BT] onCreate")){
             Log.d(TAG,"fun : onCreate - fatal error")
             return
         }else{
