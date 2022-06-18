@@ -167,17 +167,9 @@ class MainActivity : AppCompatActivity(){
                                     piStripMain()
                                 }
                                 mySelectedBluetoothDevice.name.contains("LEDP_") -> {
-                                    Log.d(TAG, "ALL DATA FROM : LED PANEL")
-
-                                    if (allMessage.contains("REMOVE_THAT_FUCKIN_CHAR_IT_IS_DEAM_TEST")){
-                                        Log.d(TAG, "REMOVING CHAR!!!!!!")
-                                        allMessage = allMessage.substring(0, allMessage.length - 1)
-                                        Log.d(TAG, "DATA : $allMessage")
-                                        allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
-                                    }else {
-                                        Log.d(TAG, "DATA : $allMessage")
-                                        allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
-                                    }
+                                    Log.d(TAG, "ALL DATA FROM : LED PANEL (it could be cutted, to much data)")
+                                    Log.d(TAG, "DATA : $allMessage")
+                                    allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
 
                                     Log.d("DEBUG_INSIDE","Clearing panel lists :sentences , font, position , effect , background")
                                     Log.d("DEBUG_INSIDE","Warning! ")
@@ -298,13 +290,7 @@ class MainActivity : AppCompatActivity(){
                         "[MAIN ACTIVITY][BT] ConnectThread")) {
                     return
                 }
-                if (ActivityCompat.checkSelfPermission(
-                        this@MainActivity,
-                        Manifest.permission.BLUETOOTH_CONNECT
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    return
-                }
+
                 appSocket.connect()
 
                 Log.d("DEBUG_APP", "Socket connected")

@@ -399,7 +399,6 @@ class StartActivity : AppCompatActivity() {
             Log.d(TAG,"fun : getPairedDevices - fatal error")
             return
         }
-
         pairedDevices = bluetoothAdapter.bondedDevices
         var icon : Int
         var myDevices = 0
@@ -429,10 +428,10 @@ class StartActivity : AppCompatActivity() {
             bluetoothAdapter,
             DEVICE_ACTION_TYPE.REMOVE)
     }
+
     /*
         Init broadcast receiver for new devices. If new device found with name prefix
         LEDS_ or LEDP_ add data to list :  newDeviceList
-
      */
     private fun initBrNewDevices(){
         Log.d(TAG,"Init : broadcast receiver for new devices.")
@@ -447,7 +446,9 @@ class StartActivity : AppCompatActivity() {
                         if (device.name.isNullOrEmpty()) return
                         if (device.bondState != BluetoothDevice.BOND_NONE) return
                         if (itIsMyDevice(device.name) == false) return //check prefixes LEDS_ ,LEDP_
-
+                         newDeviceList.forEach { //already on list
+                            if (it.deviceAdress.contentEquals(device.address))  return
+                        }
                         Log.d(TAG, "Not bonded -> ${device.name}")
                         val icon: Int =
                             if (device.name.contains("LEDS_")) R.drawable.icon_strip //led strip icon

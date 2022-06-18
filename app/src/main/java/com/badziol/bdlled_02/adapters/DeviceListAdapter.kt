@@ -3,7 +3,6 @@ package com.example.bdlled_02
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
