@@ -1,5 +1,6 @@
 package com.badziol.bdlled_02
 /*
+//nowy commit
 16.06.2022 - wydaje sie , ze REDMI Note 10 pro ma problem z implementacją BT,
 wymaga perm BLUETOOTH , ktore powinno obowiazywac tylko do Androida 11
 

@@ -1,5 +1,5 @@
 
-
+//nowy commit
 package com.badziol.bdlled_02
 
 import android.Manifest
