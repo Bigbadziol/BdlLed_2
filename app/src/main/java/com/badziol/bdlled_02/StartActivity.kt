@@ -37,7 +37,6 @@ data class DeviceItem(
 
 )
 
-
 class StartActivity : AppCompatActivity() {
 
     companion object {
@@ -274,6 +273,7 @@ class StartActivity : AppCompatActivity() {
                 )
             } else {
                 arrayOf(
+                    Manifest.permission.BLUETOOTH, //BUG XIOMI
                     Manifest.permission.BLUETOOTH_CONNECT,
                     Manifest.permission.BLUETOOTH_SCAN
                 )
@@ -322,6 +322,15 @@ class StartActivity : AppCompatActivity() {
         }
         //Android 12+
         if (Build.VERSION.SDK_INT >=31) {
+
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage - no  permission (API) >=31 , BLUETOOTH, XIOMI BUG")
+            }
+
             if (ActivityCompat.checkSelfPermission(
                     context, Manifest.permission.BLUETOOTH_SCAN
                 ) != PackageManager.PERMISSION_GRANTED

@@ -1,7 +1,7 @@
 package com.badziol.bdlled_02
 
 import com.google.gson.JsonObject
-
+// 20.06.2.2022 dodano do jPanelBackgrounds , data : JsonObject()
 data class jPanelFont(
     var id : Int,
     var name : String
@@ -22,7 +22,8 @@ data class jPanelTextEffect(
 data class jPanelBackgrounds(
     var name : String="",
     var editable : Int= 0,
-    var type : Int = 0
+    var type : Int = 0,
+    var data : JsonObject = JsonObject()
 )
 
 data class  jPanelSentence(

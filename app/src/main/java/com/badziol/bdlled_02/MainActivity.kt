@@ -120,6 +120,14 @@ class MainActivity : AppCompatActivity(){
         //Android 12+
         if (Build.VERSION.SDK_INT >=31) {
             if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.BLUETOOTH
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                gotPerm = false
+                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH (FOR XIAOMI BUG) ")
+            }
+
+            if (ActivityCompat.checkSelfPermission(
                     context, Manifest.permission.BLUETOOTH_SCAN
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -135,7 +143,6 @@ class MainActivity : AppCompatActivity(){
                 Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_CONNECT ")
             }
         }
-
         return gotPerm
     }
     //----------------------------------------------------------------------------------------------
@@ -170,7 +177,8 @@ class MainActivity : AppCompatActivity(){
                                 mySelectedBluetoothDevice.name.contains("LEDP_") -> {
                                     Log.d(TAG, "ALL DATA FROM : LED PANEL (it could be cutted, to much data)")
                                     Log.d(TAG, "DATA : $allMessage")
-                                    allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
+
+                                    //allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
 
                                     Log.d("DEBUG_INSIDE","Clearing panel lists :sentences , font, position , effect , background")
                                     Log.d("DEBUG_INSIDE","Warning! ")
@@ -277,6 +285,7 @@ class MainActivity : AppCompatActivity(){
     private inner class ConnectThread(device: BluetoothDevice): Thread() {
         @SuppressLint("MissingPermission")
         private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
+        @SuppressLint("MissingPermission")
         override fun run() {
             bluetoothAdapter.cancelDiscovery()
             try {
