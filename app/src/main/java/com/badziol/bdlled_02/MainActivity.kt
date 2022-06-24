@@ -165,99 +165,6 @@ class MainActivity : AppCompatActivity(){
         return gotPerm
     }
     //----------------------------------------------------------------------------------------------
-/*
-     private  inner class BtHandler : Handler(Looper.getMainLooper()){
-        var allMessage : String =""
-
-        @SuppressLint("MissingPermission")
-        override fun handleMessage(msg: Message) {
-            val readBuf = msg.obj as String
-            when (msg.what){
-                1 ->{
-                    if (readBuf.length == 330){ //330 - size of buffer set in ESP-IDF
-                        allMessage += readBuf
-                    }else{
-                        allMessage += readBuf
-                        if (allMessage.length-1 > 0) {
-                            if (!gotBtPerms(this@MainActivity,"[MAIN ACTIVITY][BT] handleMessage")){
-                                Log.d(TAG,"class : BtHandler , fun : handleMessage - fatal error")
-                                return
-                            }
-                            when {
-                                mySelectedBluetoothDevice.name.contains("LEDS_") -> {
-                                    Log.d(TAG, "ALL DATA FROM : LED STRIP")
-                                    jsonStripDataTest_big = allMessage.substring(0, allMessage.length - 1)
-                                    allStripData = Gson().fromJson(
-                                        jsonStripDataTest_big ,
-                                        jStripData::class.java)
-                                    allMessage = ""
-                                    Log.d("DEBUG_INSIDE","Data loaded system alive")
-                                    piStripMain()
-                                }
-                                mySelectedBluetoothDevice.name.contains("LEDP_") -> {
-                                    Log.d(TAG, "ALL DATA FROM : LED PANEL (it could be cutted, to much data)")
-                                    Log.d(TAG, "DATA : $allMessage")
-                                    //jsonPanelDataTest_small = allMessage.substring(0, allMessage.length - 1)
-                                    //jsonPanelDataTest_small = allMessage +'\n'
-                                    //allPanelData = Gson().fromJson(jsonPanelDataTest_small, jPanelData::class.java)
-                                    allPanelData = Gson().fromJson(allMessage, jPanelData::class.java)
-                                    Log.d("DEBUG_INSIDE","----")
-                                    Log.d("DEBUG_INSIDE","Clearing panel lists :sentences , font, position , effect , background")
-                                    sentenceList.clear()
-                                    sentenceList.addAll(allPanelData.sentences)
-                                    fontList.clear()
-                                    fontList.addAll(allPanelData.fonts)
-                                    textPositionList.clear()
-                                    textPositionList.addAll(allPanelData.textPositions)
-                                    textEffectList.clear()
-                                    textEffectList.addAll(allPanelData.textEffects)
-                                    backgroundList.clear()
-                                    backgroundList.addAll(allPanelData.backgrounds)
-
-                                    bind.lvPanelSentences.adapter = SentenceListAdapter(this@MainActivity,sentenceList)
-                                    allMessage = ""
-                                    //show panels
-                                    showPanelConfig()
-                                    showPanelSenteces()
-                                    Log.d("DEBUG_INSIDE","----")
-                                }
-                                else -> {
-                                    Log.d(TAG, "Unknown type of selected device")
-                                    allMessage = ""
-                                    }
-                            } // test if name contains LEDS_ or LEDP_ prefix
-                        } //readBuf > 0 but != 330
-                    } //redBuf == 330
-                } //msg idetifier
-            }//there is a message
-            super.handleMessage(msg)
-        }
-    }
-*/
-    //----------------------------------------------------------------------------------------------
-/*
-    private inner class ConnectedThread(private val socket: BluetoothSocket) : Thread() {
-        override fun run() {
-            val inputStream = socket.inputStream
-            val buffer = ByteArray(20240)
-            var bytes: Int
-            var thisMessage: String
-            Log.d("DEBUG_ESP", "Waiting for data, ...")
-            while (true) {
-                try {
-                    bytes = inputStream.read(buffer)
-                    //Log.d("DEBUG_DATA_SIZE", bytes.toString())
-                    thisMessage  = String(buffer, 0, bytes)
-                    dataHandler.obtainMessage(1,thisMessage).sendToTarget()
-                } catch (e :IOException) {
-                    e.printStackTrace()
-                    Log.d("DEBUG_ESP", "Data error")
-                    break
-                }
-            }
-        }
-    }
-*/
     private inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
 
         private val mmInStream: InputStream = mmSocket.inputStream
@@ -327,9 +234,6 @@ class MainActivity : AppCompatActivity(){
             if (INCOMMING_ESP_DATA.contains(ESP_END_DATA_SIGNATURE)){
                 INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
                 Log.d(TAG,"[handle inc.esp data] : , end of data")
-                //allPanelData = Gson().fromJson(INCOMMING_ESP_DATA,jPanelData::class.java)
-                //Log.d (TAG,"[handle inc.esp data] : after Gson() , still alive...")
-
                 when {
                     mySelectedBluetoothDevice.name.contains("LEDS_") -> {
                         Log.d(TAG, "[handle inc.esp data] -> device is  LED STRIP")
@@ -370,82 +274,9 @@ class MainActivity : AppCompatActivity(){
         }//ui thread
     }
 
-    //----------------------------------------------------------------------------------------------
-    // Uwaga
-    // wczesniejsza inicjacja : private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
-    // aby abejsc : pojawilo sie  :  var myDevice = device
-    // samo utworzenie serwisu : poszlo do try PO sprawdzeniu uprawnien
-    //--------------------------------------------------------------------------------------
-
     /*
-    @SuppressLint("MissingPermission")
-    private inner class ConnectThread(device: BluetoothDevice): Thread() {
-        //@SuppressLint("MissingPermission")
-        //private var newSocket = device.createInsecureRfcommSocketToServiceRecord(uuid)
-
-        private val newSocket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
-            device.createInsecureRfcommSocketToServiceRecord(uuid)
-        }
-        @SuppressLint("MissingPermission")
-        override fun run() {
-            bluetoothAdapter.cancelDiscovery()
-            try {
-                Log.d("DEBUG_APP", "Connecting socket")
-                myHandler.post {
-                    espState = EspConnectionState.CONNECTING
-                    handlePanelsVisibility()
-                }
-                appSocket = newSocket!!
-
-                if (!gotBtPerms(this@MainActivity,
-                        "[MAIN ACTIVITY][BT] ConnectThread")) {
-                    return
-                }
-
-                appSocket.connect()
-
-                Log.d("DEBUG_APP", "Socket connected")
-                myHandler.post {
-                    espState = EspConnectionState.CONNECTED
-                    handlePanelsVisibility()
-                }
-                ConnectedThread(appSocket).start()
-                val cmdWelcome= JsonObject()
-                cmdWelcome.addProperty("cmd","DATA_PLEASE")
-                cmdWelcome.addProperty("cmdId",0)
-                //ConnectThread(mySelectedBluetoothDevice).writeMessage("""{"cmd" : "DATA_PLEASE" }""")
-                ConnectThread(mySelectedBluetoothDevice).writeMessage(cmdWelcome.toString())
-            }catch (e1: Exception){
-                Log.d("DEBUG_APP", "Error connecting socket, $e1")
-                myHandler.post {
-                    //bind.connectedOrNotTextView.text = "Connection failed" //OLD
-                    espState = EspConnectionState.CONNECTION_ERROR
-                    handlePanelsVisibility()
-                }
-            }
-        }
-        fun writeMessage(newMessage: String){
-            Log.d("DEBUG_APP", "Sending")
-            val outputStream = appSocket.outputStream
-            try {
-                outputStream.write(newMessage.toByteArray())
-                outputStream.flush()
-                Log.d("DEBUG_APP", "Sent " + newMessage)
-
-            } catch (e: Exception) {
-                Log.d("DEBUG_APP", "Cannot send, " + e)
-                return
-            }
-        }
-        fun cancel(){
-            try {
-                appSocket.close()
-            } catch (e: IOException) {
-                Log.d("DEBUG_APP", "Cant close socket", e)
-            }
-        }
-    }
-*/
+     Uwaga
+   */
     @SuppressLint("MissingPermission")
     private inner class ConnectThread(device: BluetoothDevice) : Thread() {
 
@@ -494,10 +325,9 @@ class MainActivity : AppCompatActivity(){
             }
         }
     }
-
-
-
-    //this is a quick fix because some problems with description translation in enum class
+/*
+    this is a quick fix because some problems with description translation in enum class
+*/
     private fun espStateDescription(): String{
         when (espState){
             EspConnectionState.DISCONNECTED -> return getString(R.string.espDisconnected)
