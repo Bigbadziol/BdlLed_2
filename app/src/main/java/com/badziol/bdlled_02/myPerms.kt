@@ -6,16 +6,21 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import android.content.Context
+/*
 
-fun gotBtPermToScan(context: Context, errorMessage : String) : Boolean{
+*/
+
+fun gotBtPerms(context: Context, errorMessage : String) : Boolean{
     var gotPerm  = true
+    //Android 11 or less
     if (Build.VERSION.SDK_INT <=30) {
+
         if (ActivityCompat.checkSelfPermission(
                 context, Manifest.permission.BLUETOOTH
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             gotPerm = false
-            Log.d(TAG, "$errorMessage - no scan permission (API) <=30 , BLUETOOTH")
+            Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH")
         }
 
         if (ActivityCompat.checkSelfPermission(
@@ -23,49 +28,33 @@ fun gotBtPermToScan(context: Context, errorMessage : String) : Boolean{
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             gotPerm = false
-            Log.d(TAG, "$errorMessage - no scan permission (API) <=30 , BLUETOOTH_ADMIN")
+            Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH_ADMIN")
         }
     }
-
+    //Android 12+
     if (Build.VERSION.SDK_INT >=31) {
+        if (ActivityCompat.checkSelfPermission(
+                context, Manifest.permission.BLUETOOTH
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            gotPerm = false
+            Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH (FOR XIAOMI BUG) ")
+        }
+
         if (ActivityCompat.checkSelfPermission(
                 context, Manifest.permission.BLUETOOTH_SCAN
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             gotPerm = false
-            Log.d(TAG, "$errorMessage  - no scan permission (API) >= 31 , BLUETOOTH_SCAN ")
-        }
-    }
-    return gotPerm
-}
-
-fun gotBtPermToConnect(context: Context,errorMessage : String) : Boolean{
-    var gotPerm  = true
-    if (Build.VERSION.SDK_INT <=30) {
-        if (ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.BLUETOOTH
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            gotPerm = false
-            Log.d(TAG, "$errorMessage  - no connect permission (API) <=30 , BLUETOOTH")
+            Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_SCAN ")
         }
 
-        if (ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.BLUETOOTH_ADMIN
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            gotPerm = false
-            Log.d(TAG, "$errorMessage - no connect permission (API) <=30 , BLUETOOTH_ADMIN")
-        }
-    }
-
-    if (Build.VERSION.SDK_INT >=31) {
         if (ActivityCompat.checkSelfPermission(
                 context, Manifest.permission.BLUETOOTH_CONNECT
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             gotPerm = false
-            Log.d(TAG, "$errorMessage - no connect permission (API) >= 31 , BLUETOOTH_CONNECT")
+            Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_CONNECT ")
         }
     }
     return gotPerm

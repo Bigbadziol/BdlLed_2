@@ -63,6 +63,7 @@ import java.io.OutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 var MESSAGE_STATE_CHANGE = 1
 var MESSAGE_READ = 2
 var MESSAGE_WRITE = 3
@@ -114,56 +115,7 @@ class MainActivity : AppCompatActivity(){
     var textPositionList : ArrayList<jPanelTextPosition> = ArrayList()
     var textEffectList : ArrayList<jPanelTextEffect> = ArrayList()
     var backgroundList : ArrayList<jPanelBackgrounds> = ArrayList()
-    //----------------------------------------------------------------------------------------------
-    private fun gotBtPerms(context: Context, errorMessage : String) : Boolean{
-        var gotPerm  = true
-        //Android 11 or less
-        if (Build.VERSION.SDK_INT <=30) {
 
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_ADMIN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH_ADMIN")
-            }
-        }
-        //Android 12+
-        if (Build.VERSION.SDK_INT >=31) {
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH (FOR XIAOMI BUG) ")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_SCAN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_SCAN ")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_CONNECT ")
-            }
-        }
-        return gotPerm
-    }
     //----------------------------------------------------------------------------------------------
     private inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
 
@@ -3731,14 +3683,7 @@ class MainActivity : AppCompatActivity(){
         })
         //-----confirm new settings
         bind.btnPanelMainConfirm.setOnClickListener {
-           /*
-            //Some dummy test
-            val setConfig = JsonObject()
-            setConfig.addProperty("cmd","SET_DATA")
-            setConfig.addProperty("cmdId",666)
-            setConfig.addProperty("mode",bind.spPanelMode.selectedItemPosition)
-            setConfig.addProperty("brightness",bind.sbPanelBrightness.progress)
-            */
+
             val setBrightness = JsonObject()
             setBrightness.addProperty("cmd","SET_BRIGHTNESS")
             setBrightness.addProperty("newBrightnessParam",bind.sbPanelBrightness.progress)
