@@ -23,6 +23,14 @@
     <string name="btnFind">SZUKAJ</string>
     <string name="btnFind2">SZUKAM…</string>
 
+    <string name="AFL_title1">- ACCESS_FINE_LOCATION -  </string>
+    <string name="AFL_Explain1">Potrzebuje tego uprawnienia tylko do komunikacji z urzadzeniami </string>
+    <string name="AFL_error1">Przykro mi ale program nie bedzie dzialal.</string>
+
+    <string name="AFL_title2">- ACCESS_FINE_LOCATION - \n Zablokowano mnie dwa razy :(</string>
+    <string name="AFL_Explain2">Proszę, idz do ustawień aplikacji i recznie wlacz uprawnienie do "okreslenia lokalizacji".
+        Bez tego uprawnienia program nie moze dzialac. Drugie rozwiazanie to : zainstaluj program jeszcze raz i tym razem zezwol. </string>
+
     <!-- ......................MAIN ACTIVITY - connection panel .................................-->
     <string name="btnConnect">Połącz</string>
     <string name="iConnect">Połącz</string> <!-- button description witch depends on esp connection state -->
@@ -30,7 +38,9 @@
     <string name="lbStatus">Status :</string>
 
     <!-- ....................Default values for interface elements ............................. -->
-    <!-- ................. for strip and panel effects ......................................... -->
+    <!-- ................. for strip and panel effects ,dialogs................................. -->
+    <string name="btnYes">Tak</string>
+    <string name="btnNo">Nie</string>
     <string name="dlColorTitle">Proszę wybierz kolor</string>
     <string name="dlColorBtnOk">Zatwierdz</string> <!-- in new color picker dialog, button ok -->
 

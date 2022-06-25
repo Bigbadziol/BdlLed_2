@@ -11,7 +11,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -21,8 +20,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.example.bdlled_02.*
 import com.example.bdlled_02.databinding.ActivityStartBinding
 import com.google.android.material.snackbar.Snackbar
@@ -72,7 +69,7 @@ class StartActivity : AppCompatActivity() {
     private val requestBluetoothPermissionsApiS =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             Log.d(TAG,"->Result for android 12+ permissions:")
-            checkPermissions()
+            gotBTPerms(this,true)
             buildInterface() //rebuild interface
         }
     //android 11 or less
@@ -87,13 +84,13 @@ class StartActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "Permission : ACCESS_FINE_LOCATION denied by contract 1")
                     val builder = AlertDialog.Builder(this@StartActivity)
-                    builder.setTitle("- ACCESS_FINE_LOCATION - ")
-                    builder.setMessage("I need these permissions to work with Bt devices ")
-                    builder.setPositiveButton("YES") { _, _ ->
+                    builder.setTitle(getString(R.string.AFL_title1))
+                    builder.setMessage(getString(R.string.AFL_Explain1))
+                    builder.setPositiveButton(getString(R.string.btnYes)) { _, _ ->
                         requestPermissionLocationSecond.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                     }
-                    builder.setNegativeButton("No") { _, _ ->
-                        Toast.makeText(this, "Sorry boss cant work!", Toast.LENGTH_SHORT).show()
+                    builder.setNegativeButton(getString(R.string.btnNo)) { _, _ ->
+                        Toast.makeText(this, getString(R.string.AFL_error1), Toast.LENGTH_SHORT).show()
                     }
                     val dialog: AlertDialog = builder.create()
                     dialog.show()
@@ -109,14 +106,9 @@ class StartActivity : AppCompatActivity() {
                     Log.d(TAG, "Permission : ACCESS_FINE_LOCATION granted by contract 2")
                 } else {
                     val builder = AlertDialog.Builder(this@StartActivity)
-                    builder.setTitle("- ACCESS_FINE_LOCATION 2 -\n You blocked me twice :(")
-                    builder.setMessage(
-                        " Please go to the app settings and manually turn on " +
-                                "\"location permission\". Without this permission," +
-                                " I do not work."+
-                                "Second solution is reinstall application and give this permission."
-                    )
-                    builder.setPositiveButton("Ok") { _, _ -> }
+                    builder.setTitle(getString(R.string.AFL_title2))
+                    builder.setMessage(getString(R.string.AFL_Explain2))
+                    builder.setPositiveButton(getString(R.string.btnYes)) { _, _ -> }
                     val dialog: AlertDialog = builder.create()
                     dialog.show()
                     Log.d(TAG, " V2-> Permission : ACCESS_FINE_LOCATION denied, - contract 2")
@@ -124,7 +116,6 @@ class StartActivity : AppCompatActivity() {
                 buildInterface() //rebuild interface
             }
         }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         bind = ActivityStartBinding.inflate(layoutInflater)
@@ -139,14 +130,13 @@ class StartActivity : AppCompatActivity() {
         newDeviceList = ArrayList()
 
         //IF bt is enabled
-        //Potencjalny problem , raz wlacza raz nie, coś tam na Stack
         Log.d(TAG,"Is bluetooth enabled : ${bluetoothAdapter.isEnabled}")
-        if (bluetoothAdapter.isEnabled == false) {
+        if (!bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             requestBluetoothEnable.launch(enableBtIntent)
         }
 
-        if (!checkPermissions()) {
+        if (!gotBTPerms(this,true)) {
             //if got bt permissions for Android 12+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 requestBluetoothPermissionsApiS.launch(
@@ -172,7 +162,7 @@ class StartActivity : AppCompatActivity() {
         bind.btnNext.setOnClickListener { it ->
             Log.d(TAG,"Action next... ")
             @SuppressLint("MissingPermission")
-            if (gotBtPerms(this,"[NEXT]")){
+            if (gotBTPerms(this,false)){
                 DEVICE_LIST.clear()
                 pairedDevices.forEach {
                     if (itIsMyDevice(it.name)){
@@ -200,7 +190,7 @@ class StartActivity : AppCompatActivity() {
             //newDevices.clear()
             newDeviceList.clear()
             @SuppressLint("MissingPermission")
-            if (gotBtPerms(this,"FIND")) {
+            if (gotBTPerms(this,false)) {
                 if (bluetoothAdapter.isDiscovering) {
                     bluetoothAdapter.cancelDiscovery()
                     bluetoothAdapter.startDiscovery()
@@ -219,16 +209,13 @@ class StartActivity : AppCompatActivity() {
                 }, 20000L)
             }
         }
-
         buildInterface()
-
-
     }
 
     @SuppressLint("MissingPermission")
     override fun onDestroy() {
         super.onDestroy()
-        if (gotBtPerms(this,"[START ACTIVITY][BT] OnDestroy")){
+        if (gotBTPerms(this,false)){
             if (bluetoothAdapter.isDiscovering){
                 bluetoothAdapter.cancelDiscovery()
             }
@@ -260,103 +247,11 @@ class StartActivity : AppCompatActivity() {
     }
 
     /*
-        Check if i got all needed permission
-     */
-    private fun checkPermissions(): Boolean {
-        var gotAllPerms = true
-        val permissionsRequired =
-            if (Build.VERSION.SDK_INT <= 30) { //android 11 or less
-                arrayOf(
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            } else {
-                arrayOf(
-                    Manifest.permission.BLUETOOTH, //BUG XIOMI
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.BLUETOOTH_SCAN
-                )
-            }
-        var permNum = 0
-        Log.d(TAG,"Self test - permissions , testing ${permissionsRequired.size} entries")
-        permissionsRequired.forEach { requiredPermission ->
-            permNum++
-            if (ContextCompat.checkSelfPermission(
-                    this.applicationContext,
-                    requiredPermission
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.d(TAG, "$permNum ) $requiredPermission -> IS GRANTED")
-            } else {
-                Log.d(TAG, "$permNum ) $requiredPermission -> NOT GRANTED")
-                gotAllPerms = false
-            }
-        }
-        Log.d(TAG, "Result of self check permissions : $gotAllPerms")
-        return gotAllPerms
-    }
-    /*
-        Check required BT permissions for android 11 or less and Android 12+
-     */
-    private fun gotBtPerms(context: Context, errorMessage : String) : Boolean{
-        var gotPerm  = true
-        //Android 11 or less
-        if (Build.VERSION.SDK_INT <=30) {
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_ADMIN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage - no  permission (API) <=30 , BLUETOOTH_ADMIN")
-            }
-        }
-        //Android 12+
-        if (Build.VERSION.SDK_INT >=31) {
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage - no  permission (API) >=31 , BLUETOOTH, XIOMI BUG")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_SCAN
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_SCAN ")
-            }
-
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_CONNECT
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                gotPerm = false
-                Log.d(TAG, "$errorMessage  - no  permission (API) >= 31 , BLUETOOTH_CONNECT ")
-            }
-        }
-
-        return gotPerm
-    }
-
-    /*
     Build interface...
  */
     private fun buildInterface(){
         Log.d(TAG,"Build interface test.")
-        if (checkPermissions() && bluetoothAdapter.isEnabled ){
+        if (gotBTPerms(this ,false) && bluetoothAdapter.isEnabled ){
             Log.d(TAG, "Build interface , ok")
             bind.tvWelcome.text = getString(R.string.tvWelcomeOk)
             getPairedDevices()
@@ -372,7 +267,7 @@ class StartActivity : AppCompatActivity() {
             bind.btnFind.isEnabled = true
             bind.btnNext.isEnabled = btnNextStatus()
         }else{
-            if (!bluetoothAdapter.isEnabled && !checkPermissions()){
+            if (!bluetoothAdapter.isEnabled && !gotBTPerms(this,false)){
                 bind.tvWelcome.text = getString(R.string.tvWelcomeErr_BtPerms)
                 Log.d(TAG, "Build interface , errors : bt disabled, no perms")
             }else if (!bluetoothAdapter.isEnabled){
@@ -404,7 +299,7 @@ class StartActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private  fun getPairedDevices(){
         Log.d(TAG,"Getting paired devices...")
-        if (!gotBtPerms(this,"[START ACTIVITY][BT] getPairedDevices")){
+        if (!gotBTPerms(this,false)){
             Log.d(TAG,"fun : getPairedDevices - fatal error")
             return
         }
@@ -493,7 +388,7 @@ class StartActivity : AppCompatActivity() {
                 if (BluetoothDevice.ACTION_BOND_STATE_CHANGED == action){
                     val thisDevice: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                     context?.let {
-                        if (!gotBtPerms(context,"[START ACTIVITY][BT] initBrBoundDevice")){
+                        if (!gotBTPerms(context,false)){
                             Log.d(TAG,"fun : initBrBoundDevice - fatal error")
                             return
                         }
@@ -533,7 +428,7 @@ class StartActivity : AppCompatActivity() {
      */
     @SuppressLint("MissingPermission")
     private fun btnNextStatus():Boolean{
-        if (!gotBtPerms(this,"[START ACTIVITY][BT] btnNextStatus")){
+        if (!gotBTPerms(this,false)){
             Log.d(TAG,"fun : initBrBoundDevice - fatal error")
             return false
         }
@@ -550,7 +445,7 @@ class StartActivity : AppCompatActivity() {
         Check if new device contain prefix defined in MY_DEVICE_PREFIX
      */
     private fun itIsMyDevice(name : String) : Boolean {
-        if (name.isNullOrBlank()) return false
+        if (name.isEmpty() || name.isBlank()) return false
         for (elem in MY_DEVICE_PREFIX){
             if (name.contains(elem)) return true
         }

@@ -252,7 +252,7 @@
     <string name="bgFire1Custom_top">Flames from top</string>
     <string name="bgFire1Custom_both">Flames from both sides</string>
     <string name="bgFire2Custom_toxic">Toxic</string>
-    <string name="bgFire2Custom_clasic">Clasic</string>
+    <string name="bgFire2Custom_clasic">Classic</string>
     <string name="bgFire2Custom_yellowRed">Yellow - Red</string>
     <string name="bgFire2Custom_blueViolet">Blue - Violet</string>
     <string name="bgFire3Custom_red">Red</string>
@@ -333,6 +333,13 @@
     <string name="tvWelcomeErr_Perms">No permissions</string>
     <string name="btnFind">Search</string>
     <string name="btnFind2">Searching</string>
+    <string name="AFL_title1">"- ACCESS_FINE_LOCATION - "</string>
+    <string name="AFL_title2">- ACCESS_FINE_LOCATION 2 -\\n You blocked me twice :(</string>
+    <string name="AFL_Explain1">I need these permissions to work with Bt devices</string>
+    <string name="btnYes">Yes</string>
+    <string name="btnNo">No</string>
+    <string name="AFL_error1">Sorry boss cannot work!</string>
+    <string name="AFL_Explain2">" Please go to the app settings and manually turn on \"location permmision\".  Without it i cannot work. Second solution is app reinstalation."</string>
 
     <!-- ............................................................. -->
 

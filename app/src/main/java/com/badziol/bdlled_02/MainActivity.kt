@@ -165,8 +165,7 @@ class MainActivity : AppCompatActivity(){
                 return
             }
             // Share the sent message with the UI activity.
-            val writtenMsg = dataHandler.obtainMessage(
-                MESSAGE_WRITE, -1, -1, mmBuffer)
+            //val writtenMsg = dataHandler.obtainMessage(MESSAGE_WRITE, -1, -1, mmBuffer)
         }
 
         // Call this method from the main activity to shut down the connection.
@@ -237,9 +236,9 @@ class MainActivity : AppCompatActivity(){
         }
 
         @SuppressLint("MissingPermission")
-        public override fun run() {
+        override fun run() {
             // Cancel discovery because it otherwise slows down the connection.
-            bluetoothAdapter?.cancelDiscovery()
+            bluetoothAdapter.cancelDiscovery()
             mmSocket?.let { socket ->
                 Log.d(TAG, "[Connect Thread] - > connecting to socket")
                 myHandler.post {
@@ -339,7 +338,7 @@ class MainActivity : AppCompatActivity(){
         //var myDevicesNames = arrayOf<String>() // old version with no custom draw
         val myDevicesNames : ArrayList<String> = ArrayList()
 
-        if (!gotBtPerms(this,"[MAIN ACTIVITY][BT] piConnection")){
+        if (!gotBTPerms(this,false)){
             Log.d(TAG,"fun : piConnection - fatal error")
             return
         }else{
@@ -3292,7 +3291,7 @@ class MainActivity : AppCompatActivity(){
         var adr: String
         var name :String
 
-        if(!gotBtPerms(this,"[MAIN ACTIVITY][BT] onCreate")){
+        if(!gotBTPerms(this,false)){
             Log.d(TAG,"fun : onCreate - fatal error")
             return
         }else{
