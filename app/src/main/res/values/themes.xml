@@ -14,14 +14,14 @@
 
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
     <!-- not used now ?? error in this comment? -->
     <style name="deviceListHeader">
         <item name="android:layout_marginHorizontal">10dp</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/led_device_devices_header</item>
         <item name="android:textColor">@color/primary_light</item>
@@ -161,7 +161,7 @@
         <item name="android:layout_weight">2</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:min">1</item>
-        <item name="android:max">6</item>
+        <item name="android:max">5</item>
         <item name="android:progress">1</item>
         <item name="android:minHeight">36dp</item>
     </style>

@@ -1,5 +1,8 @@
 package com.badziol.bdlled_02
+
 /*
+26.06.2022 - Super wazne , zamiana metod zamykajacych soket z funkcji ConnectThread na ConnectedThread
+            (inna klasa zamyka)
 24.06.2022 - Pamiętać o dodaniu sekwencji konczacej blok danych od LED STRIP !!!
 
 16.06.2022 - wydaje sie , ze REDMI Note 10 pro ma problem z implementacją BT,
@@ -27,15 +30,21 @@ myHandler = Handler() -> myHandler = Handler(Looper.getMainLooper())
  */
 
 // import android.Manifest
-import android.Manifest
+//import androidx.core.app.ActivityCompat
+//import com.github.dhaval2404.colorpicker.ColorPickerDialog //old color picker
+//import com.github.dhaval2404.colorpicker.model.ColorShape
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.bluetooth.*
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothSocket
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -44,36 +53,30 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.app.ActivityCompat
-//import androidx.core.app.ActivityCompat
 import com.badziol.bdlled_02.adapters.*
 import com.example.bdlled_02.R
 import com.example.bdlled_02.databinding.ActivityMainBinding
-//import com.github.dhaval2404.colorpicker.ColorPickerDialog //old color picker
-//import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.github.dhaval2404.colorpicker.util.setVisibility
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
-import kotlinx.coroutines.delay
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-var MESSAGE_STATE_CHANGE = 1
+//var MESSAGE_STATE_CHANGE = 1
 var MESSAGE_READ = 2
-var MESSAGE_WRITE = 3
+//var MESSAGE_WRITE = 3
 var MESSAGE_TOAST = 5
 
 
 
-const val SERVICE_NAME = "KrzysService"
+//const val SERVICE_NAME = "KrzysService" //in long future led will be fully secured
 //val uuid: UUID = UUID.fromString("06AE0A74-7BD4-43AA-AB5D-2511F3F6BAB1")
-val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //well known unsecured
 const val ESP_END_DATA_SIGNATURE = "ESPENDDATA" //Ma być to samo co w esp
 
 
@@ -171,9 +174,13 @@ class MainActivity : AppCompatActivity(){
         // Call this method from the main activity to shut down the connection.
         fun cancel() {
             try {
+                if (!mmSocket.isConnected){
+                    Log.d(TAG,"[Connected Thread] -> Trying close not connected socket.")
+                }
                 mmSocket.close()
+                Log.d(TAG,"[Connected Thread] -> socked is closed.")
             } catch (e: IOException) {
-                Log.e(TAG, "Could not close the connect socket", e)
+                Log.e(TAG, "[Connected Thread] -> Could not close the socket : ", e)
             }
         }
     }
@@ -181,6 +188,7 @@ class MainActivity : AppCompatActivity(){
     @SuppressLint("MissingPermission")
     fun handleIncommingEspData(thisData : String){
         runOnUiThread {
+            if (!deviceSocket.isConnected) return@runOnUiThread
             INCOMMING_ESP_DATA += thisData
             if (INCOMMING_ESP_DATA.contains(ESP_END_DATA_SIGNATURE)){
                 INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
@@ -272,7 +280,7 @@ class MainActivity : AppCompatActivity(){
                 mmSocket?.close()
                 Log.d(TAG,"[Connect Thread] - > socked is closed.")
             } catch (e: IOException) {
-                Log.e(TAG, "Could not close the client socket", e)
+                Log.e(TAG, "[Connect Thread] -> Could not close the client socket : ", e)
             }
         }
     }
@@ -346,9 +354,6 @@ class MainActivity : AppCompatActivity(){
                 myDevicesNames += d.name
             }
         }
-
-        // this is a old version with no custom draw
-        //val adapterDevices = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,myDevicesNames)
         val adapterDevices = StringListAdapter(this@MainActivity, myDevicesNames)
         bind.spDevices.adapter = adapterDevices
         bind.spDevices.setSelection(startPos)
@@ -438,6 +443,10 @@ class MainActivity : AppCompatActivity(){
 
     private fun showPanelConfig(){
         with(bind) {
+            //setup brightness
+            sbPanelBrightness.progress = allPanelData.panelBrightness
+            tvPanelBrightnessVal.text = sbPanelBrightness.progress.toString()
+            //rows and panel
             rowPanelBrightess.setVisibility(true)
             rowPanelWorkMode.setVisibility(false) //DISABLED FOR NOW
             rowPanelConfirm.setVisibility(true)
@@ -1533,7 +1542,6 @@ class MainActivity : AppCompatActivity(){
                     val set = JsonObject()
                     set.addProperty("cmd","SET")
                     set.addProperty("cmdId",thisItem.id)
-                    Log.d(TAG,"SET sentence : $set")
                     //ConnectThread(mySelectedBluetoothDevice).writeMessage(set.toString())
                     if (deviceSocket.isConnected){
                         val cmd = set.toString()
@@ -2770,7 +2778,7 @@ class MainActivity : AppCompatActivity(){
             val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
             //From ESP32
             //for ADD and UPDATE cmdId and id must me the same
-            sentenceObj.addProperty("cmd", "ADD_SET")
+            sentenceObj.addProperty("cmd", "ADD")
             sentenceObj.addProperty("cmdId", newSentence.id)
             Log.d(TAG, "Json ADD sentence : $sentenceObj")
             //Old
@@ -2803,9 +2811,8 @@ class MainActivity : AppCompatActivity(){
             val sentenceObj = Gson().fromJson(sentenceJson, JsonObject::class.java)
             //From ESP32
             //for ADD and UPDATE cmdId and id must me the same
-            sentenceObj.addProperty("cmd", "UPDATE_SET")
+            sentenceObj.addProperty("cmd", "UPDATE")
             sentenceObj.addProperty("cmdId", sentence.id)
-            Log.d(TAG, "Json Update sentence : $sentenceObj")
             //Old
             //ConnectThread(mySelectedBluetoothDevice).writeMessage(sentenceObj.toString())
             if (deviceSocket.isConnected){
@@ -3307,7 +3314,7 @@ class MainActivity : AppCompatActivity(){
         hideStripInterface()
         defaultStripEffectInterface()
 
-        //THIS FOUR are disabled on start becouse of null
+        //THIS FOUR are disabled on start because of null
 
         //sentenceList.addAll(allPanelData.sentences)
         //fontList.addAll(allPanelData.fonts)
@@ -3352,7 +3359,8 @@ class MainActivity : AppCompatActivity(){
                     ConnectThread(mySelectedBluetoothDevice).start()
                 }
                 EspConnectionState.CONNECTED ->{
-                    ConnectThread(mySelectedBluetoothDevice).cancel()
+                    //ConnectThread(mySelectedBluetoothDevice).cancel()
+                    ConnectedThread(deviceSocket).cancel()
                     espState = EspConnectionState.DISCONNECTED
                     handlePanelsVisibility()
                 }
@@ -3377,12 +3385,7 @@ class MainActivity : AppCompatActivity(){
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-
         //----effects
-        //Uwaga ten adapter jest z zasobow , nowy ustawiany jest w uiMain()
-        //val adapterEffects = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,effectList)
-        //bind.spEffect.adapter = adapterEffects
-        //bind.spStripEffect = StringListAdapter
         bind.spStripEffect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -3685,16 +3688,16 @@ class MainActivity : AppCompatActivity(){
 
             val setBrightness = JsonObject()
             setBrightness.addProperty("cmd","SET_BRIGHTNESS")
+            setBrightness.addProperty("cmdId",0)
             setBrightness.addProperty("newBrightnessParam",bind.sbPanelBrightness.progress)
-            Log.d(TAG,"SET brightness : $setBrightness")
             //Old
             //ConnectThread(mySelectedBluetoothDevice).writeMessage(setBrightness.toString())
             if (deviceSocket.isConnected){
                 val cmd = setBrightness.toString()
-                Log.d(TAG,"[Panel panel set brightness] -> Sending cmd : $cmd")
+                Log.d(TAG,"[Panel set brightness] -> Sending cmd : $cmd")
                 ConnectedThread(deviceSocket).write(cmd.toByteArray())
             }else{
-                Log.d(TAG,"[Panel panel set brightness] -> Socket is not connected!")
+                Log.d(TAG,"[Panel set brightness] -> Socket is not connected!")
             }
         }
         //-----header sentence list
