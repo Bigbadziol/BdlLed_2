@@ -1,5 +1,8 @@
 
-//nowy commit
+/*
+initBrBoundDevice - odswiezenie przycisku next
+*/
+
 package com.badziol.bdlled_02
 
 import android.Manifest
@@ -398,10 +401,12 @@ class StartActivity : AppCompatActivity() {
                         BluetoothDevice.BOND_NONE ->{
                             Log.d(TAG,"Device : ${thisDevice.name}  state -> BOND_NONE")
                             getPairedDevices()
+                            bind.btnNext.isEnabled = btnNextStatus()
                         }
                         BluetoothDevice.BOND_BONDING ->{
                             Log.d(TAG,"Device : ${thisDevice.name}  state -> BOND_BONDING")
                         }
+
                         BluetoothDevice.BOND_BONDED ->{
                             Log.d(TAG,"Device : ${thisDevice.name}  state -> BOND_BONDED")
                             getPairedDevices()//get paired devices again
@@ -416,6 +421,10 @@ class StartActivity : AppCompatActivity() {
                             val i = newDeviceList.indexOf(dmDevice)
                             Log.d(TAG,"Broadcast reciver (bond) looking for device, then remove it: $c -> $i")
                             newDeviceList.remove(dmDevice)
+
+                            //refresh list
+                            getPairedDevices()
+                            bind.btnNext.isEnabled = btnNextStatus()
                         }
                     }
                 }

@@ -40,6 +40,7 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -3268,6 +3269,11 @@ class MainActivity : AppCompatActivity(){
         mDialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
     }
 
+    override fun onBackPressed() {
+        Log.d(TAG,"onBackpressed override ....")
+        val myIntent= Intent(applicationContext, StartActivity::class.java)
+        startActivity(myIntent);
+    }
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -3324,6 +3330,7 @@ class MainActivity : AppCompatActivity(){
         //showPanelMainSettings()
         //showPanelSenteces()
         hidePanelInterfaces()
+
 
         //--------------------------connection panel------------------------------------------------
         bind.spDevices.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
