@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+2022_07_07 lukecin
+Zabawa z downgrade min SDK, jak to zadziala :
+27 - ok ?
+26 - ok ???
 SDK 28:
 Stabilnie dzialajace na androidzie 11
 'com.google.code.gson:gson:2.8.8 -> 2.8.9
