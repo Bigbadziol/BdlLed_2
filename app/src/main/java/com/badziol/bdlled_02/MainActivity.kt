@@ -1,6 +1,12 @@
 package com.badziol.bdlled_02
 
 /*
+22.10.2022 - Z wzgledu na LEDS , zmieniono :
+                INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
+                na :
+                INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.substringBefore(ESP_END_DATA_SIGNATURE)
+                przetestowac dla LEDP, po zmianach z dnia 24.06.2022
+
 26.06.2022 - Super wazne , zamiana metod zamykajacych soket z funkcji ConnectThread na ConnectedThread
             (inna klasa zamyka)
 24.06.2022 - Pamiętać o dodaniu sekwencji konczacej blok danych od LED STRIP !!!
@@ -79,7 +85,7 @@ var MESSAGE_TOAST = 5
 //val uuid: UUID = UUID.fromString("06AE0A74-7BD4-43AA-AB5D-2511F3F6BAB1")
 val uuid: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //well known unsecured
 const val ESP_END_DATA_SIGNATURE = "ESPENDDATA" //Ma być to samo co w esp
-
+//const val ESP_END_DATA_SIGNATURE2 = "ESPENDDATA" //Ma być to samo co w esp
 
 class MainActivity : AppCompatActivity(){
     private lateinit var bind : ActivityMainBinding
@@ -192,11 +198,15 @@ class MainActivity : AppCompatActivity(){
             if (!deviceSocket.isConnected) return@runOnUiThread
             INCOMMING_ESP_DATA += thisData
             if (INCOMMING_ESP_DATA.contains(ESP_END_DATA_SIGNATURE)){
-                INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
+ //               INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
+                INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.substringBefore(ESP_END_DATA_SIGNATURE)
                 Log.d(TAG,"[handle inc.esp data] : , end of data")
                 when {
                     mySelectedBluetoothDevice.name.contains("LEDS_") -> {
                         Log.d(TAG, "[handle inc.esp data] -> device is  LED STRIP")
+                        Log.d(TAG,"----")
+                        Log.d(TAG, INCOMMING_ESP_DATA)
+                        Log.d(TAG,"----")
                         allStripData = Gson().fromJson(INCOMMING_ESP_DATA , jStripData::class.java)
                         INCOMMING_ESP_DATA=""
                         Log.d (TAG,"[handle inc.esp data] : after Gson() , still alive...")
@@ -206,6 +216,10 @@ class MainActivity : AppCompatActivity(){
                         Log.d(TAG, "[handle inc.esp data] -> device is  LED PANEL")
                         allPanelData = Gson().fromJson(INCOMMING_ESP_DATA, jPanelData::class.java)
                         Log.d(TAG,"----")
+                        Log.d(TAG, INCOMMING_ESP_DATA)
+                        Log.d(TAG,"----")
+                        val ss = allPanelData.sentences.size
+                        Log.d(TAG,"Sentence list size : $ss")
                         Log.d(TAG,"Clearing panel lists :sentences , font, position , effect , background")
                         sentenceList.clear()
                         sentenceList.addAll(allPanelData.sentences)
