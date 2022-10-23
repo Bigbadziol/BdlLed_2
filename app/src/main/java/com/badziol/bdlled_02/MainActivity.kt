@@ -1,6 +1,7 @@
 package com.badziol.bdlled_02
 
 /*
+24.10.2022 - eh
 22.10.2022 - Z wzgledu na LEDS , zmieniono :
                 INCOMMING_ESP_DATA = INCOMMING_ESP_DATA.removeSuffix(ESP_END_DATA_SIGNATURE)
                 na :
